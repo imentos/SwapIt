@@ -66,16 +66,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if userJSON.count == 0 {
                         PFCloud.callFunction("addUser", withParameters: ["name": name, "objectId": user.objectId!])
                         
-                        let tab = self.window!.rootViewController as! UITabBarController
-                        let navi = tab.selectedViewController as! UINavigationController
-                        let items = navi.viewControllers[0] as! ItemsController
-                        items.loadData()
-                        
                     } else {
                         PFCloud.callFunction("updateUser", withParameters: ["name": name, "objectId": user.objectId!, "location": location])
                     }
-                }
-                
+                    
+                    let tab = self.window!.rootViewController as! UITabBarController
+                    let navi = tab.selectedViewController as! UINavigationController
+                    let items = navi.viewControllers[0] as! ItemsController
+                    items.loadData()
+                }                
                 
             } else {
                 println("Uh oh. The user cancelled the Facebook login.")

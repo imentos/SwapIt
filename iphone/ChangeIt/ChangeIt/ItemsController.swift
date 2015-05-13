@@ -17,23 +17,14 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         println("cancel")
     }
     
-    override func viewWillAppear(animated: Bool) {
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.searchDisplayController!.searchResultsTableView.rowHeight = tableView.rowHeight;
         self.searchDisplayController!.searchBar.selectedScopeButtonIndex = 1
-
-        loadData()
     }
     
     func loadData() {
-        if PFUser.currentUser() == nil {
-            return
-        }
-        
         PFCloud.callFunctionInBackground("getAllItemsExceptMe", withParameters: ["search": ".*", "userId": (PFUser.currentUser()?.objectId)!], block:{
             (items:AnyObject?, error: NSError?) -> Void in
             if (items == nil) {
@@ -109,12 +100,9 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
             cell = ItemCell(style: UITableViewCellStyle.Default, reuseIdentifier: "ItemCell")
         }
         let itemJSON = (tableView == self.searchDisplayController!.searchResultsTableView) ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
-        println(itemJSON["photo"].string)
+        
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
-            if (imageObj == nil) {
-                return
-            }
             let imageData = (imageObj!["file"] as! PFFile).getData()
             cell.itemImage.image = UIImage(data: imageData!)
         })

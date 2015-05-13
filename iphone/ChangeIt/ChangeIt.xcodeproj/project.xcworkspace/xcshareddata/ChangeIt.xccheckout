@@ -12,20 +12,24 @@
 	<dict>
 		<key>01B0EA84790FE49EF63AA4977485FFD41BB6F761</key>
 		<string>github.wdf.sap.corp:i818292/ChangeIt.git</string>
+		<key>44C872FE82A7E691A15906017469A4A4E96AE449</key>
+		<string>https://github.com/imentos/SwapIt.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>iphone/ChangeIt/ChangeIt.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>01B0EA84790FE49EF63AA4977485FFD41BB6F761</key>
+		<string>../../../../../ChangeIt</string>
+		<key>44C872FE82A7E691A15906017469A4A4E96AE449</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>github.wdf.sap.corp:i818292/ChangeIt.git</string>
+	<string>https://github.com/imentos/SwapIt.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>01B0EA84790FE49EF63AA4977485FFD41BB6F761</string>
+	<string>44C872FE82A7E691A15906017469A4A4E96AE449</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>01B0EA84790FE49EF63AA4977485FFD41BB6F761</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ChangeIt</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>44C872FE82A7E691A15906017469A4A4E96AE449</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SwapIt</string>
 		</dict>
 	</array>
 </dict>

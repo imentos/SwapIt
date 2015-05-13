@@ -30,7 +30,6 @@
 		B37431A51AE861A600A0808B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B37431A31AE861A600A0808B /* Main.storyboard */; };
 		B37431A71AE861A600A0808B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B37431A61AE861A600A0808B /* Images.xcassets */; };
 		B37431AA1AE861A600A0808B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B37431A81AE861A600A0808B /* LaunchScreen.xib */; };
-		B37431B61AE861A600A0808B /* ChangeItTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37431B51AE861A600A0808B /* ChangeItTests.swift */; };
 		B37C0FE51AE9652C0086864F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C0FE41AE9652C0086864F /* SwiftyJSON.swift */; };
 		B37C0FFD1AE989CE0086864F /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C0FF81AE989CE0086864F /* Bolts.framework */; };
 		B37C10001AE989CE0086864F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C0FFB1AE989CE0086864F /* Parse.framework */; };
@@ -93,8 +92,6 @@
 		B37431A61AE861A600A0808B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B37431A91AE861A600A0808B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B37431AF1AE861A600A0808B /* ChangeItTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChangeItTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B37431B41AE861A600A0808B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B37431B51AE861A600A0808B /* ChangeItTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeItTests.swift; sourceTree = "<group>"; };
 		B37C0FE41AE9652C0086864F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		B37C0FF81AE989CE0086864F /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		B37C0FFB1AE989CE0086864F /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -147,7 +144,6 @@
 			children = (
 				B37C101B1AE990EA0086864F /* Frameworks */,
 				B374319A1AE861A600A0808B /* ChangeIt */,
-				B37431B21AE861A600A0808B /* ChangeItTests */,
 				B37431991AE861A600A0808B /* Products */,
 				B37C100E1AE98E360086864F /* ChangeIt-Bridging-Header.h */,
 			);
@@ -191,23 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				B374319C1AE861A600A0808B /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		B37431B21AE861A600A0808B /* ChangeItTests */ = {
-			isa = PBXGroup;
-			children = (
-				B37431B51AE861A600A0808B /* ChangeItTests.swift */,
-				B37431B31AE861A600A0808B /* Supporting Files */,
-			);
-			path = ChangeItTests;
-			sourceTree = "<group>";
-		};
-		B37431B31AE861A600A0808B /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B37431B41AE861A600A0808B /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -363,7 +342,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B37431B61AE861A600A0808B /* ChangeItTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
