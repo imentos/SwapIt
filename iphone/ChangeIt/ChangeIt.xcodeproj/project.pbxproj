@@ -40,6 +40,7 @@
 		B37C10291AE9BE280086864F /* WishListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C10281AE9BE280086864F /* WishListController.swift */; };
 		B39EC9AF1AFC1A3300FFC89A /* OfferDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39EC9AE1AFC1A3300FFC89A /* OfferDetailController.swift */; };
 		B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39EC9B01B014B8000FFC89A /* ItemCell.swift */; };
+		B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		B37C10281AE9BE280086864F /* WishListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishListController.swift; sourceTree = "<group>"; };
 		B39EC9AE1AFC1A3300FFC89A /* OfferDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferDetailController.swift; sourceTree = "<group>"; };
 		B39EC9B01B014B8000FFC89A /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyItemsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,13 +167,14 @@
 				B37C10281AE9BE280086864F /* WishListController.swift */,
 				B37C0FE41AE9652C0086864F /* SwiftyJSON.swift */,
 				B374319D1AE861A600A0808B /* AppDelegate.swift */,
-				B374319F1AE861A600A0808B /* UserController.swift */,
 				B37431A31AE861A600A0808B /* Main.storyboard */,
 				B3499B941AFAE3FE00DDD536 /* OffersController.swift */,
+				B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */,
 				B39EC9AE1AFC1A3300FFC89A /* OfferDetailController.swift */,
 				B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */,
 				B31BC9E11AED04DD00E1F99A /* AddItemController.swift */,
 				B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */,
+				B374319F1AE861A600A0808B /* UserController.swift */,
 				B30E24901AF83B6C00ED49EB /* ItemsController.swift */,
 				B39EC9B01B014B8000FFC89A /* ItemCell.swift */,
 				B30E24961AF96C2200ED49EB /* ItemDetailController.swift */,
@@ -323,6 +326,7 @@
 			files = (
 				B348CD001AFA929100CFC04E /* MakeOfferController.swift in Sources */,
 				B39EC9AF1AFC1A3300FFC89A /* OfferDetailController.swift in Sources */,
+				B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */,
 				B31BC9E21AED04DD00E1F99A /* AddItemController.swift in Sources */,
 				B37C10271AE9B81F0086864F /* WishListDetailController.swift in Sources */,
 				B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */,
