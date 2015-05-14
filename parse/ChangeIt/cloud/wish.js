@@ -78,15 +78,18 @@ Parse.Cloud.define("getWishes", function(request, response) {
 });
 
 Parse.Cloud.define("addWish", function(request, response) {
+    var tokens = request.params.name.split(" ");
+    var sSearchRegex = "(?i)" + tokens.join("|")
     Parse.Cloud.httpRequest({
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'CREATE (n:Wish {name: {name}}) RETURN n',
+            query: 'CREATE (n:Wish {name: {name}, searchRegex:{searchRegex}}) RETURN n',
             params: {
-                name: request.params.name
+                name: request.params.name,
+                searchRegex: sSearchRegex
             }
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',

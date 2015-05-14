@@ -5,7 +5,7 @@ Parse.Cloud.define("getBestItemsExceptMe", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item),(u:User)--(w:Wish) WHERE o.title=~{search} AND o.title = w.name AND u.objectId={userId} RETURN o',
+            query: 'MATCH (o:Item),(u:User)--(w:Wish) WHERE o.title=~{search} AND o.title=~w.searchRegex AND u.objectId={userId} RETURN o',
             params: {
                 search: "(?i)" + request.params.search,
                 userId: request.params.userId

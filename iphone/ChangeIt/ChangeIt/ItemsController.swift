@@ -25,7 +25,11 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     }
     
     func loadData() {
-        PFCloud.callFunctionInBackground("getAllItemsExceptMe", withParameters: ["search": ".*", "userId": (PFUser.currentUser()?.objectId)!], block:{
+        loadData("getBestItemsExceptMe")
+    }
+    
+    func loadData(query:String) {
+        PFCloud.callFunctionInBackground(query, withParameters: ["search": ".*", "userId": (PFUser.currentUser()?.objectId)!], block:{
             (items:AnyObject?, error: NSError?) -> Void in
             if (items == nil) {
                 self.itemsJSON = JSON("{}")
@@ -34,6 +38,12 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
             self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.tableView.reloadData()
         })
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles as! [String]
+        let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
+        loadData(getQuery(selectedScope))
     }
     
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
@@ -45,21 +55,24 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchScope searchOption: Int) -> Bool {
         let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles as! [String]
-        self.filterContentForSearchText(self.searchDisplayController!.searchBar.text, scope: scopes[searchOption])
+        let searchString = self.searchDisplayController!.searchBar.text.isEmpty ? ".*" : self.searchDisplayController!.searchBar.text
+        self.filterContentForSearchText(searchString, scope: scopes[searchOption])
         return true
     }
-    
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
-        var query:String = "getAllItemsExceptMe"
+
+    func getQuery(scope:String)->String {
         if (scope == "All") {
-            query = "getAllItemsExceptMe"
+            return "getAllItemsExceptMe"
         } else if (scope == "Best Matched") {
-            query = "getBestItemsExceptMe"
+            return "getBestItemsExceptMe"
         } else {
             
         }
-
-        PFCloud.callFunctionInBackground(query, withParameters: ["search": searchText, "userId": (PFUser.currentUser()?.objectId)!], block:{
+        return "getAllItemsExceptMe"
+    }
+    
+    func filterContentForSearchText(searchText: String, scope: String = "All") {
+        PFCloud.callFunctionInBackground(getQuery(scope), withParameters: ["search": searchText, "userId": (PFUser.currentUser()?.objectId)!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if (results == nil) {
                 self.filteredItems = JSON("{}")
