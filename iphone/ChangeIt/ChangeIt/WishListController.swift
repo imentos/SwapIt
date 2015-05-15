@@ -80,21 +80,20 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
             
             self.tableView.editing = false
             self.updateButtonsToMatchTableState()
+            self.hideAddWishListCell(false)
         }
     }
     
     @IBAction func cancelAction(sender: AnyObject) {
         self.tableView.editing = false
         self.updateButtonsToMatchTableState()
-        
-        hideAddWishListCell(false)
+        self.hideAddWishListCell(false)
     }
     
     @IBAction func editAction(sender: AnyObject) {
         self.tableView.editing = true
         self.updateButtonsToMatchTableState()
-        
-        hideAddWishListCell(true)
+        self.hideAddWishListCell(true)
     }
     
     func hideAddWishListCell(hidden:Bool) {
