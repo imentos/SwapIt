@@ -12,14 +12,26 @@ import Parse
 class WishListController: UITableViewController, UIActionSheetDelegate {
     var wishesJSON:JSON = nil
     
+    @IBOutlet var backButton: UIBarButtonItem!
     @IBOutlet var addButton: UIBarButtonItem!
     @IBOutlet var cancelButton: UIBarButtonItem!
     @IBOutlet var editButton: UIBarButtonItem!
     @IBOutlet var deleteButton: UIBarButtonItem!
     @IBOutlet var toolbar: UINavigationItem!
     
-    @IBAction func cancel(segue:UIStoryboardSegue) {
+    @IBAction func addAction(sender: AnyObject) {
+        let index = NSIndexPath(forRow: 0, inSection: 0)
+        let cell = self.tableView.cellForRowAtIndexPath(index) as! AddWishListCell
+        let newWishText = cell.newWishListText.text
+        cell.newWishListText.text = ""
         
+        PFCloud.callFunctionInBackground("addWish", withParameters: ["name": newWishText], block: {
+            (wishes:AnyObject?, error: NSError?) -> Void in
+            PFCloud.callFunctionInBackground("linkMyWish", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "wish": newWishText], block: {
+                (wishes:AnyObject?, error: NSError?) -> Void in
+                self.loadData((PFUser.currentUser()?.objectId)!)
+            })
+        })
     }
     
     @IBAction func save(segue:UIStoryboardSegue) {
@@ -52,8 +64,9 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
             let deleteSpecificRows = selectedRows?.count > 0;
             if (deleteSpecificRows) {
                 for var i = 0; i < selectedRows!.count; ++i {
-                    let wish = self.wishesJSON[selectedRows![i].row]["name"].string
-                    self.wishesJSON.arrayObject?.removeAtIndex(selectedRows![i].row)
+                    let index = selectedRows![i].row - 1
+                    let wish = self.wishesJSON[index]["name"].string
+                    self.wishesJSON.arrayObject?.removeAtIndex(index)
                     
                     PFCloud.callFunctionInBackground("deleteWishOfUser", withParameters: ["userId":userId!, "wish":wish!], block: {
                         (wishes:AnyObject?, error: NSError?) -> Void in
@@ -83,22 +96,25 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
     @IBAction func editAction(sender: AnyObject) {
         self.tableView.editing = true
         self.updateButtonsToMatchTableState()
+        
+        let index = NSIndexPath(forRow: 0, inSection: 0)
+        let cell = self.tableView.cellForRowAtIndexPath(index) as! AddWishListCell
+        cell.hidden = true
     }
     
     func updateButtonsToMatchTableState() {
         if (self.tableView.editing) {
             self.navigationItem.rightBarButtonItem = self.deleteButton
+            self.navigationItem.leftBarButtonItem = self.cancelButton
             self.updateDeleteButtonTitle()
-            //self.navigationItem.leftBarButtonItem = self.deleteButton            
         } else {
-            //self.navigationItem.leftBarButtonItem = self.addButton;
-            
             // Show the edit button, but disable the edit button if there's nothing to edit.
             if self.wishesJSON.count > 0 {
                 self.editButton.enabled = true;
             } else {
                 self.editButton.enabled = false;
             }
+            self.navigationItem.leftBarButtonItem = self.backButton
             self.navigationItem.rightBarButtonItem = self.editButton;
         }
     }
@@ -158,8 +174,6 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -168,13 +182,19 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
         if (wishesJSON == nil) {
             return 0
         }
-        return wishesJSON.count
+        return wishesJSON.count + 1
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCellWithIdentifier("AddWishListCell", forIndexPath: indexPath) as! AddWishListCell
+            return cell
+        }
         let cell = tableView.dequeueReusableCellWithIdentifier("wishList", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = wishesJSON[indexPath.row]["name"].string
+        cell.textLabel?.text = wishesJSON[indexPath.row - 1]["name"].string
+        
+        
         return cell
     }
 }
