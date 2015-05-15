@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class WishListController: UITableViewController, UIActionSheetDelegate {
+class WishListController: UITableViewController, UIActionSheetDelegate, UITextFieldDelegate {
     var wishesJSON:JSON = nil
     
     @IBOutlet var backButton: UIBarButtonItem!
@@ -19,7 +19,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
     @IBOutlet var deleteButton: UIBarButtonItem!
     @IBOutlet var toolbar: UINavigationItem!
     
-    @IBAction func addAction(sender: AnyObject) {
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {   //delegate method
         let index = NSIndexPath(forRow: 0, inSection: 0)
         let cell = self.tableView.cellForRowAtIndexPath(index) as! AddWishListCell
         let newWishText = cell.newWishListText.text
@@ -32,20 +32,10 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
                 self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
             })
         })
+        textField.resignFirstResponder()
+        return true
     }
-    
-    @IBAction func save(segue:UIStoryboardSegue) {
-         if let detailController = segue.sourceViewController as? WishListDetailController {
-            PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":(PFUser.currentUser()?.objectId)!], block: {
-                (wishes:AnyObject?, error: NSError?) -> Void in
-                self.wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                
-                let indexPath = NSIndexPath(forRow: self.wishesJSON.count-1, inSection: 0)
-                self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            })
-        }
-    }
-    
+
     @IBAction func deleteAction(sender: AnyObject) {
         var title = ""
         if (self.tableView.indexPathsForSelectedRows()?.count == 1) {
@@ -63,14 +53,19 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
             let selectedRows = self.tableView.indexPathsForSelectedRows()
             let deleteSpecificRows = selectedRows?.count > 0;
             if (deleteSpecificRows) {
+                var deleteIndexes = [Int]()
                 for var i = 0; i < selectedRows!.count; ++i {
                     let index = selectedRows![i].row - 1
                     let wish = self.wishesJSON[index]["name"].string
-                    self.wishesJSON.arrayObject?.removeAtIndex(index)
+                    deleteIndexes.append(index)
                     
                     PFCloud.callFunctionInBackground("deleteWishOfUser", withParameters: ["userId":userId!, "wish":wish!], block: {
                         (wishes:AnyObject?, error: NSError?) -> Void in
                     })
+                }
+                
+                for var i = 0; i < deleteIndexes.count; i++ {
+                    self.wishesJSON.arrayObject?.removeAtIndex(i)
                 }
                 
                 self.tableView.deleteRowsAtIndexPaths(selectedRows!, withRowAnimation: UITableViewRowAnimation.Automatic)

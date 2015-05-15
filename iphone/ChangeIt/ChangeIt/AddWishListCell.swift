@@ -9,10 +9,5 @@
 import UIKit
 
 class AddWishListCell: UITableViewCell {
-
-    @IBAction func textAction(sender: AnyObject) {
-        addButton.enabled = newWishListText.text != ""
-    }
-    @IBOutlet var addButton: UIButton!
     @IBOutlet var newWishListText: UITextField!
 }
