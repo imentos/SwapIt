@@ -1,4 +1,3 @@
-
 Parse.Cloud.define("linkMyWish", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
@@ -70,6 +69,53 @@ Parse.Cloud.define("getWishes", function(request, response) {
                 aResults.push(o[0].data)
             })
             response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+Parse.Cloud.define("deleteWishOfUser", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (n:Wish{name:{wish}})-[r]-(u:User{objectId:{userId}}) DELETE n,r',
+            params: {
+                wish: request.params.wish,
+                userId: request.params.userId
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            response.success(httpResponse.status);
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+Parse.Cloud.define("deleteAllWishesOfUser", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (n:Wish)-[r]-(u:User{objectId:{userId}}) DELETE n,r',
+            params: {
+                userId: request.params.userId
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            response.success(httpResponse.status);
         },
         error: function(httpResponse) {
             response.error('Request failed with response code ' + httpResponse.status);

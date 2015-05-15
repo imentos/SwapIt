@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class WishListController: UITableViewController {
+class WishListController: UITableViewController, UIActionSheetDelegate {
     var wishesJSON:JSON = nil
     
     @IBOutlet var addButton: UIBarButtonItem!
@@ -35,7 +35,44 @@ class WishListController: UITableViewController {
     }
     
     @IBAction func deleteAction(sender: AnyObject) {
-        
+        var title = ""
+        if (self.tableView.indexPathsForSelectedRows()?.count == 1) {
+            title = "Are you sure you wnat to remove this wish list?"
+        } else {
+            title = "Are you sure you want to remove these wish lists?"
+        }
+        let actionSheet = UIActionSheet(title: title, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "OK")
+        actionSheet.showInView(self.view)
+    }
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        if (buttonIndex == 0) {
+            let userId = PFUser.currentUser()?.objectId
+            let selectedRows = self.tableView.indexPathsForSelectedRows()
+            let deleteSpecificRows = selectedRows?.count > 0;
+            if (deleteSpecificRows) {
+                for var i = 0; i < selectedRows!.count; ++i {
+                    let wish = self.wishesJSON[selectedRows![i].row]["name"].string
+                    self.wishesJSON.arrayObject?.removeAtIndex(selectedRows![i].row)
+                    
+                    PFCloud.callFunctionInBackground("deleteWishOfUser", withParameters: ["userId":userId!, "wish":wish!], block: {
+                        (wishes:AnyObject?, error: NSError?) -> Void in
+                    })
+                }
+                
+                self.tableView.deleteRowsAtIndexPaths(selectedRows!, withRowAnimation: UITableViewRowAnimation.Automatic)
+            } else {
+                self.wishesJSON.arrayObject?.removeAll(keepCapacity: false)
+                self.tableView.reloadData()
+                
+                PFCloud.callFunctionInBackground("deleteAllWishesOfUser", withParameters: ["userId":userId!], block: {
+                    (wishes:AnyObject?, error: NSError?) -> Void in
+                })
+            }
+            
+            self.tableView.editing = false
+            self.updateButtonsToMatchTableState()
+        }
     }
     
     @IBAction func cancelAction(sender: AnyObject) {
@@ -50,12 +87,11 @@ class WishListController: UITableViewController {
     
     func updateButtonsToMatchTableState() {
         if (self.tableView.editing) {
-            self.navigationItem.rightBarButtonItem = self.cancelButton
+            self.navigationItem.rightBarButtonItem = self.deleteButton
             self.updateDeleteButtonTitle()
-            self.navigationItem.leftBarButtonItem = self.deleteButton
-            
+            //self.navigationItem.leftBarButtonItem = self.deleteButton            
         } else {
-            self.navigationItem.leftBarButtonItem = self.addButton;
+            //self.navigationItem.leftBarButtonItem = self.addButton;
             
             // Show the edit button, but disable the edit button if there's nothing to edit.
             if self.wishesJSON.count > 0 {
@@ -137,7 +173,7 @@ class WishListController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("test", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("wishList", forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel?.text = wishesJSON[indexPath.row]["name"].string
         return cell
     }
