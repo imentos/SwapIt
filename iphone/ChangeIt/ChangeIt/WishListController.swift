@@ -29,7 +29,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
             (wishes:AnyObject?, error: NSError?) -> Void in
             PFCloud.callFunctionInBackground("linkMyWish", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "wish": newWishText], block: {
                 (wishes:AnyObject?, error: NSError?) -> Void in
-                self.loadData((PFUser.currentUser()?.objectId)!)
+                self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
             })
         })
     }
@@ -91,15 +91,21 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
     @IBAction func cancelAction(sender: AnyObject) {
         self.tableView.editing = false
         self.updateButtonsToMatchTableState()
+        
+        hideAddWishListCell(false)
     }
     
     @IBAction func editAction(sender: AnyObject) {
         self.tableView.editing = true
         self.updateButtonsToMatchTableState()
         
+        hideAddWishListCell(true)
+    }
+    
+    func hideAddWishListCell(hidden:Bool) {
         let index = NSIndexPath(forRow: 0, inSection: 0)
         let cell = self.tableView.cellForRowAtIndexPath(index) as! AddWishListCell
-        cell.hidden = true
+        cell.hidden = hidden
     }
     
     func updateButtonsToMatchTableState() {
@@ -108,7 +114,6 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
             self.navigationItem.leftBarButtonItem = self.cancelButton
             self.updateDeleteButtonTitle()
         } else {
-            // Show the edit button, but disable the edit button if there's nothing to edit.
             if self.wishesJSON.count > 0 {
                 self.editButton.enabled = true;
             } else {
@@ -140,7 +145,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
         updateDeleteButtonTitle()
     }
 
-    func loadData(userId:String!) {
+    func loadData(userId:String!, hideAddCell:Bool) {
         var wishesJSON:JSON!
         PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":userId], block: {
             (wishes:AnyObject?, error: NSError?) -> Void in
@@ -148,6 +153,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
             self.tableView.reloadData()
             
             self.updateButtonsToMatchTableState()
+            self.hideAddWishListCell(hideAddCell)
         })
     }
 
@@ -155,14 +161,10 @@ class WishListController: UITableViewController, UIActionSheetDelegate {
         super.viewDidLoad()
     }
 
-    // called when a row deletion action is confirmed
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         switch editingStyle {
         case .Delete:
-            // remove the deleted item from the model
             self.wishesJSON.arrayObject?.removeAtIndex(indexPath.row)
-            
-            // remove the deleted item from the `UITableView`
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         default:
             return

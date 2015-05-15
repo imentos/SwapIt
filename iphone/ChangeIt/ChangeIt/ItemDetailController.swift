@@ -53,10 +53,10 @@ class ItemDetailController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "showUserList") {
+        if (segue.identifier == "showUserWishList") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.childViewControllers[0] as! WishListController
-            view.loadData(self.userJSON["objectId"].string)
+            view.loadData(self.userJSON["objectId"].string, hideAddCell: true)
             view.toolbar.rightBarButtonItem = nil
             
         } else if (segue.identifier == "offer") {
