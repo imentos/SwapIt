@@ -12,7 +12,12 @@ import Parse
 class WishListController: UITableViewController {
     var wishesJSON:JSON = nil
     
+    @IBOutlet var addButton: UIBarButtonItem!
+    @IBOutlet var cancelButton: UIBarButtonItem!
+    @IBOutlet var editButton: UIBarButtonItem!
+    @IBOutlet var deleteButton: UIBarButtonItem!
     @IBOutlet var toolbar: UINavigationItem!
+    
     @IBAction func cancel(segue:UIStoryboardSegue) {
         
     }
@@ -29,12 +34,68 @@ class WishListController: UITableViewController {
         }
     }
     
+    @IBAction func deleteAction(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func cancelAction(sender: AnyObject) {
+        self.tableView.editing = false
+        self.updateButtonsToMatchTableState()
+    }
+    
+    @IBAction func editAction(sender: AnyObject) {
+        self.tableView.editing = true
+        self.updateButtonsToMatchTableState()
+    }
+    
+    func updateButtonsToMatchTableState() {
+        if (self.tableView.editing) {
+            self.navigationItem.rightBarButtonItem = self.cancelButton
+            self.updateDeleteButtonTitle()
+            self.navigationItem.leftBarButtonItem = self.deleteButton
+            
+        } else {
+            self.navigationItem.leftBarButtonItem = self.addButton;
+            
+            // Show the edit button, but disable the edit button if there's nothing to edit.
+            if self.wishesJSON.count > 0 {
+                self.editButton.enabled = true;
+            } else {
+                self.editButton.enabled = false;
+            }
+            self.navigationItem.rightBarButtonItem = self.editButton;
+        }
+    }
+    
+    func updateDeleteButtonTitle() {
+        let selectedRows = self.tableView.indexPathsForSelectedRows()
+        
+        let allItemsAreSelected = selectedRows == nil ? false : selectedRows!.count == self.wishesJSON.count
+        let noItemsAreSelected = selectedRows == nil ? true :selectedRows!.count == 0
+        
+        if (allItemsAreSelected || noItemsAreSelected) {
+            self.deleteButton.title = "Delete All"
+        } else {
+            self.deleteButton.title = String(format: "Delete (%d)", selectedRows!.count)
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        updateDeleteButtonTitle()
+    }
+    
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        updateDeleteButtonTitle()
+    }
+
     func loadData(userId:String!) {
         var wishesJSON:JSON!
         PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":userId], block: {
             (wishes:AnyObject?, error: NSError?) -> Void in
             self.wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.tableView.reloadData()
+            
+            self.updateButtonsToMatchTableState()
         })
     }
 
@@ -42,6 +103,20 @@ class WishListController: UITableViewController {
         super.viewDidLoad()
     }
 
+    // called when a row deletion action is confirmed
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        switch editingStyle {
+        case .Delete:
+            // remove the deleted item from the model
+            self.wishesJSON.arrayObject?.removeAtIndex(indexPath.row)
+            
+            // remove the deleted item from the `UITableView`
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        default:
+            return
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

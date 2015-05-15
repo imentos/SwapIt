@@ -96,7 +96,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="ADF53CF6-30CA-48A7-8678-FE6DC1C0B657" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="1CA44AC6-FA86-4F48-8015-D0E740E302C9" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
                         <outlet property="locationLabel" destination="xoi-DM-C2C" id="g5O-h2-3hF"/>
@@ -600,7 +600,7 @@
         <scene sceneID="YvQ-jl-vuO">
             <objects>
                 <tableViewController title="My Wish List" id="Wh9-sZ-Hkq" customClass="WishListController" customModule="ChangeIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lf3-Po-3M6">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lf3-Po-3M6">
                         <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -622,11 +622,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Wish List" id="N2C-Xb-e7B">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="iUl-fa-bPP">
-                            <connections>
-                                <segue destination="6Kh-fB-OlA" kind="unwind" unwindAction="cancel:" id="UcT-6C-ejl"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="I52-PA-Hhx">
                             <connections>
                                 <segue destination="4m2-g3-wzj" kind="modal" id="bKj-BA-jTC"/>
@@ -634,11 +629,31 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="tfB-IK-gK3" id="5uz-ny-efL"/>
+                        <outlet property="cancelButton" destination="DWS-Sn-BEX" id="epK-Mf-XV1"/>
+                        <outlet property="deleteButton" destination="ZQe-GK-pfe" id="dtU-r1-7OF"/>
+                        <outlet property="editButton" destination="dBb-9V-kS5" id="pNU-Qi-JGB"/>
                         <outlet property="toolbar" destination="N2C-Xb-e7B" id="7WI-Kj-mRB"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1xJ-V6-4IM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="6Kh-fB-OlA" userLabel="Exit" sceneMemberID="exit"/>
+                <barButtonItem title="Cancel" id="DWS-Sn-BEX">
+                    <connections>
+                        <action selector="cancelAction:" destination="Wh9-sZ-Hkq" id="aQo-t0-G27"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem title="Edit" id="dBb-9V-kS5">
+                    <connections>
+                        <action selector="editAction:" destination="Wh9-sZ-Hkq" id="wry-fC-tci"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem title="Add" id="tfB-IK-gK3"/>
+                <barButtonItem title="Delete" id="ZQe-GK-pfe">
+                    <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="deleteAction:" destination="Wh9-sZ-Hkq" id="QJs-Cc-39Q"/>
+                    </connections>
+                </barButtonItem>
             </objects>
             <point key="canvasLocation" x="2241" y="-52"/>
         </scene>
@@ -964,7 +979,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ADF53CF6-30CA-48A7-8678-FE6DC1C0B657" width="30" height="30">
+        <image name="1CA44AC6-FA86-4F48-8015-D0E740E302C9" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
