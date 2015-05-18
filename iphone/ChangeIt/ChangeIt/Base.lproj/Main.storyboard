@@ -96,7 +96,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="D692C223-7CA9-4382-89DA-C01EFCE1DAC9" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="878C0C23-4356-4498-873A-8DF48C5FC7E9" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
                         <outlet property="locationLabel" destination="xoi-DM-C2C" id="g5O-h2-3hF"/>
@@ -207,16 +207,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                        <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="pA4-9I-CFt">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <items>
+                                <barButtonItem title="Ask question" width="304" id="XUC-rb-xD5">
+                                    <connections>
+                                        <segue destination="lxN-gH-FAg" kind="push" identifier="askQuestion" id="jKb-zP-tJy"/>
+                                    </connections>
+                                </barButtonItem>
+                            </items>
+                        </toolbar>
                         <sections>
                             <tableViewSection headerTitle="Image" id="Qg8-ZR-eno">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="179" id="QfQ-Ng-cmp">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="147" id="QfQ-Ng-cmp">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QfQ-Ng-cmp" id="bNo-3O-7Bq">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zCe-bh-cEG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="178"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="146"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -252,7 +263,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Description" id="ZH0-25-PI7">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="ow2-Gf-ZVX">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="102" id="ow2-Gf-ZVX">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ow2-Gf-ZVX" id="J1w-S3-dXV">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -364,6 +375,84 @@
                 <exit id="XvS-WA-v0f" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1825" y="638"/>
+        </scene>
+        <!--Question Controller-->
+        <scene sceneID="sVr-pK-9YZ">
+            <objects>
+                <tableViewController id="lxN-gH-FAg" customClass="QuestionController" customModule="ChangeIt" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="xE0-QW-cwj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="User" id="w87-pC-1g5">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="73" id="Jpp-su-Q4G">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jpp-su-Q4G" id="75O-Lx-yXm">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pW1-KS-p8I">
+                                                    <rect key="frame" x="7" y="8" width="56" height="56"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8y-4e-Xc6">
+                                                    <rect key="frame" x="71" y="25" width="178" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Text" id="iPa-BW-5yt">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="398" id="jah-IM-XZb">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jah-IM-XZb" id="ppV-20-q9r">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3x9-Nf-FXg">
+                                                    <rect key="frame" x="0.0" y="-8" width="320" height="397"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="lxN-gH-FAg" id="h3T-Ig-IgR"/>
+                            <outlet property="delegate" destination="lxN-gH-FAg" id="XbW-1O-FSH"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="wzc-Xe-Aes">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="BWu-0E-OxN">
+                            <connections>
+                                <segue destination="rQD-xs-DwP" kind="unwind" unwindAction="cancel:" id="rti-WT-efq"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Send" id="dK5-X7-YND">
+                            <connections>
+                                <segue destination="rQD-xs-DwP" kind="unwind" unwindAction="sendQuestion:" id="0Qj-Co-at5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="itemImageView" destination="pW1-KS-p8I" id="DWM-B7-8dq"/>
+                        <outlet property="questionTextView" destination="3x9-Nf-FXg" id="McT-g5-sd2"/>
+                        <outlet property="userNameLabel" destination="W8y-4e-Xc6" id="tGD-x6-QwB"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GSz-SI-pOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="rQD-xs-DwP" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1825" y="1317"/>
         </scene>
         <!--My List-->
         <scene sceneID="87A-5G-RZk">
@@ -910,7 +999,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="D692C223-7CA9-4382-89DA-C01EFCE1DAC9" width="30" height="30">
+        <image name="878C0C23-4356-4498-873A-8DF48C5FC7E9" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
