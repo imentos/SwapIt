@@ -67,12 +67,23 @@ class MyItemsController: UITableViewController {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.destinationViewController is OffersDetailController) {
+//        if (segue.destinationViewController is OffersDetailController) {
+//            let tableView = self.view as! UITableView
+//            let offerJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
+//            
+//            let details = segue.destinationViewController as! OffersDetailController
+//            details.offerJSON = offerJSON
+//        }
+//        
+        if (segue.destinationViewController is MyItemDetailController) {
             let tableView = self.view as! UITableView
             let offerJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
             
-            let details = segue.destinationViewController as! OffersDetailController
-            details.offerJSON = offerJSON
+            let details = segue.destinationViewController as! MyItemDetailController
+            details.title = offerJSON["src"]["title"].string!
+            details.itemId = offerJSON["src"]["objectId"].string!
+            details.itemImageId = offerJSON["src"]["photo"].string!
+            details.loadData()
         }
     }
 

@@ -1,4 +1,3 @@
-
 Parse.Cloud.define("addQuestion", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
@@ -27,7 +26,37 @@ Parse.Cloud.define("addQuestion", function(request, response) {
         }
     });
 });
-
+ 
+Parse.Cloud.define("getQuestionedItemsByUser", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (u:User)-[a:ASK]->(q:Question)-[r:LINK]->(i:Item{objectId:{itemId}}) RETURN q, u',
+            params: {
+                userId: request.params.userId,
+                itemId: request.params.itemId
+            }
+ 
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            json_result.data.forEach(function(o) {
+                aResults.push({"question": o[0].data, "user": o[1].data})
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+ 
 Parse.Cloud.define("askItemQuestionByUser", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
@@ -41,7 +70,7 @@ Parse.Cloud.define("askItemQuestionByUser", function(request, response) {
                 itemId: request.params.itemId,
                 questionId: request.params.questionId,
             }
-
+ 
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,

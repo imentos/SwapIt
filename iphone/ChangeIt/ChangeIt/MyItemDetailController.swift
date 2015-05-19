@@ -7,46 +7,49 @@
 //
 
 import UIKit
+import Parse
 
 class MyItemDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var questionsJSON:JSON = nil
-    var items: [String] = ["Viper", "X", "Games"]
+    var offeredItemsJSON:JSON = nil
+    var itemId:String = ""
+    var itemImageId:String = ""
     
+    @IBOutlet var itemImageView: UIImageView!
     @IBOutlet var detailTable: UITableView!
     @IBOutlet var segmentedControl: UISegmentedControl!
     @IBAction func indexChanged(sender: AnyObject) {
-        switch segmentedControl.selectedSegmentIndex {
-        case 0:
-            testLabel.text = "First selected";
-            
-            items = ["Vipe1r1", "X11", "G1ames1"]
-            
-//            detailTable.
-        case 1:
-            testLabel.text = "Second Segment selected";
-            items = ["Viper1", "X1", "Games1"]
-        default: 
-            break; 
-        }
         self.detailTable.reloadData()
     }
     
     @IBOutlet var testLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     func loadData() {
-        //self.detailTable.
-        self.detailTable.reloadData()
+        PFCloud.callFunctionInBackground("getQuestionedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            self.questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            self.detailTable.reloadData()
+        })
+        
+        PFCloud.callFunctionInBackground("getOfferedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            if (results == nil) {
+                self.offeredItemsJSON = JSON([])
+                return
+            }
+            self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            self.detailTable.reloadData()
+        })
+        
+        PFQuery(className:"Image").getObjectInBackgroundWithId(itemImageId, block: {
+            (imageObj:PFObject?, error: NSError?) -> Void in
+            let imageData = (imageObj!["file"] as! PFFile).getData()
+            self.itemImageView.image = UIImage(data: imageData!)
+        })
+
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -54,26 +57,51 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.items.count
-//        if (questionsJSON == nil) {
-//            return 0
-//        }
-//        return 2//questionsJSON.count
+        if (segmentedControl.selectedSegmentIndex == 0) {
+            if (offeredItemsJSON == nil) {
+                return 0
+            }
+            return offeredItemsJSON.count
+        } else {
+            if (questionsJSON == nil) {
+                return 0
+            }
+            return questionsJSON.count
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("myItemDetail", forIndexPath: indexPath) as! UITableViewCell
-//        let offerJSON = offersJSON[indexPath.row]
-//        
-//        PFQuery(className:"Image").getObjectInBackgroundWithId(offerJSON["src"]["photo"].string!, block: {
-//            (imageObj:PFObject?, error: NSError?) -> Void in
-//            let imageData = (imageObj!["file"] as! PFFile).getData()
-//            (cell.viewWithTag(101) as! UIImageView).image = UIImage(data: imageData!)
-//        })
-//        
-//        let label = cell.viewWithTag(102) as! UILabel
-//        label.text = offerJSON["src"]["title"].string
-        cell.textLabel?.text = self.items[indexPath.row]
+        
+        if (segmentedControl.selectedSegmentIndex == 0) {
+            let offeredItemJSON = offeredItemsJSON[indexPath.row]
+            
+            PFQuery(className:"Image").getObjectInBackgroundWithId(offeredItemJSON["item"]["photo"].string!, block: {
+                (imageObj:PFObject?, error: NSError?) -> Void in
+                let imageData = (imageObj!["file"] as! PFFile).getData()
+                
+                let photo = cell.viewWithTag(101) as! UIImageView
+                photo.image = UIImage(data: imageData!)
+            })
+            
+            let title = cell.viewWithTag(102) as! UILabel
+            title.text = offeredItemJSON["item"]["title"].string
+
+            let name = cell.viewWithTag(103) as! UILabel
+            name.text = offeredItemJSON["user"]["name"].string
+
+        } else {
+            let questionJSON = questionsJSON[indexPath.row]
+            
+            let photo = cell.viewWithTag(101) as! UIImageView
+            photo.image = nil
+            
+            let title = cell.viewWithTag(102) as! UILabel
+            title.text = questionJSON["question"]["text"].string
+
+            let name = cell.viewWithTag(103) as! UILabel
+            name.text = questionJSON["user"]["name"].string
+        }
         return cell
     }
 
