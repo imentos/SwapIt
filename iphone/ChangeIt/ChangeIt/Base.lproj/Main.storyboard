@@ -96,7 +96,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="2B240B6A-421C-4DF7-83A7-29EA3D34AB8C" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="A02FA5CD-D8BB-496F-9B41-8C3E846A761B" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
                         <outlet property="locationLabel" destination="xoi-DM-C2C" id="g5O-h2-3hF"/>
@@ -566,7 +566,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iqD-md-X7h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="974" y="1457"/>
+            <point key="canvasLocation" x="935" y="1448"/>
         </scene>
         <!--Offers Detail Controller-->
         <scene sceneID="jcT-MM-u4q">
@@ -1072,7 +1072,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="2B240B6A-421C-4DF7-83A7-29EA3D34AB8C" width="30" height="30">
+        <image name="A02FA5CD-D8BB-496F-9B41-8C3E846A761B" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND

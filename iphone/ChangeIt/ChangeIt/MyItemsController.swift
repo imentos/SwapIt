@@ -58,23 +58,7 @@ class MyItemsController: UITableViewController {
         return itemsJSON.count
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String!, sender: AnyObject!) -> Bool {
-        if (identifier != nil) {
-            let offerJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
-            return offerJSON["dst"] != nil
-        }
-        return true
-    }
-
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if (segue.destinationViewController is OffersDetailController) {
-//            let tableView = self.view as! UITableView
-//            let offerJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
-//            
-//            let details = segue.destinationViewController as! OffersDetailController
-//            details.offerJSON = offerJSON
-//        }
-//        
         if (segue.destinationViewController is MyItemDetailController) {
             let tableView = self.view as! UITableView
             let offerJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
