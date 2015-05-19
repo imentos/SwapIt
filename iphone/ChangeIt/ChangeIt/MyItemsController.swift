@@ -33,8 +33,9 @@ class MyItemsController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) as! UITableViewCell
+        let itemJSON = itemsJSON[indexPath.row]["src"]
         
-        PFQuery(className:"Image").getObjectInBackgroundWithId(itemsJSON[indexPath.row]["src"]["photo"].string!, block: {
+        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             let imageView = cell.viewWithTag(101) as! UIImageView
@@ -42,7 +43,17 @@ class MyItemsController: UITableViewController {
         })
         
         let label = cell.viewWithTag(102) as! UILabel
-        label.text = itemsJSON[indexPath.row]["src"]["title"].string
+        label.text = itemJSON["title"].string
+        
+        let offersCountLabel = cell.viewWithTag(103) as! UILabel
+        offersCountLabel.text = String(itemsJSON[indexPath.row]["count"].int!)
+
+        PFCloud.callFunctionInBackground("getQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            let questionsCountLabel = cell.viewWithTag(104) as! UILabel
+            questionsCountLabel.text = String(countJSON[0].int!)
+        })
         
         return cell
     }

@@ -61,7 +61,7 @@ Parse.Cloud.define("getItemsWithOffersByUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User{objectId:{userId}})--(s:Item) OPTIONAL MATCH s<-[r:EXCHANGE]-(d:Item) RETURN DISTINCT(s.objectId), s',
+            query: 'MATCH (u:User{objectId:{userId}})--(s:Item) OPTIONAL MATCH s<-[r:EXCHANGE]-(d:Item) RETURN s, count(DISTINCT r)',
             params: {
                 userId: request.params.userId
             }
@@ -73,7 +73,7 @@ Parse.Cloud.define("getItemsWithOffersByUser", function(request, response) {
             var aResults = []
             var oOffers = {}
             json_result.data.forEach(function(o) { 
-                aResults.push({"src": o[1].data, "count": o[0].data})
+                aResults.push({"src": o[0].data, "count": o[1]})
             })
             response.success(JSON.stringify(aResults));
         },
