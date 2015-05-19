@@ -61,7 +61,7 @@ class MyItemsController: UITableViewController {
     override func shouldPerformSegueWithIdentifier(identifier: String!, sender: AnyObject!) -> Bool {
         if (identifier != nil) {
             let offerJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
-            return offerJSON["src"] != nil
+            return offerJSON["dst"] != nil
         }
         return true
     }

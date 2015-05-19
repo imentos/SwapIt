@@ -42,6 +42,7 @@
 		B38FC8C81B0A9BE9002D774F /* QuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38FC8C71B0A9BE9002D774F /* QuestionController.swift */; };
 		B39EC9AF1AFC1A3300FFC89A /* OfferDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39EC9AE1AFC1A3300FFC89A /* OfferDetailController.swift */; };
 		B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39EC9B01B014B8000FFC89A /* ItemCell.swift */; };
+		B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C763421B0B9BE50040E794 /* MyItemDetailController.swift */; };
 		B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		B38FC8C71B0A9BE9002D774F /* QuestionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionController.swift; sourceTree = "<group>"; };
 		B39EC9AE1AFC1A3300FFC89A /* OfferDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferDetailController.swift; sourceTree = "<group>"; };
 		B39EC9B01B014B8000FFC89A /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		B3C763421B0B9BE50040E794 /* MyItemDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyItemDetailController.swift; sourceTree = "<group>"; };
 		B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyItemsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,9 +176,10 @@
 				B374319D1AE861A600A0808B /* AppDelegate.swift */,
 				B37431A31AE861A600A0808B /* Main.storyboard */,
 				B3499B941AFAE3FE00DDD536 /* OffersController.swift */,
+				B3C763421B0B9BE50040E794 /* MyItemDetailController.swift */,
+				B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */,
 				B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */,
 				B39EC9AE1AFC1A3300FFC89A /* OfferDetailController.swift */,
-				B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */,
 				B31BC9E11AED04DD00E1F99A /* AddItemController.swift */,
 				B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */,
 				B374319F1AE861A600A0808B /* UserController.swift */,
@@ -341,6 +344,7 @@
 				B348CD021AFBDCD500CFC04E /* OffersDetailController.swift in Sources */,
 				B3499B951AFAE3FE00DDD536 /* OffersController.swift in Sources */,
 				B37C10291AE9BE280086864F /* WishListController.swift in Sources */,
+				B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */,
 				B30E24951AF96BFA00ED49EB /* MainController.swift in Sources */,
 				B374319E1AE861A600A0808B /* AppDelegate.swift in Sources */,
 				B30E24911AF83B6C00ED49EB /* ItemsController.swift in Sources */,
