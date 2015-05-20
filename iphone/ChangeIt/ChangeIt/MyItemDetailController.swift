@@ -57,6 +57,14 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         return 1
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if (segmentedControl.selectedSegmentIndex == 0) {
+            self.performSegueWithIdentifier("offer", sender: self)
+        } else {
+            self.performSegueWithIdentifier("question", sender: self)
+        }
+    }
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (segmentedControl.selectedSegmentIndex == 0) {
             if (offeredItemsJSON == nil) {
@@ -108,11 +116,20 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let index = detailTable.indexPathForSelectedRow()?.row
-        let offeredItemJSON = offeredItemsJSON[index!]
-        
-        let detail = segue.destinationViewController as! OfferDetailController
-        detail.itemJSON = offeredItemJSON["item"]
-        detail.otherItemJSON = offeredItemJSON["otherItem"]
-        detail.userJSON = offeredItemJSON["user"]
+        if (segue.identifier == "offer") {
+            let offeredItemJSON = offeredItemsJSON[index!]
+            
+            let detail = segue.destinationViewController as! OfferDetailController
+            detail.itemJSON = offeredItemJSON["item"]
+            detail.otherItemJSON = offeredItemJSON["otherItem"]
+            detail.userJSON = offeredItemJSON["user"]
+            
+        } else if (segue.identifier == "question") {
+            let questionJSON = self.questionsJSON[index!]
+            
+            let question = segue.destinationViewController as! QuestionController
+            question.questionJSON = questionJSON
+            
+        }
     }
 }

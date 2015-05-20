@@ -40,7 +40,7 @@ class ItemDetailController: UITableViewController {
     }
     
     @IBAction func sendQuestion(segue:UIStoryboardSegue) {
-        let view = segue.sourceViewController as! QuestionController
+        let view = segue.sourceViewController as! AddQuestionController
         let uuid = NSUUID().UUIDString
         
         PFCloud.callFunctionInBackground("addQuestion", withParameters: ["text": view.questionTextView.text, "objectId": uuid], block:{
@@ -90,7 +90,7 @@ class ItemDetailController: UITableViewController {
             let view = segue.destinationViewController as! MakeOfferController
             view.loadData()
         } else if (segue.identifier == "askQuestion") {
-            let view = segue.destinationViewController as! QuestionController
+            let view = segue.destinationViewController as! AddQuestionController
             view.userName = self.userLabel.text!
             view.itemImage = self.photoImage.image!
         }
