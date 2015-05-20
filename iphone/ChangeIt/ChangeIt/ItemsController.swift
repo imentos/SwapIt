@@ -124,6 +124,9 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "cancel") {
+            return
+        }
         var itemJSON:JSON = nil
         let tableView = sender as! UITableView
         if tableView == self.searchDisplayController!.searchResultsTableView {

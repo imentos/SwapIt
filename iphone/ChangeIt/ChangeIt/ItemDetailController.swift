@@ -24,9 +24,17 @@ class ItemDetailController: UITableViewController {
         
         let srcId = offerJSON["objectId"].string
         let distId = itemJSON["objectId"].string
-        PFCloud.callFunction("exchangeItem", withParameters: ["srcItemId":srcId!, "distItemId":distId!])
+        PFCloud.callFunctionInBackground("exchangeItem", withParameters: ["srcItemId":srcId!, "distItemId":distId!], block:{
+            (items:AnyObject?, error: NSError?) -> Void in
+        })
     }
 
+    @IBAction func bookmarkItem(sender: AnyObject) {
+        PFCloud.callFunctionInBackground("bookmarkItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": (self.itemJSON["objectId"].string)!], block:{
+            (items:AnyObject?, error: NSError?) -> Void in
+        })
+    }
+    
     @IBAction func cancel(segue:UIStoryboardSegue) {
         println("cancel")
     }
