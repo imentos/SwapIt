@@ -31,7 +31,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         PFCloud.callFunctionInBackground("getQuestionedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             self.questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            self.detailTable.reloadData()
+            self.segmentedControl.setTitle(String(format:"Messages (%d)", self.questionsJSON.count), forSegmentAtIndex: 1)
         })
         
         PFCloud.callFunctionInBackground("getOfferedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId], block:{
@@ -42,6 +42,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             }
             self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.detailTable.reloadData()
+            self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.offeredItemsJSON.count), forSegmentAtIndex: 0)
         })
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemImageId, block: {
@@ -103,6 +104,20 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             name.text = questionJSON["user"]["name"].string
         }
         return cell
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        let tableView = self.view as! UITableView
+//        let itemJSON = offerJSON["dst"]
+//        
+//        // get user info based on item
+//        let user = PFCloud.callFunction("getUserOfItem", withParameters: ["itemId":(itemJSON["objectId"].string)!])
+//        let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+//        
+//        let detail = segue.destinationViewController as! OfferDetailController
+//        detail.userJSON = userJSON[0]
+//        detail.itemJSON = itemJSON
+//        detail.otherItemJSON = offerJSON["src"]
     }
 
 }
