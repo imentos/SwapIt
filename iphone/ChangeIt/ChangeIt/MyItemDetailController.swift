@@ -107,17 +107,12 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        let tableView = self.view as! UITableView
-//        let itemJSON = offerJSON["dst"]
-//        
-//        // get user info based on item
-//        let user = PFCloud.callFunction("getUserOfItem", withParameters: ["itemId":(itemJSON["objectId"].string)!])
-//        let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-//        
-//        let detail = segue.destinationViewController as! OfferDetailController
-//        detail.userJSON = userJSON[0]
-//        detail.itemJSON = itemJSON
-//        detail.otherItemJSON = offerJSON["src"]
+        let index = detailTable.indexPathForSelectedRow()?.row
+        let offeredItemJSON = offeredItemsJSON[index!]
+        
+        let detail = segue.destinationViewController as! OfferDetailController
+        detail.itemJSON = offeredItemJSON["item"]
+        detail.otherItemJSON = offeredItemJSON["otherItem"]
+        detail.userJSON = offeredItemJSON["user"]
     }
-
 }

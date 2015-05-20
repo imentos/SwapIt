@@ -31,7 +31,7 @@ Parse.Cloud.define("getOfferedItemsByUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User)-[r:OFFER]->(i:Item)-[e:EXCHANGE]->(dst:Item{objectId:{itemId}}) RETURN i, u',
+            query: 'MATCH (u:User)-[r:OFFER]->(i:Item)-[e:EXCHANGE]->(dst:Item{objectId:{itemId}}) RETURN i, dst, u',
             params: {
                 userId: request.params.userId,
                 itemId: request.params.itemId
@@ -44,7 +44,7 @@ Parse.Cloud.define("getOfferedItemsByUser", function(request, response) {
             var json_result = JSON.parse(httpResponse.text)
             var aResults = []
             json_result.data.forEach(function(o) {
-                aResults.push({"item": o[0].data, "user": o[1].data})
+                aResults.push({"item": o[0].data, "otherItem": o[1].data, "user": o[2].data})
             })
             response.success(JSON.stringify(aResults));
         },
@@ -90,7 +90,7 @@ Parse.Cloud.define("getSentOffersByUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User{objectId:{userId}})--(s:Item)-[r:EXCHANGE]->(d:Item) RETURN s, d',
+            query: 'MATCH (u:User{objectId:{userId}})--(s:Item)-[r:EXCHANGE]->(d:Item)<-[r1:OFFER]-(ou:User) RETURN s, d, ou',
             params: {
                 userId: request.params.userId
             }
@@ -101,7 +101,7 @@ Parse.Cloud.define("getSentOffersByUser", function(request, response) {
             var json_result = JSON.parse(httpResponse.text)
             var aResults = []
             json_result.data.forEach(function(o) {
-                aResults.push({"src": o[0].data, "dst": o[1].data})
+                aResults.push({"src": o[0].data, "dst": o[1].data, "otherUser": o[2].data})
             })
             response.success(JSON.stringify(aResults));
         },

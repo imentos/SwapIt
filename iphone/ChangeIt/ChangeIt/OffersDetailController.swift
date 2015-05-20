@@ -31,20 +31,13 @@ class OffersDetailController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
         return 1
     }
-
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("offerFrom", forIndexPath: indexPath) as! UITableViewCell
@@ -68,16 +61,11 @@ class OffersDetailController: UITableViewController {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let tableView = self.view as! UITableView
         let itemJSON = offerJSON["dst"]
         
-        // get user info based on item
-        let user = PFCloud.callFunction("getUserOfItem", withParameters: ["itemId":(itemJSON["objectId"].string)!])
-        let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-        
         let detail = segue.destinationViewController as! OfferDetailController
-        detail.userJSON = userJSON[0]
         detail.itemJSON = itemJSON
         detail.otherItemJSON = offerJSON["src"]
+        detail.userJSON = offerJSON["otherUser"]
     }
 }
