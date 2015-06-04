@@ -90,7 +90,7 @@ Parse.Cloud.define("getSentOffersByUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User{objectId:{userId}})--(s:Item)-[r:EXCHANGE]->(d:Item)<-[r1:OFFER]-(ou:User) RETURN s, d, ou',
+            query: 'MATCH (u:User{objectId:{userId}})-[r1:OFFER]->(s:Item)-[r:EXCHANGE]->(d:Item)<-[r1:OFFER]-(ou:User) RETURN s, d, ou',
             params: {
                 userId: request.params.userId
             }
@@ -118,7 +118,7 @@ Parse.Cloud.define("getReceivedOffersByUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User{objectId:{userId}})--(d:Item)<-[r:EXCHANGE]-(s:Item) RETURN s, d',
+            query: 'MATCH (u:User{objectId:{userId}})-[r1:OFFER]->(d:Item)<-[r:EXCHANGE]-(s:Item) RETURN s, d',
             params: {
                 userId: request.params.userId
             }

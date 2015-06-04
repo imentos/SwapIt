@@ -34,7 +34,7 @@ Parse.Cloud.define("getAllItemsExceptMe", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item)--(u:User) WHERE o.title=~{search} AND NOT u.objectId={userId} RETURN o',
+            query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE o.title=~{search} AND NOT u.objectId={userId} RETURN o',
             params: {
                 search: "(?i)" + request.params.search,
                 userId: request.params.userId
@@ -221,7 +221,7 @@ Parse.Cloud.define("getUserOfItem", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item{objectId:{itemId}})--(u:User) RETURN u',
+            query: 'MATCH (o:Item{objectId:{itemId}})<-[r:OFFER]-(u:User) RETURN u',
             params: {
                 itemId: request.params.itemId
             }
@@ -249,7 +249,7 @@ Parse.Cloud.define("getItemsOfUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User{objectId:{userId}})--(w:Item) RETURN w',
+            query: 'MATCH (u:User{objectId:{userId}})-[r:OFFER]->(w:Item) RETURN w',
             params: {
                 userId: request.params.userId
             }
