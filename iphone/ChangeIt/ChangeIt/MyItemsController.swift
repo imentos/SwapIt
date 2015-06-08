@@ -79,6 +79,10 @@ class MyItemsController: UITableViewController {
             details.itemId = offerJSON["src"]["objectId"].string!
             details.itemImageId = offerJSON["src"]["photo"].string!
             details.loadData()
+            
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+            
+//            self.navigationItem.backBarButtonItem = UIBarButtonItem(image: UIImage(named: "Arrow_Icon"), style: .Plain, target: nil, action: nil)//: "123", style: .Plain, target: nil, action: nil)
         }
     }
 

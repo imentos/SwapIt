@@ -33,6 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         loginFB()
         
+        // global style
+        self.window!.tintColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:1)
+        
         return true
     }
 

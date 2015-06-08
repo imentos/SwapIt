@@ -83,8 +83,12 @@ class ItemDetailController: UITableViewController {
         if (segue.identifier == "showUserWishList") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.childViewControllers[0] as! WishListController
-            view.loadData(self.userJSON["objectId"].string, hideAddCell: true)
+            
             view.toolbar.rightBarButtonItem = nil
+
+            view.loadData(self.userJSON["objectId"].string, hideAddCell: true)
+            view.title = self.userJSON["name"].string! + "'s Wish List";
+            view.enableEdit = false
             
         } else if (segue.identifier == "offer") {
             let view = segue.destinationViewController as! MakeOfferController

@@ -11,6 +11,7 @@ import Parse
 
 class WishListController: UITableViewController, UIActionSheetDelegate, UITextFieldDelegate {
     var wishesJSON:JSON = nil
+    var enableEdit:Bool = true
     
     @IBOutlet var backButton: UIBarButtonItem!
     @IBOutlet var addButton: UIBarButtonItem!
@@ -148,6 +149,10 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
             
             self.updateButtonsToMatchTableState()
             self.hideAddWishListCell(hideAddCell)
+            
+            if (self.enableEdit == false) {
+                self.toolbar.rightBarButtonItem = nil
+            }
         })
     }
 
