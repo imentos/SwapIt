@@ -19,7 +19,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.searchDisplayController!.searchResultsTableView.rowHeight = tableView.rowHeight;
         self.searchDisplayController!.searchBar.selectedScopeButtonIndex = 1
     }
@@ -40,7 +40,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         })
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles as! [String]
         let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
         loadData(getQuery(selectedScope))
