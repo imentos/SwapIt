@@ -162,7 +162,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="AD6CD23E-3CD9-4163-A056-FB519701E313" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="EC034650-FC77-41EB-AB3A-2C53ECDD38B9" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
                         <outlet property="locationLabel" destination="gmJ-u6-XkQ" id="Qh3-Oy-Oud"/>
@@ -256,7 +256,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="uft-Dj-Ilc">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="RAr-13-IWX">
+                        <barButtonItem key="leftBarButtonItem" image="Arrow_Icon" id="RAr-13-IWX">
                             <connections>
                                 <segue destination="EiQ-73-MFL" kind="unwind" identifier="cancel" unwindAction="cancel:" id="sOX-sI-xpD"/>
                             </connections>
@@ -1413,7 +1413,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AD6CD23E-3CD9-4163-A056-FB519701E313" width="30" height="30">
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
+        <image name="EC034650-FC77-41EB-AB3A-2C53ECDD38B9" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1470,8 +1472,6 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
         <image name="Profile_Offers_Sent" width="80" height="80"/>
