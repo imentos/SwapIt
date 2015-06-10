@@ -12,6 +12,13 @@ import Parse
 class MyItemsController: UITableViewController {
     var itemsJSON:JSON = nil
 
+    @IBAction func addItem(segue:UIStoryboardSegue) {
+        loadData()
+    }
+    
+    @IBAction func cancelItem(segue:UIStoryboardSegue) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
