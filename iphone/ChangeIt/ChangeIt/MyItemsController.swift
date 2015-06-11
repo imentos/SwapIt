@@ -40,7 +40,7 @@ class MyItemsController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) as! UITableViewCell
-        let itemJSON = itemsJSON[indexPath.row]["src"]
+        let itemJSON = itemsJSON[indexPath.row]
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
@@ -52,14 +52,18 @@ class MyItemsController: UITableViewController {
         let label = cell.viewWithTag(102) as! UILabel
         label.text = itemJSON["title"].string
         
-        let offersCountLabel = cell.viewWithTag(103) as! UILabel
-        offersCountLabel.text = String(itemsJSON[indexPath.row]["count"].int!)
-
         PFCloud.callFunctionInBackground("getQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             let questionsCountLabel = cell.viewWithTag(104) as! UILabel
             questionsCountLabel.text = String(countJSON[0].int!)
+        })
+        
+        PFCloud.callFunctionInBackground("getExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            let offersCountLabel = cell.viewWithTag(103) as! UILabel
+            offersCountLabel.text = String(countJSON[0].int!)
         })
         
         return cell
@@ -82,9 +86,9 @@ class MyItemsController: UITableViewController {
             let offerJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
             
             let details = segue.destinationViewController as! MyItemDetailController
-            details.title = offerJSON["src"]["title"].string!
-            details.itemId = offerJSON["src"]["objectId"].string!
-            details.itemImageId = offerJSON["src"]["photo"].string!
+            details.title = offerJSON["title"].string!
+            details.itemId = offerJSON["objectId"].string!
+            details.itemImageId = offerJSON["photo"].string!
             details.loadData()
             
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)

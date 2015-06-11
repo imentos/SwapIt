@@ -63,7 +63,7 @@ Parse.Cloud.define("addItem", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'CREATE (n:Item {objectId: {objectId}, title: {title}, description: {description}, photo: {photo}, communication: {communication}}) RETURN n',
+            query: 'CREATE (n:Item {objectId: {objectId}, title: {title}, description: {description}, photo: {photo}, communication: {communication}, timestamp: TIMESTAMP()}) RETURN n',
             params: {
                 objectId: request.params.objectId,
                 title: request.params.title,

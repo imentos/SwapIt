@@ -5,7 +5,7 @@ Parse.Cloud.define("addQuestion", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'CREATE (n:Question {objectId: {objectId}, text: {text}}) RETURN n',
+            query: 'CREATE (n:Question {objectId: {objectId}, text: {text}}, timestamp: TIMESTAMP()) RETURN n',
             params: {
                 text: request.params.text,
                 objectId: request.params.objectId

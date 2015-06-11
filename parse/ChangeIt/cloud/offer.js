@@ -54,6 +54,34 @@ Parse.Cloud.define("getOfferedItemsByUser", function(request, response) {
     });
 });
 
+Parse.Cloud.define("getExchangesCountOfItem", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (n:Item{objectId:{itemId}})<-[r:EXCHANGE]-() RETURN COUNT(r)',
+            params: {
+                itemId: request.params.itemId
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            json_result.data.forEach(function(o) {
+                aResults.push(o[0])
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
 Parse.Cloud.define("getItemsWithOffersByUser", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
@@ -61,7 +89,7 @@ Parse.Cloud.define("getItemsWithOffersByUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User{objectId:{userId}})-[o:OFFER]->(s:Item) OPTIONAL MATCH s<-[r:EXCHANGE]-(d:Item) RETURN s, count(DISTINCT r)',
+            query: 'MATCH (u:User{objectId:{userId}})-[o:OFFER]->(s:Item) OPTIONAL MATCH s<-[r:EXCHANGE]-(d:Item) RETURN s ORDER BY s.timestamp DESC',
             params: {
                 userId: request.params.userId
             }
@@ -73,7 +101,7 @@ Parse.Cloud.define("getItemsWithOffersByUser", function(request, response) {
             var aResults = []
             var oOffers = {}
             json_result.data.forEach(function(o) { 
-                aResults.push({"src": o[0].data, "count": o[1]})
+                aResults.push(o[0].data)
             })
             response.success(JSON.stringify(aResults));
         },

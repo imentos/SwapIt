@@ -132,7 +132,7 @@ Parse.Cloud.define("addWish", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'CREATE (n:Wish {name: {name}, searchRegex:{searchRegex}}) RETURN n',
+            query: 'CREATE (n:Wish {name: {name}, searchRegex:{searchRegex}, timestamp: TIMESTAMP()}) RETURN n',
             params: {
                 name: request.params.name,
                 searchRegex: sSearchRegex
