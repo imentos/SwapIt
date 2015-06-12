@@ -63,7 +63,7 @@ Parse.Cloud.define("getQuestionedItemsByUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User)-[a:ASK]->(q:Question)-[r:LINK]->(i:Item{objectId:{itemId}}) RETURN q, u',
+            query: 'MATCH (u:User)-[a:ASK]->(q:Question)-[r:LINK]->(i:Item{objectId:{itemId}}) RETURN q, u ORDER BY q.timestamp',
             params: {
                 userId: request.params.userId,
                 itemId: request.params.itemId

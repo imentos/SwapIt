@@ -163,7 +163,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="80A377D9-F826-45E5-8914-7078798683FC" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="8271AC46-D86A-4305-B92D-DE0BDDFE115E" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
                         <outlet property="locationLabel" destination="gmJ-u6-XkQ" id="Qh3-Oy-Oud"/>
@@ -408,12 +408,23 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hvk-Tu-QxP">
+                                                    <rect key="frame" x="251" y="221" width="99" height="30"/>
+                                                    <state key="normal" title="Ask Questions">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="lxN-gH-FAg" kind="show" identifier="askQuestion" id="diw-19-D7O"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="o6S-3z-cSr" firstAttribute="top" secondItem="J1w-S3-dXV" secondAttribute="topMargin" constant="18" id="EaQ-U1-oGm"/>
                                                 <constraint firstItem="o6S-3z-cSr" firstAttribute="trailing" secondItem="J1w-S3-dXV" secondAttribute="trailingMargin" id="MK0-c9-XUt"/>
+                                                <constraint firstAttribute="centerX" secondItem="hvk-Tu-QxP" secondAttribute="centerX" constant="-0.5" id="Q7E-OP-2iE"/>
                                                 <constraint firstItem="LRp-vi-5xG" firstAttribute="top" secondItem="o6S-3z-cSr" secondAttribute="bottom" constant="8" id="YrC-RF-2px"/>
                                                 <constraint firstItem="o6S-3z-cSr" firstAttribute="leading" secondItem="J1w-S3-dXV" secondAttribute="leadingMargin" id="mcQ-RY-NdY"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="hvk-Tu-QxP" secondAttribute="bottom" constant="29" id="zFq-nA-qO5"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -597,12 +608,21 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pW1-KS-p8I">
                                                     <rect key="frame" x="7" y="8" width="56" height="56"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="to:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZc-dw-1Ty">
+                                                    <rect key="frame" x="71" y="25" width="21" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8y-4e-Xc6">
-                                                    <rect key="frame" x="71" y="25" width="178" height="21"/>
+                                                    <rect key="frame" x="138" y="25" width="178" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bottom_User_Inactive" translatesAutoresizingMaskIntoConstraints="NO" id="XzN-Wn-fLE">
+                                                    <rect key="frame" x="100" y="21" width="30" height="30"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -660,7 +680,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GSz-SI-pOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="rQD-xs-DwP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3421.875" y="1425"/>
+            <point key="canvasLocation" x="3421" y="1425"/>
         </scene>
         <!--My List-->
         <scene sceneID="87A-5G-RZk">
@@ -1430,7 +1450,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="80A377D9-F826-45E5-8914-7078798683FC" width="30" height="30">
+        <image name="8271AC46-D86A-4305-B92D-DE0BDDFE115E" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

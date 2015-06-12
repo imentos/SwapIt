@@ -46,16 +46,11 @@ class ItemDetailController: UITableViewController {
         PFCloud.callFunctionInBackground("addQuestion", withParameters: ["text": view.questionTextView.text, "objectId": uuid], block:{
             (items:AnyObject?, error: NSError?) -> Void in
             
-            self.linkQuestion(uuid)
+            let itemId = self.itemJSON["objectId"].string
+            PFCloud.callFunctionInBackground("askItemQuestionByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": itemId!, "questionId": uuid], block:{
+                (items:AnyObject?, error: NSError?) -> Void in
+            })
         })
-    }
-    
-    func linkQuestion(questionId:String) {
-        let itemId = self.itemJSON["objectId"].string
-        PFCloud.callFunctionInBackground("askItemQuestionByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": itemId!, "questionId": questionId], block:{
-            (items:AnyObject?, error: NSError?) -> Void in
-        })
-        
     }
     
     func loadData() {
