@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class QuestionController: UITableViewController {
 
@@ -20,6 +21,11 @@ class QuestionController: UITableViewController {
         
         self.questionTextView.text = questionJSON["question"]["text"].string
         self.userNameLabel.text = questionJSON["user"]["name"].string
+        
+        let qId = questionJSON["question"]["objectId"].string
+        PFCloud.callFunctionInBackground("setQuestionRead", withParameters: ["objectId": qId!], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+        })
     }
 
     override func didReceiveMemoryWarning() {

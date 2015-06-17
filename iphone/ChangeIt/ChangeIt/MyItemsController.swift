@@ -41,6 +41,7 @@ class MyItemsController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) as! UITableViewCell
         let itemJSON = itemsJSON[indexPath.row]
+        var unreadQuestions = 0
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
@@ -57,6 +58,21 @@ class MyItemsController: UITableViewController {
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             let questionsCountLabel = cell.viewWithTag(104) as! UILabel
             questionsCountLabel.text = String(countJSON[0].int!)
+        })
+        
+        PFCloud.callFunctionInBackground("getUnreadQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            if (result == nil) {
+                return;
+            }
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            let newquestionsCountLabel = cell.viewWithTag(110) as! UILabel
+            unreadQuestions = countJSON[0].int!
+            if (unreadQuestions > 0) {
+                newquestionsCountLabel.text = String(format: "(%d new)", countJSON[0].int!)
+            } else {
+                newquestionsCountLabel.text = "";
+            }
         })
         
         PFCloud.callFunctionInBackground("getExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {

@@ -33,7 +33,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             self.questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.segmentedControl.setTitle(String(format:"Messages (%d)", self.questionsJSON.count), forSegmentAtIndex: 1)
         })
-        
+
         PFCloud.callFunctionInBackground("getOfferedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if (results == nil) {
@@ -81,6 +81,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("myItemDetail", forIndexPath: indexPath) as! UITableViewCell
+        let photo = cell.viewWithTag(101) as! UIImageView
+        let title = cell.viewWithTag(102) as! UILabel
+        let name = cell.viewWithTag(103) as! UILabel
+        let readIcon = cell.viewWithTag(104) as! UIImageView
         
         if (segmentedControl.selectedSegmentIndex == 0) {
             let offeredItemJSON = offeredItemsJSON[indexPath.row]
@@ -88,36 +92,30 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             PFQuery(className:"Image").getObjectInBackgroundWithId(offeredItemJSON["item"]["photo"].string!, block: {
                 (imageObj:PFObject?, error: NSError?) -> Void in
                 let imageData = (imageObj!["file"] as! PFFile).getData()
-                
-                let photo = cell.viewWithTag(101) as! UIImageView
                 photo.image = UIImage(data: imageData!)
             })
-            
-            let title = cell.viewWithTag(102) as! UILabel
             title.text = offeredItemJSON["item"]["title"].string
-
-            let name = cell.viewWithTag(103) as! UILabel
             name.text = offeredItemJSON["user"]["name"].string
 
         } else {
             let questionJSON = questionsJSON[indexPath.row]
             
-            let photo = cell.viewWithTag(101) as! UIImageView
             photo.image = UIImage(named: "bottom_User_Inactive")
-            
-            let title = cell.viewWithTag(102) as! UILabel
             title.text = questionJSON["question"]["text"].string
-
-            let name = cell.viewWithTag(103) as! UILabel
             name.text = questionJSON["user"]["name"].string
+            readIcon.hidden = questionJSON["link"]["read"].bool!;
         }
         return cell
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let index = detailTable.indexPathForSelectedRow()?.row
+        let indexPath = detailTable.indexPathForSelectedRow()
+        let index = indexPath!.row
+        let cell = detailTable.dequeueReusableCellWithIdentifier("myItemDetail", forIndexPath: indexPath!) as! UITableViewCell
+        let readIcon = cell.viewWithTag(104) as! UIImageView
+
         if (segue.identifier == "offer") {
-            let offeredItemJSON = offeredItemsJSON[index!]
+            let offeredItemJSON = offeredItemsJSON[index]
             
             let detail = segue.destinationViewController as! OfferDetailController
             detail.itemJSON = offeredItemJSON["item"]
@@ -125,11 +123,11 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             detail.userJSON = offeredItemJSON["user"]
             
         } else if (segue.identifier == "question") {
-            let questionJSON = self.questionsJSON[index!]
+            let questionJSON = self.questionsJSON[index]
             
             let question = segue.destinationViewController as! QuestionController
             question.questionJSON = questionJSON
-            
+            readIcon.hidden = true
         }
     }
 }
