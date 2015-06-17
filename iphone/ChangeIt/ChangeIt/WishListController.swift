@@ -24,11 +24,12 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         let index = NSIndexPath(forRow: 0, inSection: 0)
         let cell = self.tableView.cellForRowAtIndexPath(index) as! AddWishListCell
         let newWishText = cell.newWishListText.text
+        let wishId = NSUUID().UUIDString
         cell.newWishListText.text = ""
         
-        PFCloud.callFunctionInBackground("addWish", withParameters: ["name": newWishText], block: {
+        PFCloud.callFunctionInBackground("addWish", withParameters: ["name": newWishText, "objectId": wishId], block: {
             (wishes:AnyObject?, error: NSError?) -> Void in
-            PFCloud.callFunctionInBackground("linkMyWish", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "wish": newWishText], block: {
+            PFCloud.callFunctionInBackground("linkMyWish", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "objectId": wishId], block: {
                 (wishes:AnyObject?, error: NSError?) -> Void in
                 self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
             })
@@ -55,16 +56,19 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
             let deleteSpecificRows = selectedRows?.count > 0;
             if (deleteSpecificRows) {
                 var deleteIndexes = [Int]()
+                var deleteObjectIds = [String]()
                 for var i = 0; i < selectedRows!.count; ++i {
                     let index = selectedRows![i].row - 1
-                    let wish = self.wishesJSON[index]["name"].string
+                    let objectId = self.wishesJSON[index]["objectId"].string
                     deleteIndexes.append(index)
-                    
-                    PFCloud.callFunctionInBackground("deleteWishOfUser", withParameters: ["userId":userId!, "wish":wish!], block: {
-                        (wishes:AnyObject?, error: NSError?) -> Void in
-                    })
+                    deleteObjectIds.append(objectId!)
                 }
                 
+                PFCloud.callFunctionInBackground("deleteWishesOfUser", withParameters: ["userId":userId!, "objectIds":deleteObjectIds], block: {
+                    (wishes:AnyObject?, error: NSError?) -> Void in
+                    println("deleted")
+                })
+
                 for var i = 0; i < deleteIndexes.count; i++ {
                     self.wishesJSON.arrayObject?.removeAtIndex(i)
                 }

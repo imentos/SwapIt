@@ -5,7 +5,7 @@ Parse.Cloud.define("getBestItemsExceptMe", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item),(u:User)--(w:Wish) WHERE o.title=~{search} AND o.title=~w.searchRegex AND u.objectId={userId} RETURN o ORDER BY o.timestamp',
+            query: 'MATCH (o:Item),(u:User)--(w:Wish) WHERE o.title=~{search} AND o.title=~w.searchRegex AND u.objectId={userId} RETURN o ORDER BY o.timestamp DESC',
             params: {
                 search: "(?i)" + request.params.search,
                 userId: request.params.userId
@@ -34,7 +34,7 @@ Parse.Cloud.define("getAllItemsExceptMe", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE o.title=~{search} AND NOT u.objectId={userId} RETURN o ORDER BY o.timestamp',
+            query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE o.title=~{search} AND NOT u.objectId={userId} RETURN o ORDER BY o.timestamp DESC',
             params: {
                 search: "(?i)" + request.params.search,
                 userId: request.params.userId
@@ -118,7 +118,7 @@ Parse.Cloud.define("getItems", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (n:Item) RETURN n ORDER BY n.timestamp'
+            query: 'MATCH (n:Item) RETURN n ORDER BY n.timestamp DESC'
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
@@ -143,7 +143,7 @@ Parse.Cloud.define("getBookmarkedItems", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (n:Item)<-[r:BOOKMARK]-(u:User{objectId:{userId}}) RETURN n ORDER BY n.timestamp',
+            query: 'MATCH (n:Item)<-[r:BOOKMARK]-(u:User{objectId:{userId}}) RETURN n ORDER BY n.timestamp DESC',
             params: {
                 userId: request.params.userId
             }
@@ -249,7 +249,7 @@ Parse.Cloud.define("getItemsOfUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User{objectId:{userId}})-[r:OFFER]->(o:Item) RETURN o ORDER BY o.timestamp',
+            query: 'MATCH (u:User{objectId:{userId}})-[r:OFFER]->(o:Item) RETURN o ORDER BY o.timestamp DESC',
             params: {
                 userId: request.params.userId
             }
