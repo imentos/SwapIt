@@ -103,7 +103,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             let questionJSON = questionsJSON[indexPath.row]
             
             let photo = cell.viewWithTag(101) as! UIImageView
-            photo.image = nil
+            photo.image = UIImage(named: "bottom_User_Inactive")
             
             let title = cell.viewWithTag(102) as! UILabel
             title.text = questionJSON["question"]["text"].string
