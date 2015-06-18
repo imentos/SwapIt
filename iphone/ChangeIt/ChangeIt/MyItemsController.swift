@@ -11,8 +11,6 @@ import Parse
 
 class MyItemsController: UITableViewController {
     var itemsJSON:JSON = nil
-    var unreadQuestions = 0
-    var unreadOffers = 0
 
     @IBAction func addItem(segue:UIStoryboardSegue) {
         loadData()
@@ -22,6 +20,8 @@ class MyItemsController: UITableViewController {
     }
     
     func updateUnread(itemJSON:JSON, cell:UITableViewCell) {
+        var unreadQuestions = 0
+        var unreadOffers = 0
         PFCloud.callFunctionInBackground("getUnreadQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
             if (result == nil) {
@@ -29,29 +29,35 @@ class MyItemsController: UITableViewController {
             }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             let newquestionsCountLabel = cell.viewWithTag(110) as! UILabel
-            self.unreadQuestions = countJSON[0].int!
-            if (self.unreadQuestions > 0) {
+            unreadQuestions = countJSON[0].int!
+            if (unreadQuestions > 0) {
                 newquestionsCountLabel.text = String(format: "(%d new)", countJSON[0].int!)
             } else {
                 newquestionsCountLabel.text = "";
             }
+            
+            PFCloud.callFunctionInBackground("getUnreadExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+                (result:AnyObject?, error: NSError?) -> Void in
+                if (result == nil) {
+                    return;
+                }
+                let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                let newoffersCountLabel = cell.viewWithTag(111) as! UILabel
+                unreadOffers = countJSON[0].int!
+                if (unreadOffers > 0) {
+                    newoffersCountLabel.text = String(format: "(%d new)", countJSON[0].int!)
+                } else {
+                    newoffersCountLabel.text = "";
+                }
+                
+                if (unreadOffers + unreadQuestions > 0) {
+                    cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
+                } else {
+                    cell.backgroundColor = UIColor.clearColor()
+                }
+
+            })
         })
-        
-        PFCloud.callFunctionInBackground("getUnreadExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
-            (result:AnyObject?, error: NSError?) -> Void in
-            if (result == nil) {
-                return;
-            }
-            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            let newoffersCountLabel = cell.viewWithTag(111) as! UILabel
-            self.unreadOffers = countJSON[0].int!
-            if (self.unreadOffers > 0) {
-                newoffersCountLabel.text = String(format: "(%d new)", countJSON[0].int!)
-            } else {
-                newoffersCountLabel.text = "";
-            }
-        })
-        
     }
     
     @IBAction func back(segue:UIStoryboardSegue) {

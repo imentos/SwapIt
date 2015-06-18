@@ -97,7 +97,8 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             })
             title.text = offeredItemJSON["item"]["title"].string
             name.text = offeredItemJSON["user"]["name"].string
-            readIcon.hidden = offeredItemJSON["exchange"]["read"].bool!
+            cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
+            //readIcon.hidden = offeredItemJSON["exchange"]["read"].bool!
 
         } else {
             let questionJSON = questionsJSON[indexPath.row]
@@ -105,7 +106,8 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             photo.image = UIImage(named: "bottom_User_Inactive")
             title.text = questionJSON["question"]["text"].string
             name.text = questionJSON["user"]["name"].string
-            readIcon.hidden = questionJSON["link"]["read"].bool!
+            cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
+            //readIcon.hidden = questionJSON["link"]["read"].bool!
         }
         return cell
     }
@@ -126,14 +128,16 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             detail.itemJSON = offeredItemJSON["item"]
             detail.otherItemJSON = offeredItemJSON["otherItem"]
             detail.userJSON = offeredItemJSON["user"]
-            readIcon.hidden = true
+            //readIcon.hidden = true
             
         } else if (segue.identifier == "question") {
             let questionJSON = self.questionsJSON[index]
             
             let question = segue.destinationViewController as! QuestionController
             question.questionJSON = questionJSON
-            readIcon.hidden = true
+            //readIcon.hidden = true
         }
+        
+        cell?.backgroundColor = UIColor.clearColor()
     }
 }
