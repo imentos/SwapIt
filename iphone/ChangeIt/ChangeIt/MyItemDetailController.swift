@@ -97,7 +97,11 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             })
             title.text = offeredItemJSON["item"]["title"].string
             name.text = offeredItemJSON["user"]["name"].string
-            cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
+            if (offeredItemJSON["exchange"]["read"].bool!) {
+                cell.backgroundColor = UIColor.clearColor()
+            } else {
+                cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
+            }
             //readIcon.hidden = offeredItemJSON["exchange"]["read"].bool!
 
         } else {
@@ -107,6 +111,11 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             title.text = questionJSON["question"]["text"].string
             name.text = questionJSON["user"]["name"].string
             cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
+            if (questionJSON["link"]["read"].bool!) {
+                cell.backgroundColor = UIColor.clearColor()
+            } else {
+                cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
+            }
             //readIcon.hidden = questionJSON["link"]["read"].bool!
         }
         return cell
