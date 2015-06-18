@@ -23,6 +23,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBOutlet var testLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -109,10 +110,13 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "back") {
+            return;
+        }
         let indexPath = detailTable.indexPathForSelectedRow()
         let index = indexPath!.row
-        let cell = detailTable.dequeueReusableCellWithIdentifier("myItemDetail", forIndexPath: indexPath!) as! UITableViewCell
-        let readIcon = cell.viewWithTag(104) as! UIImageView
+        let cell = detailTable.cellForRowAtIndexPath(indexPath!)
+        let readIcon = cell!.viewWithTag(104) as! UIImageView
 
         if (segue.identifier == "offer") {
             let offeredItemJSON = offeredItemsJSON[index]

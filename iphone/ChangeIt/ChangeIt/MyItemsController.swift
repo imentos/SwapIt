@@ -11,6 +11,7 @@ import Parse
 
 class MyItemsController: UITableViewController {
     var itemsJSON:JSON = nil
+    var unreadQuestions = 0
 
     @IBAction func addItem(segue:UIStoryboardSegue) {
         loadData()
@@ -19,6 +20,27 @@ class MyItemsController: UITableViewController {
     @IBAction func cancelItem(segue:UIStoryboardSegue) {
     }
     
+    @IBAction func back(segue:UIStoryboardSegue) {
+        let indexPath = self.tableView.indexPathForSelectedRow()
+        //let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath!) as! UITableViewCell
+        let cell = tableView.cellForRowAtIndexPath(indexPath!)
+        let itemJSON = itemsJSON[indexPath!.row]
+        PFCloud.callFunctionInBackground("getUnreadQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            if (result == nil) {
+                return;
+            }
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            let newquestionsCountLabel = cell!.viewWithTag(110) as! UILabel
+            self.unreadQuestions = countJSON[0].int!
+            if (self.unreadQuestions > 0) {
+                newquestionsCountLabel.text = String(format: "(%d new)", countJSON[0].int!)
+            } else {
+                newquestionsCountLabel.text = "";
+            }
+        })
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,7 +63,6 @@ class MyItemsController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) as! UITableViewCell
         let itemJSON = itemsJSON[indexPath.row]
-        var unreadQuestions = 0
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
@@ -67,8 +88,8 @@ class MyItemsController: UITableViewController {
             }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             let newquestionsCountLabel = cell.viewWithTag(110) as! UILabel
-            unreadQuestions = countJSON[0].int!
-            if (unreadQuestions > 0) {
+            self.unreadQuestions = countJSON[0].int!
+            if (self.unreadQuestions > 0) {
                 newquestionsCountLabel.text = String(format: "(%d new)", countJSON[0].int!)
             } else {
                 newquestionsCountLabel.text = "";
