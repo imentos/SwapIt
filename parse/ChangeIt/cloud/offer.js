@@ -6,7 +6,7 @@ Parse.Cloud.define("exchangeItem", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (s:Item{objectId:{srcItemId}}), (d:Item{objectId:{distItemId}}) CREATE UNIQUE (s)-[r:EXCHANGE]->(d) RETURN r',
+            query: 'MATCH (s:Item{objectId:{srcItemId}}), (d:Item{objectId:{distItemId}}) CREATE UNIQUE (s)-[r:EXCHANGE{read:false}]->(d) RETURN r',
             params: {
                 srcItemId: request.params.srcItemId,
                 distItemId: request.params.distItemId
