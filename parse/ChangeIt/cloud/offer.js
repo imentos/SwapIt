@@ -31,7 +31,7 @@ Parse.Cloud.define("getOfferedItemsByUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User)-[r:OFFER]->(i:Item)-[e:EXCHANGE]->(dst:Item{objectId:{itemId}}) RETURN i, dst, u',
+            query: 'MATCH (u:User)-[r:OFFER]->(i:Item)-[e:EXCHANGE]->(dst:Item{objectId:{itemId}}) RETURN i, dst, u, e',
             params: {
                 userId: request.params.userId,
                 itemId: request.params.itemId
@@ -44,7 +44,7 @@ Parse.Cloud.define("getOfferedItemsByUser", function(request, response) {
             var json_result = JSON.parse(httpResponse.text)
             var aResults = []
             json_result.data.forEach(function(o) {
-                aResults.push({"item": o[0].data, "otherItem": o[1].data, "user": o[2].data})
+                aResults.push({"item": o[0].data, "otherItem": o[1].data, "user": o[2].data, "exchange": o[3].data})
             })
             response.success(JSON.stringify(aResults));
         },
@@ -62,6 +62,62 @@ Parse.Cloud.define("getExchangesCountOfItem", function(request, response) {
         },
         body: {
             query: 'MATCH (n:Item{objectId:{itemId}})<-[r:EXCHANGE]-() RETURN COUNT(r)',
+            params: {
+                itemId: request.params.itemId
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            json_result.data.forEach(function(o) {
+                aResults.push(o[0])
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+Parse.Cloud.define("setExchangeRead", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (o:Item{objectId:{objectId}})-[r:EXCHANGE]->() SET r.read = true RETURN o',
+            params: {
+                objectId: request.params.objectId
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            json_result.data.forEach(function(o) {
+                aResults.push(o[0])
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+Parse.Cloud.define("getUnreadExchangesCountOfItem", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (n:Item{objectId:{itemId}})<-[r:EXCHANGE]-() WHERE r.read = false RETURN COUNT(r)',
             params: {
                 itemId: request.params.itemId
             }

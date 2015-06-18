@@ -12,6 +12,7 @@ import Parse
 class MyItemsController: UITableViewController {
     var itemsJSON:JSON = nil
     var unreadQuestions = 0
+    var unreadOffers = 0
 
     @IBAction func addItem(segue:UIStoryboardSegue) {
         loadData()
@@ -20,18 +21,14 @@ class MyItemsController: UITableViewController {
     @IBAction func cancelItem(segue:UIStoryboardSegue) {
     }
     
-    @IBAction func back(segue:UIStoryboardSegue) {
-        let indexPath = self.tableView.indexPathForSelectedRow()
-        //let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath!) as! UITableViewCell
-        let cell = tableView.cellForRowAtIndexPath(indexPath!)
-        let itemJSON = itemsJSON[indexPath!.row]
+    func updateUnread(itemJSON:JSON, cell:UITableViewCell) {
         PFCloud.callFunctionInBackground("getUnreadQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
             if (result == nil) {
                 return;
             }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            let newquestionsCountLabel = cell!.viewWithTag(110) as! UILabel
+            let newquestionsCountLabel = cell.viewWithTag(110) as! UILabel
             self.unreadQuestions = countJSON[0].int!
             if (self.unreadQuestions > 0) {
                 newquestionsCountLabel.text = String(format: "(%d new)", countJSON[0].int!)
@@ -39,6 +36,29 @@ class MyItemsController: UITableViewController {
                 newquestionsCountLabel.text = "";
             }
         })
+        
+        PFCloud.callFunctionInBackground("getUnreadExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            if (result == nil) {
+                return;
+            }
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            let newoffersCountLabel = cell.viewWithTag(111) as! UILabel
+            self.unreadOffers = countJSON[0].int!
+            if (self.unreadOffers > 0) {
+                newoffersCountLabel.text = String(format: "(%d new)", countJSON[0].int!)
+            } else {
+                newoffersCountLabel.text = "";
+            }
+        })
+        
+    }
+    
+    @IBAction func back(segue:UIStoryboardSegue) {
+        let indexPath = self.tableView.indexPathForSelectedRow()
+        let cell = tableView.cellForRowAtIndexPath(indexPath!)
+        let itemJSON = itemsJSON[indexPath!.row]
+        updateUnread(itemJSON, cell: cell!)
     }
 
     override func viewDidLoad() {
@@ -81,28 +101,14 @@ class MyItemsController: UITableViewController {
             questionsCountLabel.text = String(countJSON[0].int!)
         })
         
-        PFCloud.callFunctionInBackground("getUnreadQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
-            (result:AnyObject?, error: NSError?) -> Void in
-            if (result == nil) {
-                return;
-            }
-            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            let newquestionsCountLabel = cell.viewWithTag(110) as! UILabel
-            self.unreadQuestions = countJSON[0].int!
-            if (self.unreadQuestions > 0) {
-                newquestionsCountLabel.text = String(format: "(%d new)", countJSON[0].int!)
-            } else {
-                newquestionsCountLabel.text = "";
-            }
-        })
-        
         PFCloud.callFunctionInBackground("getExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             let offersCountLabel = cell.viewWithTag(103) as! UILabel
             offersCountLabel.text = String(countJSON[0].int!)
         })
-        
+
+        updateUnread(itemJSON, cell: cell)
         return cell
     }
 

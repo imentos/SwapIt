@@ -97,6 +97,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             })
             title.text = offeredItemJSON["item"]["title"].string
             name.text = offeredItemJSON["user"]["name"].string
+            readIcon.hidden = offeredItemJSON["exchange"]["read"].bool!
 
         } else {
             let questionJSON = questionsJSON[indexPath.row]
@@ -104,7 +105,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             photo.image = UIImage(named: "bottom_User_Inactive")
             title.text = questionJSON["question"]["text"].string
             name.text = questionJSON["user"]["name"].string
-            readIcon.hidden = questionJSON["link"]["read"].bool!;
+            readIcon.hidden = questionJSON["link"]["read"].bool!
         }
         return cell
     }
@@ -116,7 +117,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         let indexPath = detailTable.indexPathForSelectedRow()
         let index = indexPath!.row
         let cell = detailTable.cellForRowAtIndexPath(indexPath!)
-        let readIcon = cell!.viewWithTag(104) as! UIImageView
+        var readIcon = cell!.viewWithTag(104) as! UIImageView
 
         if (segue.identifier == "offer") {
             let offeredItemJSON = offeredItemsJSON[index]
@@ -125,6 +126,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             detail.itemJSON = offeredItemJSON["item"]
             detail.otherItemJSON = offeredItemJSON["otherItem"]
             detail.userJSON = offeredItemJSON["user"]
+            readIcon.hidden = true
             
         } else if (segue.identifier == "question") {
             let questionJSON = self.questionsJSON[index]

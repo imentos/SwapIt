@@ -37,6 +37,10 @@ class OfferDetailController: UITableViewController {
         self.title = itemJSON["title"].string
         self.itemDescription.text = itemJSON["description"].string
         self.userLabel.text = userJSON["name"].string
+        
+        PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["objectId": itemJSON["objectId"].string!], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+        })
     }
 
     override func didReceiveMemoryWarning() {

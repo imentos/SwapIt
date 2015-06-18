@@ -22,8 +22,7 @@ class QuestionController: UITableViewController {
         self.questionTextView.text = questionJSON["question"]["text"].string
         self.userNameLabel.text = questionJSON["user"]["name"].string
         
-        let qId = questionJSON["question"]["objectId"].string
-        PFCloud.callFunctionInBackground("setQuestionRead", withParameters: ["objectId": qId!], block:{
+        PFCloud.callFunctionInBackground("setQuestionRead", withParameters: ["objectId": questionJSON["question"]["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
         })
     }
