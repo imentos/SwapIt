@@ -11,6 +11,7 @@ import Parse
 
 class UserController: UIViewController {
     
+    @IBOutlet weak var facebookPhoto: UIImageView!
     @IBOutlet var spinnerView: UIActivityIndicatorView!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var name: UILabel!
@@ -65,6 +66,10 @@ class UserController: UIViewController {
         let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
         name.text = userJSON[0]["name"].string
         locationLabel.text = userJSON[0]["location"].string
+
+        let url = NSURL(string: String(format:"https://graph.facebook.com/%@/picture?type=large", userJSON[0]["facebookId"].string!))
+        let data = NSData(contentsOfURL: url!)
+        facebookPhoto.image = UIImage(data: data!)
     }
     
     override func didReceiveMemoryWarning() {

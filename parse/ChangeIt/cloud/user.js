@@ -1,4 +1,3 @@
-
 Parse.Cloud.define("addUser", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
@@ -6,10 +5,11 @@ Parse.Cloud.define("addUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'CREATE (n:User {objectId: {objectId}, name: {name}}) RETURN n',
+            query: 'CREATE (n:User {objectId: {objectId}, name: {name}, facebookId: {facebookId}}) RETURN n',
             params: {
                 name: request.params.name,
-                objectId: request.params.objectId
+                objectId: request.params.objectId,
+                facebookId: request.params.objectId
             }
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
@@ -30,11 +30,12 @@ Parse.Cloud.define("updateUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (n:User{objectId:{userId}}) SET n.name={name}, location={location} RETURN n',
+            query: 'MATCH (n:User{objectId:{userId}}) SET n.name={name}, n.location={location}, n.facebookId={facebookId} RETURN n',
             params: {
                 name: request.params.name,
                 location: request.params.location,
-                userId: request.params.objectId
+                userId: request.params.objectId,
+                facebookId: request.params.facebookId
             }
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',

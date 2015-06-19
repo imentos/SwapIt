@@ -163,9 +163,10 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="26D2E125-F31A-4E9D-A326-46B692A1FE43" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="32BABC6B-5D8D-4316-A9E5-CAAFBB0D24FF" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
+                        <outlet property="facebookPhoto" destination="vKM-2g-k0h" id="MCU-nd-t0g"/>
                         <outlet property="locationLabel" destination="gmJ-u6-XkQ" id="Qh3-Oy-Oud"/>
                         <outlet property="name" destination="Hds-7W-BrR" id="BPQ-3M-Ood"/>
                         <outlet property="offerReceivedButton" destination="GdE-ph-Yu1" id="8kr-P3-aQb"/>
@@ -1472,7 +1473,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="26D2E125-F31A-4E9D-A326-46B692A1FE43" width="30" height="30">
+        <image name="32BABC6B-5D8D-4316-A9E5-CAAFBB0D24FF" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1545,9 +1546,9 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="bottom_User_Inactive" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wMb-XK-Jh9"/>
         <segue reference="QJO-uD-btk"/>
         <segue reference="rBQ-LX-Rxi"/>
-        <segue reference="Tea-P4-aes"/>
+        <segue reference="wMb-XK-Jh9"/>
+        <segue reference="VZA-XN-qKl"/>
     </inferredMetricsTieBreakers>
 </document>

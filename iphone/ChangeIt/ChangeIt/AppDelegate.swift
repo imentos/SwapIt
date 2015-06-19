@@ -58,6 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     println("Result Dict: \(resultdict)")
                     println(resultdict["name"])
                     let name = resultdict["name"] as! String
+                    let facebookId = resultdict["id"] as! String
+                                        
                     var location = ""
                     if resultdict["location"] != nil {
                         let loc = resultdict["location"] as! NSDictionary
@@ -67,10 +69,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let userFromCloud = PFCloud.callFunction("getUser", withParameters: ["userId": user.objectId!])
                     let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                     if userJSON.count == 0 {
-                        PFCloud.callFunction("addUser", withParameters: ["name": name, "objectId": user.objectId!])
+                        PFCloud.callFunction("addUser", withParameters: ["name": name, "objectId": user.objectId!, "facebookId": facebookId])
                         
                     } else {
-                        PFCloud.callFunction("updateUser", withParameters: ["name": name, "objectId": user.objectId!, "location": location])
+                        PFCloud.callFunction("updateUser", withParameters: ["name": name, "objectId": user.objectId!, "facebookId": facebookId, "location": location])
                     }
                     
                     let tab = self.window!.rootViewController as! UITabBarController
