@@ -13,6 +13,7 @@ class ItemDetailController: UITableViewController {
 
     @IBOutlet weak var photoImage: UIImageView!
     @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var descriptionTextView: UITextView!
     
     var itemJSON:JSON!
@@ -63,6 +64,12 @@ class ItemDetailController: UITableViewController {
         self.title = itemJSON["title"].string
         self.descriptionTextView.text = itemJSON["description"].string
         self.userLabel.text = userJSON["name"].string
+        
+        self.userPhoto.layer.borderWidth = 1
+        self.userPhoto.layer.masksToBounds = true
+        self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
+        self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
+        self.userPhoto.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=80&height=80", userJSON["facebookId"].string!))!)!)
     }
     
     override func viewDidLoad() {

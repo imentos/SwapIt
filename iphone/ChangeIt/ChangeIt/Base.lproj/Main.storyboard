@@ -163,7 +163,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="32BABC6B-5D8D-4316-A9E5-CAAFBB0D24FF" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="7C82F292-0619-4CFB-8C59-AB51DF4B1E1E" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
                         <outlet property="facebookPhoto" destination="vKM-2g-k0h" id="MCU-nd-t0g"/>
@@ -455,6 +455,7 @@
                         <outlet property="descriptionTextView" destination="o6S-3z-cSr" id="dNQ-3q-8Zv"/>
                         <outlet property="photoImage" destination="zCe-bh-cEG" id="vm0-IL-NbN"/>
                         <outlet property="userLabel" destination="TxR-I1-RpY" id="EuF-fw-ZXd"/>
+                        <outlet property="userPhoto" destination="FKl-Kh-asz" id="V2h-88-999"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Fe-pB-LxJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -807,9 +808,6 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TNy-sR-HzL">
-                                                    <rect key="frame" x="16" y="8" width="90" height="90"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyo-nS-1od">
                                                     <rect key="frame" x="124" y="8" width="172" height="33"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -818,6 +816,9 @@
                                                 </label>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" tag="104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Arrow_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="2m5-72-bbD">
                                                     <rect key="frame" x="107" y="16" width="16" height="18"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TNy-sR-HzL">
+                                                    <rect key="frame" x="16" y="8" width="90" height="90"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -1473,7 +1474,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="32BABC6B-5D8D-4316-A9E5-CAAFBB0D24FF" width="30" height="30">
+        <image name="7C82F292-0619-4CFB-8C59-AB51DF4B1E1E" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

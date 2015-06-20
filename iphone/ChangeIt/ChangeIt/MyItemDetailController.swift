@@ -107,7 +107,12 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         } else {
             let questionJSON = questionsJSON[indexPath.row]
             
-            photo.image = UIImage(named: "bottom_User_Inactive")
+            photo.layer.borderWidth = 1
+            photo.layer.masksToBounds = true
+            photo.layer.borderColor = UIColor.blackColor().CGColor
+            photo.layer.cornerRadius = photo.bounds.height / 2
+            photo.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=120&height=120", questionJSON["user"]["facebookId"].string!))!)!)
+
             title.text = questionJSON["question"]["text"].string
             name.text = questionJSON["user"]["name"].string
             cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
@@ -137,6 +142,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             detail.itemJSON = offeredItemJSON["item"]
             detail.otherItemJSON = offeredItemJSON["otherItem"]
             detail.userJSON = offeredItemJSON["user"]
+            
             //readIcon.hidden = true
             
         } else if (segue.identifier == "question") {

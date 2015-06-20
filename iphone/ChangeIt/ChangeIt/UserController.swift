@@ -67,9 +67,11 @@ class UserController: UIViewController {
         name.text = userJSON[0]["name"].string
         locationLabel.text = userJSON[0]["location"].string
 
-        let url = NSURL(string: String(format:"https://graph.facebook.com/%@/picture?type=large", userJSON[0]["facebookId"].string!))
-        let data = NSData(contentsOfURL: url!)
-        facebookPhoto.image = UIImage(data: data!)
+        facebookPhoto.layer.borderWidth = 1
+        facebookPhoto.layer.masksToBounds = true
+        facebookPhoto.layer.borderColor = UIColor.blackColor().CGColor
+        facebookPhoto.layer.cornerRadius = facebookPhoto.bounds.height / 2
+        facebookPhoto.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=160&height=160", userJSON[0]["facebookId"].string!))!)!)
     }
     
     override func didReceiveMemoryWarning() {
