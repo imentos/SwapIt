@@ -11,6 +11,8 @@ import Parse
 
 class QuestionController: UITableViewController {
 
+    @IBOutlet weak var timestamp: UILabel!
+    @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet var questionTextView: UITextView!
     @IBOutlet var userNameLabel: UILabel!
     
@@ -21,6 +23,19 @@ class QuestionController: UITableViewController {
         
         self.questionTextView.text = questionJSON["question"]["text"].string
         self.userNameLabel.text = questionJSON["user"]["name"].string
+        
+        self.userPhoto.layer.borderWidth = 1
+        self.userPhoto.layer.masksToBounds = true
+        self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
+        self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
+        self.userPhoto.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=120&height=120", questionJSON["user"]["facebookId"].string!))!)!)
+
+        let timestampAsDouble = NSTimeInterval(questionJSON["question"]["timestamp"].double!) / 1000.0
+        var date = NSDate(timeIntervalSince1970:timestampAsDouble)
+        var dateFormatter = NSDateFormatter()
+        //dateFormatter.dateFormat = "yyyy.MM.dd"//"EEE, MMM d, 'yy"
+        dateFormatter.dateStyle = .FullStyle
+        self.timestamp.text = dateFormatter.stringFromDate(date)
         
         PFCloud.callFunctionInBackground("setQuestionRead", withParameters: ["objectId": questionJSON["question"]["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
