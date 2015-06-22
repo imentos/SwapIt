@@ -25,7 +25,17 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     }
     
     func loadData() {
-        loadData("getBestItemsExceptMe")
+        // if no wish list, show all items. Otherwise, show best matched items.
+        var wishesJSON:JSON!
+        PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":(PFUser.currentUser()?.objectId)!], block: {
+            (wishes:AnyObject?, error: NSError?) -> Void in
+            let wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            if (wishesJSON.count == 0) {
+                self.loadData("getAllItemsExceptMe")
+            } else {
+                self.loadData("getBestItemsExceptMe")
+            }
+        })
     }
     
     func loadData(query:String) {

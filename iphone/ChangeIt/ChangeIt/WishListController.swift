@@ -53,8 +53,8 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         if (buttonIndex == 0) {
             let userId = PFUser.currentUser()?.objectId
             let selectedRows = self.tableView.indexPathsForSelectedRows()
-            let deleteSpecificRows = selectedRows?.count > 0;
-            if (deleteSpecificRows) {
+            let selectedRowsCount = selectedRows?.count
+            if (selectedRowsCount != self.wishesJSON.count) {
                 var deleteIndexes = [Int]()
                 var deleteObjectIds = [String]()
                 for var i = 0; i < selectedRows!.count; ++i {
