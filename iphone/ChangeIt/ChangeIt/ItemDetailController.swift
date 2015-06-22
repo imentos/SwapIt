@@ -97,7 +97,7 @@ class ItemDetailController: UITableViewController {
             view.loadData()
         } else if (segue.identifier == "askQuestion") {
             let view = segue.destinationViewController as! AddQuestionController
-            view.userName = self.userLabel.text!
+            view.userJSON = self.userJSON
             view.itemImage = self.photoImage.image!
         }
     }
