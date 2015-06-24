@@ -39,6 +39,7 @@
 		B37C10251AE993E60086864F /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C10241AE993E60086864F /* ParseFacebookUtils.framework */; };
 		B37C10271AE9B81F0086864F /* WishListDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C10261AE9B81E0086864F /* WishListDetailController.swift */; };
 		B37C10291AE9BE280086864F /* WishListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C10281AE9BE280086864F /* WishListController.swift */; };
+		B38AF8E91B3A457500AB19F7 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B38AF8E81B3A457500AB19F7 /* KxMenu.m */; };
 		B38FC8C81B0A9BE9002D774F /* AddQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38FC8C71B0A9BE9002D774F /* AddQuestionController.swift */; };
 		B39EC9AF1AFC1A3300FFC89A /* OfferDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39EC9AE1AFC1A3300FFC89A /* OfferDetailController.swift */; };
 		B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39EC9B01B014B8000FFC89A /* ItemCell.swift */; };
@@ -107,6 +108,8 @@
 		B37C10241AE993E60086864F /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		B37C10261AE9B81E0086864F /* WishListDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishListDetailController.swift; sourceTree = "<group>"; };
 		B37C10281AE9BE280086864F /* WishListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishListController.swift; sourceTree = "<group>"; };
+		B38AF8E71B3A457500AB19F7 /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
+		B38AF8E81B3A457500AB19F7 /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
 		B38FC8C71B0A9BE9002D774F /* AddQuestionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddQuestionController.swift; sourceTree = "<group>"; };
 		B39EC9AE1AFC1A3300FFC89A /* OfferDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferDetailController.swift; sourceTree = "<group>"; };
 		B39EC9B01B014B8000FFC89A /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
@@ -171,6 +174,8 @@
 		B374319A1AE861A600A0808B /* ChangeIt */ = {
 			isa = PBXGroup;
 			children = (
+				B38AF8E71B3A457500AB19F7 /* KxMenu.h */,
+				B38AF8E81B3A457500AB19F7 /* KxMenu.m */,
 				B33C8F8D1B06869400160D7E /* AddWishListCell.swift */,
 				B37C10281AE9BE280086864F /* WishListController.swift */,
 				B37C10261AE9B81E0086864F /* WishListDetailController.swift */,
@@ -343,6 +348,7 @@
 				B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */,
 				B3C763451B0D23C30040E794 /* QuestionController.swift in Sources */,
 				B31BC9E21AED04DD00E1F99A /* AddItemController.swift in Sources */,
+				B38AF8E91B3A457500AB19F7 /* KxMenu.m in Sources */,
 				B37C10271AE9B81F0086864F /* WishListDetailController.swift in Sources */,
 				B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */,
 				B348CD021AFBDCD500CFC04E /* OffersDetailController.swift in Sources */,

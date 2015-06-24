@@ -19,7 +19,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.searchDisplayController!.searchResultsTableView.rowHeight = tableView.rowHeight;
         self.searchDisplayController!.searchBar.selectedScopeButtonIndex = 1
     }
@@ -36,6 +36,18 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
                 self.loadData("getBestItemsExceptMe")
             }
         })
+        
+        
+        let item = KxMenuItem("ACTION MENU 1234456",
+            image:nil,
+            target:nil,
+            action:nil)
+        let items = []
+        KxMenu.showMenuInView(self.view,
+            fromRect:self.view.frame,
+            menuItems:[item]);
+        
+
     }
     
     func loadData(query:String) {
