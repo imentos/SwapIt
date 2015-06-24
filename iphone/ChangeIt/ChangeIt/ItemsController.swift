@@ -12,6 +12,8 @@ import Parse
 class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     var itemsJSON:JSON = nil
     var filteredItems:JSON = JSON("{}")
+    var searchModel:Int = 1
+    @IBOutlet weak var scopeButton: UIButton!
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
         println("cancel")
@@ -21,7 +23,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         super.viewDidLoad()
 
         self.searchDisplayController!.searchResultsTableView.rowHeight = tableView.rowHeight;
-        self.searchDisplayController!.searchBar.selectedScopeButtonIndex = 1
+        //self.searchDisplayController!.searchBar.selectedScopeButtonIndex = 1
     }
     
     func loadData() {
@@ -36,18 +38,34 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
                 self.loadData("getBestItemsExceptMe")
             }
         })
-        
-        
-        let item = KxMenuItem("ACTION MENU 1234456",
-            image:nil,
-            target:nil,
-            action:nil)
-        let items = []
+    }
+    
+    func loadAll(sender: AnyObject) {
+        searchModel = 0
+        //scopeButton.setT
+        scopeButton.setTitle("All Items", forState:.Normal)
+        self.loadData("getAllItemsExceptMe")
+    }
+    
+    func loadBest(sender: AnyObject) {
+        searchModel = 1
+        scopeButton.setTitle("Best Match", forState:.Normal)
+        self.loadData("getBestItemsExceptMe")
+    }
+    
+    func loadNearMe(sender: AnyObject) {
+        searchModel = 2
+        scopeButton.setTitle("Near Me", forState:.Normal)
+        self.loadData("getBestItemsExceptMe")
+    }
+    
+    @IBAction func pressed(sender: AnyObject) {
+        let all = KxMenuItem("All Items", image:searchModel == 0 ? UIImage(named:"check_icon") : nil, target:self, action:Selector("loadAll:"))
+        let best = KxMenuItem("Best Match", image:searchModel == 1 ? UIImage(named:"check_icon") : nil, target:self, action:Selector("loadBest:"))
+        let location = KxMenuItem("Near Me", image:searchModel == 2 ? UIImage(named:"check_icon") : nil, target:self, action:Selector("loadNearMe:"))
         KxMenu.showMenuInView(self.view,
-            fromRect:self.view.frame,
-            menuItems:[item]);
-        
-
+            fromRect:sender.frame,
+            menuItems:[all, best, location]);
     }
     
     func loadData(query:String) {
