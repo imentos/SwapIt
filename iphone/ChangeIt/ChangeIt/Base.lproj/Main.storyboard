@@ -163,7 +163,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="581FABEA-9802-4057-AD32-D330CC1D48F5" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="F266AB42-C459-4E17-9BDC-11F87A2056A8" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
                         <outlet property="facebookPhoto" destination="vKM-2g-k0h" id="MCU-nd-t0g"/>
@@ -615,7 +615,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wtY-Dq-k1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2703" y="1926"/>
+            <point key="canvasLocation" x="3515" y="1926"/>
         </scene>
         <!--Add Question Controller-->
         <scene sceneID="sVr-pK-9YZ">
@@ -709,7 +709,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GSz-SI-pOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="rQD-xs-DwP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3421" y="1425"/>
+            <point key="canvasLocation" x="4233" y="1425"/>
         </scene>
         <!--My List-->
         <scene sceneID="87A-5G-RZk">
@@ -761,7 +761,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="PMA-jI-WNw" kind="show" id="hpv-ZZ-ral"/>
+                                    <segue destination="K6a-RZ-wy0" kind="presentation" identifier="detail" id="hpv-ZZ-ral"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -895,7 +895,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iqD-md-X7h" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jYg-lV-aHt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1753" y="1529"/>
+            <point key="canvasLocation" x="2565" y="1529"/>
         </scene>
         <!--Offers Detail Controller-->
         <scene sceneID="jcT-MM-u4q">
@@ -1499,9 +1499,29 @@
             </objects>
             <point key="canvasLocation" x="1736.25" y="673.94366197183092"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="f6p-hO-sBx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="K6a-RZ-wy0" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TQk-03-JvU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="PMA-jI-WNw" kind="relationship" relationship="rootViewController" id="1Vh-j3-T9U"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cXQ-6X-tGt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1753" y="1529"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="581FABEA-9802-4057-AD32-D330CC1D48F5" width="30" height="30">
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
+        <image name="F266AB42-C459-4E17-9BDC-11F87A2056A8" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1558,8 +1578,6 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
         <image name="Profile_Offers_Sent" width="80" height="80"/>

@@ -130,19 +130,16 @@ class MyItemsController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.destinationViewController is MyItemDetailController) {
+        if (segue.identifier == "detail") {
             let tableView = self.view as! UITableView
             let offerJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
             
-            let details = segue.destinationViewController as! MyItemDetailController
+            let navi = segue.destinationViewController as! UINavigationController
+            let details = navi.viewControllers[0] as! MyItemDetailController
             details.title = offerJSON["title"].string!
             details.itemId = offerJSON["objectId"].string!
             details.itemImageId = offerJSON["photo"].string!
             details.loadData()
-            
-            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
-            
-//            self.navigationItem.backBarButtonItem = UIBarButtonItem(image: UIImage(named: "Arrow_Icon"), style: .Plain, target: nil, action: nil)//: "123", style: .Plain, target: nil, action: nil)
         }
     }
 
