@@ -15,9 +15,11 @@ class ItemDetailController: UITableViewController {
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var makeOfferButton: UIBarButtonItem!
     
     var itemJSON:JSON!
     var userJSON:JSON!
+    var disabledItemId:String?
     
     @IBAction func makeOffer(segue:UIStoryboardSegue) {
         let offer = segue.sourceViewController as! MakeOfferController
@@ -27,6 +29,14 @@ class ItemDetailController: UITableViewController {
         let distId = itemJSON["objectId"].string
         PFCloud.callFunctionInBackground("exchangeItem", withParameters: ["srcItemId":srcId!, "distItemId":distId!], block:{
             (items:AnyObject?, error: NSError?) -> Void in
+            
+            if (self.makeOfferButton.title == "Edit Offer") {
+                PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":offer.disabledItemId!, "distItemId":distId!], block:{
+                    (items:AnyObject?, error: NSError?) -> Void in
+                })
+            }
+            self.disabledItemId = srcId
+            self.makeOfferButton.title = "Edit Offer"
         })
     }
 
@@ -46,7 +56,6 @@ class ItemDetailController: UITableViewController {
         
         PFCloud.callFunctionInBackground("addQuestion", withParameters: ["text": view.questionTextView.text, "objectId": uuid], block:{
             (items:AnyObject?, error: NSError?) -> Void in
-            
             let itemId = self.itemJSON["objectId"].string
             PFCloud.callFunctionInBackground("askItemQuestionByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": itemId!, "questionId": uuid], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
@@ -55,6 +64,19 @@ class ItemDetailController: UITableViewController {
     }
     
     func loadData() {
+        // check if the offer has been made
+        let itemId = self.itemJSON["objectId"].string
+        PFCloud.callFunctionInBackground("getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            if (resultsJSON.count == 0) {
+                return
+            }
+            // each person can only exchange one item
+            self.makeOfferButton.title = "Edit Offer"
+            self.disabledItemId = resultsJSON[0]["item"]["objectId"].string
+        })
+
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
@@ -94,6 +116,7 @@ class ItemDetailController: UITableViewController {
             
         } else if (segue.identifier == "offer") {
             let view = segue.destinationViewController as! MakeOfferController
+            view.disabledItemId = self.disabledItemId
             view.loadData()
         } else if (segue.identifier == "askQuestion") {
             let view = segue.destinationViewController as! AddQuestionController

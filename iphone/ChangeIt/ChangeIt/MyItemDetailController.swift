@@ -29,13 +29,13 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func loadData() {
-        PFCloud.callFunctionInBackground("getQuestionedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId], block:{
+        PFCloud.callFunctionInBackground("getQuestionedItems", withParameters: ["itemId":itemId], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             self.questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.segmentedControl.setTitle(String(format:"Messages (%d)", self.questionsJSON.count), forSegmentAtIndex: 1)
         })
 
-        PFCloud.callFunctionInBackground("getOfferedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId], block:{
+        PFCloud.callFunctionInBackground("getExchangedItems", withParameters: ["itemId":itemId], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if (results == nil) {
                 self.offeredItemsJSON = JSON([])

@@ -163,7 +163,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="F266AB42-C459-4E17-9BDC-11F87A2056A8" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="239593D1-3663-480C-B609-ED5E4B33922A" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
                         <outlet property="facebookPhoto" destination="vKM-2g-k0h" id="MCU-nd-t0g"/>
@@ -459,6 +459,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="descriptionTextView" destination="o6S-3z-cSr" id="dNQ-3q-8Zv"/>
+                        <outlet property="makeOfferButton" destination="tyB-vC-SaW" id="KWB-RJ-war"/>
                         <outlet property="photoImage" destination="zCe-bh-cEG" id="vm0-IL-NbN"/>
                         <outlet property="userLabel" destination="TxR-I1-RpY" id="EuF-fw-ZXd"/>
                         <outlet property="userPhoto" destination="FKl-Kh-asz" id="V2h-88-999"/>
@@ -1519,9 +1520,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
-        <image name="F266AB42-C459-4E17-9BDC-11F87A2056A8" width="30" height="30">
+        <image name="239593D1-3663-480C-B609-ED5E4B33922A" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1578,6 +1577,8 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
         <image name="Profile_Offers_Sent" width="80" height="80"/>
@@ -1592,9 +1593,9 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="bottom_User_Inactive" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QJO-uD-btk"/>
         <segue reference="rBQ-LX-Rxi"/>
         <segue reference="wMb-XK-Jh9"/>
-        <segue reference="VZA-XN-qKl"/>
+        <segue reference="Tea-P4-aes"/>
+        <segue reference="pVR-q3-nZf"/>
     </inferredMetricsTieBreakers>
 </document>

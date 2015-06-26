@@ -112,7 +112,7 @@ Parse.Cloud.define("getQuestionsCountOfItem", function(request, response) {
 });
 
 
-Parse.Cloud.define("getQuestionedItemsByUser", function(request, response) {
+Parse.Cloud.define("getQuestionedItems", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
         headers: {
@@ -121,7 +121,6 @@ Parse.Cloud.define("getQuestionedItemsByUser", function(request, response) {
         body: {
             query: 'MATCH (u:User)-[a:ASK]->(q:Question)-[r:LINK]->(i:Item{objectId:{itemId}}) RETURN q, u, r ORDER BY q.timestamp DESC',
             params: {
-                userId: request.params.userId,
                 itemId: request.params.itemId
             }
  

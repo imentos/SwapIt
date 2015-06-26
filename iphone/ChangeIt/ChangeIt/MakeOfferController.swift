@@ -13,6 +13,8 @@ class MakeOfferController: UITableViewController {
     var itemsJSON:JSON = nil
     var selectedIndex:Int? = nil
     var selectedItem:JSON? = nil
+    var disabledIndex:Int = -1
+    var disabledItemId:String!
     
     @IBAction func addItem(segue:UIStoryboardSegue) {
         loadData()
@@ -26,6 +28,13 @@ class MakeOfferController: UITableViewController {
             (items:AnyObject?, error: NSError?) -> Void in
             self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.tableView.reloadData()
+            
+            for (var i = 0; i < self.itemsJSON.count; i++) {
+                if (self.itemsJSON[i]["objectId"].string == self.disabledItemId) {
+                    self.disabledIndex = i;
+                    break
+                }
+            }
         })
     }
     
@@ -50,9 +59,20 @@ class MakeOfferController: UITableViewController {
         }
         return itemsJSON.count
     }
+    
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        if (indexPath.row == self.disabledIndex) {
+            return nil
+        }
+        return indexPath
+    }
+    
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) as! UITableViewCell
+        if (indexPath.row == self.disabledIndex) {
+            cell.backgroundColor = UIColor.lightGrayColor()
+        }
 
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemsJSON[indexPath.row]["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in

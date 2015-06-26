@@ -24,7 +24,62 @@ Parse.Cloud.define("exchangeItem", function(request, response) {
     });
 });
 
-Parse.Cloud.define("getOfferedItemsByUser", function(request, response) {
+Parse.Cloud.define("unexchangeItem", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (s:Item{objectId:{srcItemId}})-[r]-(d:Item{objectId:{distItemId}}) DELETE r',
+            params: {
+                srcItemId: request.params.srcItemId,
+                distItemId: request.params.distItemId
+            }
+
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            response.success(httpResponse.text);
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+Parse.Cloud.define("getExchangedItemsByUser", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (u:User{objectId:{userId}})-[r:OFFER]->(i:Item)-[e:EXCHANGE]->(dst:Item{objectId:{itemId}}) RETURN i, dst, u, e',
+            params: {
+                itemId: request.params.itemId,
+                userId: request.params.userId
+            }
+ 
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            json_result.data.forEach(function(o) {
+                aResults.push({"item": o[0].data, "otherItem": o[1].data, "user": o[2].data, "exchange": o[3].data})
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+Parse.Cloud.define("getExchangedItems", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
         headers: {
@@ -33,7 +88,6 @@ Parse.Cloud.define("getOfferedItemsByUser", function(request, response) {
         body: {
             query: 'MATCH (u:User)-[r:OFFER]->(i:Item)-[e:EXCHANGE]->(dst:Item{objectId:{itemId}}) RETURN i, dst, u, e',
             params: {
-                userId: request.params.userId,
                 itemId: request.params.itemId
             }
  
