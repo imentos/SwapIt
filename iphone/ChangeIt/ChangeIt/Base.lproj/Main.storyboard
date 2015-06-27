@@ -30,6 +30,9 @@
                                 <state key="normal" title="Questions Asked" image="Profile_Messages">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="hvp-1B-QHJ" kind="presentation" identifier="questions" id="hb2-SJ-dCy"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kuo, Ray" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hds-7W-BrR">
                                 <rect key="frame" x="225" y="153" width="150" height="40"/>
@@ -163,7 +166,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="239593D1-3663-480C-B609-ED5E4B33922A" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="E80F7C0F-90E1-435F-8EDA-E63E646F91DE" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
                         <outlet property="facebookPhoto" destination="vKM-2g-k0h" id="MCU-nd-t0g"/>
@@ -176,7 +179,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="898" y="-200"/>
+            <point key="canvasLocation" x="910" y="-652"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5oN-sJ-g8m">
@@ -950,7 +953,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mwD-hU-3qS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4396" y="-1103"/>
+            <point key="canvasLocation" x="5208" y="-1103"/>
         </scene>
         <!--Offer Detail Controller-->
         <scene sceneID="TGi-pf-o3a">
@@ -1092,7 +1095,62 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TeK-SZ-m3P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5201" y="-1103"/>
+            <point key="canvasLocation" x="6013" y="-1103"/>
+        </scene>
+        <!--Questions Controller-->
+        <scene sceneID="s8D-62-1ZM">
+            <objects>
+                <tableViewController id="aX8-I5-kYE" customClass="QuestionsController" customModule="ChangeIt" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="110" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qhg-Wy-FW7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="question" rowHeight="110" id="I6m-vm-3ei">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I6m-vm-3ei" id="Mtd-Zm-XAh">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lyL-QJ-b26">
+                                            <rect key="frame" x="8" y="8" width="90" height="90"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YeH-jR-Ipu">
+                                            <rect key="frame" x="106" y="13" width="242" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GK4-59-MpS">
+                                            <rect key="frame" x="106" y="51" width="229" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="aX8-I5-kYE" id="Iv4-Wo-7U2"/>
+                            <outlet property="delegate" destination="aX8-I5-kYE" id="2aV-vG-XBH"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="WFm-6U-9e7">
+                        <barButtonItem key="leftBarButtonItem" image="Arrow_Icon" id="vJK-TO-Ifg">
+                            <color key="tintColor" red="0.85098039219999999" green="0.047058823530000002" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="b2P-A6-L34" kind="unwind" unwindAction="cancel:" id="U4Q-by-DEu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="Fbf-he-Hct" kind="presentation" identifier="itemDetail" id="G4Q-ee-fKa"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vz4-VH-ua4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="b2P-A6-L34" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3266" y="-1459"/>
         </scene>
         <!--Offers Sent-->
         <scene sceneID="O58-Vc-ksv">
@@ -1518,9 +1576,29 @@
             </objects>
             <point key="canvasLocation" x="1753" y="1529"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2dy-2w-Cbv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hvp-1B-QHJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="j2b-ai-taD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="aX8-I5-kYE" kind="relationship" relationship="rootViewController" id="Azr-Hn-fZF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d1F-Vu-wrh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2480" y="-1459"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="239593D1-3663-480C-B609-ED5E4B33922A" width="30" height="30">
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
+        <image name="E80F7C0F-90E1-435F-8EDA-E63E646F91DE" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1577,8 +1655,6 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
         <image name="Profile_Offers_Sent" width="80" height="80"/>
@@ -1593,9 +1669,10 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="bottom_User_Inactive" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rBQ-LX-Rxi"/>
         <segue reference="wMb-XK-Jh9"/>
+        <segue reference="G4Q-ee-fKa"/>
         <segue reference="Tea-P4-aes"/>
         <segue reference="pVR-q3-nZf"/>
+        <segue reference="rBQ-LX-Rxi"/>
     </inferredMetricsTieBreakers>
 </document>

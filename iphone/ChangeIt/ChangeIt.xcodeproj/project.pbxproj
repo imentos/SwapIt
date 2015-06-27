@@ -40,6 +40,7 @@
 		B37C10271AE9B81F0086864F /* WishListDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C10261AE9B81E0086864F /* WishListDetailController.swift */; };
 		B37C10291AE9BE280086864F /* WishListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C10281AE9BE280086864F /* WishListController.swift */; };
 		B38AF8E91B3A457500AB19F7 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B38AF8E81B3A457500AB19F7 /* KxMenu.m */; };
+		B38AF8EB1B3E325000AB19F7 /* QuestionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */; };
 		B38FC8C81B0A9BE9002D774F /* AddQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38FC8C71B0A9BE9002D774F /* AddQuestionController.swift */; };
 		B39EC9AF1AFC1A3300FFC89A /* OfferDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39EC9AE1AFC1A3300FFC89A /* OfferDetailController.swift */; };
 		B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39EC9B01B014B8000FFC89A /* ItemCell.swift */; };
@@ -110,6 +111,7 @@
 		B37C10281AE9BE280086864F /* WishListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishListController.swift; sourceTree = "<group>"; };
 		B38AF8E71B3A457500AB19F7 /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
 		B38AF8E81B3A457500AB19F7 /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
+		B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsController.swift; sourceTree = "<group>"; };
 		B38FC8C71B0A9BE9002D774F /* AddQuestionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddQuestionController.swift; sourceTree = "<group>"; };
 		B39EC9AE1AFC1A3300FFC89A /* OfferDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferDetailController.swift; sourceTree = "<group>"; };
 		B39EC9B01B014B8000FFC89A /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				B30E24961AF96C2200ED49EB /* ItemDetailController.swift */,
 				B38FC8C71B0A9BE9002D774F /* AddQuestionController.swift */,
 				B3C763441B0D23C30040E794 /* QuestionController.swift */,
+				B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */,
 				B30E24941AF96BFA00ED49EB /* MainController.swift */,
 				B37431A61AE861A600A0808B /* Images.xcassets */,
 				B37431A81AE861A600A0808B /* LaunchScreen.xib */,
@@ -352,6 +355,7 @@
 				B37C10271AE9B81F0086864F /* WishListDetailController.swift in Sources */,
 				B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */,
 				B348CD021AFBDCD500CFC04E /* OffersDetailController.swift in Sources */,
+				B38AF8EB1B3E325000AB19F7 /* QuestionsController.swift in Sources */,
 				B3499B951AFAE3FE00DDD536 /* OffersController.swift in Sources */,
 				B37C10291AE9BE280086864F /* WishListController.swift in Sources */,
 				B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */,
