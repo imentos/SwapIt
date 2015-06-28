@@ -81,6 +81,8 @@ class QuestionsController: UITableViewController {
             let detail = navi.childViewControllers[0] as! ItemDetailController
             detail.userJSON = userJSON[0]
             detail.itemJSON = itemJSON
+            detail.questionButton.hidden = true
+            detail.navigationItem.rightBarButtonItem = nil
             detail.loadData()
         })
     }

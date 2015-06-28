@@ -16,7 +16,7 @@ class ItemDetailController: UITableViewController {
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var makeOfferButton: UIBarButtonItem!
-    
+    @IBOutlet weak var questionButton: UIButton!
     var itemJSON:JSON!
     var userJSON:JSON!
     var disabledItemId:String?
@@ -73,8 +73,10 @@ class ItemDetailController: UITableViewController {
                 return
             }
             // each person can only exchange one item
-            self.makeOfferButton.title = "Edit Offer"
-            self.disabledItemId = resultsJSON[0]["item"]["objectId"].string
+            if (self.makeOfferButton != nil) {
+                self.makeOfferButton.title = "Edit Offer"
+                self.disabledItemId = resultsJSON[0]["item"]["objectId"].string
+            }
         })
 
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {

@@ -166,7 +166,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="E80F7C0F-90E1-435F-8EDA-E63E646F91DE" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="32E53F61-47FA-4E68-AAD4-59B2F3A6973F" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
                         <outlet property="facebookPhoto" destination="vKM-2g-k0h" id="MCU-nd-t0g"/>
@@ -464,6 +464,7 @@
                         <outlet property="descriptionTextView" destination="o6S-3z-cSr" id="dNQ-3q-8Zv"/>
                         <outlet property="makeOfferButton" destination="tyB-vC-SaW" id="KWB-RJ-war"/>
                         <outlet property="photoImage" destination="zCe-bh-cEG" id="vm0-IL-NbN"/>
+                        <outlet property="questionButton" destination="hvk-Tu-QxP" id="Gxn-ze-y3L"/>
                         <outlet property="userLabel" destination="TxR-I1-RpY" id="EuF-fw-ZXd"/>
                         <outlet property="userPhoto" destination="FKl-Kh-asz" id="V2h-88-999"/>
                     </connections>
@@ -1596,9 +1597,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
-        <image name="E80F7C0F-90E1-435F-8EDA-E63E646F91DE" width="30" height="30">
+        <image name="32E53F61-47FA-4E68-AAD4-59B2F3A6973F" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1655,6 +1654,8 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
         <image name="Profile_Offers_Sent" width="80" height="80"/>
