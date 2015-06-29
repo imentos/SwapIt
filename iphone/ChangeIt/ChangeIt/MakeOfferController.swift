@@ -15,6 +15,7 @@ class MakeOfferController: UITableViewController {
     var selectedItem:JSON? = nil
     var disabledIndex:Int = -1
     var disabledItemId:String!
+    var doneButton:UIBarButtonItem?
     
     @IBAction func addItem(segue:UIStoryboardSegue) {
         loadData()
@@ -40,6 +41,9 @@ class MakeOfferController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        doneButton = self.navigationItem.rightBarButtonItem!
+        self.navigationItem.rightBarButtonItem = nil
     }
 
     override func didReceiveMemoryWarning() {
@@ -90,17 +94,21 @@ class MakeOfferController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        //Other row is selected - need to deselect it
+        // deselect old one
         if let index = selectedIndex {
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0))
             cell?.accessoryType = .None
+            self.navigationItem.rightBarButtonItem = nil
         }
         
-        selectedIndex = indexPath.row
-        selectedItem = itemsJSON[selectedIndex!]
-        
-        //update the checkmark for the current row
         let cell = tableView.cellForRowAtIndexPath(indexPath)
-        cell?.accessoryType = .Checkmark
+        if (selectedIndex != indexPath.row) {
+            selectedIndex = indexPath.row
+            selectedItem = itemsJSON[selectedIndex!]
+            cell?.accessoryType = .Checkmark
+            self.navigationItem.rightBarButtonItem = doneButton
+        } else {
+            selectedIndex = nil
+        }        
     }
 }
