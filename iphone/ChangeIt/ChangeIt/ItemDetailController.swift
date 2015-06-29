@@ -49,6 +49,9 @@ class ItemDetailController: UITableViewController {
     @IBAction func cancel(segue:UIStoryboardSegue) {
         println("cancel")
     }
+    @IBAction func askQuestion(sender: AnyObject) {
+        performSegueWithIdentifier("askQuestion", sender: self)
+    }
     
     @IBAction func sendQuestion(segue:UIStoryboardSegue) {
         let view = segue.sourceViewController as! AddQuestionController
@@ -121,7 +124,8 @@ class ItemDetailController: UITableViewController {
             view.disabledItemId = self.disabledItemId
             view.loadData()
         } else if (segue.identifier == "askQuestion") {
-            let view = segue.destinationViewController as! AddQuestionController
+            let navi = segue.destinationViewController as! UINavigationController
+            let view = navi.childViewControllers[0] as! AddQuestionController
             view.userJSON = self.userJSON
             view.itemImage = self.photoImage.image!
         }
