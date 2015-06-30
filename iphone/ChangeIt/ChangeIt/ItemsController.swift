@@ -56,7 +56,28 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     func loadNearMe(sender: AnyObject) {
         searchModel = 2
         scopeButton.setTitle("Near Me", forState:.Normal)
-        self.loadData("getBestItemsExceptMe")
+        
+        PFGeoPoint.geoPointForCurrentLocationInBackground {
+            (geoPoint, error) -> Void in
+            let query = PFUser.query()?.whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: 10.0)
+            query!.findObjectsInBackgroundWithBlock({
+                (results, error) -> Void in
+                if let users = results as? [PFUser] {
+                    var c = results?.count
+                    var total:[JSON] = []
+                    for user in users {
+                        let userId = user.objectId
+                        PFCloud.callFunctionInBackground("getItemsOfUser", withParameters: ["userId": userId!], block:{
+                            (items:AnyObject?, error: NSError?) -> Void in
+                            var userItemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                            total = total + userItemsJSON.arrayValue
+                            self.itemsJSON = JSON(total)
+                            self.tableView.reloadData()
+                        })
+                    }
+                }
+            })
+        }
     }
     
     @IBAction func pressed(sender: AnyObject) {
