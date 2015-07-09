@@ -80,13 +80,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let items = navi.viewControllers[0] as! ItemsController
                     items.loadData()
                 }
-                
-                PFGeoPoint.geoPointForCurrentLocationInBackground {
-                    (geoPoint, error) -> Void in
-                    PFUser.currentUser()?.setObject(geoPoint!, forKey: "currentLocation")
-                    PFUser.currentUser()?.saveInBackgroundWithBlock({ (result, error) -> Void in
-                    })
-                }
             } else {
                 println("Uh oh. The user cancelled the Facebook login.")
             }
