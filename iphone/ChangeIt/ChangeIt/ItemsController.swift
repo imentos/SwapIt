@@ -42,20 +42,22 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     
     func loadAll(sender: AnyObject) {
         searchModel = 0
-        //scopeButton.setT
         scopeButton.setTitle("All Items", forState:.Normal)
+        self.itemsJSON = JSON("{}")
         self.loadData("getAllItemsExceptMe")
     }
     
     func loadBest(sender: AnyObject) {
         searchModel = 1
         scopeButton.setTitle("Best Match", forState:.Normal)
+        self.itemsJSON = JSON("{}")
         self.loadData("getBestItemsExceptMe")
     }
     
     func loadNearMe(sender: AnyObject) {
         searchModel = 2
         scopeButton.setTitle("Near Me", forState:.Normal)
+        self.itemsJSON = JSON("{}")
         
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint, error) -> Void in
@@ -77,8 +79,8 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
                         var itemResult = PFCloud.callFunction("getItem", withParameters: ["itemId": itemId])
                         var itemJSON = JSON(data:(itemResult as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                         total = total + itemJSON.arrayValue
-                        self.itemsJSON = JSON(total)
                     }
+                    self.itemsJSON = JSON(total)
                     self.tableView.reloadData()
                 }
             })
