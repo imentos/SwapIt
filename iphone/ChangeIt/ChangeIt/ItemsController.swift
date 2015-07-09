@@ -59,22 +59,27 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint, error) -> Void in
-            let query = PFUser.query()?.whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: 10.0)
-            query!.findObjectsInBackgroundWithBlock({
+            let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: 10.0)
+            query.findObjectsInBackgroundWithBlock({
                 (results, error) -> Void in
-                if let users = results as? [PFUser] {
-                    var c = results?.count
+                if let items = results as? [PFObject] {
                     var total:[JSON] = []
-                    for user in users {
-                        let userId = user.objectId
-                        PFCloud.callFunctionInBackground("getItemsOfUser", withParameters: ["userId": userId!], block:{
-                            (items:AnyObject?, error: NSError?) -> Void in
-                            var userItemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                            total = total + userItemsJSON.arrayValue
-                            self.itemsJSON = JSON(total)
-                            self.tableView.reloadData()
-                        })
+                    for item in items {
+                        let itemId = item["neo4jId"] as! String
+                        // TODO: how to wait for async callback then reload table
+//                        PFCloud.callFunctionInBackground("getItem", withParameters: ["itemId": itemId], block:{
+//                            (items:AnyObject?, error: NSError?) -> Void in
+//                            var itemJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+//                            total = total + itemJSON.arrayValue
+//                            self.itemsJSON = JSON(total)
+//                            self.tableView.reloadData()
+//                        })
+                        var itemResult = PFCloud.callFunction("getItem", withParameters: ["itemId": itemId])
+                        var itemJSON = JSON(data:(itemResult as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                        total = total + itemJSON.arrayValue
+                        self.itemsJSON = JSON(total)
                     }
+                    self.tableView.reloadData()
                 }
             })
         }
