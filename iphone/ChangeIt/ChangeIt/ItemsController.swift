@@ -10,6 +10,8 @@ import UIKit
 import Parse
 
 class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
+    @IBOutlet var filterButton: UIButton!
+    var bookmarkMode:Bool = false
     var itemsJSON:JSON = nil
     var filteredItems:JSON = JSON("{}")
     var searchModel:Int = 1
@@ -24,6 +26,8 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
 
         self.searchDisplayController!.searchResultsTableView.rowHeight = tableView.rowHeight;
         //self.searchDisplayController!.searchBar.selectedScopeButtonIndex = 1
+        
+        self.filterButton.hidden = bookmarkMode
     }
     
     func loadData() {

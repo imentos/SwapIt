@@ -55,6 +55,7 @@ class UserController: UIViewController {
             let navi = segue.destinationViewController as! UINavigationController
             navi.navigationBarHidden = false
             let view = navi.viewControllers[0] as! ItemsController
+            view.bookmarkMode = true
             view.loadData("getBookmarkedItems")
             
         } else if (segue.identifier == "questions") {
