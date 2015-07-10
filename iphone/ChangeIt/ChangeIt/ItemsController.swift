@@ -55,7 +55,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         searchModel = 1
         scopeButton.setTitle("Best Match", forState:.Normal)
         self.itemsJSON = JSON("{}")
-        self.loadData("getBestItemsExceptMe")
+        self.loadData()
     }
     
     func loadNearMe(sender: AnyObject) {
@@ -65,7 +65,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint, error) -> Void in
-            let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: 10.0)
+            let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: 30.0)
             query.findObjectsInBackgroundWithBlock({
                 (results, error) -> Void in
                 if let items = results as? [PFObject] {
@@ -80,7 +80,10 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
 //                            self.itemsJSON = JSON(total)
 //                            self.tableView.reloadData()
 //                        })
-                        var itemResult = PFCloud.callFunction("getItem", withParameters: ["itemId": itemId])
+                        var itemResult = PFCloud.callFunction("getItemExceptMe", withParameters: ["itemId": itemId, "userId": (PFUser.currentUser()?.objectId)!])
+                        if (itemResult == nil) {
+                            continue
+                        }
                         var itemJSON = JSON(data:(itemResult as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                         total = total + itemJSON.arrayValue
                     }
