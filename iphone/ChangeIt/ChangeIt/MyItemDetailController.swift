@@ -148,7 +148,8 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         } else if (segue.identifier == "question") {
             let questionJSON = self.questionsJSON[index]
             
-            let question = segue.destinationViewController as! QuestionController
+            let navi = segue.destinationViewController as! UINavigationController
+            let question = navi.viewControllers[0] as! QuestionController
             question.questionJSON = questionJSON
             //readIcon.hidden = true
         }

@@ -18,6 +18,14 @@ class QuestionController: UITableViewController {
     
     var questionJSON:JSON = nil
     
+    @IBAction func reply(sender: AnyObject) {
+        let uuid = NSUUID().UUIDString
+        let qId = questionJSON["question"]["objectId"].string
+        PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": "bg", "objectId": uuid, "questionId": qId!], block:{
+            (items:AnyObject?, error: NSError?) -> Void in
+        })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

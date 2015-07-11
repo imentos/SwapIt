@@ -65,7 +65,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint, error) -> Void in
-            let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: 30.0)
+            let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: 100.0)
             query.findObjectsInBackgroundWithBlock({
                 (results, error) -> Void in
                 if let items = results as? [PFObject] {
