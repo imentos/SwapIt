@@ -15,6 +15,7 @@
 		B348CD001AFA929100CFC04E /* MakeOfferController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */; };
 		B348CD021AFBDCD500CFC04E /* OffersDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */; };
 		B3499B951AFAE3FE00DDD536 /* OffersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3499B941AFAE3FE00DDD536 /* OffersController.swift */; };
+		B35412E21B53515C007785B3 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35412E11B53515C007785B3 /* MessagesController.swift */; };
 		B35C66411AE951FC0029055F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35C66361AE951FC0029055F /* AudioToolbox.framework */; };
 		B35C66421AE951FC0029055F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35C66371AE951FC0029055F /* CFNetwork.framework */; };
 		B35C66431AE951FC0029055F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35C66381AE951FC0029055F /* CoreGraphics.framework */; };
@@ -81,6 +82,7 @@
 		B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOfferController.swift; sourceTree = "<group>"; };
 		B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersDetailController.swift; sourceTree = "<group>"; };
 		B3499B941AFAE3FE00DDD536 /* OffersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersController.swift; sourceTree = "<group>"; };
+		B35412E11B53515C007785B3 /* MessagesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		B35C66361AE951FC0029055F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B35C66371AE951FC0029055F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B35C66381AE951FC0029055F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -196,6 +198,7 @@
 				B39EC9B01B014B8000FFC89A /* ItemCell.swift */,
 				B30E24961AF96C2200ED49EB /* ItemDetailController.swift */,
 				B38FC8C71B0A9BE9002D774F /* AddQuestionController.swift */,
+				B35412E11B53515C007785B3 /* MessagesController.swift */,
 				B3C763441B0D23C30040E794 /* QuestionController.swift */,
 				B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */,
 				B30E24941AF96BFA00ED49EB /* MainController.swift */,
@@ -347,6 +350,7 @@
 				B33C8F8E1B06869400160D7E /* AddWishListCell.swift in Sources */,
 				B348CD001AFA929100CFC04E /* MakeOfferController.swift in Sources */,
 				B39EC9AF1AFC1A3300FFC89A /* OfferDetailController.swift in Sources */,
+				B35412E21B53515C007785B3 /* MessagesController.swift in Sources */,
 				B38FC8C81B0A9BE9002D774F /* AddQuestionController.swift in Sources */,
 				B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */,
 				B3C763451B0D23C30040E794 /* QuestionController.swift in Sources */,

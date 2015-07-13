@@ -149,8 +149,8 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             let questionJSON = self.questionsJSON[index]
             
             let navi = segue.destinationViewController as! UINavigationController
-            let question = navi.viewControllers[0] as! QuestionController
-            question.questionJSON = questionJSON
+            let question = navi.viewControllers[0] as! MessagesController
+            //question.questionJSON = questionJSON
             //readIcon.hidden = true
         }
         
