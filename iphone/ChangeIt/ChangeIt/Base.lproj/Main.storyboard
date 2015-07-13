@@ -166,7 +166,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="EE968759-7559-4EB5-92B3-0D4C7D6553A7" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="868F2C1C-ED6C-4460-A4D5-5F27DEE385D1" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
                         <outlet property="facebookPhoto" destination="vKM-2g-k0h" id="MCU-nd-t0g"/>
@@ -472,7 +472,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Fe-pB-LxJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="aRO-eV-9kW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2542" y="679"/>
+            <point key="canvasLocation" x="2518" y="679"/>
         </scene>
         <!--Send my offer-->
         <scene sceneID="wKm-Rp-hak">
@@ -539,7 +539,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jE3-lo-x24" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="XvS-WA-v0f" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3421.875" y="673.94366197183092"/>
+            <point key="canvasLocation" x="3266" y="679"/>
         </scene>
         <!--Messages Controller-->
         <scene sceneID="bBG-zY-YdM">
@@ -553,14 +553,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KhU-En-okd">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="89" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KhU-En-okd">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="550"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="message" id="zuM-HT-OU1">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="message" rowHeight="89" id="zuM-HT-OU1">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zuM-HT-OU1" id="XDE-82-kzO">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVm-np-Z3A">
+                                                    <rect key="frame" x="8" y="34" width="117" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9U-U5-L2h">
+                                                    <rect key="frame" x="489" y="34" width="103" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="g9U-U5-L2h" firstAttribute="top" secondItem="XDE-82-kzO" secondAttribute="topMargin" constant="26" id="IBi-qB-gG3"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="g9U-U5-L2h" secondAttribute="bottom" constant="25.5" id="JQG-Tp-qrQ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="AVm-np-Z3A" secondAttribute="bottom" constant="25.5" id="UQh-v8-Lcn"/>
+                                                <constraint firstItem="AVm-np-Z3A" firstAttribute="top" secondItem="XDE-82-kzO" secondAttribute="topMargin" constant="26" id="avo-rN-2wj"/>
+                                                <constraint firstItem="AVm-np-Z3A" firstAttribute="leading" secondItem="XDE-82-kzO" secondAttribute="leadingMargin" id="b3D-B7-IQp"/>
+                                                <constraint firstItem="g9U-U5-L2h" firstAttribute="trailing" secondItem="XDE-82-kzO" secondAttribute="trailingMargin" id="nB8-Rx-pex"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -622,7 +644,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KVf-Wu-9c1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4325" y="1482"/>
+            <point key="canvasLocation" x="4325" y="1582"/>
         </scene>
         <!--Question Controller-->
         <scene sceneID="PYy-EK-JqM">
@@ -1223,6 +1245,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="xID-m4-hip" kind="show" identifier="messages" id="NcJ-gm-8wA"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1238,9 +1263,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="Fbf-he-Hct" kind="presentation" identifier="itemDetail" id="G4Q-ee-fKa"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vz4-VH-ua4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="b2P-A6-L34" userLabel="Exit" sceneMemberID="exit"/>
@@ -1631,7 +1653,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d1h-6L-Mt3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3421.875" y="-54.929577464788728"/>
+            <point key="canvasLocation" x="3266" y="-55"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="u7t-VZ-WAm">
@@ -1729,13 +1751,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wDv-hv-vNz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3515" y="1926"/>
+            <point key="canvasLocation" x="3545" y="1582"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
-        <image name="EE968759-7559-4EB5-92B3-0D4C7D6553A7" width="30" height="30">
+        <image name="868F2C1C-ED6C-4460-A4D5-5F27DEE385D1" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -1793,6 +1813,8 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
         <image name="Profile_Offers_Sent" width="80" height="80"/>
@@ -1807,10 +1829,10 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="bottom_User_Inactive" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wMb-XK-Jh9"/>
-        <segue reference="5C3-A2-w3t"/>
-        <segue reference="Tea-P4-aes"/>
         <segue reference="pVR-q3-nZf"/>
+        <segue reference="wMb-XK-Jh9"/>
         <segue reference="rBQ-LX-Rxi"/>
+        <segue reference="NcJ-gm-8wA"/>
+        <segue reference="Tea-P4-aes"/>
     </inferredMetricsTieBreakers>
 </document>

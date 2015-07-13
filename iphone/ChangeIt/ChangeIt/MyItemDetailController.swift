@@ -150,8 +150,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             
             let navi = segue.destinationViewController as! UINavigationController
             let question = navi.viewControllers[0] as! MessagesController
-            //question.questionJSON = questionJSON
-            //readIcon.hidden = true
+            question.questionJSON = questionJSON["question"]
+            question.loadData()
+            
+            readIcon.hidden = true
         }
         
         cell?.backgroundColor = UIColor.clearColor()

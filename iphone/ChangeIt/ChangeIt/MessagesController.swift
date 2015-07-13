@@ -39,8 +39,13 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func sendMessage(sender: UIButton) {
-        self.messageTextField.text = ""
-        self.messageTextField.endEditing(true)
+        let uuid = NSUUID().UUIDString
+        PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": self.messageTextField.text, "objectId": uuid, "questionId": (questionJSON["objectId"].string)!, "userId": (PFUser.currentUser()?.objectId)!], block:{
+            (items:AnyObject?, error: NSError?) -> Void in
+            self.messageTextField.text = ""
+            self.messageTextField.endEditing(true)
+            self.loadData()
+        })
     }
     
     @IBAction func endEditing(sender: AnyObject) {
@@ -50,13 +55,16 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func startEditing(sender: AnyObject) {
         self.view.layoutIfNeeded()
-        self.dockHeightConstraint.constant = 300
+        self.dockHeightConstraint.constant = 310
     }
     
     func loadData() {
-        PFCloud.callFunctionInBackground("getAskedQuestions", withParameters: ["userId":(PFUser.currentUser()?.objectId)!], block: {
+        PFCloud.callFunctionInBackground("getRepliesOfQuestion", withParameters: ["questionId":(questionJSON["objectId"].string)!], block: {
             (replies:AnyObject?, error: NSError?) -> Void in
             self.repliesJSON = JSON(data:(replies as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            if (self.repliesJSON.count == 0) {
+                return
+            }
             self.messageTableView.reloadData()
         })
         
@@ -64,24 +72,27 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.messageTableView.dequeueReusableCellWithIdentifier("message") as! UITableViewCell
-        cell.textLabel?.text = "test"
-        
-//        let offerJSON = offersJSON[indexPath.row]
-//        
-//        PFQuery(className:"Image").getObjectInBackgroundWithId(offerJSON["src"]["photo"].string!, block: {
-//            (imageObj:PFObject?, error: NSError?) -> Void in
-//            let imageData = (imageObj!["file"] as! PFFile).getData()
-//            (cell.viewWithTag(101) as! UIImageView).image = UIImage(data: imageData!)
-//        })
-//        
-//        let label = cell.viewWithTag(102) as! UILabel
-//        label.text = offerJSON["src"]["title"].string
+        let left = cell.viewWithTag(100) as! UILabel
+        let right = cell.viewWithTag(101) as! UILabel
+        if (indexPath.row == 0) {
+            left.text = self.questionJSON["text"].string
+            right.text = ""
+        } else {
+            let isOwner:Bool = self.repliesJSON[indexPath.row - 1]["owner"].string == PFUser.currentUser()?.objectId
+            if (isOwner) {
+                left.text = ""
+                right.text = self.repliesJSON[indexPath.row - 1]["text"].string
+            } else {
+                left.text = self.repliesJSON[indexPath.row - 1]["text"].string
+                right.text = ""                
+            }
+        }
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.repliesJSON.count + 1
     }
     
 

@@ -32,10 +32,6 @@ class QuestionsController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("itemDetail", sender: tableView)
-    }
-    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -68,23 +64,17 @@ class QuestionsController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier != "itemDetail") {
+        if (segue.identifier != "messages") {
             return
         }
-        let itemJSON = questionsJSON[(tableView.indexPathForSelectedRow()?.row)!]["item"]
         
-        // get user info based on item
-        PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(itemJSON["objectId"].string)!], block:{
-            (user:AnyObject?, error: NSError?) -> Void in
-            let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            let navi = segue.destinationViewController as! UINavigationController
-            let detail = navi.childViewControllers[0] as! ItemDetailController
-            detail.userJSON = userJSON[0]
-            detail.itemJSON = itemJSON
-            detail.toolbarItems?.removeAll(keepCapacity: false)
-            detail.navigationItem.rightBarButtonItem = nil
-            detail.loadData()
-        })
+        let questionJSON = questionsJSON[(tableView.indexPathForSelectedRow()?.row)!]["question"]
+        
+        let navi = segue.destinationViewController as! UINavigationController
+        let question = navi.viewControllers[0] as! MessagesController
+        question.title = questionsJSON[(tableView.indexPathForSelectedRow()?.row)!]["item"]["title"].string
+        question.questionJSON = questionJSON
+        question.loadData()
     }
 
 }
