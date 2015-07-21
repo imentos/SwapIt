@@ -17,9 +17,29 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var messageTableView: UITableView!
     var questionJSON:JSON = nil
     var repliesJSON:JSON = nil
+    var userJSON:JSON = nil
+    var itemJSON:JSON = nil
+    
+    @IBOutlet var userPhoto: UIImageView!
+    @IBOutlet var userNameLabel: UILabel!
+    @IBOutlet var itemPhoto: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.userPhoto.layer.borderWidth = 1
+        self.userPhoto.layer.masksToBounds = true
+        self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
+        self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
+        self.userPhoto.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=80&height=80", self.userJSON["facebookId"].string!))!)!)
+
+        self.userNameLabel.text = self.userJSON["name"].string
+        
+//        PFQuery(className:"Image").getObjectInBackgroundWithId(self.itemJSON["photo"].string!, block: {
+//            (imageObj:PFObject?, error: NSError?) -> Void in
+//            let imageData = (imageObj!["file"] as! PFFile).getData()
+//            self.itemPhoto.image = UIImage(data: imageData!)
+//        })
 
         // Do any additional setup after loading the view.
         self.messageTableView.delegate = self
@@ -59,6 +79,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func loadData() {
+        
         PFCloud.callFunctionInBackground("getRepliesOfQuestion", withParameters: ["questionId":(questionJSON["objectId"].string)!], block: {
             (replies:AnyObject?, error: NSError?) -> Void in
             self.repliesJSON = JSON(data:(replies as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -67,7 +88,6 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             }
             self.messageTableView.reloadData()
         })
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

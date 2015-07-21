@@ -68,12 +68,13 @@ class QuestionsController: UITableViewController {
             return
         }
         
-        let questionJSON = questionsJSON[(tableView.indexPathForSelectedRow()?.row)!]["question"]
-        
+        let index = tableView.indexPathForSelectedRow()?.row
         let navi = segue.destinationViewController as! UINavigationController
         let question = navi.viewControllers[0] as! MessagesController
-        question.title = questionsJSON[(tableView.indexPathForSelectedRow()?.row)!]["item"]["title"].string
-        question.questionJSON = questionJSON
+        question.title = questionsJSON[index!]["item"]["title"].string
+        question.questionJSON = questionsJSON[index!]["question"]
+        question.userJSON = questionsJSON[index!]["user"]
+        question.itemJSON = questionsJSON[index!]["item"]
         question.loadData()
     }
 

@@ -151,6 +151,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             let navi = segue.destinationViewController as! UINavigationController
             let question = navi.viewControllers[0] as! MessagesController
             question.questionJSON = questionJSON["question"]
+            question.userJSON = questionJSON["user"]
             question.loadData()
             
             readIcon.hidden = true

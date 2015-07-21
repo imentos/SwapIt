@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B30A026F1B5EC4BE00E63437 /* MessageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30A026E1B5EC4BD00E63437 /* MessageLabel.swift */; };
 		B30E24911AF83B6C00ED49EB /* ItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E24901AF83B6C00ED49EB /* ItemsController.swift */; };
 		B30E24951AF96BFA00ED49EB /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E24941AF96BFA00ED49EB /* MainController.swift */; };
 		B30E24971AF96C2200ED49EB /* ItemDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E24961AF96C2200ED49EB /* ItemDetailController.swift */; };
@@ -74,6 +75,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B30A026E1B5EC4BD00E63437 /* MessageLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLabel.swift; sourceTree = "<group>"; };
 		B30E24901AF83B6C00ED49EB /* ItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsController.swift; sourceTree = "<group>"; };
 		B30E24941AF96BFA00ED49EB /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		B30E24961AF96C2200ED49EB /* ItemDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailController.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				B30E24961AF96C2200ED49EB /* ItemDetailController.swift */,
 				B38FC8C71B0A9BE9002D774F /* AddQuestionController.swift */,
 				B35412E11B53515C007785B3 /* MessagesController.swift */,
+				B30A026E1B5EC4BD00E63437 /* MessageLabel.swift */,
 				B3C763441B0D23C30040E794 /* QuestionController.swift */,
 				B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */,
 				B30E24941AF96BFA00ED49EB /* MainController.swift */,
@@ -363,6 +366,7 @@
 				B3499B951AFAE3FE00DDD536 /* OffersController.swift in Sources */,
 				B37C10291AE9BE280086864F /* WishListController.swift in Sources */,
 				B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */,
+				B30A026F1B5EC4BE00E63437 /* MessageLabel.swift in Sources */,
 				B30E24951AF96BFA00ED49EB /* MainController.swift in Sources */,
 				B374319E1AE861A600A0808B /* AppDelegate.swift in Sources */,
 				B30E24911AF83B6C00ED49EB /* ItemsController.swift in Sources */,
