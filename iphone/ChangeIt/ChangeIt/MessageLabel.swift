@@ -11,14 +11,13 @@ import UIKit
 class MessageLabel: UILabel {
     var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
     
-    override func drawRect(rect: CGRect) {
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         self.layer.cornerRadius = 8.0;
-        
-        super.drawRect(rect)
+        self.numberOfLines = 0
     }
-    
+        
     override func textRectForBounds(bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
-        print(self.text)
         if (count(self.text!) == 0) {
             return bounds
         }

@@ -2840,7 +2840,7 @@
                   moduleName = "ChangeIt"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/i818292/iOS%20projects/SwapIt/iphone/ChangeIt/ChangeIt/QuestionController.swift"
-                  timestampString = "459207840.379344"
+                  timestampString = "459279577.578474"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "24"
@@ -2855,7 +2855,7 @@
                   moduleName = "ChangeIt"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/i818292/iOS%20projects/SwapIt/iphone/ChangeIt/ChangeIt/QuestionController.swift"
-                  timestampString = "459207840.379623"
+                  timestampString = "459279577.578669"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "26"
@@ -2872,11 +2872,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/MessagesController.swift"
-            timestampString = "459207708.980387"
+            timestampString = "459278424.110929"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "loadData()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2888,11 +2888,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/MessagesController.swift"
-            timestampString = "459207708.980387"
+            timestampString = "459278424.110929"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "sendMessage(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2904,11 +2904,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/MessagesController.swift"
-            timestampString = "459207708.980387"
+            timestampString = "459278424.110929"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "sendMessage(_:)"
             landmarkType = "5">
             <Locations>
@@ -2952,11 +2952,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/MessagesController.swift"
-            timestampString = "459207708.980387"
+            timestampString = "459279071.235623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "MessagesController"
             landmarkType = "3">
          </BreakpointContent>
@@ -2968,11 +2968,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/MessagesController.swift"
-            timestampString = "459207708.980387"
+            timestampString = "459279071.235623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2984,11 +2984,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/MessagesController.swift"
-            timestampString = "459207708.980387"
+            timestampString = "459278424.110929"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "loadData()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3000,11 +3000,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/MessagesController.swift"
-            timestampString = "459207708.980387"
+            timestampString = "459279071.235623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3032,11 +3032,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/MessageLabel.swift"
-            timestampString = "459197277.525023"
+            timestampString = "459277935.772204"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
             landmarkName = "textRectForBounds(_:limitedToNumberOfLines:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3048,11 +3048,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/MessageLabel.swift"
-            timestampString = "459197304.50207"
+            timestampString = "459277935.772204"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
             landmarkName = "textRectForBounds(_:limitedToNumberOfLines:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3181,6 +3181,22 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "114"
             endingLineNumber = "114"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChangeIt/MessagesController.swift"
+            timestampString = "459278518.150646"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>

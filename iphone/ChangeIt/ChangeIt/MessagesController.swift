@@ -35,12 +35,6 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
 
         self.userNameLabel.text = self.userJSON["name"].string
         
-//        PFQuery(className:"Image").getObjectInBackgroundWithId(self.itemJSON["photo"].string!, block: {
-//            (imageObj:PFObject?, error: NSError?) -> Void in
-//            let imageData = (imageObj!["file"] as! PFFile).getData()
-//            self.itemPhoto.image = UIImage(data: imageData!)
-//        })
-
         // Do any additional setup after loading the view.
         self.messageTableView.delegate = self
         self.messageTableView.dataSource = self
@@ -92,19 +86,48 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.messageTableView.dequeueReusableCellWithIdentifier("message") as! UITableViewCell
-        let left = cell.viewWithTag(100) as! UILabel
-        let right = cell.viewWithTag(101) as! UILabel
+        let leftLabel = cell.viewWithTag(100) as! UILabel
+        let rightLabel = cell.viewWithTag(101) as! UILabel
+        let leftTimeLabel = cell.viewWithTag(200) as! UILabel
+        let rightTimeLabel = cell.viewWithTag(201) as! UILabel
+        
         if (indexPath.row == 0) {
-            left.text = self.questionJSON["text"].string
-            right.text = ""
+            leftLabel.text = self.questionJSON["text"].string
+            leftTimeLabel.text = self.questionJSON["timestamp"].string
+                
+            rightLabel.text = ""
+            rightTimeLabel.text = ""
         } else {
             let isOwner:Bool = self.repliesJSON[indexPath.row - 1]["owner"].string == PFUser.currentUser()?.objectId
+            let text = self.repliesJSON[indexPath.row - 1]["text"].string
+ 
+            let timestampAsDouble = NSTimeInterval(self.repliesJSON[indexPath.row - 1]["timestamp"].double!) / 1000.0
+            var date = NSDate(timeIntervalSince1970:timestampAsDouble)
+            var dateFormatter = NSDateFormatter()
+            dateFormatter.dateStyle = .ShortStyle
+            dateFormatter.timeStyle = .ShortStyle
+            let time = dateFormatter.stringFromDate(date)
+
+//            let timestampAsDouble = NSTimeInterval(questionJSON["question"]["timestamp"].double!) / 1000.0
+//            var date = NSDate(timeIntervalSince1970:timestampAsDouble)
+//            var dateFormatter = NSDateFormatter()
+//            //dateFormatter.dateFormat = "yyyy.MM.dd"//"EEE, MMM d, 'yy"
+//            dateFormatter.dateStyle = .FullStyle
+//            self.timestamp.text = dateFormatter.stringFromDate(date)
+//            let time = self.repliesJSON[indexPath.row - 1]["timestamp"].string
+            
             if (isOwner) {
-                left.text = ""
-                right.text = self.repliesJSON[indexPath.row - 1]["text"].string
+                leftLabel.text = ""
+                leftTimeLabel.text = ""
+                
+                rightLabel.text = text
+                rightTimeLabel.text = time
             } else {
-                left.text = self.repliesJSON[indexPath.row - 1]["text"].string
-                right.text = ""                
+                leftLabel.text = text
+                leftTimeLabel.text = time
+                
+                rightLabel.text = ""
+                rightTimeLabel.text = ""
             }
         }
         
