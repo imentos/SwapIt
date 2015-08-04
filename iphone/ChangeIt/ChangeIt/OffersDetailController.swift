@@ -14,6 +14,10 @@ class OffersDetailController: UITableViewController {
 
     @IBOutlet var itemImageView: UIImageView!
     
+    @IBAction func cancel(segue:UIStoryboardSegue) {
+        println("cancel")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,7 +67,8 @@ class OffersDetailController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let itemJSON = offerJSON["dst"]
         
-        let detail = segue.destinationViewController as! OfferDetailController
+        let navi = segue.destinationViewController as! UINavigationController
+        let detail = navi.topViewController as! OfferDetailController
         detail.itemJSON = itemJSON
         detail.otherItemJSON = offerJSON["src"]
         detail.userJSON = offerJSON["otherUser"]

@@ -19,6 +19,23 @@ class OfferDetailController: UITableViewController {
     @IBOutlet var itemImageView: UIImageView!    
     @IBOutlet var otherItemImageView: UIImageView!
     
+    @IBAction func cancel(segue:UIStoryboardSegue) {
+        println("cancel")
+    }
+
+    @IBAction func sendQuestion(segue:UIStoryboardSegue) {
+        let view = segue.sourceViewController as! AddQuestionController
+        let uuid = NSUUID().UUIDString
+        
+        PFCloud.callFunctionInBackground("addQuestion", withParameters: ["text": view.questionTextView.text, "objectId": uuid], block:{
+            (items:AnyObject?, error: NSError?) -> Void in
+            let itemId = self.itemJSON["objectId"].string
+            PFCloud.callFunctionInBackground("askItemQuestionByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": itemId!, "questionId": uuid], block:{
+                (items:AnyObject?, error: NSError?) -> Void in
+            })
+        })
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,6 +63,15 @@ class OfferDetailController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "askQuestion") {
+            let navi = segue.destinationViewController as! UINavigationController
+            let view = navi.childViewControllers[0] as! AddQuestionController
+            view.userJSON = self.userJSON
+            view.itemImage = self.itemImageView.image!
+        }
     }
 
 }
