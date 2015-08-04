@@ -21,6 +21,9 @@ class ItemDetailController: UITableViewController {
     var userJSON:JSON!
     var disabledItemId:String?
     
+    @IBOutlet weak var messageBtn: UIButton!
+    @IBOutlet weak var bookmarkBtn: UIButton!
+    @IBOutlet weak var wishBtn: UIButton!
     @IBAction func makeOffer(segue:UIStoryboardSegue) {
         let offer = segue.sourceViewController as! MakeOfferController
         let offerJSON:JSON = offer.selectedItem!
@@ -66,7 +69,7 @@ class ItemDetailController: UITableViewController {
         })
     }
     
-    func loadData() {
+    func loadData(myItem:Bool) {
         // check if the offer has been made
         let itemId = self.itemJSON["objectId"].string
         PFCloud.callFunctionInBackground("getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
@@ -88,6 +91,10 @@ class ItemDetailController: UITableViewController {
             self.photoImage.image = UIImage(data: imageData!)
         })
         
+        self.showData(myItem)
+    }
+    
+    func showData(myItem:Bool) {
         self.title = itemJSON["title"].string
         self.descriptionTextView.text = itemJSON["description"].string
         self.userLabel.text = userJSON["name"].string
@@ -97,6 +104,14 @@ class ItemDetailController: UITableViewController {
         self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
         self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
         self.userPhoto.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=80&height=80", userJSON["facebookId"].string!))!)!)
+        
+        if (myItem) {
+            self.makeOfferButton.enabled = false
+            self.wishBtn.enabled = false
+            self.bookmarkBtn.enabled = false
+            self.messageBtn.enabled = false
+            self.questionButton.enabled = false
+        }
     }
     
     override func viewDidLoad() {
@@ -123,6 +138,7 @@ class ItemDetailController: UITableViewController {
             let view = segue.destinationViewController as! MakeOfferController
             view.disabledItemId = self.disabledItemId
             view.loadData()
+            
         } else if (segue.identifier == "askQuestion") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.childViewControllers[0] as! AddQuestionController

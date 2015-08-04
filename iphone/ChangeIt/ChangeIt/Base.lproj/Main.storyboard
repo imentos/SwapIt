@@ -172,7 +172,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="8CCA92C3-9F74-47A8-93E9-F5F0D4DFB608" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="72D9193F-929D-498F-9F87-F27ECBCC15BB" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL"/>
                     <connections>
                         <outlet property="facebookPhoto" destination="vKM-2g-k0h" id="MCU-nd-t0g"/>
@@ -466,12 +466,15 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bookmarkBtn" destination="oCv-dJ-pDT" id="mHa-Yd-h8y"/>
                         <outlet property="descriptionTextView" destination="o6S-3z-cSr" id="dNQ-3q-8Zv"/>
                         <outlet property="makeOfferButton" destination="tyB-vC-SaW" id="KWB-RJ-war"/>
+                        <outlet property="messageBtn" destination="fGg-gf-VIw" id="Y5L-qx-vbt"/>
                         <outlet property="photoImage" destination="zCe-bh-cEG" id="vm0-IL-NbN"/>
                         <outlet property="questionButton" destination="elf-YP-V0D" id="NoW-Az-mky"/>
                         <outlet property="userLabel" destination="TxR-I1-RpY" id="EuF-fw-ZXd"/>
                         <outlet property="userPhoto" destination="FKl-Kh-asz" id="V2h-88-999"/>
+                        <outlet property="wishBtn" destination="mRp-7H-6hB" id="Bwv-WW-kJc"/>
                         <segue destination="j9f-e0-efI" kind="presentation" identifier="askQuestion" id="1ef-eR-2cg"/>
                     </connections>
                 </tableViewController>
@@ -1205,7 +1208,7 @@
                                                         <rect key="frame" x="183" y="54" width="16" height="21"/>
                                                     </variation>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DWN-Vz-AQX">
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DWN-Vz-AQX">
                                                     <rect key="frame" x="336" y="15" width="100" height="100"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="FbH-jS-yFa"/>
@@ -1331,6 +1334,7 @@
                         <outlet property="itemImageView" destination="Ntl-LF-TNO" id="U3d-Zd-NJ8"/>
                         <outlet property="otherItemImageView" destination="DWN-Vz-AQX" id="Vm7-oq-P7L"/>
                         <outlet property="userLabel" destination="s4c-OR-qw5" id="Y0o-5g-xWG"/>
+                        <segue destination="LVl-oE-RkK" kind="show" identifier="itemDetail" id="YZ1-h4-L0d"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TeK-SZ-m3P" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1919,7 +1923,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="8CCA92C3-9F74-47A8-93E9-F5F0D4DFB608" width="30" height="30">
+        <image name="72D9193F-929D-498F-9F87-F27ECBCC15BB" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -1997,6 +2001,7 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <segue reference="v3Y-Wm-liH"/>
         <segue reference="wMb-XK-Jh9"/>
         <segue reference="NcJ-gm-8wA"/>
+        <segue reference="YZ1-h4-L0d"/>
         <segue reference="Tea-P4-aes"/>
         <segue reference="pVR-q3-nZf"/>
     </inferredMetricsTieBreakers>

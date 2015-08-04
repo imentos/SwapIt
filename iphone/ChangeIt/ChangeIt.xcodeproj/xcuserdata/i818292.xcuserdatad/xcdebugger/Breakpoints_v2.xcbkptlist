@@ -455,11 +455,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457143810.048325"
+            timestampString = "460357784.355411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "makeOffer(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -487,11 +487,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231680.709531"
+            timestampString = "460360612.162673"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -503,11 +503,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231680.709531"
+            timestampString = "460360612.162673"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1339,11 +1339,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231902.621901"
+            timestampString = "460360612.162673"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1448,11 +1448,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231680.709531"
+            timestampString = "460357784.355411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "sendQuestion(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1464,11 +1464,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231680.709531"
+            timestampString = "460357784.355411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "sendQuestion(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1480,11 +1480,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231680.709531"
+            timestampString = "460357784.355411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "ItemDetailController"
             landmarkType = "3">
             <Locations>
@@ -2184,12 +2184,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231680.709531"
+            timestampString = "460357784.355411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "loadData()"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "loadData(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2200,12 +2200,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231680.709531"
+            timestampString = "460357784.355411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "loadData()"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "loadData(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2216,12 +2216,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231680.709531"
+            timestampString = "460357784.355411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "loadData()"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "loadData(_:)"
             landmarkType = "5">
             <Locations>
                <Location
@@ -2264,12 +2264,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231680.709531"
+            timestampString = "460357784.355411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "loadData()"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "loadData(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2280,12 +2280,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231680.709531"
+            timestampString = "460357784.355411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "loadData()"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "loadData(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2328,12 +2328,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231680.709531"
+            timestampString = "460357784.355411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "loadData()"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "loadData(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2344,11 +2344,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457231680.709531"
+            timestampString = "460360612.162673"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2360,11 +2360,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457143810.048325"
+            timestampString = "460357784.355411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "makeOffer(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2376,11 +2376,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChangeIt/ItemDetailController.swift"
-            timestampString = "457143810.048325"
+            timestampString = "460357784.355411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
             landmarkName = "makeOffer(_:)"
             landmarkType = "5">
             <Locations>
@@ -2840,7 +2840,7 @@
                   moduleName = "ChangeIt"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/i818292/ios%20projects/SwapIt/iphone/ChangeIt/ChangeIt/QuestionController.swift"
-                  timestampString = "460354022.032014"
+                  timestampString = "460360612.661584"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "24"
@@ -2855,7 +2855,7 @@
                   moduleName = "ChangeIt"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/i818292/ios%20projects/SwapIt/iphone/ChangeIt/ChangeIt/QuestionController.swift"
-                  timestampString = "460354022.03225"
+                  timestampString = "460360612.661724"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "26"
@@ -3198,6 +3198,86 @@
             startingLineNumber = "101"
             endingLineNumber = "101"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChangeIt/OfferDetailController.swift"
+            timestampString = "460360612.162673"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "prepareForSegue(_:sender:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChangeIt/OfferDetailController.swift"
+            timestampString = "460360612.162673"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "tapDetected()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChangeIt/ItemDetailController.swift"
+            timestampString = "460359189.52123"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "loadData(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChangeIt/ItemDetailController.swift"
+            timestampString = "460359200.386997"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "loadData(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChangeIt/ItemDetailController.swift"
+            timestampString = "460360474.782603"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "showData(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

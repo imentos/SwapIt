@@ -219,7 +219,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
             let detail = navi.childViewControllers[0] as! ItemDetailController
             detail.userJSON = userJSON[0]
             detail.itemJSON = itemJSON
-            detail.loadData()
+            detail.loadData(false)
         })
     }
 }

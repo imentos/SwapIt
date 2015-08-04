@@ -35,9 +35,19 @@ class OfferDetailController: UITableViewController {
             })
         })
     }
+    
+    func tapDetected() {
+        performSegueWithIdentifier("itemDetail", sender: self)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapDetected"))
+        singleTap.numberOfTapsRequired = 1
+        otherItemImageView.userInteractionEnabled = true
+        otherItemImageView.addGestureRecognizer(singleTap)
+
 
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
@@ -68,9 +78,23 @@ class OfferDetailController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "askQuestion") {
             let navi = segue.destinationViewController as! UINavigationController
-            let view = navi.childViewControllers[0] as! AddQuestionController
+            let view = navi.topViewController as! AddQuestionController
             view.userJSON = self.userJSON
             view.itemImage = self.itemImageView.image!
+            
+        } else if (segue.identifier == "itemDetail") {
+            
+            PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(otherItemJSON["objectId"].string)!], block:{
+                (user:AnyObject?, error: NSError?) -> Void in
+                let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                
+                let detail = segue.destinationViewController as! ItemDetailController
+                //let detail = navi.topViewController as! ItemDetailController
+                detail.userJSON = userJSON[0]
+                detail.itemJSON = self.otherItemJSON
+                
+                detail.loadData(true)
+            });
         }
     }
 
