@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import ParseUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,65 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         PFFacebookUtils.initializeFacebook()
         
-        let tab = self.window!.rootViewController as! UITabBarController
-        tab.selectedIndex = 1
-        
-        loginFB()
-        
         // global style
         self.window!.tintColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:1)
         
         return true
     }
 
-    func loginFB() {
-        let permissions = ["public_profile"]
-        PFFacebookUtils.logInWithPermissions(permissions, block: {
-            (user: PFUser?, error: NSError?) -> Void in
-            //println(user?.objectId)
-            if let user = user {
-                if user.isNew {
-                    println("User signed up and logged in through Facebook!")
-                } else {
-                    println("User logged in through Facebook!")
-                }
-                
-                var req = FBRequest.requestForMe()
-                req.startWithCompletionHandler{
-                    (connection:FBRequestConnection!, result:AnyObject!, error:NSError!) -> Void in
-                    var resultdict = result as! NSDictionary
-                    println("Result Dict: \(resultdict)")
-                    println(resultdict["name"])
-                    let name = resultdict["name"] as! String
-                    let facebookId = resultdict["id"] as! String
-                                        
-                    var location = ""
-                    if resultdict["location"] != nil {
-                        let loc = resultdict["location"] as! NSDictionary
-                        location = loc["name"] as! String
-                    }
-                    
-                    let userFromCloud = PFCloud.callFunction("getUser", withParameters: ["userId": user.objectId!])
-                    let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                    if userJSON.count == 0 {
-                        PFCloud.callFunction("addUser", withParameters: ["name": name, "objectId": user.objectId!, "facebookId": facebookId])
-                        
-                    } else {
-                        PFCloud.callFunction("updateUser", withParameters: ["name": name, "objectId": user.objectId!, "facebookId": facebookId, "location": location])
-                    }
-                    
-                    let tab = self.window!.rootViewController as! UITabBarController
-                    let navi = tab.selectedViewController as! UINavigationController
-                    let items = navi.viewControllers[0] as! ItemsController
-                    items.loadData()
-                }
-            } else {
-                println("Uh oh. The user cancelled the Facebook login.")
-            }
-        })
-        
-    }
-    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

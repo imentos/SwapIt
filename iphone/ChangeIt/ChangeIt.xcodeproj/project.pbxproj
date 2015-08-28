@@ -49,6 +49,7 @@
 		B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C763421B0B9BE50040E794 /* MyItemDetailController.swift */; };
 		B3C763451B0D23C30040E794 /* QuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C763441B0D23C30040E794 /* QuestionController.swift */; };
 		B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */; };
+		B3FCB87D1B8F734800AD9A1E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +123,7 @@
 		B3C763421B0B9BE50040E794 /* MyItemDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyItemDetailController.swift; sourceTree = "<group>"; };
 		B3C763441B0D23C30040E794 /* QuestionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionController.swift; sourceTree = "<group>"; };
 		B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyItemsController.swift; sourceTree = "<group>"; };
+		B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				B35C66441AE951FC0029055F /* CoreLocation.framework in Frameworks */,
 				B35C66451AE951FC0029055F /* libsqlite3.dylib in Frameworks */,
 				B35C66461AE951FC0029055F /* libz.dylib in Frameworks */,
+				B3FCB87D1B8F734800AD9A1E /* ParseUI.framework in Frameworks */,
 				B35C66471AE951FD0029055F /* MobileCoreServices.framework in Frameworks */,
 				B35C66481AE951FD0029055F /* QuartzCore.framework in Frameworks */,
 				B37C10231AE993DD0086864F /* FacebookSDK.framework in Frameworks */,
@@ -187,6 +190,7 @@
 				B37C10261AE9B81E0086864F /* WishListDetailController.swift */,
 				B37C0FE41AE9652C0086864F /* SwiftyJSON.swift */,
 				B374319D1AE861A600A0808B /* AppDelegate.swift */,
+				B30E24941AF96BFA00ED49EB /* MainController.swift */,
 				B37431A31AE861A600A0808B /* Main.storyboard */,
 				B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */,
 				B3C763421B0B9BE50040E794 /* MyItemDetailController.swift */,
@@ -204,7 +208,6 @@
 				B30A026E1B5EC4BD00E63437 /* MessageLabel.swift */,
 				B3C763441B0D23C30040E794 /* QuestionController.swift */,
 				B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */,
-				B30E24941AF96BFA00ED49EB /* MainController.swift */,
 				B37431A61AE861A600A0808B /* Images.xcassets */,
 				B37431A81AE861A600A0808B /* LaunchScreen.xib */,
 				B374319B1AE861A600A0808B /* Supporting Files */,
@@ -223,6 +226,7 @@
 		B37C101B1AE990EA0086864F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */,
 				B37C10241AE993E60086864F /* ParseFacebookUtils.framework */,
 				B37C10221AE993DD0086864F /* FacebookSDK.framework */,
 				B37C100A1AE98D7B0086864F /* Social.framework */,

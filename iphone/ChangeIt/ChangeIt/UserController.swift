@@ -26,17 +26,31 @@ class UserController: UIViewController {
     }
 
     @IBAction func logout(sender: AnyObject) {
-        PFFacebookUtils.session()?.closeAndClearTokenInformation()
-        PFFacebookUtils.session()?.close()
-        FBSession.activeSession().closeAndClearTokenInformation()
-        FBSession.activeSession().close()
-        FBSession.setActiveSession(nil)
+        let currentInstall = PFInstallation.currentInstallation()
+        currentInstall["user"] = NSNull()
+        
+        currentInstall.save()
         PFUser.logOut()
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        let main = UIApplication.sharedApplication().keyWindow?.rootViewController as! MainController
+        main.viewDidAppear(false)
     }
     
     override func viewWillAppear(animated: Bool) {
-        if PFUser.currentUser() == nil {
-            return
+        if let user = PFUser.currentUser() {
+            let userFromCloud = PFCloud.callFunction("getUser", withParameters: ["userId": user.objectId!])
+            let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            name.text = userJSON[0]["name"].string
+            locationLabel.text = userJSON[0]["location"].string
+            
+            if (PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!)) {
+                facebookPhoto.layer.borderWidth = 1
+                facebookPhoto.layer.masksToBounds = true
+                facebookPhoto.layer.borderColor = UIColor.blackColor().CGColor
+                facebookPhoto.layer.cornerRadius = facebookPhoto.bounds.height / 2
+                facebookPhoto.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=160&height=160", userJSON[0]["facebookId"].string!))!)!)
+            }
         }
     }
 
@@ -64,20 +78,9 @@ class UserController: UIViewController {
             view.loadData()
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let userFromCloud = PFCloud.callFunction("getUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!])
-        let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-        name.text = userJSON[0]["name"].string
-        locationLabel.text = userJSON[0]["location"].string
-
-        facebookPhoto.layer.borderWidth = 1
-        facebookPhoto.layer.masksToBounds = true
-        facebookPhoto.layer.borderColor = UIColor.blackColor().CGColor
-        facebookPhoto.layer.cornerRadius = facebookPhoto.bounds.height / 2
-        facebookPhoto.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=160&height=160", userJSON[0]["facebookId"].string!))!)!)
     }
     
     override func didReceiveMemoryWarning() {
