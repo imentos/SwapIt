@@ -37,7 +37,7 @@ class UserController: UIViewController {
         main.viewDidAppear(false)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool) {
         if let user = PFUser.currentUser() {
             let userFromCloud = PFCloud.callFunction("getUser", withParameters: ["userId": user.objectId!])
             let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -49,7 +49,9 @@ class UserController: UIViewController {
                 userPhoto.layer.masksToBounds = true
                 userPhoto.layer.borderColor = UIColor.blackColor().CGColor
                 userPhoto.layer.cornerRadius = userPhoto.bounds.height / 2
-                userPhoto.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=160&height=160", userJSON[0]["facebookId"].string!))!)!)
+                if let image = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=160&height=160", userJSON[0]["facebookId"].string!))!) {
+                    userPhoto.image = UIImage(data: image)
+                }
             } else {
                 userPhoto.image = UIImage(named: "bottom_User_Inactive")
             }

@@ -2,15 +2,16 @@ import UIKit
 import Parse
 import ParseUI
 
-class MainController: UITabBarController, PFLogInViewControllerDelegate {
+class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
     var login:PFLogInViewController!
     override func viewDidAppear(animated: Bool) {
         if let user = PFUser.currentUser() {
             startItemsPage()
         } else {
             login = PFLogInViewController()
-            login.delegate = self
             login.fields = PFLogInFields.SignUpButton | PFLogInFields.LogInButton | PFLogInFields.Facebook | PFLogInFields.UsernameAndPassword | PFLogInFields.DismissButton
+            login.delegate = self
+            login.signUpController?.delegate = self
             self.presentViewController(login, animated: true, completion: { () -> Void in
                 //
             })
@@ -36,7 +37,6 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate {
         self.selectedIndex = 1
         let navi = self.selectedViewController as! UINavigationController
         let itemsPage = navi.viewControllers[0] as! ItemsController
-        itemsPage.loadData()
     }
     
     func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
@@ -49,6 +49,10 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate {
         startItemsPage()
         
         login.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func addUser() {

@@ -30,11 +30,19 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         self.filterButton.hidden = bookmarkMode
     }
     
+    override func viewWillAppear(animated: Bool) {
+        loadData()
+    }
+    
     func loadData() {
         // if no wish list, show all items. Otherwise, show best matched items.
         var wishesJSON:JSON!
+        print("userId:\(PFUser.currentUser()?.objectId)")
         PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":(PFUser.currentUser()?.objectId)!], block: {
             (wishes:AnyObject?, error: NSError?) -> Void in
+            if (wishes == nil) {
+                return
+            }
             let wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             if (wishesJSON.count == 0) {
                 self.loadData("getAllItemsExceptMe")
