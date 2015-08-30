@@ -191,8 +191,10 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
-            let imageData = (imageObj!["file"] as! PFFile).getData()
-            cell.itemImage.image = UIImage(data: imageData!)
+            if let imageFile = imageObj!["file"] as? PFFile {
+                let imageData = imageFile.getData()
+                cell.itemImage.image = UIImage(data: imageData!)
+            }
         })
         cell.itemLabel.text = itemJSON["title"].string
         return cell

@@ -11,7 +11,7 @@ import Parse
 
 class UserController: UIViewController {
     
-    @IBOutlet weak var facebookPhoto: UIImageView!
+    @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet var spinnerView: UIActivityIndicatorView!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var name: UILabel!
@@ -45,11 +45,13 @@ class UserController: UIViewController {
             locationLabel.text = userJSON[0]["location"].string
             
             if (PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!)) {
-                facebookPhoto.layer.borderWidth = 1
-                facebookPhoto.layer.masksToBounds = true
-                facebookPhoto.layer.borderColor = UIColor.blackColor().CGColor
-                facebookPhoto.layer.cornerRadius = facebookPhoto.bounds.height / 2
-                facebookPhoto.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=160&height=160", userJSON[0]["facebookId"].string!))!)!)
+                userPhoto.layer.borderWidth = 1
+                userPhoto.layer.masksToBounds = true
+                userPhoto.layer.borderColor = UIColor.blackColor().CGColor
+                userPhoto.layer.cornerRadius = userPhoto.bounds.height / 2
+                userPhoto.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=160&height=160", userJSON[0]["facebookId"].string!))!)!)
+            } else {
+                userPhoto.image = UIImage(named: "bottom_User_Inactive")
             }
         }
     }
