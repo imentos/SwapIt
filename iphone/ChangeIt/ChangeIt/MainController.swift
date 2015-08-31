@@ -9,7 +9,8 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
             startItemsPage()
         } else {
             login = PFLogInViewController()
-            login.fields = PFLogInFields.SignUpButton | PFLogInFields.LogInButton | PFLogInFields.Facebook | PFLogInFields.UsernameAndPassword | PFLogInFields.DismissButton
+            login.fields = PFLogInFields.SignUpButton | PFLogInFields.LogInButton | PFLogInFields.Facebook | PFLogInFields.UsernameAndPassword
+            login.logInView?.logo = UIImageView(image: UIImage(named: ""))
             login.delegate = self
             login.signUpController?.delegate = self
             self.presentViewController(login, animated: true, completion: { () -> Void in
