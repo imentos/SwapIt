@@ -24,6 +24,8 @@ class AddQuestionController: UITableViewController {
         userNameLabel.text = userJSON["name"].string
         itemImageView.image = itemImage
         
+        self.questionTextView.text = ""
+        self.questionTextView.becomeFirstResponder()
         self.userPhoto.layer.borderWidth = 1
         self.userPhoto.layer.masksToBounds = true
         self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
