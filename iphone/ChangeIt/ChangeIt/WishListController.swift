@@ -194,6 +194,9 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCellWithIdentifier("AddWishListCell", forIndexPath: indexPath) as! AddWishListCell
+            let newWishText = cell.newWishListText
+            newWishText.becomeFirstResponder()
+
             return cell
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("wishList", forIndexPath: indexPath) as! UITableViewCell

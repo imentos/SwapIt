@@ -2628,22 +2628,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChangeIt/ItemsController.swift"
-            timestampString = "462387315.854619"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "loadData(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -2680,12 +2664,12 @@
                   moduleName = "ChangeIt"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/i818292/iOS%20projects/SwapIt/iphone/ChangeIt/ChangeIt/QuestionController.swift"
-                  timestampString = "462752317.940706"
+                  timestampString = "462818406.514336"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "24"
                   endingLineNumber = "24"
-                  offsetFromSymbolStart = "588">
+                  offsetFromSymbolStart = "681">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -2695,12 +2679,12 @@
                   moduleName = "ChangeIt"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/i818292/iOS%20projects/SwapIt/iphone/ChangeIt/ChangeIt/QuestionController.swift"
-                  timestampString = "462752317.940861"
+                  timestampString = "462818406.514554"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "26"
                   endingLineNumber = "26"
-                  offsetFromSymbolStart = "20">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
