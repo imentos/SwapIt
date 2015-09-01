@@ -62,23 +62,27 @@ class UserController: UIViewController {
         if (segue.identifier == "myWishList") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.viewControllers[0] as! WishListController
+            view.title = "Wish List"
             view.loadData(PFUser.currentUser()?.objectId!, hideAddCell: false)
             
         } else if (segue.identifier == "offerSent") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.viewControllers[0] as! OffersController
+            view.title = "Offers Sent"
             view.loadData()
             
         } else if (segue.identifier == "bookmarks") {
             let navi = segue.destinationViewController as! UINavigationController
             navi.navigationBarHidden = false
             let view = navi.viewControllers[0] as! ItemsController
+            view.title = "Bookmarks"
             view.bookmarkMode = true
             view.loadData("getBookmarkedItems")
             
         } else if (segue.identifier == "questions") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.viewControllers[0] as! QuestionsController
+            view.title = "Questions Asked"
             view.loadData()
         }
     }
