@@ -55,37 +55,39 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
             let selectedRows = self.tableView.indexPathsForSelectedRows()
             let selectedRowsCount = selectedRows?.count
             if (selectedRowsCount != self.wishesJSON.count) {
-                var deleteIndexes = [Int]()
                 var deleteObjectIds = [String]()
                 for var i = 0; i < selectedRows!.count; ++i {
                     let index = selectedRows![i].row - 1
                     let objectId = self.wishesJSON[index]["objectId"].string
-                    deleteIndexes.append(index)
                     deleteObjectIds.append(objectId!)
                 }
                 
                 PFCloud.callFunctionInBackground("deleteWishesOfUser", withParameters: ["userId":userId!, "objectIds":deleteObjectIds], block: {
                     (wishes:AnyObject?, error: NSError?) -> Void in
-                    println("deleted")
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
+                        
+                        self.tableView.editing = false
+                        self.updateButtonsToMatchTableState()
+                        self.hideAddWishListCell(false)
+                    })
                 })
-
-                for var i = 0; i < deleteIndexes.count; i++ {
-                    self.wishesJSON.arrayObject?.removeAtIndex(i)
-                }
-                
-                self.tableView.deleteRowsAtIndexPaths(selectedRows!, withRowAnimation: UITableViewRowAnimation.Automatic)
             } else {
                 self.wishesJSON.arrayObject?.removeAll(keepCapacity: false)
                 self.tableView.reloadData()
                 
                 PFCloud.callFunctionInBackground("deleteAllWishesOfUser", withParameters: ["userId":userId!], block: {
                     (wishes:AnyObject?, error: NSError?) -> Void in
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
+                        
+                        self.tableView.editing = false
+                        self.updateButtonsToMatchTableState()
+                        self.hideAddWishListCell(false)
+                    })
                 })
             }
-            
-            self.tableView.editing = false
-            self.updateButtonsToMatchTableState()
-            self.hideAddWishListCell(false)
         }
     }
     
@@ -96,6 +98,8 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     }
     
     @IBAction func editAction(sender: AnyObject) {
+        self.tableView.reloadData()
+
         self.tableView.editing = true
         self.updateButtonsToMatchTableState()
         self.hideAddWishListCell(true)
@@ -172,6 +176,13 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         default:
             return
         }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if (indexPath.row == 0 && self.tableView.editing) {
+            return 0
+        }
+        return 44
     }
     
     override func didReceiveMemoryWarning() {
