@@ -3,14 +3,13 @@ import Parse
 import ParseUI
 
 class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
-    var login:PFLogInViewController!
+    var login:MyLogInViewController!
     override func viewDidAppear(animated: Bool) {
         if let user = PFUser.currentUser() {
             startItemsPage()
         } else {
-            login = PFLogInViewController()
+            login = MyLogInViewController()
             login.fields = PFLogInFields.SignUpButton | PFLogInFields.LogInButton | PFLogInFields.Facebook | PFLogInFields.UsernameAndPassword
-            login.logInView?.logo = UIImageView(image: UIImage(named: ""))
             login.delegate = self
             login.signUpController?.delegate = self
             self.presentViewController(login, animated: true, completion: { () -> Void in
