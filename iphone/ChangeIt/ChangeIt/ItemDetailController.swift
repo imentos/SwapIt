@@ -136,6 +136,8 @@ class ItemDetailController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.allowsSelection = false
     }
 
     override func didReceiveMemoryWarning() {
