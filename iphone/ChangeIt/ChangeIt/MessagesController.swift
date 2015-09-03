@@ -18,7 +18,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     var questionJSON:JSON = nil
     var repliesJSON:JSON = nil
     var userJSON:JSON = nil
-    var itemJSON:JSON = nil
+    var itemPhotoId:String!
     
     @IBOutlet var userPhoto: UIImageView!
     @IBOutlet var userNameLabel: UILabel!
@@ -26,6 +26,12 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        PFQuery(className:"Image").getObjectInBackgroundWithId(itemPhotoId, block: {
+            (imageObj:PFObject?, error: NSError?) -> Void in
+            let imageData = (imageObj!["file"] as! PFFile).getData()
+            self.itemPhoto.image = UIImage(data: imageData!)
+        })
         
         self.userPhoto.layer.borderWidth = 1
         self.userPhoto.layer.masksToBounds = true
@@ -92,11 +98,11 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         let rightTimeLabel = cell.viewWithTag(201) as! UILabel
         
         if (indexPath.row == 0) {
-            leftLabel.text = self.questionJSON["text"].string
-            leftTimeLabel.text = self.questionJSON["timestamp"].string
+            rightLabel.text = self.questionJSON["text"].string
+            rightTimeLabel.text = self.questionJSON["timestamp"].string
                 
-            rightLabel.text = ""
-            rightTimeLabel.text = ""
+            leftLabel.text = ""
+            leftTimeLabel.text = ""
         } else {
             let isOwner:Bool = self.repliesJSON[indexPath.row - 1]["owner"].string == PFUser.currentUser()?.objectId
             let text = self.repliesJSON[indexPath.row - 1]["text"].string

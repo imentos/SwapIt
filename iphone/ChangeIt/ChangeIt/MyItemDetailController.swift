@@ -24,6 +24,9 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet var testLabel: UILabel!
 
+    @IBAction func cancel(segue:UIStoryboardSegue) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -149,10 +152,12 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             let questionJSON = self.questionsJSON[index]
             
             let navi = segue.destinationViewController as! UINavigationController
-            let question = navi.viewControllers[0] as! MessagesController
-            question.questionJSON = questionJSON["question"]
-            question.userJSON = questionJSON["user"]
-            question.loadData()
+            let messages = navi.viewControllers[0] as! MessagesController
+            messages.title = self.title
+            messages.questionJSON = questionJSON["question"]
+            messages.userJSON = questionJSON["user"]
+            messages.itemPhotoId = itemImageId
+            messages.loadData()
             
             readIcon.hidden = true
         }
