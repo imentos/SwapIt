@@ -30,10 +30,6 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         self.filterButton.hidden = bookmarkMode
     }
     
-    override func viewWillAppear(animated: Bool) {
-        loadData()
-    }
-    
     func loadData() {
         // if no wish list, show all items. Otherwise, show best matched items.
         var wishesJSON:JSON!

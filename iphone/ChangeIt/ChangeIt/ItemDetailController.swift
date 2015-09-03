@@ -46,6 +46,10 @@ class ItemDetailController: UITableViewController {
     @IBAction func bookmarkItem(sender: AnyObject) {
         PFCloud.callFunctionInBackground("bookmarkItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": (self.itemJSON["objectId"].string)!], block:{
             (items:AnyObject?, error: NSError?) -> Void in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.bookmarkBtn.setBackgroundImage(UIImage(named:"Bookmarked_Icon"), forState: .Normal)
+                self.bookmarkBtn.enabled = false
+            })
         })
     }
     
@@ -89,6 +93,22 @@ class ItemDetailController: UITableViewController {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.photoImage.image = UIImage(data: imageData!)
+        })
+        
+        PFCloud.callFunctionInBackground("isItemBookmarked", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            if (resultsJSON.count == 0) {
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.bookmarkBtn.setBackgroundImage(UIImage(named:"Bookmark_Icon-01"), forState: .Normal)
+                    self.bookmarkBtn.enabled = true
+                })
+                return
+            }
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.bookmarkBtn.setBackgroundImage(UIImage(named:"Bookmarked_Icon"), forState: .Normal)
+                self.bookmarkBtn.enabled = false
+            })
         })
         
         self.showData(myItem)
