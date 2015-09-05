@@ -34,7 +34,6 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
                 self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
             })
         })
-        textField.resignFirstResponder()
         return true
     }
 
@@ -64,14 +63,8 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
                 
                 PFCloud.callFunctionInBackground("deleteWishesOfUser", withParameters: ["userId":userId!, "objectIds":deleteObjectIds], block: {
                     (wishes:AnyObject?, error: NSError?) -> Void in
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
-                        
-                        self.tableView.editing = false
-                        self.updateButtonsToMatchTableState()
-                        self.hideAddWishListCell(false)
-                    })
+                    self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
+                    self.tableView.editing = false
                 })
             } else {
                 self.wishesJSON.arrayObject?.removeAll(keepCapacity: false)
@@ -79,13 +72,8 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
                 
                 PFCloud.callFunctionInBackground("deleteAllWishesOfUser", withParameters: ["userId":userId!], block: {
                     (wishes:AnyObject?, error: NSError?) -> Void in
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
-                        
-                        self.tableView.editing = false
-                        self.updateButtonsToMatchTableState()
-                        self.hideAddWishListCell(false)
-                    })
+                    self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
+                    self.tableView.editing = false
                 })
             }
         }
