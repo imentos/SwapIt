@@ -11,6 +11,7 @@ import Parse
 
 class MessagesController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var itemDetailButton: UIButton!
     @IBOutlet weak var dockHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
@@ -18,19 +19,23 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     var questionJSON:JSON = nil
     var repliesJSON:JSON = nil
     var userJSON:JSON = nil
-    var itemPhotoId:String!
+    var itemJSON:JSON!
     
     @IBOutlet var userPhoto: UIImageView!
     @IBOutlet var userNameLabel: UILabel!
-    @IBOutlet var itemPhoto: UIImageView!
     
+    @IBAction func cancel(segue:UIStoryboardSegue) {
+        println("cancel")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PFQuery(className:"Image").getObjectInBackgroundWithId(itemPhotoId, block: {
+        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
-            self.itemPhoto.image = UIImage(data: imageData!)
+            self.itemDetailButton.setTitle("", forState: .Normal)
+            self.itemDetailButton.setBackgroundImage(UIImage(data: imageData!), forState: UIControlState.Normal)
         })
         
         self.userPhoto.layer.borderWidth = 1
@@ -144,15 +149,12 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         return self.repliesJSON.count + 1
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if (segue.identifier == "itemDetail") {
+            let navi = segue.destinationViewController as! UINavigationController
+            let detail = navi.childViewControllers[0] as! ItemDetailController
+            detail.userJSON = userJSON
+            detail.itemJSON = itemJSON
+        }
     }
-    */
-
 }

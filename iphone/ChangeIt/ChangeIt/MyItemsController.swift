@@ -137,8 +137,7 @@ class MyItemsController: UITableViewController {
             let navi = segue.destinationViewController as! UINavigationController
             let details = navi.viewControllers[0] as! MyItemDetailController
             details.title = offerJSON["title"].string!
-            details.itemId = offerJSON["objectId"].string!
-            details.itemImageId = offerJSON["photo"].string!
+            details.itemJSON = offerJSON
             details.loadData()
         }
     }

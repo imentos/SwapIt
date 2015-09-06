@@ -74,7 +74,7 @@ class QuestionsController: UITableViewController {
         messages.title = questionsJSON[index!]["item"]["title"].string
         messages.questionJSON = questionsJSON[index!]["question"]
         messages.userJSON = questionsJSON[index!]["user"]
-        messages.itemPhotoId = questionsJSON[index!]["item"]["photo"].string
+        messages.itemJSON = questionsJSON[index!]["item"]
         messages.loadData()
     }
 

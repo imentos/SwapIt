@@ -12,8 +12,7 @@ import Parse
 class MyItemDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var questionsJSON:JSON = nil
     var offeredItemsJSON:JSON = nil
-    var itemId:String = ""
-    var itemImageId:String = ""
+    var itemJSON:JSON!
     
     @IBOutlet var itemImageView: UIImageView!
     @IBOutlet var detailTable: UITableView!
@@ -32,13 +31,13 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func loadData() {
-        PFCloud.callFunctionInBackground("getQuestionedItems", withParameters: ["itemId":itemId], block:{
+        PFCloud.callFunctionInBackground("getQuestionedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             self.questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.segmentedControl.setTitle(String(format:"Messages (%d)", self.questionsJSON.count), forSegmentAtIndex: 1)
         })
 
-        PFCloud.callFunctionInBackground("getExchangedItems", withParameters: ["itemId":itemId], block:{
+        PFCloud.callFunctionInBackground("getExchangedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if (results == nil) {
                 self.offeredItemsJSON = JSON([])
@@ -49,7 +48,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.offeredItemsJSON.count), forSegmentAtIndex: 0)
         })
         
-        PFQuery(className:"Image").getObjectInBackgroundWithId(itemImageId, block: {
+        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.itemImageView.image = UIImage(data: imageData!)
@@ -156,7 +155,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             messages.title = self.title
             messages.questionJSON = questionJSON["question"]
             messages.userJSON = questionJSON["user"]
-            messages.itemPhotoId = itemImageId
+            messages.itemJSON = itemJSON
             messages.loadData()
             
             readIcon.hidden = true
