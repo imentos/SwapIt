@@ -103,11 +103,12 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         let rightTimeLabel = cell.viewWithTag(201) as! UILabel
         
         if (indexPath.row == 0) {
-            rightLabel.text = self.questionJSON["text"].string
-            rightTimeLabel.text = self.questionJSON["timestamp"].string
+            let isOwner:Bool = userJSON["objectId"].string == PFUser.currentUser()?.objectId
+            rightLabel.text = isOwner ? self.questionJSON["text"].string : ""
+            rightTimeLabel.text = isOwner ? self.questionJSON["timestamp"].string : ""
                 
-            leftLabel.text = ""
-            leftTimeLabel.text = ""
+            leftLabel.text = isOwner ? "" : self.questionJSON["text"].string
+            leftTimeLabel.text = isOwner ? "" : self.questionJSON["timestamp"].string
         } else {
             let isOwner:Bool = self.repliesJSON[indexPath.row - 1]["owner"].string == PFUser.currentUser()?.objectId
             let text = self.repliesJSON[indexPath.row - 1]["text"].string
