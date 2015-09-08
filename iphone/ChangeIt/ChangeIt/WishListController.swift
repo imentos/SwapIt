@@ -80,6 +80,8 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     }
     
     @IBAction func cancelAction(sender: AnyObject) {
+        self.tableView.reloadData()
+
         self.tableView.editing = false
         self.updateButtonsToMatchTableState()
         self.hideAddWishListCell(false)
