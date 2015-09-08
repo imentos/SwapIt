@@ -30,7 +30,9 @@ class AddQuestionController: UITableViewController {
         self.userPhoto.layer.masksToBounds = true
         self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
         self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
-        self.userPhoto.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=80&height=80", userJSON["facebookId"].string!))!)!)
+        if let data = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=80&height=80", userJSON["facebookId"].string!))!) {
+            self.userPhoto.image = UIImage(data: data)
+        }
     }
     
     override func didReceiveMemoryWarning() {
