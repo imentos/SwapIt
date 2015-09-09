@@ -20,7 +20,6 @@ class ItemDetailController: UITableViewController {
     @IBOutlet weak var questionButton: UIButton!
     var itemJSON:JSON!
     var userJSON:JSON!
-    var otherItemJSON:JSON!
     var disabledItemId:String?
     var myItem:Bool! = false
     
@@ -96,12 +95,19 @@ class ItemDetailController: UITableViewController {
             (results:AnyObject?, error: NSError?) -> Void in
             let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             if (resultsJSON.count == 0) {
+                self.showItemImageOnly()
                 return
             }
             // each person can only exchange one item
             if (self.makeOfferButton != nil) {
                 self.makeOfferButton.title = "Edit Offer"
                 self.disabledItemId = resultsJSON[0]["item"]["objectId"].string
+                
+                PFQuery(className:"Image").getObjectInBackgroundWithId(resultsJSON[0]["item"]["photo"].string!, block: {
+                    (imageObj:PFObject?, error: NSError?) -> Void in
+                    let imageData = (imageObj!["file"] as! PFFile).getData()
+                    self.otherItemImageView.image = UIImage(data: imageData!)
+                })
             }
         })
 
@@ -110,14 +116,6 @@ class ItemDetailController: UITableViewController {
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.photoImage.image = UIImage(data: imageData!)
         })
-        
-        if let other = otherItemJSON {
-            PFQuery(className:"Image").getObjectInBackgroundWithId(otherItemJSON["photo"].string!, block: {
-                (imageObj:PFObject?, error: NSError?) -> Void in
-                let imageData = (imageObj!["file"] as! PFFile).getData()
-                self.otherItemImageView.image = UIImage(data: imageData!)
-            })
-        }
         
         PFCloud.callFunctionInBackground("isItemBookmarked", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
@@ -156,6 +154,16 @@ class ItemDetailController: UITableViewController {
             self.messageBtn.enabled = false
             self.questionButton.enabled = false
         }
+    }
+    
+    func showItemImageOnly() {
+        photoImage.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        let views = Dictionary(dictionaryLiteral: ("item",self.photoImage))
+        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[item]|", options: nil, metrics: nil, views: views)
+        self.photoImage.superview!.addConstraints(horizontalConstraints)
+        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[item]|", options: nil, metrics: nil, views: views)
+        self.photoImage.superview!.addConstraints(verticalConstraints)
     }
     
     override func viewDidLoad() {

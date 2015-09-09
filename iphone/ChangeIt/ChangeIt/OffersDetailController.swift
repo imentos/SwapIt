@@ -70,7 +70,6 @@ class OffersDetailController: UITableViewController {
         let navi = segue.destinationViewController as! UINavigationController
         let detail = navi.topViewController as! ItemDetailController
         detail.itemJSON = itemJSON
-        detail.otherItemJSON = offerJSON["src"]
         detail.userJSON = offerJSON["otherUser"]
         detail.myItem = true
     }

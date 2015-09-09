@@ -140,9 +140,9 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         if (segue.identifier == "offer") {
             let offeredItemJSON = offeredItemsJSON[index]
             
-            let detail = segue.destinationViewController as! OfferDetailController
+            let navi = segue.destinationViewController as! UINavigationController
+            let detail = navi.topViewController as! ItemDetailController
             detail.itemJSON = offeredItemJSON["item"]
-            detail.otherItemJSON = offeredItemJSON["otherItem"]
             detail.userJSON = offeredItemJSON["user"]
             
             //readIcon.hidden = true
@@ -151,7 +151,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             let questionJSON = self.questionsJSON[index]
             
             let navi = segue.destinationViewController as! UINavigationController
-            let messages = navi.viewControllers[0] as! MessagesController
+            let messages = navi.topViewController as! MessagesController
             messages.title = self.title
             messages.questionJSON = questionJSON["question"]
             messages.userJSON = questionJSON["user"]
