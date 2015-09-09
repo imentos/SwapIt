@@ -4,7 +4,13 @@ import ParseUI
 
 class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
     var login:MyLogInViewController!
+    var unwindFromUser:Bool = false
     override func viewDidAppear(animated: Bool) {
+        if (self.unwindFromUser) {
+            return
+        }
+        
+        // check user login
         if let user = PFUser.currentUser() {
             startItemsPage()
         } else {
@@ -16,6 +22,11 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
                 //
             })
         }
+    }
+    
+    // from user
+    @IBAction func cancel(segue:UIStoryboardSegue) {
+        self.unwindFromUser = true
     }
     
     @IBAction func addItem(segue:UIStoryboardSegue) {

@@ -22,9 +22,6 @@ class UserController: UIViewController {
     var sentOffersJSON:JSON! = nil
     var receivedOffersJSON:JSON! = nil
     
-    @IBAction func cancel(segue:UIStoryboardSegue) {
-    }
-
     @IBAction func logout(sender: AnyObject) {
         let currentInstall = PFInstallation.currentInstallation()
         currentInstall["user"] = NSNull()
