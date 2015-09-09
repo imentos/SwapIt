@@ -12,6 +12,7 @@ import Parse
 class ItemDetailController: UITableViewController {
 
     @IBOutlet weak var photoImage: UIImageView!
+    @IBOutlet var otherItemImageView: UIImageView!
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var descriptionTextView: UITextView!
@@ -19,7 +20,9 @@ class ItemDetailController: UITableViewController {
     @IBOutlet weak var questionButton: UIButton!
     var itemJSON:JSON!
     var userJSON:JSON!
+    var otherItemJSON:JSON!
     var disabledItemId:String?
+    var myItem:Bool! = false
     
     @IBOutlet weak var messageBtn: UIButton!
     @IBOutlet weak var bookmarkBtn: UIButton!
@@ -108,6 +111,14 @@ class ItemDetailController: UITableViewController {
             self.photoImage.image = UIImage(data: imageData!)
         })
         
+        if let other = otherItemJSON {
+            PFQuery(className:"Image").getObjectInBackgroundWithId(otherItemJSON["photo"].string!, block: {
+                (imageObj:PFObject?, error: NSError?) -> Void in
+                let imageData = (imageObj!["file"] as! PFFile).getData()
+                self.otherItemImageView.image = UIImage(data: imageData!)
+            })
+        }
+        
         PFCloud.callFunctionInBackground("isItemBookmarked", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -152,9 +163,9 @@ class ItemDetailController: UITableViewController {
         
         self.tableView.allowsSelection = false
     }
-
+    
     override func viewDidAppear(animated: Bool) {
-        loadData(false)
+        loadData(myItem)
     }
     
     override func didReceiveMemoryWarning() {
