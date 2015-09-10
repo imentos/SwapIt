@@ -134,7 +134,9 @@ class ItemDetailController: UITableViewController {
             })
         })
         
-        self.showData(myItem)
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.showData(myItem)
+        })
     }
     
     func showData(myItem:Bool) {
@@ -184,10 +186,6 @@ class ItemDetailController: UITableViewController {
         performSegueWithIdentifier("otherDetail", sender: self)
     }
 
-    override func viewDidAppear(animated: Bool) {
-        loadData(myItem)
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -215,7 +213,7 @@ class ItemDetailController: UITableViewController {
             view.userJSON = self.userJSON
             view.itemImage = self.photoImage.image!
             
-        } else if (segue.identifier == "otherItem") {
+        } else if (segue.identifier == "otherDetail") {
             PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(otherItemJSON["objectId"].string)!], block:{
                 (user:AnyObject?, error: NSError?) -> Void in
                 let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -224,8 +222,7 @@ class ItemDetailController: UITableViewController {
                 let detail = navi.topViewController as! ItemDetailController
                 detail.userJSON = userJSON[0]
                 detail.itemJSON = self.otherItemJSON
-                
-                detail.loadData(false)
+                detail.loadData(true)
             });
         }
     }

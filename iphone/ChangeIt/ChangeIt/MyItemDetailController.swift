@@ -144,7 +144,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             let detail = navi.topViewController as! ItemDetailController
             detail.itemJSON = offeredItemJSON["item"]
             detail.userJSON = offeredItemJSON["user"]
-            
+            detail.loadData(false)
             //readIcon.hidden = true
             
         } else if (segue.identifier == "question") {
