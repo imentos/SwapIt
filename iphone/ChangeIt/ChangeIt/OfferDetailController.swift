@@ -93,7 +93,7 @@ class OfferDetailController: UITableViewController {
                 detail.userJSON = userJSON[0]
                 detail.itemJSON = self.otherItemJSON
                 
-                detail.loadData(true)
+                detail.loadData(false)
             });
         }
     }

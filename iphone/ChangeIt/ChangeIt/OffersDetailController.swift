@@ -71,6 +71,5 @@ class OffersDetailController: UITableViewController {
         let detail = navi.topViewController as! ItemDetailController
         detail.itemJSON = itemJSON
         detail.userJSON = offerJSON["otherUser"]
-        detail.myItem = true
     }
 }

@@ -19,6 +19,7 @@ class ItemDetailController: UITableViewController {
     @IBOutlet weak var makeOfferButton: UIBarButtonItem!
     @IBOutlet weak var questionButton: UIButton!
     var itemJSON:JSON!
+    var otherItemJSON:JSON!
     var userJSON:JSON!
     var disabledItemId:String?
     var myItem:Bool! = false
@@ -103,7 +104,9 @@ class ItemDetailController: UITableViewController {
                 self.makeOfferButton.title = "Edit Offer"
                 self.disabledItemId = resultsJSON[0]["item"]["objectId"].string
                 
-                PFQuery(className:"Image").getObjectInBackgroundWithId(resultsJSON[0]["item"]["photo"].string!, block: {
+                self.otherItemJSON = resultsJSON[0]["item"]
+                
+                PFQuery(className:"Image").getObjectInBackgroundWithId(self.otherItemJSON["photo"].string!, block: {
                     (imageObj:PFObject?, error: NSError?) -> Void in
                     let imageData = (imageObj!["file"] as! PFFile).getData()
                     self.otherItemImageView.image = UIImage(data: imageData!)
@@ -170,8 +173,17 @@ class ItemDetailController: UITableViewController {
         super.viewDidLoad()
         
         self.tableView.allowsSelection = false
+        
+        let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapDetected"))
+        singleTap.numberOfTapsRequired = 1
+        otherItemImageView.userInteractionEnabled = true
+        otherItemImageView.addGestureRecognizer(singleTap)
     }
     
+    func tapDetected() {
+        performSegueWithIdentifier("otherDetail", sender: self)
+    }
+
     override func viewDidAppear(animated: Bool) {
         loadData(myItem)
     }
@@ -202,6 +214,19 @@ class ItemDetailController: UITableViewController {
             let view = navi.childViewControllers[0] as! AddQuestionController
             view.userJSON = self.userJSON
             view.itemImage = self.photoImage.image!
+            
+        } else if (segue.identifier == "otherItem") {
+            PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(otherItemJSON["objectId"].string)!], block:{
+                (user:AnyObject?, error: NSError?) -> Void in
+                let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                
+                let navi = segue.destinationViewController as! UINavigationController
+                let detail = navi.topViewController as! ItemDetailController
+                detail.userJSON = userJSON[0]
+                detail.itemJSON = self.otherItemJSON
+                
+                detail.loadData(false)
+            });
         }
     }
 }
