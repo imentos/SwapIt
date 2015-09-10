@@ -20,6 +20,8 @@ class AddQuestionController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.allowsSelection = false
 
         userNameLabel.text = userJSON["name"].string
         itemImageView.image = itemImage
