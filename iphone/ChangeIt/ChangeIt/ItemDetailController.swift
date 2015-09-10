@@ -39,6 +39,9 @@ class ItemDetailController: UITableViewController {
             if (self.makeOfferButton.title == "Edit Offer") {
                 PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":offer.disabledItemId!, "distItemId":distId!], block:{
                     (items:AnyObject?, error: NSError?) -> Void in
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.loadData(false)
+                    })                    
                 })
             }
             self.disabledItemId = srcId
