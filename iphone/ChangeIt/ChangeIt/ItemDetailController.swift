@@ -28,25 +28,29 @@ class ItemDetailController: UITableViewController {
     @IBOutlet weak var bookmarkBtn: UIButton!
     @IBOutlet weak var wishBtn: UIButton!
     @IBAction func makeOffer(segue:UIStoryboardSegue) {
-        let offer = segue.sourceViewController as! MakeOfferController
-        let offerJSON:JSON = offer.selectedItem!
         
-        let srcId = offerJSON["objectId"].string
-        let distId = itemJSON["objectId"].string
-        PFCloud.callFunctionInBackground("exchangeItem", withParameters: ["srcItemId":srcId!, "distItemId":distId!], block:{
-            (items:AnyObject?, error: NSError?) -> Void in
-            
-            if (self.makeOfferButton.title == "Edit Offer") {
-                PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":offer.disabledItemId!, "distItemId":distId!], block:{
-                    (items:AnyObject?, error: NSError?) -> Void in
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.loadData(false)
-                    })                    
-                })
-            }
-            self.disabledItemId = srcId
-            self.makeOfferButton.title = "Edit Offer"
-        })
+        
+        
+        
+//        let offer = segue.sourceViewController as! MakeOfferController
+//        let offerJSON:JSON = offer.selectedItem!
+//        
+//        let srcId = offerJSON["objectId"].string
+//        let distId = itemJSON["objectId"].string
+//        PFCloud.callFunctionInBackground("exchangeItem", withParameters: ["srcItemId":srcId!, "distItemId":distId!], block:{
+//            (items:AnyObject?, error: NSError?) -> Void in
+//            
+//            if (self.makeOfferButton.title == "Edit Offer") {
+//                PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":offer.disabledItemId!, "distItemId":distId!], block:{
+//                    (items:AnyObject?, error: NSError?) -> Void in
+//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                        self.loadData(false)
+//                    })                    
+//                })
+//            }
+//            self.disabledItemId = srcId
+//            self.makeOfferButton.title = "Edit Offer"
+//        })
     }
 
     @IBAction func bookmarkItem(sender: AnyObject) {
