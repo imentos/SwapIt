@@ -21,36 +21,42 @@ class ItemDetailController: UITableViewController {
     var itemJSON:JSON!
     var otherItemJSON:JSON!
     var userJSON:JSON!
-    var disabledItemId:String?
+    var otherItemId:String?
     var myItem:Bool! = false
+    var horizontalConstraints:[AnyObject]!
+    var verticalConstraints:[AnyObject]!
     
     @IBOutlet weak var messageBtn: UIButton!
     @IBOutlet weak var bookmarkBtn: UIButton!
     @IBOutlet weak var wishBtn: UIButton!
     @IBAction func makeOffer(segue:UIStoryboardSegue) {
+        let offer = segue.sourceViewController as! MakeOfferController
+        let distId = itemJSON["objectId"].string
         
+        // remove current offer first
+        if let id = otherItemId {
+            PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":offer.currentItemId!, "distItemId":distId!], block:{
+                (items:AnyObject?, error: NSError?) -> Void in
+                self.loadData(false)
+            })
+        }
         
-        
-        
-//        let offer = segue.sourceViewController as! MakeOfferController
-//        let offerJSON:JSON = offer.selectedItem!
-//        
-//        let srcId = offerJSON["objectId"].string
-//        let distId = itemJSON["objectId"].string
-//        PFCloud.callFunctionInBackground("exchangeItem", withParameters: ["srcItemId":srcId!, "distItemId":distId!], block:{
-//            (items:AnyObject?, error: NSError?) -> Void in
-//            
-//            if (self.makeOfferButton.title == "Edit Offer") {
-//                PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":offer.disabledItemId!, "distItemId":distId!], block:{
-//                    (items:AnyObject?, error: NSError?) -> Void in
-//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                        self.loadData(false)
-//                    })                    
-//                })
-//            }
-//            self.disabledItemId = srcId
-//            self.makeOfferButton.title = "Edit Offer"
-//        })
+        // add the new offer based on selection if any
+        if (offer.selectedIndexes.count > 0) {
+            let srcId = offer.selectedIndexes.first
+            PFCloud.callFunctionInBackground("exchangeItem", withParameters: ["srcItemId":srcId!, "distItemId":distId!], block:{
+                (items:AnyObject?, error: NSError?) -> Void in                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.makeOfferButton.title = "Edit Offer"
+                    self.loadData(false)
+                })
+            })
+        } else {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.makeOfferButton.title = "Make Offer"
+                self.loadData(false)
+            })
+        }
     }
 
     @IBAction func bookmarkItem(sender: AnyObject) {
@@ -103,20 +109,22 @@ class ItemDetailController: UITableViewController {
             (results:AnyObject?, error: NSError?) -> Void in
             let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             if (resultsJSON.count == 0) {
-                self.showItemImageOnly()
+                self.otherItemId = nil
+                self.expandItemImage()
                 return
             }
             // each person can only exchange one item
             if (self.makeOfferButton != nil) {
                 self.makeOfferButton.title = "Edit Offer"
-                self.disabledItemId = resultsJSON[0]["item"]["objectId"].string
-                
+                self.otherItemId = resultsJSON[0]["item"]["objectId"].string
                 self.otherItemJSON = resultsJSON[0]["item"]
                 
                 PFQuery(className:"Image").getObjectInBackgroundWithId(self.otherItemJSON["photo"].string!, block: {
                     (imageObj:PFObject?, error: NSError?) -> Void in
                     let imageData = (imageObj!["file"] as! PFFile).getData()
-                    self.otherItemImageView.image = UIImage(data: imageData!)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.otherItemImageView.image = UIImage(data: imageData!)
+                    })
                 })
             }
         })
@@ -125,6 +133,7 @@ class ItemDetailController: UITableViewController {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.photoImage.image = UIImage(data: imageData!)
+            self.collapseItemImage()
         })
         
         PFCloud.callFunctionInBackground("isItemBookmarked", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
@@ -168,20 +177,34 @@ class ItemDetailController: UITableViewController {
         }
     }
     
-    func showItemImageOnly() {
-        photoImage.setTranslatesAutoresizingMaskIntoConstraints(false)
+    func collapseItemImage() {
+        if let x = horizontalConstraints {
+            self.photoImage.superview!.removeConstraints(horizontalConstraints)
+        }
+        if let y = verticalConstraints {
+            self.photoImage.superview!.removeConstraints(verticalConstraints)
+        }
+        self.photoImage.superview?.updateConstraints()
         
+        self.otherItemImageView.hidden = false
+    }
+    
+    func expandItemImage() {
         let views = Dictionary(dictionaryLiteral: ("item",self.photoImage))
-        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[item]|", options: nil, metrics: nil, views: views)
+        horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[item]|", options: nil, metrics: nil, views: views)
+        verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[item]|", options: nil, metrics: nil, views: views)
         self.photoImage.superview!.addConstraints(horizontalConstraints)
-        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[item]|", options: nil, metrics: nil, views: views)
         self.photoImage.superview!.addConstraints(verticalConstraints)
+        
+        self.otherItemImageView.hidden = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.allowsSelection = false
+        
+        photoImage.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapDetected"))
         singleTap.numberOfTapsRequired = 1
@@ -211,7 +234,7 @@ class ItemDetailController: UITableViewController {
             
         } else if (segue.identifier == "offer") {
             let view = segue.destinationViewController as! MakeOfferController
-            view.disabledItemId = self.disabledItemId
+            view.currentItemId = self.otherItemId
             view.loadData()
             
         } else if (segue.identifier == "askQuestion") {

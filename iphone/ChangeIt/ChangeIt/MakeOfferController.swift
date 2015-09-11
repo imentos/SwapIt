@@ -11,14 +11,8 @@ import Parse
 
 class MakeOfferController: UITableViewController {
     var itemsJSON:JSON = nil
-//    var selectedIndex:Int? = nil
-//    var selectedItem:JSON? = nil
-//    var disabledIndex:Int = -1
-    var disabledItemId:String!
-    var doneButton:UIBarButtonItem?
-
+    var currentItemId:String!
     var selectedIndexes = Set<String>()
-
     
     @IBAction func addItem(segue:UIStoryboardSegue) {
         loadData()
@@ -33,8 +27,8 @@ class MakeOfferController: UITableViewController {
             self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             
             for (var i = 0; i < self.itemsJSON.count; i++) {
-                if (self.itemsJSON[i]["objectId"].string == self.disabledItemId) {
-                    self.selectedIndexes.insert(self.disabledItemId)
+                if (self.itemsJSON[i]["objectId"].string == self.currentItemId) {
+                    self.selectedIndexes.insert(self.currentItemId)
                     break
                 }
             }
@@ -48,13 +42,7 @@ class MakeOfferController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        doneButton = self.navigationItem.rightBarButtonItem!
-        //self.navigationItem.rightBarButtonItem = nil
-        self.navigationItem.rightBarButtonItem = doneButton
-        
-        //self.tableView.allowsSelection = false
         self.tableView.allowsMultipleSelection = true
-        //self.tableView.allowsMultipleSelectionDuringEditing = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,8 +50,6 @@ class MakeOfferController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-    
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
@@ -85,14 +71,6 @@ class MakeOfferController: UITableViewController {
         return itemsJSON.count
     }
     
-//    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-//        if (indexPath.row == self.disabledIndex) {
-//            return nil
-//        }
-//        return indexPath
-//    }
-    
-
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) as! UITableViewCell
         cell.selectionStyle = .None
@@ -105,12 +83,6 @@ class MakeOfferController: UITableViewController {
             cell.accessoryType = .None
         }
         
-        
-//        let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) as! UITableViewCell
-//        if (indexPath.row == self.disabledIndex) {
-//            cell.backgroundColor = UIColor.lightGrayColor()
-//        }
-//
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemsJSON[indexPath.row]["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
@@ -142,27 +114,5 @@ class MakeOfferController: UITableViewController {
         
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         cell!.accessoryType = .None
-
-        
-        
-        
-//        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-//        
-//        // deselect old one
-//        if let index = selectedIndex {
-//            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0))
-//            cell?.accessoryType = .None
-//            self.navigationItem.rightBarButtonItem = nil
-//        }
-//        
-//        let cell = tableView.cellForRowAtIndexPath(indexPath)
-//        if (selectedIndex != indexPath.row) {
-//            selectedIndex = indexPath.row
-//            selectedItem = itemsJSON[selectedIndex!]
-//            cell?.accessoryType = .Checkmark
-//            self.navigationItem.rightBarButtonItem = doneButton
-//        } else {
-//            selectedIndex = nil
-//        }        
     }
 }
