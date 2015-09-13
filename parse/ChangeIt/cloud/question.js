@@ -93,7 +93,7 @@ Parse.Cloud.define("getAskedQuestions", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User{objectId:{userId}})-[a:ASK]->(q:Question)-[r:LINK]->(i:Item)<-[r1:OFFER]-(u1:User) RETURN q, i, u ORDER BY q.timestamp DESC',
+            query: 'MATCH (u:User{objectId:{userId}})-[a:ASK]->(q:Question)-[r:LINK]->(i:Item) RETURN q, i, u ORDER BY q.timestamp DESC',
             params: {
                 userId: request.params.userId
             }
@@ -105,6 +105,35 @@ Parse.Cloud.define("getAskedQuestions", function(request, response) {
             var aResults = []
             json_result.data.forEach(function(o) {
                 aResults.push({"question": o[0].data, "item": o[1].data, "user": o[2].data})
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+Parse.Cloud.define("getAskedQuestionByItem", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (u:User{objectId:{userId}})-[a:ASK]->(q:Question)-[r:LINK]->(i:Item{objectId:{itemId}}) RETURN q, u ORDER BY q.timestamp DESC',
+            params: {
+                userId: request.params.userId,
+                itemId: request.params.itemId
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            json_result.data.forEach(function(o) {
+                aResults.push({"question": o[0].data, "user": o[1].data})
             })
             response.success(JSON.stringify(aResults));
         },

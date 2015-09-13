@@ -21,6 +21,8 @@ class ItemDetailController: UITableViewController {
     var itemJSON:JSON!
     var otherItemJSON:JSON!
     var userJSON:JSON!
+    var otherUserJSON:JSON!
+    var questionJSON:JSON!
     var otherItemId:String?
     var myItem:Bool! = false
     var horizontalConstraints:[AnyObject]!
@@ -85,8 +87,27 @@ class ItemDetailController: UITableViewController {
     @IBAction func cancel(segue:UIStoryboardSegue) {
         println("cancel")
     }
+    
     @IBAction func askQuestion(sender: AnyObject) {
-        performSegueWithIdentifier("askQuestion", sender: self)
+//        PFCloud.callFunctionInBackground("getUser", withParameters: ["userId":(PFUser.currentUser()?.objectId)!]) {
+//            (results:AnyObject?, error: NSError?) -> Void in
+//            let userJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+//            self.otherUserJSON = userJSON[0]
+//            self.performSegueWithIdentifier("messages", sender: self)
+//
+//        }
+//
+        PFCloud.callFunctionInBackground("getAskedQuestionByItem", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "itemId":self.itemJSON["objectId"].string!], block: {
+            (results:AnyObject?, error: NSError?) -> Void in
+            let questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            if (questionsJSON.count == 0) {
+                self.performSegueWithIdentifier("askQuestion", sender: self)
+            } else {
+                self.questionJSON = questionsJSON[0]["question"]
+                self.otherUserJSON = questionsJSON[0]["user"]
+                self.performSegueWithIdentifier("messages", sender: self)
+            }
+        })
     }
     
     @IBAction func sendQuestion(segue:UIStoryboardSegue) {
@@ -224,7 +245,7 @@ class ItemDetailController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showUserWishList") {
             let navi = segue.destinationViewController as! UINavigationController
-            let view = navi.childViewControllers[0] as! WishListController
+            let view = navi.topViewController as! WishListController
             
             view.toolbar.rightBarButtonItem = nil
 
@@ -239,9 +260,17 @@ class ItemDetailController: UITableViewController {
             
         } else if (segue.identifier == "askQuestion") {
             let navi = segue.destinationViewController as! UINavigationController
-            let view = navi.childViewControllers[0] as! AddQuestionController
+            let view = navi.topViewController as! AddQuestionController
             view.userJSON = self.userJSON
             view.itemImage = self.photoImage.image!
+            
+        } else if (segue.identifier == "messages") {
+            let navi = segue.destinationViewController as! UINavigationController
+            let view = navi.topViewController as! MessagesController
+            view.userJSON = self.otherUserJSON
+            view.itemJSON = self.itemJSON
+            view.questionJSON = self.questionJSON
+            view.loadData()
             
         } else if (segue.identifier == "otherDetail") {
             PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(otherItemJSON["objectId"].string)!], block:{
