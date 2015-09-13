@@ -31,6 +31,7 @@ class UserController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
         
         let main = UIApplication.sharedApplication().keyWindow?.rootViewController as! MainController
+        main.unwindFromUser = false
         main.viewDidAppear(false)
     }
     

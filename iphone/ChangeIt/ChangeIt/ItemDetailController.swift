@@ -89,38 +89,20 @@ class ItemDetailController: UITableViewController {
     }
     
     @IBAction func askQuestion(sender: AnyObject) {
-//        PFCloud.callFunctionInBackground("getUser", withParameters: ["userId":(PFUser.currentUser()?.objectId)!]) {
-//            (results:AnyObject?, error: NSError?) -> Void in
-//            let userJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-//            self.otherUserJSON = userJSON[0]
-//            self.performSegueWithIdentifier("messages", sender: self)
-//
-//        }
-//
-        PFCloud.callFunctionInBackground("getAskedQuestionByItem", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "itemId":self.itemJSON["objectId"].string!], block: {
+        PFCloud.callFunctionInBackground("getUser", withParameters: ["userId":(PFUser.currentUser()?.objectId)!]) {
             (results:AnyObject?, error: NSError?) -> Void in
-            let questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            if (questionsJSON.count == 0) {
-                self.performSegueWithIdentifier("askQuestion", sender: self)
-            } else {
-                self.questionJSON = questionsJSON[0]["question"]
-                self.otherUserJSON = questionsJSON[0]["user"]
+            let userJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            self.otherUserJSON = userJSON[0]
+            PFCloud.callFunctionInBackground("getAskedQuestionByItem", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "itemId":self.itemJSON["objectId"].string!], block: {
+                (results:AnyObject?, error: NSError?) -> Void in
+                let questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                if (questionsJSON.count == 0) {
+                } else {
+                    self.questionJSON = questionsJSON[0]["question"]
+                }
                 self.performSegueWithIdentifier("messages", sender: self)
-            }
-        })
-    }
-    
-    @IBAction func sendQuestion(segue:UIStoryboardSegue) {
-        let view = segue.sourceViewController as! AddQuestionController
-        let uuid = NSUUID().UUIDString
-        
-        PFCloud.callFunctionInBackground("addQuestion", withParameters: ["text": view.questionTextView.text, "objectId": uuid], block:{
-            (items:AnyObject?, error: NSError?) -> Void in
-            let itemId = self.itemJSON["objectId"].string
-            PFCloud.callFunctionInBackground("askItemQuestionByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": itemId!, "questionId": uuid], block:{
-                (items:AnyObject?, error: NSError?) -> Void in
             })
-        })
+        }
     }
     
     func loadData(myItem:Bool) {
@@ -257,16 +239,11 @@ class ItemDetailController: UITableViewController {
             let view = segue.destinationViewController as! MakeOfferController
             view.currentItemId = self.otherItemId
             view.loadData()
-            
-        } else if (segue.identifier == "askQuestion") {
-            let navi = segue.destinationViewController as! UINavigationController
-            let view = navi.topViewController as! AddQuestionController
-            view.userJSON = self.userJSON
-            view.itemImage = self.photoImage.image!
-            
+                        
         } else if (segue.identifier == "messages") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.topViewController as! MessagesController
+            view.title = self.title
             view.userJSON = self.otherUserJSON
             view.itemJSON = self.itemJSON
             view.questionJSON = self.questionJSON

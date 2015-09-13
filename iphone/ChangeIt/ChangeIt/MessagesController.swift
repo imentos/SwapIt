@@ -16,7 +16,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var messageTextField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var messageTableView: UITableView!
-    var questionJSON:JSON = nil
+    var questionJSON:JSON!
     var repliesJSON:JSON = nil
     var userJSON:JSON = nil
     var itemJSON:JSON!
@@ -66,13 +66,27 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func sendMessage(sender: UIButton) {
-        let uuid = NSUUID().UUIDString
-        PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": self.messageTextField.text, "objectId": uuid, "questionId": (questionJSON["objectId"].string)!, "userId": (PFUser.currentUser()?.objectId)!], block:{
-            (items:AnyObject?, error: NSError?) -> Void in
-            self.messageTextField.text = ""
-            self.messageTextField.endEditing(true)
-            self.loadData()
-        })
+        if let q = questionJSON {
+            let uuid = NSUUID().UUIDString
+            PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": self.messageTextField.text, "objectId": uuid, "questionId": (questionJSON["objectId"].string)!, "userId": (PFUser.currentUser()?.objectId)!], block:{
+                (items:AnyObject?, error: NSError?) -> Void in
+                self.messageTextField.text = ""
+                self.messageTextField.endEditing(true)
+                self.loadData()
+            })
+        
+        } else {
+            let uuid = NSUUID().UUIDString
+            PFCloud.callFunctionInBackground("addQuestion", withParameters: ["text": self.messageTextField.text, "objectId": uuid], block:{
+                (result:AnyObject?, error: NSError?) -> Void in
+                self.questionJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
+                let itemId = self.itemJSON["objectId"].string
+                PFCloud.callFunctionInBackground("askItemQuestionByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": itemId!, "questionId": uuid], block:{
+                    (items:AnyObject?, error: NSError?) -> Void in
+                    self.loadData()
+                })
+            })
+        }
     }
     
     @IBAction func endEditing(sender: AnyObject) {
@@ -86,15 +100,13 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func loadData() {
-        
-        PFCloud.callFunctionInBackground("getRepliesOfQuestion", withParameters: ["questionId":(questionJSON["objectId"].string)!], block: {
-            (replies:AnyObject?, error: NSError?) -> Void in
-            self.repliesJSON = JSON(data:(replies as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            if (self.repliesJSON.count == 0) {
-                return
-            }
-            self.messageTableView.reloadData()
-        })
+        if let q = questionJSON {
+            PFCloud.callFunctionInBackground("getRepliesOfQuestion", withParameters: ["questionId":(questionJSON["objectId"].string)!], block: {
+                (replies:AnyObject?, error: NSError?) -> Void in
+                self.repliesJSON = JSON(data:(replies as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                self.messageTableView.reloadData()
+            })
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -149,7 +161,11 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.repliesJSON.count + 1
+        if let q = questionJSON {
+            return self.repliesJSON.count + 1
+        } else {
+            return 0
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

@@ -202,7 +202,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("wishList", forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel?.text = wishesJSON[indexPath.row - 1]["name"].string
-        
+        cell.selectionStyle = UITableViewCellSelectionStyle.Default
         
         return cell
     }
