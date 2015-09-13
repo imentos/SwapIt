@@ -48,10 +48,8 @@ class ItemDetailController: UITableViewController {
             let srcId = offer.selectedIndexes.first
             PFCloud.callFunctionInBackground("exchangeItem", withParameters: ["srcItemId":srcId!, "distItemId":distId!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in                
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.makeOfferButton.title = "Edit Offer"
-                    self.loadData(false)
-                })
+                self.makeOfferButton.title = "Edit Offer"
+                self.loadData(false)
             })
         } else {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -108,37 +106,38 @@ class ItemDetailController: UITableViewController {
     func loadData(myItem:Bool) {
         // check if the offer has been made
         let itemId = self.itemJSON["objectId"].string
-        PFCloud.callFunctionInBackground("getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
-            (results:AnyObject?, error: NSError?) -> Void in
-            let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            if (resultsJSON.count == 0) {
-                self.otherItemId = nil
-                self.expandItemImage()
-                return
-            }
-            // each person can only exchange one item
-            if (self.makeOfferButton != nil) {
-                self.makeOfferButton.title = "Edit Offer"
-                self.otherItemId = resultsJSON[0]["item"]["objectId"].string
-                self.otherItemJSON = resultsJSON[0]["item"]
-                
-                PFQuery(className:"Image").getObjectInBackgroundWithId(self.otherItemJSON["photo"].string!, block: {
-                    (imageObj:PFObject?, error: NSError?) -> Void in
-                    let imageData = (imageObj!["file"] as! PFFile).getData()
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.otherItemImageView.image = UIImage(data: imageData!)
-                    })
-                })
-            }
-        })
-
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.photoImage.image = UIImage(data: imageData!)
             self.collapseItemImage()
+            
+            PFCloud.callFunctionInBackground("getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
+                (results:AnyObject?, error: NSError?) -> Void in
+                let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                if (resultsJSON.count == 0) {
+                    self.otherItemId = nil
+                    self.expandItemImage()
+                    return
+                }
+                // each person can only exchange one item
+                if (self.makeOfferButton != nil) {
+                    self.makeOfferButton.title = "Edit Offer"
+                    self.otherItemId = resultsJSON[0]["item"]["objectId"].string
+                    self.otherItemJSON = resultsJSON[0]["item"]
+                    
+                    PFQuery(className:"Image").getObjectInBackgroundWithId(self.otherItemJSON["photo"].string!, block: {
+                        (imageObj:PFObject?, error: NSError?) -> Void in
+                        let imageData = (imageObj!["file"] as! PFFile).getData()
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.otherItemImageView.image = UIImage(data: imageData!)
+                        })
+                    })
+                }
+            })
         })
         
+
         PFCloud.callFunctionInBackground("isItemBookmarked", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -183,9 +182,11 @@ class ItemDetailController: UITableViewController {
     func collapseItemImage() {
         if let x = horizontalConstraints {
             self.photoImage.superview!.removeConstraints(horizontalConstraints)
+            horizontalConstraints = nil
         }
         if let y = verticalConstraints {
             self.photoImage.superview!.removeConstraints(verticalConstraints)
+            verticalConstraints = nil
         }
         self.photoImage.superview?.updateConstraints()
         
@@ -194,10 +195,18 @@ class ItemDetailController: UITableViewController {
     
     func expandItemImage() {
         let views = Dictionary(dictionaryLiteral: ("item",self.photoImage))
-        horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[item]|", options: nil, metrics: nil, views: views)
-        verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[item]|", options: nil, metrics: nil, views: views)
-        self.photoImage.superview!.addConstraints(horizontalConstraints)
-        self.photoImage.superview!.addConstraints(verticalConstraints)
+        if let x = horizontalConstraints {
+        } else {
+            horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[item]|", options: nil, metrics: nil, views: views)
+            self.photoImage.superview!.addConstraints(horizontalConstraints)
+        }
+        
+        if let y = verticalConstraints {
+        } else {
+            verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[item]|", options: nil, metrics: nil, views: views)
+            self.photoImage.superview!.addConstraints(verticalConstraints)
+        }
+        self.photoImage.superview?.updateConstraints()
         
         self.otherItemImageView.hidden = true
     }
