@@ -50,16 +50,6 @@ class MakeOfferController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == .Delete) {
-            print("DEL");
-        }
-    }
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
