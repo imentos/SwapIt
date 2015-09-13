@@ -151,10 +151,6 @@ class ItemDetailController: UITableViewController {
                 self.bookmarkBtn.setBackgroundImage(UIImage(named:"Bookmarked_Icon"), forState: .Normal)
             })
         })
-        
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.showData(myItem)
-        })
     }
     
     func showData(myItem:Bool) {
@@ -222,6 +218,10 @@ class ItemDetailController: UITableViewController {
         singleTap.numberOfTapsRequired = 1
         otherItemImageView.userInteractionEnabled = true
         otherItemImageView.addGestureRecognizer(singleTap)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.showData(myItem)
     }
     
     func tapDetected() {
