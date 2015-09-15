@@ -148,7 +148,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="3DDAC1A8-0FE0-45E1-A9A6-E399B3B0C2A7" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="79BDAB00-4C6A-4C87-B0D9-9E08A82F7F94" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -630,7 +630,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jsq-S8-CpC">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jsq-S8-CpC">
                                 <rect key="frame" x="16" y="62" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="i1Z-bD-sLr"/>
@@ -672,7 +672,7 @@
                                     <constraint firstItem="8lF-l8-M8D" firstAttribute="top" secondItem="Lgl-VU-sYT" secondAttribute="top" constant="10" id="eLJ-CO-2im"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KhU-En-okd">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KhU-En-okd">
                                 <rect key="frame" x="0.0" y="122" width="600" height="428"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -761,14 +761,14 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydw-Oc-tKK">
-                                <rect key="frame" x="64" y="71" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydw-Oc-tKK">
+                                <rect key="frame" x="64" y="71" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hyQ-rp-zw3">
-                                <rect key="frame" x="532" y="52" width="60" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hyQ-rp-zw3">
+                                <rect key="frame" x="532" y="58" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="HEc-LS-pv6"/>
                                     <constraint firstAttribute="height" constant="60" id="Kxx-1L-ezm"/>
@@ -777,7 +777,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Fbf-he-Hct" kind="presentation" identifier="itemDetail" id="2pJ-It-weg"/>
+                                    <segue destination="Gti-Vr-XhS" kind="unwind" unwindAction="cancel:" id="O8C-zP-p6v"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -799,9 +799,9 @@
                             <constraint firstItem="Lgl-VU-sYT" firstAttribute="top" secondItem="KhU-En-okd" secondAttribute="bottom" id="iXW-RE-tDf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hyQ-rp-zw3" secondAttribute="trailing" constant="-8" id="kAV-hO-387"/>
                             <constraint firstItem="jsq-S8-CpC" firstAttribute="top" secondItem="r2I-zt-tXJ" secondAttribute="bottom" constant="18" id="mvH-UW-wGV"/>
-                            <constraint firstItem="KhU-En-okd" firstAttribute="top" secondItem="hyQ-rp-zw3" secondAttribute="bottom" constant="10" id="o7q-x2-HTI"/>
+                            <constraint firstItem="KhU-En-okd" firstAttribute="top" secondItem="hyQ-rp-zw3" secondAttribute="bottom" constant="4" id="o7q-x2-HTI"/>
                             <constraint firstItem="Lgl-VU-sYT" firstAttribute="leading" secondItem="4od-85-q6n" secondAttribute="leadingMargin" constant="-16" id="sVs-Q5-VpK"/>
-                            <constraint firstItem="hyQ-rp-zw3" firstAttribute="top" secondItem="r2I-zt-tXJ" secondAttribute="bottom" constant="8" id="v9L-NF-2Ec"/>
+                            <constraint firstItem="hyQ-rp-zw3" firstAttribute="top" secondItem="r2I-zt-tXJ" secondAttribute="bottom" constant="14" id="v9L-NF-2Ec"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Lgl-VU-sYT" secondAttribute="trailing" constant="-16" id="vEM-vP-tNg"/>
                             <constraint firstItem="KhU-En-okd" firstAttribute="top" secondItem="Ydw-Oc-tKK" secondAttribute="bottom" constant="30" id="wHF-jt-bMc"/>
                         </constraints>
@@ -1621,7 +1621,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="3DDAC1A8-0FE0-45E1-A9A6-E399B3B0C2A7" width="30" height="30">
+        <image name="79BDAB00-4C6A-4C87-B0D9-9E08A82F7F94" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -1695,10 +1695,10 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="bottom_User_Inactive" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2pJ-It-weg"/>
-        <segue reference="9x2-Rk-Bhs"/>
-        <segue reference="Tea-P4-aes"/>
-        <segue reference="QJO-uD-btk"/>
+        <segue reference="vsF-iI-bzw"/>
         <segue reference="wMb-XK-Jh9"/>
+        <segue reference="QJO-uD-btk"/>
+        <segue reference="Tea-P4-aes"/>
+        <segue reference="9x2-Rk-Bhs"/>
     </inferredMetricsTieBreakers>
 </document>

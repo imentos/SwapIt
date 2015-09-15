@@ -35,7 +35,8 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.itemDetailButton.setTitle("", forState: .Normal)
-            self.itemDetailButton.setBackgroundImage(UIImage(data: imageData!), forState: UIControlState.Normal)
+            self.itemDetailButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
+            self.itemDetailButton.setImage(UIImage(data: imageData!), forState: UIControlState.Normal)
         })
         
         self.userPhoto.layer.borderWidth = 1
@@ -54,6 +55,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         
         let tapRecognizer:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tableTapped")
         self.messageTableView.addGestureRecognizer(tapRecognizer)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -171,6 +173,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "itemDetail") {
             let navi = segue.destinationViewController as! UINavigationController
+            navi.toolbarHidden = true
             let detail = navi.topViewController as! ItemDetailController
             detail.userJSON = userJSON
             detail.itemJSON = itemJSON

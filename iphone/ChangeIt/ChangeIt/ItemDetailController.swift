@@ -154,6 +154,10 @@ class ItemDetailController: UITableViewController {
     }
     
     func showData(myItem:Bool) {
+        if let i = itemJSON {
+        } else {
+            return
+        }
         self.title = itemJSON["title"].string
         self.descriptionTextView.text = itemJSON["description"].string
         self.userLabel.text = userJSON["name"].string
