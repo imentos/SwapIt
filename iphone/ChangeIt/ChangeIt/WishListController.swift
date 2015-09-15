@@ -12,6 +12,7 @@ import Parse
 class WishListController: UITableViewController, UIActionSheetDelegate, UITextFieldDelegate {
     var wishesJSON:JSON = nil
     var enableEdit:Bool = true
+    var hideAddCell:Bool = true
     
     @IBOutlet var backButton: UIBarButtonItem!
     @IBOutlet var addButton: UIBarButtonItem!
@@ -143,6 +144,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":userId], block: {
             (wishes:AnyObject?, error: NSError?) -> Void in
             self.wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            self.hideAddCell = hideAddCell
             self.tableView.reloadData()
             
             self.updateButtonsToMatchTableState()
@@ -169,7 +171,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if (indexPath.row == 0 && self.tableView.editing) {
+        if (indexPath.row == 0 && (self.tableView.editing || self.hideAddCell)) {
             return 0
         }
         return 44
