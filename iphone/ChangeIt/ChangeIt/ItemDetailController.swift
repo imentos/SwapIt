@@ -104,6 +104,7 @@ class ItemDetailController: UITableViewController {
     }
     
     func loadData(myItem:Bool) {
+        self.myItem = myItem
         // check if the offer has been made
         let itemId = self.itemJSON["objectId"].string
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
@@ -153,7 +154,7 @@ class ItemDetailController: UITableViewController {
         })
     }
     
-    func showData(myItem:Bool) {
+    func showData() {
         if let i = itemJSON {
         } else {
             return
@@ -170,7 +171,7 @@ class ItemDetailController: UITableViewController {
             self.userPhoto.image = UIImage(data: data)
         }
         
-        if (myItem) {
+        if (self.myItem == true) {
             self.makeOfferButton.enabled = false
             self.wishBtn.enabled = false
             self.bookmarkBtn.enabled = false
@@ -225,7 +226,7 @@ class ItemDetailController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.showData(myItem)
+        self.showData()
     }
     
     func tapDetected() {
