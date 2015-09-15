@@ -40,23 +40,25 @@ class OffersDetailController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return offerJSON["src"]["dst"].count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("offerFrom", forIndexPath: indexPath) as! UITableViewCell
+        
+        let dstJSON = offerJSON["src"]["dst"][indexPath.row]
 
         // display src item information
-        PFQuery(className:"Image").getObjectInBackgroundWithId(offerJSON["dst"]["photo"].string!, block: {
+        PFQuery(className:"Image").getObjectInBackgroundWithId(dstJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             (cell.viewWithTag(101) as! UIImageView).image = UIImage(data: imageData!)
         })
         
         let title = cell.viewWithTag(102) as! UILabel
-        title.text = offerJSON["dst"]["title"].string
+        title.text = dstJSON["title"].string
         
-        let user = PFCloud.callFunction("getUserOfItem", withParameters: ["itemId":(offerJSON["dst"]["objectId"].string)!])
+        let user = PFCloud.callFunction("getUserOfItem", withParameters: ["itemId":(dstJSON["objectId"].string)!])
         let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
         let name = cell.viewWithTag(103) as! UILabel
         name.text = userJSON[0]["name"].string
@@ -65,12 +67,12 @@ class OffersDetailController: UITableViewController {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let itemJSON = offerJSON["dst"]
+        let selectedIndex = self.tableView.indexPathForSelectedRow()?.row
         
         let navi = segue.destinationViewController as! UINavigationController
         let detail = navi.topViewController as! ItemDetailController
-        detail.itemJSON = itemJSON
-        detail.userJSON = offerJSON["otherUser"]
+        detail.itemJSON = offerJSON["src"]["dst"][selectedIndex!]
+        detail.userJSON = offerJSON["src"]["otherUser"][selectedIndex!]
         detail.loadData(false)
     }
 }

@@ -69,7 +69,7 @@ Parse.Cloud.define("getExchangedItemsByUser", function(request, response) {
             var json_result = JSON.parse(httpResponse.text)
             var aResults = []
             json_result.data.forEach(function(o) {
-                aResults.push({"item": o[0].data, "otherItem": o[1].data, "user": o[2].data, "exchange": o[3].data})
+                aResults.push({"item": o[0].data,"otherItem": o[1].data,"user": o[2].data,"exchange": o[3].data})
             })
             response.success(JSON.stringify(aResults));
         },
@@ -98,7 +98,7 @@ Parse.Cloud.define("getExchangedItems", function(request, response) {
             var json_result = JSON.parse(httpResponse.text)
             var aResults = []
             json_result.data.forEach(function(o) {
-                aResults.push({"item": o[0].data, "otherItem": o[1].data, "user": o[2].data, "exchange": o[3].data})
+                aResults.push({"item": o[0].data,"otherItem": o[1].data,"user": o[2].data,"exchange": o[3].data})
             })
             response.success(JSON.stringify(aResults));
         },
@@ -238,8 +238,18 @@ Parse.Cloud.define("getSentOffersByUser", function(request, response) {
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
             var aResults = []
+            var temp = {}
             json_result.data.forEach(function(o) {
-                aResults.push({"src": o[0].data, "dst": o[1].data, "otherUser": o[2].data})
+                var key = o[0].data["objectId"];
+                if (temp.hasOwnProperty(key)) {
+                    temp[key]["dst"].push(o[1].data);
+                    temp[key]["otherUser"].push(o[2].data);
+                } else {
+                    temp[key] = o[0].data;
+                    temp[key]["dst"] = [o[1].data];
+                    temp[key]["otherUser"] = [o[2].data];
+                    aResults.push({"src": temp[key]});
+                }
             })
             response.success(JSON.stringify(aResults));
         },
@@ -267,7 +277,7 @@ Parse.Cloud.define("getReceivedOffersByUser", function(request, response) {
             var json_result = JSON.parse(httpResponse.text)
             var aResults = []
             json_result.data.forEach(function(o) {
-                aResults.push({"src": o[0].data, "dst": o[1].data})
+                aResults.push({"src": o[0].data,"dst": o[1].data})
             })
             response.success(JSON.stringify(aResults));
         },
