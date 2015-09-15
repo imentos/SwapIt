@@ -13,10 +13,7 @@ class UserController: UIViewController {
     
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet var spinnerView: UIActivityIndicatorView!
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var name: UILabel!
     @IBOutlet weak var offerSentButton: UIButton!
-    @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var offerReceivedButton: UIButton!
     
     var sentOffersJSON:JSON! = nil
@@ -39,8 +36,7 @@ class UserController: UIViewController {
         if let user = PFUser.currentUser() {
             let userFromCloud = PFCloud.callFunction("getUser", withParameters: ["userId": user.objectId!])
             let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            name.text = userJSON[0]["name"].string
-            locationLabel.text = userJSON[0]["location"].string
+            title = userJSON[0]["name"].string
             
             if (PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!)) {
                 userPhoto.layer.borderWidth = 1
