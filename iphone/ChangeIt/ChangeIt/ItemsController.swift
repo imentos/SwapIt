@@ -30,7 +30,21 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         self.filterButton.hidden = bookmarkMode
     }
     
-    func loadData() {
+    func loadData(query:String, complete:(results:JSON) -> Void) {
+        PFCloud.callFunctionInBackground(query, withParameters: ["search": ".*", "userId": (PFUser.currentUser()?.objectId)!], block:{
+            (items:AnyObject?, error: NSError?) -> Void in
+            if (items == nil) {
+                self.itemsJSON = JSON("{}")
+                complete(results:self.itemsJSON)
+                return
+            }
+            self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            self.tableView.reloadData()
+            complete(results:self.itemsJSON)
+        })
+    }
+    
+    func loadData(complete:(results:JSON) -> Void) {
         // if no wish list, show all items. Otherwise, show best matched items.
         var wishesJSON:JSON!
         print("userId:\(PFUser.currentUser()?.objectId)")
@@ -41,9 +55,9 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
             }
             let wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             if (wishesJSON.count == 0) {
-                self.loadData("getAllItemsExceptMe")
+                self.loadAll(0)
             } else {
-                self.loadData("getBestItemsExceptMe")
+                self.loadBest(0)
             }
         })
     }
@@ -52,14 +66,19 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         searchModel = 0
         scopeButton.setTitle("All Items", forState:.Normal)
         self.itemsJSON = JSON("{}")
-        self.loadData("getAllItemsExceptMe")
+        loadData("getAllItemsExceptMe") { (results) -> Void in
+        }
     }
     
     func loadBest(sender: AnyObject) {
         searchModel = 1
         scopeButton.setTitle("Best Match", forState:.Normal)
         self.itemsJSON = JSON("{}")
-        self.loadData()
+        self.loadData("getBestItemsExceptMe") { (results) -> Void in
+            if (results.count == 0) {
+                self.loadAll(sender)
+            }
+        }
     }
     
     func loadNearMe(sender: AnyObject) {
@@ -107,22 +126,11 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
             menuItems:[all, best, location]);
     }
     
-    func loadData(query:String) {
-        PFCloud.callFunctionInBackground(query, withParameters: ["search": ".*", "userId": (PFUser.currentUser()?.objectId)!], block:{
-            (items:AnyObject?, error: NSError?) -> Void in
-            if (items == nil) {
-                self.itemsJSON = JSON("{}")
-                return
-            }
-            self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            self.tableView.reloadData()
-        })
-    }
-    
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles as! [String]
         let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
-        loadData(getQuery(selectedScope))
+        loadData(getQuery(selectedScope)) { (results) -> Void in
+        }
     }
     
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
@@ -145,7 +153,6 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         } else if (scope == "Best Matched") {
             return "getBestItemsExceptMe"
         } else {
-            
         }
         return "getAllItemsExceptMe"
     }

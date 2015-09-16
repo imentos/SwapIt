@@ -73,7 +73,8 @@ class UserController: UIViewController {
             let view = navi.viewControllers[0] as! ItemsController
             view.title = "Bookmarks"
             view.bookmarkMode = true
-            view.loadData("getBookmarkedItems")
+            view.loadData("getBookmarkedItems") { (results) -> Void in
+            }
             
         } else if (segue.identifier == "questions") {
             let navi = segue.destinationViewController as! UINavigationController
