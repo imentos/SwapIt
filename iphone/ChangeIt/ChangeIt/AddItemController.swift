@@ -3,8 +3,9 @@ import Parse
 import AVFoundation
 import ImageIO
 
-class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextViewDelegate {
+class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
     
+    @IBOutlet var addImageInfo: UILabel!
     @IBOutlet var camerView: UIView!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var titleTextField: UITextField!
@@ -39,15 +40,15 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
                     // There was a problem, check error.description
                 }
             }
-            
-
-
         }
     }
     
     override func shouldPerformSegueWithIdentifier(identifier: String!, sender: AnyObject!) -> Bool {
         if (identifier == "addItem") {
+            self.validateTitle()
+            self.validateDescription()
             if (titleTextField.text == "" || descriptionTextView.text == TEXT_VIEW_PLACE_HOLDER || imageId == nil) {
+                
                 return false
             }
             return true
@@ -109,6 +110,8 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         imageObj.save()
         
         self.imageId = imageObj.objectId
+        
+        self.addImageInfo.hidden = true
     }
     
     func resizeImage(image: UIImage) -> UIImage {
@@ -134,12 +137,37 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         
         picker!.delegate = self
         
+        self.titleTextField.delegate = self
+        
         self.descriptionTextView.delegate = self
         self.descriptionTextView.text = TEXT_VIEW_PLACE_HOLDER
+        self.descriptionTextView.backgroundColor = UIColor.clearColor()
         self.descriptionTextView.textColor = UIColor.lightGrayColor()
         
         let recognizer = UITapGestureRecognizer(target: self, action:Selector("handleTap:"))
         self.camerView.addGestureRecognizer(recognizer)
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        validateTitle()
+    }
+    
+    func validateTitle() {
+        let invalid = self.titleTextField.text.isEmpty;
+        self.validate(invalid, view: self.titleTextField.superview!)
+    }
+    
+    func validateDescription() {
+        let invalid = self.descriptionTextView.text == TEXT_VIEW_PLACE_HOLDER;
+        self.validate(invalid, view: self.descriptionTextView.superview!)
+    }
+    
+    func validate(invalid:Bool, view:UIView) {
+        if (invalid) {
+            view.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.2)
+        } else {
+            view.backgroundColor = UIColor.clearColor()
+        }
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
@@ -154,6 +182,8 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
             self.descriptionTextView.text = TEXT_VIEW_PLACE_HOLDER
             self.descriptionTextView.textColor = UIColor.lightGrayColor()
         }
+        
+        validateDescription()
     }
     
     override func didReceiveMemoryWarning() {
