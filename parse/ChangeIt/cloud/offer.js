@@ -199,7 +199,7 @@ Parse.Cloud.define("getItemsWithOffersByUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User{objectId:{userId}})-[o:OFFER]->(s:Item) OPTIONAL MATCH s<-[r:EXCHANGE]-(d:Item) RETURN s ORDER BY s.timestamp DESC',
+            query: 'MATCH (u:User{objectId:{userId}})-[o:OFFER]->(s:Item) OPTIONAL MATCH s<-[r:EXCHANGE]-(d:Item) RETURN DISTINCT s ORDER BY s.timestamp DESC',
             params: {
                 userId: request.params.userId
             }
