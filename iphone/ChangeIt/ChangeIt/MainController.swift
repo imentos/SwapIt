@@ -4,39 +4,30 @@ import ParseUI
 
 class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
     var login:MyLogInViewController!
-    var unwindFromUser:Bool = false
+    
     override func viewDidAppear(animated: Bool) {
-        if (self.unwindFromUser) {
-            return
+        if let user = PFUser.currentUser() {
+        } else {
+            showLoginPage()
         }
-        
-        // check user login
+    }
+    
+    override func viewDidLoad() {
         if let user = PFUser.currentUser() {
             startItemsPage()
-        } else {
-            login = MyLogInViewController()
-            login.fields = PFLogInFields.SignUpButton | PFLogInFields.LogInButton | PFLogInFields.Facebook | PFLogInFields.UsernameAndPassword
-            login.delegate = self
-            login.signUpController?.delegate = self
-            self.presentViewController(login, animated: true, completion: { () -> Void in
-                //
-            })
         }
     }
     
-    // from user
-    @IBAction func cancel(segue:UIStoryboardSegue) {
-        self.unwindFromUser = true
+    func showLoginPage() {
+        login = MyLogInViewController()
+        login.fields = PFLogInFields.SignUpButton | PFLogInFields.LogInButton | PFLogInFields.Facebook | PFLogInFields.UsernameAndPassword
+        login.delegate = self
+        login.signUpController?.delegate = self
+        self.presentViewController(login, animated: true, completion: { () -> Void in
+            //
+        })
     }
     
-    @IBAction func addItem(segue:UIStoryboardSegue) {
-        self.selectedIndex = 1
-    }
-
-    @IBAction func cancelItem(segue:UIStoryboardSegue) {
-        self.selectedIndex = 1
-    }
-
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
         // when click an empty view controller, perform modal segue
         if (item.tag == 2) {

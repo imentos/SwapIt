@@ -19,6 +19,9 @@ class UserController: UIViewController {
     var sentOffersJSON:JSON! = nil
     var receivedOffersJSON:JSON! = nil
     
+    @IBAction func cancel(segue:UIStoryboardSegue) {
+    }
+    
     @IBAction func logout(sender: AnyObject) {
         let currentInstall = PFInstallation.currentInstallation()
         currentInstall["user"] = NSNull()
@@ -28,8 +31,7 @@ class UserController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
         
         let main = UIApplication.sharedApplication().keyWindow?.rootViewController as! MainController
-        main.unwindFromUser = false
-        main.viewDidAppear(false)
+        main.showLoginPage()
     }
     
     override func viewDidAppear(animated: Bool) {
