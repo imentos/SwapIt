@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Social
 
 class ItemDetailController: UITableViewController {
 
@@ -57,6 +58,13 @@ class ItemDetailController: UITableViewController {
                 self.loadData(false)
             })
         }
+    }
+    @IBAction func socialShare(sender: AnyObject) {
+        
+        var shareToFacebook : SLComposeViewController =
+        SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+        self.presentViewController(shareToFacebook, animated: true, completion:nil)
+        
     }
 
     @IBAction func bookmarkItem(sender: AnyObject) {
