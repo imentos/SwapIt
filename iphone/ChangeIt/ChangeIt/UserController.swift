@@ -59,7 +59,7 @@ class UserController: UIViewController {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.viewControllers[0] as! WishListController
             view.title = "Wish List"
-            view.loadData(PFUser.currentUser()?.objectId!, hideAddCell: false)
+            view.loadData(PFUser.currentUser()?.objectId!, otherWishlist: false)
             
         } else if (segue.identifier == "offerSent") {
             let navi = segue.destinationViewController as! UINavigationController

@@ -253,7 +253,7 @@ class ItemDetailController: UITableViewController {
             
             view.toolbar.rightBarButtonItem = nil
 
-            view.loadData(self.userJSON["objectId"].string, hideAddCell: true)
+            view.loadData(self.userJSON["objectId"].string, otherWishlist: true)
             view.title = self.userJSON["name"].string! + "'s Wish List";
             view.enableEdit = false
             

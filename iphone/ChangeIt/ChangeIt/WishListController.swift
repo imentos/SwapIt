@@ -12,7 +12,7 @@ import Parse
 class WishListController: UITableViewController, UIActionSheetDelegate, UITextFieldDelegate {
     var wishesJSON:JSON = nil
     var enableEdit:Bool = true
-    var hideAddCell:Bool = true
+    var otherWishlist:Bool = true
     
     @IBOutlet var backButton: UIBarButtonItem!
     @IBOutlet var addButton: UIBarButtonItem!
@@ -32,7 +32,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
             (wishes:AnyObject?, error: NSError?) -> Void in
             PFCloud.callFunctionInBackground("linkMyWish", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "objectId": wishId], block: {
                 (wishes:AnyObject?, error: NSError?) -> Void in
-                self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
+                self.loadData((PFUser.currentUser()?.objectId)!, otherWishlist: false)
             })
         })
         return true
@@ -41,7 +41,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     @IBAction func deleteAction(sender: AnyObject) {
         var title = ""
         if (self.tableView.indexPathsForSelectedRows()?.count == 1) {
-            title = "Are you sure you wnat to remove this wish list?"
+            title = "Are you sure you want to remove this wish list?"
         } else {
             title = "Are you sure you want to remove these wish lists?"
         }
@@ -64,7 +64,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
                 
                 PFCloud.callFunctionInBackground("deleteWishesOfUser", withParameters: ["userId":userId!, "objectIds":deleteObjectIds], block: {
                     (wishes:AnyObject?, error: NSError?) -> Void in
-                    self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
+                    self.loadData((PFUser.currentUser()?.objectId)!, otherWishlist: false)
                     self.tableView.editing = false
                 })
             } else {
@@ -73,7 +73,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
                 
                 PFCloud.callFunctionInBackground("deleteAllWishesOfUser", withParameters: ["userId":userId!], block: {
                     (wishes:AnyObject?, error: NSError?) -> Void in
-                    self.loadData((PFUser.currentUser()?.objectId)!, hideAddCell: false)
+                    self.loadData((PFUser.currentUser()?.objectId)!, otherWishlist: false)
                     self.tableView.editing = false
                 })
             }
@@ -139,16 +139,16 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         updateDeleteButtonTitle()
     }
 
-    func loadData(userId:String!, hideAddCell:Bool) {
+    func loadData(userId:String!, otherWishlist:Bool) {
         var wishesJSON:JSON!
         PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":userId], block: {
             (wishes:AnyObject?, error: NSError?) -> Void in
             self.wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            self.hideAddCell = hideAddCell
+            self.otherWishlist = otherWishlist
             self.tableView.reloadData()
             
             self.updateButtonsToMatchTableState()
-            self.hideAddWishListCell(hideAddCell)
+            self.hideAddWishListCell(otherWishlist)
             
             if (self.enableEdit == false) {
                 self.toolbar.rightBarButtonItem = nil
@@ -171,7 +171,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if (indexPath.row == 0 && (self.tableView.editing || self.hideAddCell)) {
+        if (indexPath.row == 0 && (self.tableView.editing || self.otherWishlist)) {
             return 0
         }
         return 44
@@ -198,8 +198,9 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCellWithIdentifier("AddWishListCell", forIndexPath: indexPath) as! AddWishListCell
             let newWishText = cell.newWishListText
-            newWishText.becomeFirstResponder()
-
+            if (self.otherWishlist == false) {
+                newWishText.becomeFirstResponder()
+            }
             return cell
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("wishList", forIndexPath: indexPath) as! UITableViewCell
