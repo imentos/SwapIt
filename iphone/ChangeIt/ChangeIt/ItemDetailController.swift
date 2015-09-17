@@ -26,12 +26,119 @@ class ItemDetailController: UITableViewController {
     var questionJSON:JSON!
     var otherItemId:String?
     var myItem:Bool! = false
+    var acceptable:Bool! = false
+    var myItemId:String!
     var horizontalConstraints:[AnyObject]!
     var verticalConstraints:[AnyObject]!
     
     @IBOutlet weak var messageBtn: UIButton!
     @IBOutlet weak var bookmarkBtn: UIButton!
     @IBOutlet weak var wishBtn: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.tableView.allowsSelection = false
+        
+        photoImage.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapDetected"))
+        singleTap.numberOfTapsRequired = 1
+        otherItemImageView.userInteractionEnabled = true
+        otherItemImageView.addGestureRecognizer(singleTap)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.showData()
+    }
+
+    func loadData(myItem:Bool) {
+        self.myItem = myItem
+        // check if the offer has been made
+        let itemId = self.itemJSON["objectId"].string
+
+        if (self.acceptable == true) {
+            PFCloud.callFunctionInBackground("getOfferStatus", withParameters: ["srcItemId":itemId!, "distItemId":self.myItemId!], block:{
+                (results:AnyObject?, error: NSError?) -> Void in
+                let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                if (resultsJSON.count == 0) {
+                    return
+                }
+                let status = resultsJSON[0]["status"].string!
+                if (status == "Accepted") {
+                    self.makeOfferButton.title = self.acceptable == true ? "Reject" : "Edit Offer"
+                } else {
+                    self.makeOfferButton.title = self.acceptable == true ? "Accept" : "Edit Offer"
+                }
+            });
+        }
+        
+        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
+            (imageObj:PFObject?, error: NSError?) -> Void in
+            let imageData = (imageObj!["file"] as! PFFile).getData()
+            self.photoImage.image = UIImage(data: imageData!)
+            self.collapseItemImage()
+            
+            PFCloud.callFunctionInBackground("getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
+                (results:AnyObject?, error: NSError?) -> Void in
+                let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                if (resultsJSON.count == 0) {
+                    self.otherItemId = nil
+                    self.expandItemImage()
+                    return
+                }
+                // each person can only exchange one item
+                if (self.makeOfferButton != nil) {
+                    self.makeOfferButton.title = self.acceptable == true ? "Accept Offer" : "Edit Offer"
+                    self.otherItemId = resultsJSON[0]["item"]["objectId"].string
+                    self.otherItemJSON = resultsJSON[0]["item"]
+                    
+                    PFQuery(className:"Image").getObjectInBackgroundWithId(self.otherItemJSON["photo"].string!, block: {
+                        (imageObj:PFObject?, error: NSError?) -> Void in
+                        let imageData = (imageObj!["file"] as! PFFile).getData()
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.otherItemImageView.image = UIImage(data: imageData!)
+                        })
+                    })
+                }
+            })
+        })
+        
+        
+        PFCloud.callFunctionInBackground("isItemBookmarked", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            if (resultsJSON.count == 0) {
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.bookmarkBtn.setBackgroundImage(UIImage(named:"Bookmark_Icon-01"), forState: .Normal)
+                })
+                return
+            }
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.bookmarkBtn.setBackgroundImage(UIImage(named:"Bookmarked_Icon"), forState: .Normal)
+            })
+        })
+    }
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        if (identifier == "offer" && self.acceptable == true) {
+            if (self.makeOfferButton.title == "Accept") {
+                PFCloud.callFunctionInBackground("acceptItem", withParameters: ["srcItemId":itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
+                    (items:AnyObject?, error: NSError?) -> Void in
+                    self.makeOfferButton.title = "Reject"
+                })
+            } else {
+                PFCloud.callFunctionInBackground("rejectItem", withParameters: ["srcItemId":itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
+                    (items:AnyObject?, error: NSError?) -> Void in
+                    self.makeOfferButton.title = "Accept"
+                })
+            }
+
+            return false
+        }
+        return true
+    }
+    
     @IBAction func makeOffer(segue:UIStoryboardSegue) {
         let offer = segue.sourceViewController as! MakeOfferController
         let distId = itemJSON["objectId"].string
@@ -111,57 +218,6 @@ class ItemDetailController: UITableViewController {
         }
     }
     
-    func loadData(myItem:Bool) {
-        self.myItem = myItem
-        // check if the offer has been made
-        let itemId = self.itemJSON["objectId"].string
-        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
-            (imageObj:PFObject?, error: NSError?) -> Void in
-            let imageData = (imageObj!["file"] as! PFFile).getData()
-            self.photoImage.image = UIImage(data: imageData!)
-            self.collapseItemImage()
-            
-            PFCloud.callFunctionInBackground("getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
-                (results:AnyObject?, error: NSError?) -> Void in
-                let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                if (resultsJSON.count == 0) {
-                    self.otherItemId = nil
-                    self.expandItemImage()
-                    return
-                }
-                // each person can only exchange one item
-                if (self.makeOfferButton != nil) {
-                    self.makeOfferButton.title = "Edit Offer"
-                    self.otherItemId = resultsJSON[0]["item"]["objectId"].string
-                    self.otherItemJSON = resultsJSON[0]["item"]
-                    
-                    PFQuery(className:"Image").getObjectInBackgroundWithId(self.otherItemJSON["photo"].string!, block: {
-                        (imageObj:PFObject?, error: NSError?) -> Void in
-                        let imageData = (imageObj!["file"] as! PFFile).getData()
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            self.otherItemImageView.image = UIImage(data: imageData!)
-                        })
-                    })
-                }
-            })
-        })
-        
-
-        PFCloud.callFunctionInBackground("isItemBookmarked", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
-            (results:AnyObject?, error: NSError?) -> Void in
-            let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            if (resultsJSON.count == 0) {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.bookmarkBtn.setBackgroundImage(UIImage(named:"Bookmark_Icon-01"), forState: .Normal)
-                })
-                return
-            }
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.bookmarkBtn.setBackgroundImage(UIImage(named:"Bookmarked_Icon"), forState: .Normal)
-            })
-        })
-    }
-    
     func showData() {
         if let i = itemJSON {
         } else {
@@ -218,23 +274,6 @@ class ItemDetailController: UITableViewController {
         self.photoImage.superview?.updateConstraints()
         
         self.otherItemImageView.hidden = true
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.tableView.allowsSelection = false
-        
-        photoImage.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapDetected"))
-        singleTap.numberOfTapsRequired = 1
-        otherItemImageView.userInteractionEnabled = true
-        otherItemImageView.addGestureRecognizer(singleTap)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        self.showData()
     }
     
     func tapDetected() {
