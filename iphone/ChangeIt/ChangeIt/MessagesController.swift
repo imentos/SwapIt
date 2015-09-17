@@ -56,6 +56,13 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         let tapRecognizer:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tableTapped")
         self.messageTableView.addGestureRecognizer(tapRecognizer)
 
+        self.messageTextField.becomeFirstResponder()
+        self.messageTextField.autocorrectionType = UITextAutocorrectionType.No
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        let offset = CGPointMake(0, messageTableView.contentSize.height - messageTableView.frame.size.height);
+        self.messageTableView.setContentOffset(offset, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,8 +79,6 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             let uuid = NSUUID().UUIDString
             PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": self.messageTextField.text, "objectId": uuid, "questionId": (questionJSON["objectId"].string)!, "userId": (PFUser.currentUser()?.objectId)!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
-                self.messageTextField.text = ""
-                self.messageTextField.endEditing(true)
                 self.loadData()
             })
         
@@ -91,6 +96,12 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    func scrollDown() {
+        self.messageTextField.text = ""
+        let offset = CGPointMake(0, messageTableView.contentSize.height - messageTableView.frame.size.height);
+        self.messageTableView.setContentOffset(offset, animated: true)
+    }
+    
     @IBAction func endEditing(sender: AnyObject) {
         self.view.layoutIfNeeded()
         self.dockHeightConstraint.constant = 50
@@ -98,7 +109,9 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func startEditing(sender: AnyObject) {
         self.view.layoutIfNeeded()
-        self.dockHeightConstraint.constant = 310
+        self.dockHeightConstraint.constant = 270
+
+        self.loadData()
     }
     
     func loadData() {
@@ -107,6 +120,8 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
                 (replies:AnyObject?, error: NSError?) -> Void in
                 self.repliesJSON = JSON(data:(replies as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 self.messageTableView.reloadData()
+                
+                self.scrollDown()
             })
         }
     }
