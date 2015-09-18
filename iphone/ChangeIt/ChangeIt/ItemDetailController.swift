@@ -166,9 +166,19 @@ class ItemDetailController: UITableViewController {
             })
         }
     }
+    
+
+//    @IBAction func deleteAction(sender: AnyObject){
+//        var shareToFacebook : SLComposeViewController =
+//               SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+//               shareToFacebook.setInitialText("This is dummy text.")
+//                self.presentViewController(shareToFacebook, animated: true, completion:nil)
+//    }
+    
     @IBAction func socialShare(sender: AnyObject) {
         var alert:UIAlertController = UIAlertController(title: "Share Item", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
+<<<<<<< Updated upstream
         var fbAction = UIAlertAction(title: "Facebook", style: UIAlertActionStyle.Default) {
             UIAlertAction in
             var fbController : SLComposeViewController =
@@ -183,6 +193,46 @@ class ItemDetailController: UITableViewController {
             UIAlertAction in
         }
         alert.addAction(emailAction)
+=======
+        let optionMenu = UIAlertController(title: nil, message: "Share On", preferredStyle: .ActionSheet)
+        
+        // 2
+        let deleteAction = UIAlertAction(title: "Facebook", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            //println("share on facebook")
+            //
+            var shareToFacebook : SLComposeViewController =
+            SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            shareToFacebook.setInitialText("This is dummy text.")
+            self.presentViewController(shareToFacebook, animated: true, completion:nil)
+            //
+        })
+        let saveAction = UIAlertAction(title: "Twitter", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            println("share on Twitter")
+        })
+        
+        //
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            println("Cancelled")
+        })
+        
+        
+        // 4
+        optionMenu.addAction(deleteAction)
+        optionMenu.addAction(saveAction)
+        optionMenu.addAction(cancelAction)
+        
+        // 5
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+        
+        
+//        var shareToFacebook : SLComposeViewController =
+//        SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+//        shareToFacebook.setInitialText("This is dummy text.")
+//        self.presentViewController(shareToFacebook, animated: true, completion:nil)
+>>>>>>> Stashed changes
         
         var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
             UIAlertAction in
