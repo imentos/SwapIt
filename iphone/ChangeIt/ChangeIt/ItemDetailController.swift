@@ -64,11 +64,15 @@ class ItemDetailController: UITableViewController {
                 if (resultsJSON.count == 0) {
                     return
                 }
-                let status = resultsJSON[0]["status"].string!
-                if (status == "Accepted") {
-                    self.makeOfferButton.title = self.acceptable == true ? "Reject" : "Edit Offer"
+                
+                if let status = resultsJSON[0]["status"].string {
+                    if (status == "Accepted") {
+                        self.makeOfferButton.title = "Reject"
+                    } else {
+                        self.makeOfferButton.title = "Accept"
+                    }
                 } else {
-                    self.makeOfferButton.title = self.acceptable == true ? "Accept" : "Edit Offer"
+                    self.makeOfferButton.title = "Accept"
                 }
             });
         }
