@@ -167,13 +167,15 @@ class ItemDetailController: UITableViewController {
         }
     }
     @IBAction func socialShare(sender: AnyObject) {
-        var alert:UIAlertController = UIAlertController(title: "Social", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        var alert:UIAlertController = UIAlertController(title: "Share Item", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
         var fbAction = UIAlertAction(title: "Facebook", style: UIAlertActionStyle.Default) {
             UIAlertAction in
-            var shareToFacebook : SLComposeViewController =
+            var fbController : SLComposeViewController =
             SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-            self.presentViewController(shareToFacebook, animated: true, completion:nil)
+            fbController.addImage(self.photoImage.image)
+            fbController.setInitialText("I am sharing a new item using Brtrr app")
+            self.presentViewController(fbController, animated: true, completion:nil)
         }
         alert.addAction(fbAction)
 
@@ -182,10 +184,12 @@ class ItemDetailController: UITableViewController {
         }
         alert.addAction(emailAction)
         
+        var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+            UIAlertAction in
+        }
+        alert.addAction(cancelAction)
+
         self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    func openFacebook() {
     }
 
     @IBAction func bookmarkItem(sender: AnyObject) {
