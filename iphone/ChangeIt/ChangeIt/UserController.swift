@@ -73,7 +73,7 @@ class UserController: UIViewController {
             let view = navi.viewControllers[0] as! ItemsController
             view.title = "Bookmarks"
             view.bookmarkMode = true
-            view.loadData("getBookmarkedItems", limit:10) { (results) -> Void in
+            view.loadDataByFunction("getBookmarkedItems", limit:view.ITEMS_PER_PAGE) { (results) -> Void in
             }
             
         } else if (segue.identifier == "questions") {

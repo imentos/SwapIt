@@ -10,11 +10,17 @@ import UIKit
 import Parse
 
 class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
-    @IBOutlet var filterButton: UIButton!
     var bookmarkMode:Bool = false
     var itemsJSON:JSON = nil
     var filteredItems:JSON = JSON("{}")
-    var searchModel:Int = 1
+    var searchQuery:String!
+    
+    // pagination
+    let ITEMS_PER_PAGE:Int = 3
+    var currentPageNumber = 1
+    var isPageRefreshing:Bool = false;
+    
+    @IBOutlet var filterButton: UIButton!
     @IBOutlet weak var scopeButton: UIButton!
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
@@ -30,7 +36,23 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         self.filterButton.hidden = bookmarkMode
     }
     
-    func loadData(query:String, limit:Int, complete:(results:JSON) -> Void) {
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        if let s = self.searchQuery {
+        } else {
+            return
+        }
+        if (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) {
+            println("currentPageNumber:\(currentPageNumber)")
+            if (isPageRefreshing == false){
+                isPageRefreshing = true;
+                self.loadDataByFunction(self.searchQuery, limit: self.currentPageNumber++ * ITEMS_PER_PAGE) { (results) -> Void in
+                    self.isPageRefreshing = false
+                }
+            }
+        }
+    }
+
+    func loadDataByFunction(query:String, limit:Int, complete:(results:JSON) -> Void) {
         PFCloud.callFunctionInBackground(query, withParameters: ["search": ".*", "userId": (PFUser.currentUser()?.objectId)!, "limit": limit], block:{
             (items:AnyObject?, error: NSError?) -> Void in
             if (items == nil) {
@@ -44,6 +66,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         })
     }
     
+    // Only used when load first time
     func loadData(complete:(results:JSON) -> Void) {
         // if no wish list, show all items. Otherwise, show best matched items.
         var wishesJSON:JSON!
@@ -55,34 +78,42 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
             }
             let wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             if (wishesJSON.count == 0) {
-                self.loadAll(0)
+                self.getAllItemsExceptMe(self.ITEMS_PER_PAGE)
             } else {
-                self.loadBest(0)
+                self.getBestItemsExceptMe(self.ITEMS_PER_PAGE)
             }
         })
     }
     
-    func loadAll(sender: AnyObject) {
-        searchModel = 0
+    func getAllItemsExceptMe(limit:Int) {
+        searchQuery = "getAllItemsExceptMe"
         scopeButton.setTitle("All Items", forState:.Normal)
         self.itemsJSON = JSON("{}")
-        loadData("getAllItemsExceptMe", limit:10) { (results) -> Void in
+        self.loadDataByFunction(searchQuery, limit:limit) { (results) -> Void in
         }
     }
     
-    func loadBest(sender: AnyObject) {
-        searchModel = 1
+    func getBestItemsExceptMe(limit:Int) {
+        searchQuery = "getBestItemsExceptMe"
         scopeButton.setTitle("Best Match", forState:.Normal)
         self.itemsJSON = JSON("{}")
-        self.loadData("getBestItemsExceptMe", limit:10) { (results) -> Void in
+        self.loadDataByFunction(searchQuery, limit:limit) { (results) -> Void in
             if (results.count == 0) {
-                self.loadAll(sender)
+                self.getAllItemsExceptMe(limit)
             }
         }
     }
     
+    func loadAll(sender: AnyObject) {
+        getAllItemsExceptMe(ITEMS_PER_PAGE)
+    }
+    
+    func loadBest(sender: AnyObject) {
+        getBestItemsExceptMe(ITEMS_PER_PAGE)
+    }
+    
     func loadNearMe(sender: AnyObject) {
-        searchModel = 2
+        searchQuery = "nearMe"
         scopeButton.setTitle("Near Me", forState:.Normal)
         self.itemsJSON = JSON("{}")
         
@@ -118,9 +149,9 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     }
     
     @IBAction func pressed(sender: AnyObject) {
-        let all = KxMenuItem("All Items", image:searchModel == 0 ? UIImage(named:"check_icon") : nil, target:self, action:Selector("loadAll:"))
-        let best = KxMenuItem("Best Match", image:searchModel == 1 ? UIImage(named:"check_icon") : nil, target:self, action:Selector("loadBest:"))
-        let location = KxMenuItem("Near Me", image:searchModel == 2 ? UIImage(named:"check_icon") : nil, target:self, action:Selector("loadNearMe:"))
+        let all = KxMenuItem("All Items", image:searchQuery == "getAllItemsExceptMe" ? UIImage(named:"check_icon") : nil, target:self, action:Selector("loadAll:"))
+        let best = KxMenuItem("Best Match", image:searchQuery == "getBestItemsExceptMe" ? UIImage(named:"check_icon") : nil, target:self, action:Selector("loadBest:"))
+        let location = KxMenuItem("Near Me", image:searchQuery == "nearMe" ? UIImage(named:"check_icon") : nil, target:self, action:Selector("loadNearMe:"))
         KxMenu.showMenuInView(self.view,
             fromRect:sender.frame,
             menuItems:[all, best, location]);
@@ -129,7 +160,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles as! [String]
         let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
-        loadData(getQuery(selectedScope), limit:10) { (results) -> Void in
+        loadDataByFunction(getQuery(selectedScope), limit:ITEMS_PER_PAGE) { (results) -> Void in
         }
     }
     
@@ -174,27 +205,6 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
-    var currentPageNumber = 0
-    
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if(self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) {
-            self.loadData({ (results) -> Void in
-                self.currentPageNumber = self.currentPageNumber + 1
-            })
-            
-//            //NSLog(@" scroll to bottom!");
-//            if(isPageRefresing == NO){ // no need to worry about threads because this is always on main thread.
-//                
-//                isPageRefresing = YES;
-//                [self showMBProfressHUDOnView:self.view withText:@"Please wait..."];
-//                currentpagenumber = currentpagenumber +1;
-//                [httpUtil getRecords:currentpagenumber];
-//            }
-        }
-    }
-
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.performSegueWithIdentifier("itemDetail", sender: tableView)
     }
