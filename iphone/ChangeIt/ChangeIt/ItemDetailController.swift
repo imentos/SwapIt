@@ -167,14 +167,6 @@ class ItemDetailController: UITableViewController {
         }
     }
     
-
-//    @IBAction func deleteAction(sender: AnyObject){
-//        var shareToFacebook : SLComposeViewController =
-//               SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-//               shareToFacebook.setInitialText("This is dummy text.")
-//                self.presentViewController(shareToFacebook, animated: true, completion:nil)
-//    }
-    
     @IBAction func socialShare(sender: AnyObject) {
         var alert:UIAlertController = UIAlertController(title: "Share Item", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
