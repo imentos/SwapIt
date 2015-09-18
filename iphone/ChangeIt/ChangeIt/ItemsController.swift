@@ -30,8 +30,8 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         self.filterButton.hidden = bookmarkMode
     }
     
-    func loadData(query:String, complete:(results:JSON) -> Void) {
-        PFCloud.callFunctionInBackground(query, withParameters: ["search": ".*", "userId": (PFUser.currentUser()?.objectId)!], block:{
+    func loadData(query:String, limit:Int, complete:(results:JSON) -> Void) {
+        PFCloud.callFunctionInBackground(query, withParameters: ["search": ".*", "userId": (PFUser.currentUser()?.objectId)!, "limit": limit], block:{
             (items:AnyObject?, error: NSError?) -> Void in
             if (items == nil) {
                 self.itemsJSON = JSON("{}")
@@ -66,7 +66,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         searchModel = 0
         scopeButton.setTitle("All Items", forState:.Normal)
         self.itemsJSON = JSON("{}")
-        loadData("getAllItemsExceptMe") { (results) -> Void in
+        loadData("getAllItemsExceptMe", limit:10) { (results) -> Void in
         }
     }
     
@@ -74,7 +74,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         searchModel = 1
         scopeButton.setTitle("Best Match", forState:.Normal)
         self.itemsJSON = JSON("{}")
-        self.loadData("getBestItemsExceptMe") { (results) -> Void in
+        self.loadData("getBestItemsExceptMe", limit:10) { (results) -> Void in
             if (results.count == 0) {
                 self.loadAll(sender)
             }
@@ -88,7 +88,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint, error) -> Void in
-            let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: 100.0)
+            let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: Double(UInt.max))
             query.findObjectsInBackgroundWithBlock({
                 (results, error) -> Void in
                 if let items = results as? [PFObject] {
@@ -129,7 +129,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles as! [String]
         let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
-        loadData(getQuery(selectedScope)) { (results) -> Void in
+        loadData(getQuery(selectedScope), limit:10) { (results) -> Void in
         }
     }
     
@@ -172,6 +172,27 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    
+    var currentPageNumber = 0
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        if(self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) {
+            self.loadData({ (results) -> Void in
+                self.currentPageNumber = self.currentPageNumber + 1
+            })
+            
+//            //NSLog(@" scroll to bottom!");
+//            if(isPageRefresing == NO){ // no need to worry about threads because this is always on main thread.
+//                
+//                isPageRefresing = YES;
+//                [self showMBProfressHUDOnView:self.view withText:@"Please wait..."];
+//                currentpagenumber = currentpagenumber +1;
+//                [httpUtil getRecords:currentpagenumber];
+//            }
+        }
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

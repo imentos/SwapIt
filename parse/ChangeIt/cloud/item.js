@@ -5,10 +5,11 @@ Parse.Cloud.define("getBestItemsExceptMe", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item),(u:User)--(w:Wish) WHERE o.title=~{search} AND o.title=~w.searchRegex AND u.objectId={userId} RETURN o ORDER BY o.timestamp DESC',
+            query: 'MATCH (o:Item),(u:User)--(w:Wish) WHERE o.title=~{search} AND o.title=~w.searchRegex AND u.objectId={userId} RETURN o ORDER BY o.timestamp DESC LIMIT {limit}',
             params: {
                 search: "(?i)" + request.params.search,
-                userId: request.params.userId
+                userId: request.params.userId,
+                limit: request.params.limit
             }
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
@@ -34,10 +35,11 @@ Parse.Cloud.define("getAllItemsExceptMe", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE o.title=~{search} AND NOT u.objectId={userId} RETURN o ORDER BY o.timestamp DESC',
+            query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE o.title=~{search} AND NOT u.objectId={userId} RETURN o ORDER BY o.timestamp DESC LIMIT {limit}',
             params: {
                 search: "(?i)" + request.params.search,
-                userId: request.params.userId
+                userId: request.params.userId,
+                limit: request.params.limit
             }
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
