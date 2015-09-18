@@ -167,11 +167,25 @@ class ItemDetailController: UITableViewController {
         }
     }
     @IBAction func socialShare(sender: AnyObject) {
+        var alert:UIAlertController = UIAlertController(title: "Social", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        var shareToFacebook : SLComposeViewController =
-        SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-        self.presentViewController(shareToFacebook, animated: true, completion:nil)
+        var fbAction = UIAlertAction(title: "Facebook", style: UIAlertActionStyle.Default) {
+            UIAlertAction in
+            var shareToFacebook : SLComposeViewController =
+            SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            self.presentViewController(shareToFacebook, animated: true, completion:nil)
+        }
+        alert.addAction(fbAction)
+
+        var emailAction = UIAlertAction(title: "E-mail", style: UIAlertActionStyle.Default) {
+            UIAlertAction in
+        }
+        alert.addAction(emailAction)
         
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func openFacebook() {
     }
 
     @IBAction func bookmarkItem(sender: AnyObject) {
