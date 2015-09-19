@@ -59,5 +59,11 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Geogtq-Lg.otf</string>
+		<string>Geogtq-Md.otf</string>
+		<string>Geogtq-Rg.otf</string>
+	</array>
 </dict>
 </plist>

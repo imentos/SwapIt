@@ -172,29 +172,79 @@ class ItemDetailController: UITableViewController {
     }
     
     @IBAction func socialShare(sender: AnyObject) {
-        var alert:UIAlertController = UIAlertController(title: "Share Item", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+       // var alert:UIAlertController = UIAlertController(title: "Share Item", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-       var fbAction = UIAlertAction(title: "Facebook", style: UIAlertActionStyle.Default) {
-            UIAlertAction in
-            var fbController : SLComposeViewController =
-            SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-            fbController.addImage(self.photoImage.image)
-            fbController.setInitialText("I am sharing a new item using Brtrr app")
-            self.presentViewController(fbController, animated: true, completion:nil)
-        }
-        alert.addAction(fbAction)
-
-        var emailAction = UIAlertAction(title: "Twitter", style: UIAlertActionStyle.Default) {
-            UIAlertAction in
-        }
-        alert.addAction(emailAction)
+        let optionMenu = UIAlertController(title: nil, message: "Share On", preferredStyle: .ActionSheet)
         
-        var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
-            UIAlertAction in
-        }
-        alert.addAction(cancelAction)
+        // 2
+        let deleteAction = UIAlertAction(title: "Facebook", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            //println("share on facebook")
+            // Facebook START
+            if (SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook))
+            {
+                // Create the post
+                let post = SLComposeViewController(forServiceType: (SLServiceTypeFacebook))
+                post.setInitialText("I want to share this App: ")
+                post.addImage(self.photoImage.image)
+                self.presentViewController(post, animated: true, completion: nil)
+            } else {
+                // Facebook not available. Show a warning
+                let alert = UIAlertController(title: "Facebook", message: "Facebook not available", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            //
+        })
+        let saveAction = UIAlertAction(title: "Twitter", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            println("share on Twitter")
+            // TWITTER START
+            if(SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter)) {
+                // Create the tweet
+                let tweet = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+                tweet.setInitialText("I want to share this App: ")
+                tweet.addImage(self.photoImage.image)
+                
+                self.presentViewController(tweet, animated: true, completion: nil)
+            } else {
+                // Twitter not available. Show a warning
+                let alert = UIAlertController(title: "Twitter", message: "Twitter not available", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            //
+        })
+        
+        //
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            println("Cancelled")
+        })
+        
+        
+        // 4
+        optionMenu.addAction(deleteAction)
+        optionMenu.addAction(saveAction)
+        optionMenu.addAction(cancelAction)
+        
+        // 5
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+        
+        
+//        var shareToFacebook : SLComposeViewController =
+//        SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+//        shareToFacebook.setInitialText("This is dummy text.")
+//        self.presentViewController(shareToFacebook, animated: true, completion:nil)
+//>>>>>>> Stashed changes
+        
+        //var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+            //UIAlertAction in
+        //}
+        //alert.addAction(cancelAction)
 
-        self.presentViewController(alert, animated: true, completion: nil)
+        //self.presentViewController(alert, animated: true, completion: nil)
     }
 
     @IBAction func bookmarkItem(sender: AnyObject) {
