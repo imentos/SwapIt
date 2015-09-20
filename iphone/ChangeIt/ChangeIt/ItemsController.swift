@@ -45,8 +45,14 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
             println("currentPageNumber:\(currentPageNumber)")
             if (isPageRefreshing == false){
                 isPageRefreshing = true;
-                self.loadDataByFunction(self.searchQuery, limit: self.currentPageNumber++ * ITEMS_PER_PAGE) { (results) -> Void in
-                    self.isPageRefreshing = false
+                if (self.searchQuery == "nearMe") {
+                    self.getNearMeItems(self.currentPageNumber++ * ITEMS_PER_PAGE) { (results) -> Void in
+                        self.isPageRefreshing = false
+                    }
+                } else {
+                    self.loadDataByFunction(self.searchQuery, limit: self.currentPageNumber++ * ITEMS_PER_PAGE) { (results) -> Void in
+                        self.isPageRefreshing = false
+                    }
                 }
             }
         }
@@ -65,7 +71,7 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
             complete(results:self.itemsJSON)
         })
     }
-    
+
     // Only used when load first time
     func loadData(complete:(results:JSON) -> Void) {
         // if no wish list, show all items. Otherwise, show best matched items.
@@ -104,36 +110,20 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         }
     }
     
-    func loadAll(sender: AnyObject) {
-        getAllItemsExceptMe(ITEMS_PER_PAGE)
-    }
-    
-    func loadBest(sender: AnyObject) {
-        getBestItemsExceptMe(ITEMS_PER_PAGE)
-    }
-    
-    func loadNearMe(sender: AnyObject) {
+    func getNearMeItems(limit:Int, complete:(results:JSON) -> Void) {
         searchQuery = "nearMe"
         scopeButton.setTitle("Near Me", forState:.Normal)
-        self.itemsJSON = JSON("{}")
+        self.itemsJSON = JSON([])
         
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint, error) -> Void in
-            let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: Double(UInt.max))
+            let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: Double(limit))
             query.findObjectsInBackgroundWithBlock({
                 (results, error) -> Void in
                 if let items = results as? [PFObject] {
                     var total:[JSON] = []
                     for item in items {
                         let itemId = item["neo4jId"] as! String
-                        // TODO: how to wait for async callback then reload table
-//                        PFCloud.callFunctionInBackground("getItem", withParameters: ["itemId": itemId], block:{
-//                            (items:AnyObject?, error: NSError?) -> Void in
-//                            var itemJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-//                            total = total + itemJSON.arrayValue
-//                            self.itemsJSON = JSON(total)
-//                            self.tableView.reloadData()
-//                        })
                         var itemResult = PFCloud.callFunction("getItemExceptMe", withParameters: ["itemId": itemId, "userId": (PFUser.currentUser()?.objectId)!])
                         if (itemResult == nil) {
                             continue
@@ -144,7 +134,22 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
                     self.itemsJSON = JSON(total)
                     self.tableView.reloadData()
                 }
+                
+                complete(results:self.itemsJSON)
             })
+        }
+    }
+    
+    func loadAll(sender: AnyObject) {
+        getAllItemsExceptMe(ITEMS_PER_PAGE)
+    }
+    
+    func loadBest(sender: AnyObject) {
+        getBestItemsExceptMe(ITEMS_PER_PAGE)
+    }
+    
+    func loadNearMe(sender: AnyObject) {
+        getNearMeItems(ITEMS_PER_PAGE) { (results) -> Void in
         }
     }
     
@@ -230,7 +235,6 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
             cell = ItemCell(style: UITableViewCellStyle.Default, reuseIdentifier: "ItemCell")
         }
         let itemJSON = (tableView == self.searchDisplayController!.searchResultsTableView) ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
-        
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             if let imageFile = imageObj!["file"] as? PFFile {
