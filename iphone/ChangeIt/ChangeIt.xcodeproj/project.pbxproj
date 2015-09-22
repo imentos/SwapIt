@@ -275,6 +275,7 @@
 				B37431951AE861A600A0808B /* Frameworks */,
 				B37431961AE861A600A0808B /* Resources */,
 				B37C10161AE98F1F0086864F /* Embed Frameworks */,
+				B333F8861BB1203A002CCF48 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -369,6 +370,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B333F8861BB1203A002CCF48 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd ParseCrash\necho ${DWARF_DSYM_FOLDER_PATH}\nparse symbols \"Change It\" --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B37431941AE861A600A0808B /* Sources */ = {
