@@ -58,6 +58,26 @@ Parse.Cloud.define("getAllItemsExceptMe", function(request, response) {
     });
 });
 
+Parse.Cloud.define("deleteUnusedQuestions", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (q:Question)-[a:ASK]-() WHERE NOT (q)-[:LINK]->() DELETE a,q'
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            response.success("success");
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
 Parse.Cloud.define("deleteItem", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',

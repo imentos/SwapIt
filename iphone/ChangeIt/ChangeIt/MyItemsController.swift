@@ -139,7 +139,10 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
             let itemJSON = itemsJSON[actionSheet.tag]
             PFCloud.callFunctionInBackground("deleteItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
                 (result:AnyObject?, error: NSError?) -> Void in
-                self.loadData()
+               PFCloud.callFunctionInBackground("deleteUnusedQuestions", withParameters: nil, block: {
+                    (result:AnyObject?, error: NSError?) -> Void in
+                    self.loadData()
+                })
             })
         }
     }
