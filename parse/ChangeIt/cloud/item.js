@@ -65,7 +65,7 @@ Parse.Cloud.define("deleteUnusedQuestions", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (q:Question)-[a:ASK]-() WHERE NOT (q)-[:LINK]->() DELETE a,q'
+            query: 'MATCH (reply:Reply)-[r]-(q:Question)-[a:ASK]-() WHERE NOT (q)-[:LINK]->() DELETE a,q,r,reply'
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
