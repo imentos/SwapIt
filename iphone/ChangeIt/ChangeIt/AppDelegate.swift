@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import ParseUI
+import ParseCrashReporting
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // [Optional] Power your app with Local Datastore. For more info, go to
         // https://parse.com/docs/ios_guide#localdatastore/iOS
         //Parse.enableLocalDatastore()
+        
+        ParseCrashReporting.enable()
         
         // Initialize Parse.
         Parse.setApplicationId("AyaLli8Wgpr6AS56sQiHn9fONdtdt7R18jckKsCp",

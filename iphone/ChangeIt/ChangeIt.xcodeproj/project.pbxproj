@@ -16,6 +16,8 @@
 		B30E24951AF96BFA00ED49EB /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E24941AF96BFA00ED49EB /* MainController.swift */; };
 		B30E24971AF96C2200ED49EB /* ItemDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E24961AF96C2200ED49EB /* ItemDetailController.swift */; };
 		B31BC9E21AED04DD00E1F99A /* AddItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31BC9E11AED04DD00E1F99A /* AddItemController.swift */; };
+		B333F8831BB0CB21002CCF48 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B333F8821BB0CB21002CCF48 /* ParseCrashReporting.framework */; };
+		B333F8851BB0CC63002CCF48 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B333F8841BB0CC63002CCF48 /* libstdc++.6.dylib */; };
 		B33C8F8E1B06869400160D7E /* AddWishListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33C8F8D1B06869400160D7E /* AddWishListCell.swift */; };
 		B348CD001AFA929100CFC04E /* MakeOfferController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */; };
 		B348CD021AFBDCD500CFC04E /* OffersDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */; };
@@ -88,6 +90,8 @@
 		B30E24941AF96BFA00ED49EB /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		B30E24961AF96C2200ED49EB /* ItemDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailController.swift; sourceTree = "<group>"; };
 		B31BC9E11AED04DD00E1F99A /* AddItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemController.swift; sourceTree = "<group>"; };
+		B333F8821BB0CB21002CCF48 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
+		B333F8841BB0CC63002CCF48 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		B33C8F8D1B06869400160D7E /* AddWishListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWishListCell.swift; sourceTree = "<group>"; };
 		B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOfferController.swift; sourceTree = "<group>"; };
 		B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersDetailController.swift; sourceTree = "<group>"; };
@@ -137,7 +141,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B333F8851BB0CC63002CCF48 /* libstdc++.6.dylib in Frameworks */,
 				B37C100B1AE98D7B0086864F /* Social.framework in Frameworks */,
+				B333F8831BB0CB21002CCF48 /* ParseCrashReporting.framework in Frameworks */,
 				B35C66411AE951FC0029055F /* AudioToolbox.framework in Frameworks */,
 				B35C66421AE951FC0029055F /* CFNetwork.framework in Frameworks */,
 				B35C66431AE951FC0029055F /* CoreGraphics.framework in Frameworks */,
@@ -235,6 +241,8 @@
 		B37C101B1AE990EA0086864F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B333F8841BB0CC63002CCF48 /* libstdc++.6.dylib */,
+				B333F8821BB0CB21002CCF48 /* ParseCrashReporting.framework */,
 				B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */,
 				B37C10241AE993E60086864F /* ParseFacebookUtils.framework */,
 				B37C10221AE993DD0086864F /* FacebookSDK.framework */,
@@ -453,7 +461,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "/Users/i818292/iOS\\ projects/ChangeIt/iphone/ChangeIt";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -503,7 +511,7 @@
 				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "/Users/i818292/iOS\\ projects/ChangeIt/iphone/ChangeIt";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
