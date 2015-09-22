@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class MyItemsController: UITableViewController {
+class MyItemsController: UITableViewController, UIActionSheetDelegate {
     var itemsJSON:JSON = nil
 
     @IBAction func addItem(segue:UIStoryboardSegue) {
@@ -121,7 +121,29 @@ class MyItemsController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == .Delete) {
+            let actionSheet = UIActionSheet(title: "Are you sure you want to delete this item?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "OK")
+            actionSheet.tag = indexPath.row
+            actionSheet.showInView(self.view)
+        }
+    }
 
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        if (buttonIndex == 0) {
+            let itemJSON = itemsJSON[actionSheet.tag]
+            PFCloud.callFunctionInBackground("deleteItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+                (result:AnyObject?, error: NSError?) -> Void in
+                self.loadData()
+            })
+        }
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (itemsJSON == nil) {
             return 0

@@ -65,11 +65,9 @@ Parse.Cloud.define("deleteItem", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item{objectId:{itemId}})<-[r]-(other:Question)-[x]-(reply) DELETE other,x,reply' +  
-            'WITH 1 as dummy ' + 
-            'MATCH (o:Item{objectId:{itemId}})<-[r]-(other) DELETE o, r',
+            query: 'MATCH (n:Item{objectId:{itemId}}) OPTIONAL MATCH (n)-[r]-() DELETE n,r',
             params: {
-                ItemId: request.params.ItemId
+                itemId: request.params.itemId
             }
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
