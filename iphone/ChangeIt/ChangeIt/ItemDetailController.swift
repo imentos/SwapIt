@@ -49,7 +49,7 @@ class ItemDetailController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.showData()
+        //self.showData()
     }
 
     func loadData(myItem:Bool) {
@@ -82,6 +82,10 @@ class ItemDetailController: UITableViewController {
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.photoImage.image = UIImage(data: imageData!)
             self.collapseItemImage()
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.showData()
+            })
             
             PFCloud.callFunctionInBackground("getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in

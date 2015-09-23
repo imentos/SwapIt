@@ -265,7 +265,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             
             let navi = segue.destinationViewController as! UINavigationController
-            let detail = navi.childViewControllers[0] as! ItemDetailController
+            let detail = navi.topViewController as! ItemDetailController
             detail.userJSON = userJSON[0]
             detail.itemJSON = itemJSON
             detail.loadData(false)
