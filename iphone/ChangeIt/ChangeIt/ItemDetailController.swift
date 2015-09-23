@@ -185,8 +185,17 @@ class ItemDetailController: UITableViewController {
             {
                 // Create the post
                 let post = SLComposeViewController(forServiceType: (SLServiceTypeFacebook))
-                post.setInitialText("I want to share this App: ")
+                //
+               // NSString  ttt=[mylabelname text]
+                //[slComposeViewController setInitialText:[NSString stringWithFormat:@"Posting to Facebook: %@", posttofacebooktext]];
+                //
+                var f = "I am using BRTTR app and found "
+                //p += self.userLabel.text!
+                f += self.title!
+                f += "... Download the app here."
+                post.setInitialText(f)
                 post.addImage(self.photoImage.image)
+                post.addURL(NSURL(string: "http://www.brttr.com"))
                 self.presentViewController(post, animated: true, completion: nil)
             } else {
                 // Facebook not available. Show a warning
@@ -204,7 +213,12 @@ class ItemDetailController: UITableViewController {
             if(SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter)) {
                 // Create the tweet
                 let tweet = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
-                tweet.setInitialText("I want to share this App: ")
+                
+                var t = "I am using brttr app and found "
+                t += self.title!
+                t += "... Download the app here."
+                
+                tweet.setInitialText(t)
                 tweet.addImage(self.photoImage.image)
                 
                 self.presentViewController(tweet, animated: true, completion: nil)
