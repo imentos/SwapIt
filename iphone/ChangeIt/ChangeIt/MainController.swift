@@ -2,6 +2,16 @@ import UIKit
 import Parse
 import ParseUI
 
+extension UITabBarItem {
+    func tabBarItemShowingOnlyImage() -> UITabBarItem {
+        // offset to center
+        self.imageInsets = UIEdgeInsets(top:6,left:0,bottom:-6,right:0)
+        // displace to hide
+        self.setTitlePositionAdjustment(UIOffset(horizontal:0,vertical:30000))
+        return self
+    }
+}
+
 class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
     var login:MyLogInViewController!
     
@@ -16,6 +26,15 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
         if let user = PFUser.currentUser() {
             startItemsPage()
         }
+        let tabItems = tabBar.items as! [UITabBarItem]
+        for item in tabItems {
+            item.tabBarItemShowingOnlyImage()
+        }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        self.tabBar.frame.size.height = 60
+        self.tabBar.frame.origin.y = self.view.frame.size.height - self.tabBar.frame.size.height
     }
     
     func showLoginPage() {
