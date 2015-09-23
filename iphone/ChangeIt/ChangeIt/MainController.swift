@@ -37,16 +37,6 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
         self.tabBar.frame.origin.y = self.view.frame.size.height - self.tabBar.frame.size.height
     }
     
-    override func viewWillLayoutSubviews()
-    {
-        var tabFrame = self.tabBar.frame
-        // - 40 is editable , I think the default value is around 50 px, below lowers the tabbar and above increases the tab bar size
-        tabFrame.size.height = 60
-        tabFrame.origin.y = self.view.frame.size.height - 60
-        self.tabBar.frame = tabFrame
-        
-    }
-    
     func showLoginPage() {
         login = MyLogInViewController()
         login.fields = PFLogInFields.SignUpButton | PFLogInFields.LogInButton | PFLogInFields.Facebook | PFLogInFields.UsernameAndPassword

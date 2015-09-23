@@ -253,11 +253,11 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         var itemJSON:JSON = nil
         let tableView = sender as! UITableView
-        if tableView == self.searchDisplayController!.searchResultsTableView {
-            itemJSON = filteredItems[(tableView.indexPathForSelectedRow()?.row)!]
-        } else {
+//        if tableView == self.searchDisplayController!.searchResultsTableView {
+//            itemJSON = filteredItems[(tableView.indexPathForSelectedRow()?.row)!]
+//        } else {
             itemJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
-        }
+//        }
 
         // get user info based on item
         PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(itemJSON["objectId"].string)!], block:{
