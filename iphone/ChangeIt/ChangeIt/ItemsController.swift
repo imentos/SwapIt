@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
+class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
     var bookmarkMode:Bool = false
     var itemsJSON:JSON = nil
     var filteredItems:JSON = JSON("{}")
@@ -20,7 +20,9 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     var currentPageNumber = 1
     var isPageRefreshing:Bool = false;
     
-    @IBOutlet var filterButton: UIButton!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     @IBOutlet weak var scopeButton: UIButton!
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
@@ -29,14 +31,15 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.searchDisplayController!.searchResultsTableView.rowHeight = tableView.rowHeight;
-        //self.searchDisplayController!.searchBar.selectedScopeButtonIndex = 1
         
-        self.filterButton.hidden = bookmarkMode
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+
+        //self.searchDisplayController!.searchResultsTableView.rowHeight = tableView.rowHeight;
+        //self.searchDisplayController!.searchBar.selectedScopeButtonIndex = 1
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
         if let s = self.searchQuery {
         } else {
             return
@@ -206,39 +209,41 @@ class ItemsController: UITableViewController, UISearchBarDelegate, UISearchDispl
         // Dispose of any resources that can be recreated.
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.performSegueWithIdentifier("itemDetail", sender: tableView)
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if itemsJSON == nil {
             return 0
         }
-        if tableView == self.searchDisplayController!.searchResultsTableView {
-            return self.filteredItems.count
-        } else {
-            return self.itemsJSON.count
-        }
+//        if tableView == self.searchDisplayController!.searchResultsTableView {
+//            return self.filteredItems.count
+//        } else {
+//            return self.itemsJSON.count
+//        }
+        return self.itemsJSON.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = self.tableView.dequeueReusableCellWithIdentifier("ItemCell") as! ItemCell!
-        if !(cell != nil) {
-            cell = ItemCell(style: UITableViewCellStyle.Default, reuseIdentifier: "ItemCell")
-        }
-        let itemJSON = (tableView == self.searchDisplayController!.searchResultsTableView) ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = self.tableView.dequeueReusableCellWithIdentifier("item") as! UITableViewCell
+//        let itemJSON = (tableView == self.searchDisplayController!.searchResultsTableView) ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
+        let itemJSON = itemsJSON[indexPath.row]
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             if let imageFile = imageObj!["file"] as? PFFile {
                 let imageData = imageFile.getData()
-                cell.itemImage.image = UIImage(data: imageData!)
+                let itemImage = cell.viewWithTag(101) as! UIImageView
+                itemImage.image = UIImage(data: imageData!)
             }
         })
-        cell.itemLabel.text = itemJSON["title"].string
+        
+        let itemLabel = cell.viewWithTag(102) as! UILabel
+        itemLabel.text = itemJSON["title"].string
         return cell
     }
     
