@@ -34,6 +34,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.scopeButton.hidden = bookmarkMode
 
         //self.searchDisplayController!.searchResultsTableView.rowHeight = tableView.rowHeight;
         //self.searchDisplayController!.searchBar.selectedScopeButtonIndex = 1

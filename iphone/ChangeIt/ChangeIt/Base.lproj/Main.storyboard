@@ -148,7 +148,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="28544603-2A4A-4ABA-926D-1E2CF17049A8" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="E62A0C1E-C5B6-419F-B303-C3D46D01E5B0" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -236,7 +236,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RUH-Ar-ENC">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RUH-Ar-ENC">
                                 <rect key="frame" x="278" y="0.0" width="59" height="30"/>
                                 <state key="normal" title="All Items">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -252,7 +252,13 @@
                             <constraint firstAttribute="centerX" secondItem="RUH-Ar-ENC" secondAttribute="centerX" constant="-8" id="wkS-Rp-OvT"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="hY9-v5-iel"/>
+                    <navigationItem key="navigationItem" id="hY9-v5-iel">
+                        <barButtonItem key="leftBarButtonItem" image="Arrow_Icon" id="idS-WU-Jf7">
+                            <connections>
+                                <segue destination="Ks1-8F-s7m" kind="unwind" identifier="cancel" unwindAction="cancel:" id="fok-YN-9L6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="scopeButton" destination="RUH-Ar-ENC" id="gdp-np-bqu"/>
                         <outlet property="tableView" destination="tpm-6F-gct" id="zle-Up-4sK"/>
@@ -260,6 +266,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhK-KJ-fOV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Ks1-8F-s7m" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="918" y="673"/>
         </scene>
@@ -630,7 +637,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Fe-pB-LxJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="aRO-eV-9kW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2480" y="679"/>
+            <point key="canvasLocation" x="2486" y="679"/>
         </scene>
         <!--Send my offer-->
         <scene sceneID="wKm-Rp-hak">
@@ -1536,7 +1543,7 @@
         <!--Navigation Controller-->
         <scene sceneID="PeF-8l-GEW">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="TzX-86-Gk5" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TzX-86-Gk5" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="1" title="" image="bottom_Browse_Inactive" id="T7j-zt-fkv">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                         <userDefinedRuntimeAttributes>
@@ -1739,7 +1746,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="28544603-2A4A-4ABA-926D-1E2CF17049A8" width="30" height="30">
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
+        <image name="E62A0C1E-C5B6-419F-B303-C3D46D01E5B0" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -1797,8 +1806,6 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
         <image name="Profile_Offers_Sent" width="80" height="80"/>
@@ -1814,8 +1821,8 @@ TQAAAAAAAAAAAAAAAAAAC8M
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="9x2-Rk-Bhs"/>
-        <segue reference="8xe-eu-W4Q"/>
-        <segue reference="kMU-BD-GAR"/>
+        <segue reference="Px0-5x-Ybp"/>
+        <segue reference="wMb-XK-Jh9"/>
         <segue reference="QJO-uD-btk"/>
         <segue reference="Tea-P4-aes"/>
     </inferredMetricsTieBreakers>

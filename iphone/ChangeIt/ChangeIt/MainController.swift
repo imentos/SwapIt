@@ -57,7 +57,8 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
     func startItemsPage() {
         self.selectedIndex = 1
         let navi = self.selectedViewController as! UINavigationController
-        let itemsPage = navi.viewControllers[0] as! ItemsController
+        navi.navigationBarHidden = true
+        let itemsPage = navi.topViewController as! ItemsController
         itemsPage.loadData() { (results) -> Void in
         }
     }
