@@ -12,6 +12,9 @@ import Parse
 class OffersController: UITableViewController {
     var offersJSON:JSON = nil
     
+    @IBAction func cancel(segue:UIStoryboardSegue) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -57,11 +60,12 @@ class OffersController: UITableViewController {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.destinationViewController is OffersDetailController) {
+        if (segue.identifier == "offerDetail") {
             let tableView = self.view as! UITableView
             let offerJSON = offersJSON[(tableView.indexPathForSelectedRow()?.row)!]
             
-            let details = segue.destinationViewController as! OffersDetailController
+            let navi = segue.destinationViewController as! UINavigationController
+            let details = navi.topViewController as! OffersDetailController
             details.offerJSON = offerJSON
         }
     }

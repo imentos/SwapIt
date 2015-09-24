@@ -46,10 +46,12 @@ class ItemDetailController: UITableViewController {
         singleTap.numberOfTapsRequired = 1
         otherItemImageView.userInteractionEnabled = true
         otherItemImageView.addGestureRecognizer(singleTap)
+        
+        self.expandItemImage()
     }
     
     override func viewDidAppear(animated: Bool) {
-        //self.showData()
+        loadData(myItem)
     }
 
     func loadData(myItem:Bool) {
@@ -81,7 +83,6 @@ class ItemDetailController: UITableViewController {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.photoImage.image = UIImage(data: imageData!)
-            self.collapseItemImage()
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.showData()
@@ -89,6 +90,7 @@ class ItemDetailController: UITableViewController {
             
             PFCloud.callFunctionInBackground("getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
+                self.collapseItemImage()
                 let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 if (resultsJSON.count == 0) {
                     self.otherItemId = nil
@@ -410,7 +412,7 @@ class ItemDetailController: UITableViewController {
                 let detail = navi.topViewController as! ItemDetailController
                 detail.userJSON = userJSON[0]
                 detail.itemJSON = self.otherItemJSON
-                detail.loadData(true)
+                detail.myItem = true
             });
         }
     }

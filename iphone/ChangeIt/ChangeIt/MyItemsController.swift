@@ -69,7 +69,9 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         loadData()
     }
 
@@ -160,10 +162,9 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
             let offerJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
             
             let navi = segue.destinationViewController as! UINavigationController
-            let details = navi.viewControllers[0] as! MyItemDetailController
-            details.title = offerJSON["title"].string!
-            details.itemJSON = offerJSON
-            details.loadData()
+            let detail = navi.topViewController as! MyItemDetailController
+            detail.title = offerJSON["title"].string!
+            detail.itemJSON = offerJSON
         }
     }
 

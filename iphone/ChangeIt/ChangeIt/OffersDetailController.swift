@@ -20,7 +20,9 @@ class OffersDetailController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         self.title = offerJSON["src"]["title"].string
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(offerJSON["src"]["photo"].string!, block: {
@@ -67,12 +69,14 @@ class OffersDetailController: UITableViewController {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let selectedIndex = self.tableView.indexPathForSelectedRow()?.row
-        
-        let navi = segue.destinationViewController as! UINavigationController
-        let detail = navi.topViewController as! ItemDetailController
-        detail.itemJSON = offerJSON["src"]["dst"][selectedIndex!]
-        detail.userJSON = offerJSON["src"]["otherUser"][selectedIndex!]
-        detail.loadData(false)
+        if (segue.identifier == "itemDetail") {
+            let selectedIndex = self.tableView.indexPathForSelectedRow()?.row
+            
+            let navi = segue.destinationViewController as! UINavigationController
+            let detail = navi.topViewController as! ItemDetailController
+            detail.itemJSON = offerJSON["src"]["dst"][selectedIndex!]
+            detail.userJSON = offerJSON["src"]["otherUser"][selectedIndex!]
+            detail.myItem = false
+        }
     }
 }

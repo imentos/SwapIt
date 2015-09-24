@@ -30,6 +30,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        loadData()
+    }
+    
     func loadData() {
         PFCloud.callFunctionInBackground("getQuestionedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in

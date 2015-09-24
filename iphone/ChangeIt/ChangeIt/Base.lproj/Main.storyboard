@@ -148,7 +148,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="05DA124D-BFF8-4CB9-919E-2833D543AB0D" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="28544603-2A4A-4ABA-926D-1E2CF17049A8" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -1149,7 +1149,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Fbf-he-Hct" kind="show" id="8xe-eu-W4Q"/>
+                                    <segue destination="Fbf-he-Hct" kind="show" identifier="itemDetail" id="8xe-eu-W4Q"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1158,14 +1158,21 @@
                             <outlet property="delegate" destination="RRq-5u-maF" id="YYR-DK-Tfc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="MAO-hJ-NFZ"/>
+                    <navigationItem key="navigationItem" id="MAO-hJ-NFZ">
+                        <barButtonItem key="leftBarButtonItem" image="Arrow_Icon" id="bRZ-Hz-m1K">
+                            <connections>
+                                <segue destination="ESm-gR-ZeN" kind="unwind" unwindAction="cancel:" id="c7b-Em-5ej"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="itemImageView" destination="els-Z0-M6Q" id="Kto-1k-9h4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mwD-hU-3qS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ESm-gR-ZeN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4201" y="-754"/>
+            <point key="canvasLocation" x="5013" y="-754"/>
         </scene>
         <!--Questions Controller-->
         <scene sceneID="s8D-62-1ZM">
@@ -1252,7 +1259,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="RRq-5u-maF" kind="show" identifier="" id="UVu-sF-hmn"/>
+                                    <segue destination="4OF-u8-wKU" kind="presentation" identifier="offerDetail" id="UVu-sF-hmn"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1712,9 +1719,27 @@
             </objects>
             <point key="canvasLocation" x="3259" y="1470"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="QhB-Vd-AbB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4OF-u8-wKU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9Sp-1h-GfB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="RRq-5u-maF" kind="relationship" relationship="rootViewController" id="Luu-tf-0XC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0cG-6c-9Wg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4201" y="-754"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="05DA124D-BFF8-4CB9-919E-2833D543AB0D" width="30" height="30">
+        <image name="28544603-2A4A-4ABA-926D-1E2CF17049A8" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -1789,9 +1814,9 @@ TQAAAAAAAAAAAAAAAAAAC8M
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="9x2-Rk-Bhs"/>
-        <segue reference="V7O-jJ-vj5"/>
-        <segue reference="Tea-P4-aes"/>
+        <segue reference="8xe-eu-W4Q"/>
         <segue reference="kMU-BD-GAR"/>
         <segue reference="QJO-uD-btk"/>
+        <segue reference="Tea-P4-aes"/>
     </inferredMetricsTieBreakers>
 </document>
