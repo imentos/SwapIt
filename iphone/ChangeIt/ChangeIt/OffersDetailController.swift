@@ -60,10 +60,12 @@ class OffersDetailController: UITableViewController {
         let title = cell.viewWithTag(102) as! UILabel
         title.text = dstJSON["title"].string
         
-        let user = PFCloud.callFunction("getUserOfItem", withParameters: ["itemId":(dstJSON["objectId"].string)!])
-        let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-        let name = cell.viewWithTag(103) as! UILabel
-        name.text = userJSON[0]["name"].string
+        PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(dstJSON["objectId"].string)!], block: {
+            (results:AnyObject?, error: NSError?) -> Void in
+            let userJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            let name = cell.viewWithTag(103) as! UILabel
+            name.text = userJSON[0]["name"].string
+        })
         
         return cell
     }

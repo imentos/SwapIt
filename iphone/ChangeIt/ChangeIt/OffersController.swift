@@ -37,12 +37,13 @@ class OffersController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (offersJSON == nil) {
-            return 0
-        }
         return offersJSON.count
     }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("offerDetail", sender: tableView)
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("offer", forIndexPath: indexPath) as! UITableViewCell
         let offerJSON = offersJSON[indexPath.row]
@@ -61,7 +62,6 @@ class OffersController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "offerDetail") {
-            let tableView = self.view as! UITableView
             let offerJSON = offersJSON[(tableView.indexPathForSelectedRow()?.row)!]
             
             let navi = segue.destinationViewController as! UINavigationController

@@ -148,7 +148,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="EC5DA7A4-27F4-4567-B78C-B1D7FB10845D" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="850A0B43-1B77-4AE0-B5A7-4BF95FAF3120" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -186,7 +186,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7KV-O6-1cx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="148.125" y="-199.64788732394365"/>
+            <point key="canvasLocation" x="168" y="-652"/>
         </scene>
         <!--Items Controller-->
         <scene sceneID="hWG-O5-9Tj">
@@ -1285,9 +1285,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="4OF-u8-wKU" kind="presentation" identifier="offerDetail" id="UVu-sF-hmn"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1303,6 +1300,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="4OF-u8-wKU" kind="presentation" identifier="offerDetail" id="0oc-UZ-ELC"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="52u-aL-nYy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="khY-bV-K9K" userLabel="Exit" sceneMemberID="exit"/>
@@ -1783,9 +1783,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
-        <image name="EC5DA7A4-27F4-4567-B78C-B1D7FB10845D" width="30" height="30">
+        <image name="850A0B43-1B77-4AE0-B5A7-4BF95FAF3120" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1842,6 +1840,8 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
         <image name="Profile_Offers_Sent" width="80" height="80"/>
