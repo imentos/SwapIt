@@ -390,7 +390,8 @@ class ItemDetailController: UITableViewController {
             view.enableEdit = false
             
         } else if (segue.identifier == "offer") {
-            let view = segue.destinationViewController as! MakeOfferController
+            let navi = segue.destinationViewController as! UINavigationController
+            let view = navi.topViewController as! MakeOfferController
             view.currentItemId = self.otherItemId
             view.loadData()
                         
