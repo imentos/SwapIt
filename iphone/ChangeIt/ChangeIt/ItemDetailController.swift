@@ -99,7 +99,9 @@ class ItemDetailController: UITableViewController {
                 }
                 // each person can only exchange one item
                 if (self.makeOfferButton != nil) {
-                    self.makeOfferButton.title = self.acceptable == true ? "Accept Offer" : "Edit Offer"
+                    if (self.acceptable == false) {
+                        self.makeOfferButton.title = "Edit Offer"
+                    }
                     self.otherItemId = resultsJSON[0]["item"]["objectId"].string
                     self.otherItemJSON = resultsJSON[0]["item"]
                     
