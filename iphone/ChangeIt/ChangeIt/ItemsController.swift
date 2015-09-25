@@ -124,6 +124,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                     var total:[JSON] = []
                     for item in items {
                         let itemId = item["neo4jId"] as! String
+                        // TODO: see how to make async calls
                         var itemResult = PFCloud.callFunction("getItemExceptMe", withParameters: ["itemId": itemId, "userId": (PFUser.currentUser()?.objectId)!])
                         if (itemResult == nil) {
                             continue

@@ -20,26 +20,29 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "addItem" {
             let uuid = NSUUID().UUIDString
-            PFCloud.callFunction("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": ""])
-            PFCloud.callFunction("linkMyItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": uuid])
-            
-            var item = PFObject(className: "Item")
-            item["neo4jId"] = uuid
-            item.saveInBackgroundWithBlock {
-                (success: Bool, error: NSError?) -> Void in
-                if (success) {
-                    PFGeoPoint.geoPointForCurrentLocationInBackground {
-                        (geoPoint, error) -> Void in
-                        item.setObject(geoPoint!, forKey: "currentLocation")
-                        item.saveInBackgroundWithBlock({
-                            (result, error) -> Void in
-                            //
-                        })
+            PFCloud.callFunctionInBackground("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": ""], block:{
+                (results:AnyObject?, error: NSError?) -> Void in
+                PFCloud.callFunctionInBackground("linkMyItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": uuid], block:{
+                    (results:AnyObject?, error: NSError?) -> Void in
+                    var item = PFObject(className: "Item")
+                    item["neo4jId"] = uuid
+                    item.saveInBackgroundWithBlock {
+                        (success: Bool, error: NSError?) -> Void in
+                        if (success) {
+                            PFGeoPoint.geoPointForCurrentLocationInBackground {
+                                (geoPoint, error) -> Void in
+                                item.setObject(geoPoint!, forKey: "currentLocation")
+                                item.saveInBackgroundWithBlock({
+                                    (result, error) -> Void in
+                                    //
+                                })
+                            }
+                        } else {
+                            // There was a problem, check error.description
+                        }
                     }
-                } else {
-                    // There was a problem, check error.description
-                }
-            }
+                })
+            })
         }
     }
     

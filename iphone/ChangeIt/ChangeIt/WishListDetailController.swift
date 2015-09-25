@@ -39,8 +39,12 @@ class WishListDetailController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "saveWishList" {
             wish = nameTextField.text
-            PFCloud.callFunction("addWish", withParameters: ["name": nameTextField.text])
-            PFCloud.callFunction("linkMyWish", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "wish": nameTextField.text])
+            PFCloud.callFunctionInBackground("addWish", withParameters: ["name": nameTextField.text], block:{
+                (results:AnyObject?, error: NSError?) -> Void in
+                PFCloud.callFunctionInBackground("linkMyWish", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "wish": self.nameTextField.text], block:{
+                    (results:AnyObject?, error: NSError?) -> Void in
+                })
+            })
         }
     }
 }

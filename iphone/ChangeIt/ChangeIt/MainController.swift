@@ -67,7 +67,7 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
         if (PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!)) {
             loginFB()
         } else {
-            addUser()
+            addUser(PFUser.currentUser()!.objectId!, name:PFUser.currentUser()!.username!, facebookId:"", location:"")
         }
         
         startItemsPage()
@@ -79,16 +79,20 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func addUser() {
-        let userId = PFUser.currentUser()!.objectId
-        let name = PFUser.currentUser()?.username
-        let userFromCloud = PFCloud.callFunction("getUser", withParameters: ["userId": userId!])
-        let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-        if userJSON.count == 0 {
-            PFCloud.callFunction("addUser", withParameters: ["name": name!, "objectId": userId!, "facebookId": ""])
-        } else {
-            PFCloud.callFunction("updateUser", withParameters: ["name": name!, "objectId": userId!, "facebookId": "", "location": ""])
-        }
+    func addUser(userId:String, name:String, facebookId:String, location:String) {
+        PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": userId], block:{
+            (userFromCloud:AnyObject?, error: NSError?) -> Void in
+            let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            if userJSON.count == 0 {
+                PFCloud.callFunctionInBackground("addUser", withParameters: ["name": name, "objectId": userId, "facebookId": facebookId], block:{
+                    (userFromCloud:AnyObject?, error: NSError?) -> Void in
+                })
+            } else {
+                PFCloud.callFunctionInBackground("updateUser", withParameters: ["name": name, "objectId": userId, "facebookId": facebookId, "location": location], block:{
+                    (userFromCloud:AnyObject?, error: NSError?) -> Void in
+                })
+            }
+        })
     }
     
     func loginFB() {
@@ -118,14 +122,8 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
                         location = loc["name"] as! String
                     }
                     
-                    let userFromCloud = PFCloud.callFunction("getUser", withParameters: ["userId": user.objectId!])
-                    let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                    if userJSON.count == 0 {
-                        PFCloud.callFunction("addUser", withParameters: ["name": name, "objectId": user.objectId!, "facebookId": facebookId])
-                        
-                    } else {
-                        PFCloud.callFunction("updateUser", withParameters: ["name": name, "objectId": user.objectId!, "facebookId": facebookId, "location": location])
-                    }
+                    self.addUser(user.objectId!, name: name, facebookId: facebookId, location: location)
+
                 }
             } else {
                 println("Uh oh. The user cancelled the Facebook login.")
