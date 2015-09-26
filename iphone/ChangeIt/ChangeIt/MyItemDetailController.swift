@@ -117,7 +117,9 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             photo.layer.masksToBounds = true
             photo.layer.borderColor = UIColor.blackColor().CGColor
             photo.layer.cornerRadius = photo.bounds.height / 2
-            photo.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=120&height=120", questionJSON["user"]["facebookId"].string!))!)!)
+            if let data = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=120&height=120", questionJSON["user"]["facebookId"].string!))!) {
+                photo.image = UIImage(data: data)
+            }
 
             title.text = questionJSON["question"]["text"].string
             name.text = questionJSON["user"]["name"].string

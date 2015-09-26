@@ -36,7 +36,9 @@ class QuestionController: UITableViewController {
         self.userPhoto.layer.masksToBounds = true
         self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
         self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
-        self.userPhoto.image = UIImage(data: NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=120&height=120", questionJSON["user"]["facebookId"].string!))!)!)
+        if let data = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=120&height=120", questionJSON["user"]["facebookId"].string!))!) {
+            self.userPhoto.image = UIImage(data: data)
+        }
 
         let timestampAsDouble = NSTimeInterval(questionJSON["question"]["timestamp"].double!) / 1000.0
         var date = NSDate(timeIntervalSince1970:timestampAsDouble)
