@@ -148,7 +148,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="4ACBA5A1-E9BE-48A3-82D3-69EF6A02216F" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="778BF5B3-B76A-4B7F-A272-2A4A065244E1" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -213,7 +213,7 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="510-pd-6rX">
                                                     <rect key="frame" x="0.0" y="-1" width="600" height="199.5"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0x-XX-h0b">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0x-XX-h0b">
                                                     <rect key="frame" x="24" y="84" width="568" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="29" id="pY5-ZQ-eMR"/>
@@ -225,12 +225,10 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="510-pd-6rX" firstAttribute="top" secondItem="jkW-9t-LYB" secondAttribute="topMargin" constant="-9" id="5vg-kY-kcP"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="510-pd-6rX" secondAttribute="trailing" constant="-8" id="FDQ-Ua-lU3"/>
-                                                <constraint firstItem="b0x-XX-h0b" firstAttribute="leading" secondItem="jkW-9t-LYB" secondAttribute="leadingMargin" constant="16" id="JBG-cE-HlX"/>
-                                                <constraint firstItem="510-pd-6rX" firstAttribute="leading" secondItem="jkW-9t-LYB" secondAttribute="leadingMargin" constant="-8" id="KDx-2l-3in"/>
-                                                <constraint firstItem="b0x-XX-h0b" firstAttribute="top" secondItem="jkW-9t-LYB" secondAttribute="topMargin" constant="76" id="oii-ii-XnG"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="510-pd-6rX" secondAttribute="bottom" constant="-7" id="rQf-7S-Mac"/>
+                                                <constraint firstItem="510-pd-6rX" firstAttribute="leading" secondItem="jkW-9t-LYB" secondAttribute="leadingMargin" constant="-8" id="1oO-DK-d1x"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="510-pd-6rX" secondAttribute="bottom" constant="-7" id="LWU-bI-gLI"/>
+                                                <constraint firstItem="510-pd-6rX" firstAttribute="top" secondItem="jkW-9t-LYB" secondAttribute="topMargin" constant="-9" id="TLn-kd-ojB"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="510-pd-6rX" secondAttribute="trailing" constant="-8" id="wfz-IT-FYb"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -636,6 +634,7 @@
                     <connections>
                         <outlet property="bookmarkBtn" destination="oCv-dJ-pDT" id="mHa-Yd-h8y"/>
                         <outlet property="descriptionTextView" destination="o6S-3z-cSr" id="dNQ-3q-8Zv"/>
+                        <outlet property="exchangeImage" destination="SbR-kJ-y83" id="9wR-bl-gZb"/>
                         <outlet property="makeOfferButton" destination="tyB-vC-SaW" id="KWB-RJ-war"/>
                         <outlet property="messageBtn" destination="fGg-gf-VIw" id="Y5L-qx-vbt"/>
                         <outlet property="otherItemImageView" destination="4U2-kU-Xpd" id="eCd-19-u3q"/>
@@ -1783,7 +1782,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="4ACBA5A1-E9BE-48A3-82D3-69EF6A02216F" width="30" height="30">
+        <image name="778BF5B3-B76A-4B7F-A272-2A4A065244E1" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1858,9 +1857,9 @@ RgAAAAAAAAAAAAAAAAAAC5U
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wMb-XK-Jh9"/>
-        <segue reference="pVR-q3-nZf"/>
-        <segue reference="V7O-jJ-vj5"/>
+        <segue reference="Px0-5x-Ybp"/>
         <segue reference="Tea-P4-aes"/>
         <segue reference="9x2-Rk-Bhs"/>
+        <segue reference="pVR-q3-nZf"/>
     </inferredMetricsTieBreakers>
 </document>

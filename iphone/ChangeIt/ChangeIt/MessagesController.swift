@@ -194,7 +194,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             let detail = navi.topViewController as! ItemDetailController
             detail.userJSON = userJSON
             detail.itemJSON = itemJSON
-            detail.myItem = false
+            detail.loadData(false)
         }
     }
 }

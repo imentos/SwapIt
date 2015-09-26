@@ -78,7 +78,7 @@ class OffersDetailController: UITableViewController {
             let detail = navi.topViewController as! ItemDetailController
             detail.itemJSON = offerJSON["src"]["dst"][selectedIndex!]
             detail.userJSON = offerJSON["src"]["otherUser"][selectedIndex!]
-            detail.myItem = false
+            detail.loadData(false)
         }
     }
 }

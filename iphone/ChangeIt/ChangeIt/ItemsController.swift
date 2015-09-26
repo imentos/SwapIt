@@ -270,7 +270,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             let detail = navi.topViewController as! ItemDetailController
             detail.userJSON = userJSON[0]
             detail.itemJSON = itemJSON
-            detail.myItem = false
+            detail.loadData(false)
         })
     }
 }

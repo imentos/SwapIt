@@ -12,6 +12,7 @@ import Social
 
 class ItemDetailController: UITableViewController {
 
+    @IBOutlet weak var exchangeImage: UIImageView!
     @IBOutlet weak var photoImage: UIImageView!
     @IBOutlet var otherItemImageView: UIImageView!
     @IBOutlet weak var userLabel: UILabel!
@@ -48,10 +49,6 @@ class ItemDetailController: UITableViewController {
         otherItemImageView.addGestureRecognizer(singleTap)
         
         self.expandItemImage()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        loadData(myItem)
     }
 
     func loadData(myItem:Bool) {
@@ -351,6 +348,7 @@ class ItemDetailController: UITableViewController {
         self.photoImage.superview?.updateConstraints()
         
         self.otherItemImageView.hidden = false
+        self.exchangeImage.hidden = false
     }
     
     func expandItemImage() {
@@ -369,6 +367,7 @@ class ItemDetailController: UITableViewController {
         self.photoImage.superview?.updateConstraints()
         
         self.otherItemImageView.hidden = true
+        self.exchangeImage.hidden = true
     }
     
     func tapDetected() {
@@ -415,7 +414,7 @@ class ItemDetailController: UITableViewController {
                 let detail = navi.topViewController as! ItemDetailController
                 detail.userJSON = userJSON[0]
                 detail.itemJSON = self.otherItemJSON
-                detail.myItem = true
+                detail.loadData(true)
             });
         }
     }
