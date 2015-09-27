@@ -148,7 +148,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="8663E1B6-6854-49C5-89B0-88AA2BB07959" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="6A3FF202-D126-45F4-850B-9EBA5175A86F" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -1216,9 +1216,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="109"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lyL-QJ-b26">
-                                            <rect key="frame" x="8" y="8" width="90" height="90"/>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YeH-jR-Ipu">
                                             <rect key="frame" x="106" y="13" width="242" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1231,6 +1228,9 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lyL-QJ-b26">
+                                            <rect key="frame" x="8" y="8" width="90" height="90"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -1783,7 +1783,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="8663E1B6-6854-49C5-89B0-88AA2BB07959" width="30" height="30">
+        <image name="6A3FF202-D126-45F4-850B-9EBA5175A86F" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -1858,10 +1858,10 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="connector_logo-01" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="8xe-eu-W4Q"/>
+        <segue reference="QJO-uD-btk"/>
         <segue reference="wMb-XK-Jh9"/>
-        <segue reference="Px0-5x-Ybp"/>
+        <segue reference="NcJ-gm-8wA"/>
         <segue reference="Tea-P4-aes"/>
-        <segue reference="9x2-Rk-Bhs"/>
-        <segue reference="pVR-q3-nZf"/>
     </inferredMetricsTieBreakers>
 </document>
