@@ -17,47 +17,58 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     
     private let TEXT_VIEW_PLACE_HOLDER = "Add some description"
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "addItem" {
-            let uuid = NSUUID().UUIDString
-            PFCloud.callFunctionInBackground("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": ""], block:{
-                (results:AnyObject?, error: NSError?) -> Void in
-                PFCloud.callFunctionInBackground("linkMyItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": uuid], block:{
-                    (results:AnyObject?, error: NSError?) -> Void in
-                    var item = PFObject(className: "Item")
-                    item["neo4jId"] = uuid
-                    item.saveInBackgroundWithBlock {
-                        (success: Bool, error: NSError?) -> Void in
-                        if (success) {
-                            PFGeoPoint.geoPointForCurrentLocationInBackground {
-                                (geoPoint, error) -> Void in
-                                item.setObject(geoPoint!, forKey: "currentLocation")
-                                item.saveInBackgroundWithBlock({
-                                    (result, error) -> Void in
-                                    //
-                                })
-                            }
-                        } else {
-                            // There was a problem, check error.description
-                        }
-                    }
-                })
-            })
+    @IBAction func addItem(sender: AnyObject) {
+        self.validateTitle()
+        self.validateDescription()
+        if (titleTextField.text == "" || descriptionTextView.text == TEXT_VIEW_PLACE_HOLDER || imageId == nil) {
+            return
         }
+        
+        let uuid = NSUUID().UUIDString
+        PFCloud.callFunctionInBackground("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": ""], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            PFCloud.callFunctionInBackground("linkMyItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": uuid], block:{
+                (results:AnyObject?, error: NSError?) -> Void in
+                var item = PFObject(className: "Item")
+                item["neo4jId"] = uuid
+                item.saveInBackgroundWithBlock {
+                    (success: Bool, error: NSError?) -> Void in
+                    if (success) {
+                        PFGeoPoint.geoPointForCurrentLocationInBackground {
+                            (geoPoint, error) -> Void in
+                            item.setObject(geoPoint!, forKey: "currentLocation")
+                            item.saveInBackgroundWithBlock({
+                                (result, error) -> Void in
+                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                    self.performSegueWithIdentifier("addItem", sender: self)
+                                })                                
+                            })
+                        }
+                    } else {
+                        // There was a problem, check error.description
+                    }
+                }
+            })
+        })
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String!, sender: AnyObject!) -> Bool {
-        if (identifier == "addItem") {
-            self.validateTitle()
-            self.validateDescription()
-            if (titleTextField.text == "" || descriptionTextView.text == TEXT_VIEW_PLACE_HOLDER || imageId == nil) {
-                
-                return false
-            }
-            return true
-        }        
-        return true
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "addItem" {
+//        }
+//    }
+    
+//    override func shouldPerformSegueWithIdentifier(identifier: String!, sender: AnyObject!) -> Bool {
+//        if (identifier == "addItem") {
+//            self.validateTitle()
+//            self.validateDescription()
+//            if (titleTextField.text == "" || descriptionTextView.text == TEXT_VIEW_PLACE_HOLDER || imageId == nil) {
+//                
+//                return false
+//            }
+//            return true
+//        }        
+//        return true
+//    }
     
     func handleTap(recognizer: UITapGestureRecognizer) {
         var alert:UIAlertController = UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)

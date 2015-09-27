@@ -152,11 +152,16 @@ class ItemDetailController: UITableViewController {
         let offer = segue.sourceViewController as! MakeOfferController
         let distId = itemJSON["objectId"].string
         
-        // remove current offer first
+        // don't do anything if no change
         if let id = otherItemId {
+            if let srcId = offer.selectedIndexes.first {
+                if (srcId == otherItemId) {
+                    return
+                }
+            }
+            // remove current offer first
             PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":offer.currentItemId!, "distItemId":distId!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
-                self.loadData(false)
             })
         }
         
@@ -165,14 +170,14 @@ class ItemDetailController: UITableViewController {
             let srcId = offer.selectedIndexes.first
             PFCloud.callFunctionInBackground("exchangeItem", withParameters: ["srcItemId":srcId!, "distItemId":distId!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in                
-                self.makeOfferButton.title = "Edit Offer"
-                self.loadData(false)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.makeOfferButton.title = "Edit Offer"
+                    self.loadData(false)
+                })
             })
         } else {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.makeOfferButton.title = "Make Offer"
-                self.loadData(false)
-            })
+            self.makeOfferButton.title = "Make Offer"
+            self.loadData(false)
         }
     }
     
