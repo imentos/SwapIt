@@ -66,7 +66,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if (segmentedControl.selectedSegmentIndex == 0) {
-            self.performSegueWithIdentifier("offer", sender: self)
+            self.performSegueWithIdentifier("itemDetail", sender: self)
         } else {
             self.performSegueWithIdentifier("messages", sender: self)
         }
@@ -143,11 +143,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         let cell = detailTable.cellForRowAtIndexPath(indexPath!)
         var readIcon = cell!.viewWithTag(104) as! UIImageView
 
-        if (segue.identifier == "offer") {
+        if (segue.identifier == "itemDetail") {
             let offeredItemJSON = offeredItemsJSON[index]
             
-            let navi = segue.destinationViewController as! UINavigationController
-            let detail = navi.topViewController as! ItemDetailController
+            let detail = segue.destinationViewController as! ItemDetailController
             detail.acceptable = true
             detail.myItemId = self.itemJSON["objectId"].string!
             detail.itemJSON = offeredItemJSON["item"]

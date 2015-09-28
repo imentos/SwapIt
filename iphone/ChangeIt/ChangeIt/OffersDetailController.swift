@@ -74,8 +74,7 @@ class OffersDetailController: UITableViewController {
         if (segue.identifier == "itemDetail") {
             let selectedIndex = self.tableView.indexPathForSelectedRow()?.row
             
-            let navi = segue.destinationViewController as! UINavigationController
-            let detail = navi.topViewController as! ItemDetailController
+            let detail = segue.destinationViewController as! ItemDetailController
             detail.itemJSON = offerJSON["src"]["dst"][selectedIndex!]
             detail.userJSON = offerJSON["src"]["otherUser"][selectedIndex!]
             detail.loadData(false)

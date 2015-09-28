@@ -57,7 +57,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="TzX-86-Gk5" kind="presentation" identifier="bookmarks" id="wMb-XK-Jh9"/>
+                                    <segue destination="uri-BQ-KuJ" kind="show" identifier="bookmarks" id="pr7-qv-vAF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fho-44-dBl">
@@ -148,7 +148,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="CDAE9ADB-8B94-4058-B658-D949D9D2A4AA" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="3C05A8E0-158B-46DC-BA23-A1F24322CDE8" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -260,13 +260,13 @@
                     <connections>
                         <outlet property="scopeButton" destination="RUH-Ar-ENC" id="gdp-np-bqu"/>
                         <outlet property="tableView" destination="tpm-6F-gct" id="zle-Up-4sK"/>
-                        <segue destination="Fbf-he-Hct" kind="presentation" identifier="itemDetail" id="Px0-5x-Ybp"/>
+                        <segue destination="LVl-oE-RkK" kind="show" identifier="itemDetail" id="paK-Na-lE1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhK-KJ-fOV" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Ks1-8F-s7m" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="584" y="493"/>
+            <point key="canvasLocation" x="564" y="359"/>
         </scene>
         <!--Item Detail Controller-->
         <scene sceneID="sIp-98-XKm">
@@ -343,6 +343,9 @@
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="LVl-oE-RkK" kind="show" identifier="otherDetail" id="G25-Z0-rq2"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -554,13 +557,12 @@
                         <outlet property="userLabel" destination="TxR-I1-RpY" id="EuF-fw-ZXd"/>
                         <outlet property="userPhoto" destination="FKl-Kh-asz" id="V2h-88-999"/>
                         <outlet property="wishBtn" destination="mRp-7H-6hB" id="Bwv-WW-kJc"/>
-                        <segue destination="Fbf-he-Hct" kind="presentation" identifier="otherDetail" id="V7O-jJ-vj5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Fe-pB-LxJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="aRO-eV-9kW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2140" y="493"/>
+            <point key="canvasLocation" x="1878" y="359"/>
         </scene>
         <!--Send my offer-->
         <scene sceneID="wKm-Rp-hak">
@@ -635,7 +637,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jE3-lo-x24" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="XvS-WA-v0f" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3250" y="1471"/>
+            <point key="canvasLocation" x="2140" y="1463"/>
         </scene>
         <!--Messages Controller-->
         <scene sceneID="bBG-zY-YdM">
@@ -851,12 +853,13 @@
                         <outlet property="sendButton" destination="Fqq-7B-1cs" id="Zzf-Bw-06s"/>
                         <outlet property="userNameLabel" destination="Ydw-Oc-tKK" id="SyJ-rQ-RF6"/>
                         <outlet property="userPhoto" destination="jsq-S8-CpC" id="DhQ-uT-FRY"/>
+                        <segue destination="LVl-oE-RkK" kind="show" identifier="itemDetail" id="da6-Mb-USi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KVf-Wu-9c1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Gti-Vr-XhS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3250" y="684"/>
+            <point key="canvasLocation" x="2956" y="359"/>
         </scene>
         <!--My List-->
         <scene sceneID="87A-5G-RZk">
@@ -1038,14 +1041,14 @@
                         <outlet property="detailTable" destination="r1i-fr-S7Y" id="FFP-Z4-i1i"/>
                         <outlet property="itemImageView" destination="5KM-W5-BhB" id="fjs-Mo-s6T"/>
                         <outlet property="segmentedControl" destination="U4K-C0-7LJ" id="2Su-1T-f6c"/>
-                        <segue destination="Fbf-he-Hct" kind="show" identifier="offer" id="vsF-iI-bzw"/>
                         <segue destination="hWV-jf-UUS" kind="show" identifier="messages" id="05S-WV-Wgj"/>
+                        <segue destination="LVl-oE-RkK" kind="show" identifier="itemDetail" id="z1t-WL-IQK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iqD-md-X7h" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jYg-lV-aHt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="584" y="1256"/>
+            <point key="canvasLocation" x="606" y="1613"/>
         </scene>
         <!--Offers Detail Controller-->
         <scene sceneID="jcT-MM-u4q">
@@ -1085,7 +1088,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Fbf-he-Hct" kind="show" identifier="itemDetail" id="8xe-eu-W4Q"/>
+                                    <segue destination="LVl-oE-RkK" kind="show" identifier="itemDetail" id="4fL-6v-Gv3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1165,7 +1168,7 @@
                 <exit id="b2P-A6-L34" userLabel="Exit" sceneMemberID="exit"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vz4-VH-ua4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1638" y="-893"/>
+            <point key="canvasLocation" x="1744" y="-905"/>
         </scene>
         <!--Offers Sent-->
         <scene sceneID="O58-Vc-ksv">
@@ -1311,7 +1314,7 @@
                     </connections>
                 </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="4142" y="-91"/>
+            <point key="canvasLocation" x="4074" y="-427"/>
         </scene>
         <!--Add something to offer-->
         <scene sceneID="AEd-It-x8X">
@@ -1439,7 +1442,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I99-Rl-xWX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="g0o-gS-G9o" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3250" y="2249"/>
+            <point key="canvasLocation" x="2140" y="2351"/>
         </scene>
         <!--Main Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -1467,7 +1470,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1048.125" y="493.30985915492954"/>
+            <point key="canvasLocation" x="-1049" y="359"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PeF-8l-GEW">
@@ -1493,7 +1496,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wiF-aH-rIw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-170" y="493"/>
+            <point key="canvasLocation" x="-188" y="359"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LGy-qk-nAK">
@@ -1535,37 +1538,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d1h-6L-Mt3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3420" y="-91"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="u7t-VZ-WAm">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="Fbf-he-Hct" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="sxk-fA-t6u"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gmq-8t-aE7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="2j1-uN-Y7l">
-                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="LVl-oE-RkK" kind="relationship" relationship="rootViewController" id="oPY-y5-ZeE"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Kk4-x0-d2n" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1392" y="493"/>
+            <point key="canvasLocation" x="3194" y="-427"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
-        <image name="CDAE9ADB-8B94-4058-B658-D949D9D2A4AA" width="30" height="30">
+        <image name="3C05A8E0-158B-46DC-BA23-A1F24322CDE8" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1622,6 +1599,8 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
         <image name="Profile_Offers_Sent" width="80" height="80"/>
@@ -1638,9 +1617,9 @@ RgAAAAAAAAAAAAAAAAAAC5U
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Sb2-4d-UUD"/>
-        <segue reference="Px0-5x-Ybp"/>
-        <segue reference="kMU-BD-GAR"/>
-        <segue reference="ZP6-iX-Ypg"/>
-        <segue reference="Tea-P4-aes"/>
+        <segue reference="paK-Na-lE1"/>
+        <segue reference="pr7-qv-vAF"/>
+        <segue reference="VZA-XN-qKl"/>
+        <segue reference="DY9-dp-uJU"/>
     </inferredMetricsTieBreakers>
 </document>

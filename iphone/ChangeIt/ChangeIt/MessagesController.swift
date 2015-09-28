@@ -189,9 +189,8 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "itemDetail") {
-            let navi = segue.destinationViewController as! UINavigationController
-            navi.toolbarHidden = true
-            let detail = navi.topViewController as! ItemDetailController
+            let detail = segue.destinationViewController as! ItemDetailController
+            //navi.toolbarHidden = true
             detail.userJSON = userJSON
             detail.itemJSON = itemJSON
             detail.loadData(false)
