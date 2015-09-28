@@ -385,7 +385,7 @@ class ItemDetailController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "showUserWishList") {
+        if (segue.identifier == "wishList") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.topViewController as! WishListController
             
@@ -396,14 +396,12 @@ class ItemDetailController: UITableViewController {
             view.enableEdit = false
             
         } else if (segue.identifier == "offer") {
-            let navi = segue.destinationViewController as! UINavigationController
-            let view = navi.topViewController as! MakeOfferController
+            let view = segue.destinationViewController as! MakeOfferController
             view.currentItemId = self.otherItemId
             view.loadData()
                         
         } else if (segue.identifier == "messages") {
-            let navi = segue.destinationViewController as! UINavigationController
-            let view = navi.topViewController as! MessagesController
+            let view = segue.destinationViewController as! MessagesController
             view.title = self.title
             view.userJSON = self.otherUserJSON
             view.itemJSON = self.itemJSON

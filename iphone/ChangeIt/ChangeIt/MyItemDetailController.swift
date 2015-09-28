@@ -68,7 +68,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         if (segmentedControl.selectedSegmentIndex == 0) {
             self.performSegueWithIdentifier("offer", sender: self)
         } else {
-            self.performSegueWithIdentifier("question", sender: self)
+            self.performSegueWithIdentifier("messages", sender: self)
         }
     }
 
@@ -155,11 +155,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             detail.loadData(false)
             //readIcon.hidden = true
             
-        } else if (segue.identifier == "question") {
+        } else if (segue.identifier == "messages") {
             let questionJSON = self.questionsJSON[index]
             
-            let navi = segue.destinationViewController as! UINavigationController
-            let messages = navi.topViewController as! MessagesController
+            let messages = segue.destinationViewController as! MessagesController
             messages.title = self.title
             messages.questionJSON = questionJSON["question"]
             messages.userJSON = questionJSON["user"]

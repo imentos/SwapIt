@@ -16,7 +16,7 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
         loadData()
     }
     
-    @IBAction func cancelItem(segue:UIStoryboardSegue) {
+    @IBAction func cancel(segue:UIStoryboardSegue) {
     }
     
     func updateUnread(itemJSON:JSON, cell:UITableViewCell) {
@@ -161,8 +161,7 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
             let tableView = self.view as! UITableView
             let offerJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
             
-            let navi = segue.destinationViewController as! UINavigationController
-            let detail = navi.topViewController as! MyItemDetailController
+            let detail = segue.destinationViewController as! MyItemDetailController
             detail.title = offerJSON["title"].string!
             detail.itemJSON = offerJSON
         }

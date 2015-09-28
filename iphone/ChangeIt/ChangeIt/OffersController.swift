@@ -64,8 +64,9 @@ class OffersController: UITableViewController {
         if (segue.identifier == "offerDetail") {
             let offerJSON = offersJSON[(tableView.indexPathForSelectedRow()?.row)!]
             
-            let navi = segue.destinationViewController as! UINavigationController
-            let details = navi.topViewController as! OffersDetailController
+            //let navi = segue.destinationViewController as! UINavigationController
+            //let details = navi.topViewController as! OffersDetailController
+            let details = segue.destinationViewController as! OffersDetailController
             details.offerJSON = offerJSON
         }
     }

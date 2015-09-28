@@ -57,15 +57,14 @@ class UserController: UIViewController {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "myWishList") {
+        if (segue.identifier == "wishList") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.viewControllers[0] as! WishListController
             view.title = "Wish List"
             view.loadData(PFUser.currentUser()?.objectId!, otherWishlist: false)
             
         } else if (segue.identifier == "offerSent") {
-            let navi = segue.destinationViewController as! UINavigationController
-            let view = navi.viewControllers[0] as! OffersController
+            let view = segue.destinationViewController as! OffersController
             view.title = "Offers Sent"
             view.loadData()
             
@@ -79,8 +78,7 @@ class UserController: UIViewController {
             }
             
         } else if (segue.identifier == "questions") {
-            let navi = segue.destinationViewController as! UINavigationController
-            let view = navi.viewControllers[0] as! QuestionsController
+            let view = segue.destinationViewController as! QuestionsController
             view.title = "Questions Asked"
             view.loadData()
         }

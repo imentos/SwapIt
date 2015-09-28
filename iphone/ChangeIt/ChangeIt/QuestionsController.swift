@@ -69,8 +69,7 @@ class QuestionsController: UITableViewController {
         }
         
         let index = tableView.indexPathForSelectedRow()?.row
-        let navi = segue.destinationViewController as! UINavigationController
-        let messages = navi.viewControllers[0] as! MessagesController
+        let messages = segue.destinationViewController as! MessagesController
         messages.title = questionsJSON[index!]["item"]["title"].string
         messages.questionJSON = questionsJSON[index!]["question"]
         messages.userJSON = questionsJSON[index!]["user"]
