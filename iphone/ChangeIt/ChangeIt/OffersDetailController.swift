@@ -75,6 +75,7 @@ class OffersDetailController: UITableViewController {
             let selectedIndex = self.tableView.indexPathForSelectedRow()?.row
             
             let detail = segue.destinationViewController as! ItemDetailController
+            detail.fromOffer = true
             detail.itemJSON = offerJSON["src"]["dst"][selectedIndex!]
             detail.userJSON = offerJSON["src"]["otherUser"][selectedIndex!]
             detail.loadData(false)

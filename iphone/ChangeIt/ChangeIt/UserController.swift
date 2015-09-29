@@ -23,6 +23,10 @@ class UserController: UIViewController {
         self.tabBarController?.tabBar.hidden = false
     }
     
+    @IBAction func unwindToUser(segue:UIStoryboardSegue) {
+        self.tabBarController?.tabBar.hidden = false
+    }
+    
     @IBAction func logout(sender: AnyObject) {
         let currentInstall = PFInstallation.currentInstallation()
         currentInstall["user"] = NSNull()

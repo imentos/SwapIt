@@ -11,7 +11,7 @@ import Parse
 import Social
 
 class ItemDetailController: UITableViewController {
-
+    @IBOutlet var backToUserButton: UIBarButtonItem!
     @IBOutlet weak var exchangeImage: UIImageView!
     @IBOutlet weak var photoImage: UIImageView!
     @IBOutlet var otherItemImageView: UIImageView!
@@ -28,6 +28,7 @@ class ItemDetailController: UITableViewController {
     var otherItemId:String?
     var myItem:Bool! = false
     var acceptable:Bool! = false
+    var fromOffer:Bool! = false
     var myItemId:String!
     var horizontalConstraints:[AnyObject]!
     var verticalConstraints:[AnyObject]!
@@ -173,11 +174,21 @@ class ItemDetailController: UITableViewController {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.makeOfferButton.title = "Edit Offer"
                     self.loadData(false)
+                    
+                    self.allWaytoUserPage()
                 })
             })
         } else {
             self.makeOfferButton.title = "Make Offer"
             self.loadData(false)
+            
+            self.allWaytoUserPage()
+        }
+    }
+    
+    func allWaytoUserPage() {
+        if (self.fromOffer == true) {
+            self.navigationItem.leftBarButtonItem = self.backToUserButton
         }
     }
     
