@@ -96,6 +96,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         if (segmentedControl.selectedSegmentIndex == 0) {
             let offeredItemJSON = offeredItemsJSON[indexPath.row]
             
+            photo.layer.cornerRadius = 0
             PFQuery(className:"Image").getObjectInBackgroundWithId(offeredItemJSON["item"]["photo"].string!, block: {
                 (imageObj:PFObject?, error: NSError?) -> Void in
                 let imageData = (imageObj!["file"] as! PFFile).getData()
@@ -113,12 +114,11 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         } else {
             let questionJSON = questionsJSON[indexPath.row]
             
-            photo.layer.borderWidth = 1
-            photo.layer.masksToBounds = true
-            photo.layer.borderColor = UIColor.blackColor().CGColor
             photo.layer.cornerRadius = photo.bounds.height / 2
             if let data = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=120&height=120", questionJSON["user"]["facebookId"].string!))!) {
                 photo.image = UIImage(data: data)
+            } else {
+                photo.image = UIImage(named: "bottom_User_Active")
             }
 
             title.text = questionJSON["question"]["text"].string
