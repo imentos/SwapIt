@@ -135,7 +135,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "back") {
+        if (segue.identifier != "itemDetail" || segue.identifier != "messages") {
             return;
         }
         let indexPath = detailTable.indexPathForSelectedRow()

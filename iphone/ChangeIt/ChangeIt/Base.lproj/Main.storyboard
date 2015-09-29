@@ -148,7 +148,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="00080796-4F94-4FB8-A06A-BE1A089A0403" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="B67E2AFD-F57A-452D-800D-2FA00BBC0DAB" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -1039,7 +1039,7 @@
                     <navigationItem key="navigationItem" id="vn6-oF-t6B">
                         <barButtonItem key="leftBarButtonItem" image="Arrow_Icon" id="RTW-G3-Biq">
                             <connections>
-                                <segue destination="jYg-lV-aHt" kind="unwind" identifier="back" unwindAction="back:" id="eFl-rL-uBD"/>
+                                <segue destination="jYg-lV-aHt" kind="unwind" unwindAction="cancel:" id="ROk-GJ-YZP"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1548,7 +1548,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="00080796-4F94-4FB8-A06A-BE1A089A0403" width="30" height="30">
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="B67E2AFD-F57A-452D-800D-2FA00BBC0DAB" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1605,7 +1606,6 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
-        <image name="Arrow_Icon" width="28" height="28"/>
         <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
@@ -1624,8 +1624,8 @@ RgAAAAAAAAAAAAAAAAAAC5U
     <inferredMetricsTieBreakers>
         <segue reference="mlN-6V-Fdd"/>
         <segue reference="ZP6-iX-Ypg"/>
+        <segue reference="05S-WV-Wgj"/>
         <segue reference="z1t-WL-IQK"/>
-        <segue reference="Sb2-4d-UUD"/>
         <segue reference="Tea-P4-aes"/>
     </inferredMetricsTieBreakers>
 </document>

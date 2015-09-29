@@ -13,13 +13,18 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     var itemsJSON:JSON = nil
 
     @IBAction func addItem(segue:UIStoryboardSegue) {
-        self.tabBarController?.tabBar.hidden = true
+        self.tabBarController?.tabBar.hidden = false
         
         loadData()
     }
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
         self.tabBarController?.tabBar.hidden = false
+//
+//        let indexPath = self.tableView.indexPathForSelectedRow()
+//        let cell = tableView.cellForRowAtIndexPath(indexPath!)
+//        let itemJSON = itemsJSON[indexPath!.row]
+//        updateUnread(itemJSON, cell: cell!)
     }
     
     func updateUnread(itemJSON:JSON, cell:UITableViewCell) {
@@ -63,13 +68,6 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
         })
     }
     
-    @IBAction func back(segue:UIStoryboardSegue) {
-        let indexPath = self.tableView.indexPathForSelectedRow()
-        let cell = tableView.cellForRowAtIndexPath(indexPath!)
-        let itemJSON = itemsJSON[indexPath!.row]
-        updateUnread(itemJSON, cell: cell!)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
