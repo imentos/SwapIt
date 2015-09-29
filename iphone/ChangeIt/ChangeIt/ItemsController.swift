@@ -32,6 +32,8 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.leftBarButtonItem = nil
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.scopeButton.hidden = bookmarkMode

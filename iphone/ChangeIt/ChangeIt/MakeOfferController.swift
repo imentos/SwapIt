@@ -18,7 +18,7 @@ class MakeOfferController: UITableViewController {
         loadData()
     }
     
-    @IBAction func cancelItem(segue:UIStoryboardSegue) {
+    @IBAction func cancel(segue:UIStoryboardSegue) {
     }
     
     func loadData() {
