@@ -26,6 +26,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var scopeButton: UIButton!
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
+        self.tabBarController?.tabBar.hidden = false
         println("cancel")
     }
     
@@ -255,6 +256,9 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         if (segue.identifier == "cancel") {
             return
         }
+        
+        self.tabBarController?.tabBar.hidden = true
+        
         var itemJSON:JSON = nil
         let tableView = sender as! UITableView
 //        if tableView == self.searchDisplayController!.searchResultsTableView {

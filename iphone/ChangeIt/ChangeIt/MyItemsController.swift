@@ -13,10 +13,13 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     var itemsJSON:JSON = nil
 
     @IBAction func addItem(segue:UIStoryboardSegue) {
+        self.tabBarController?.tabBar.hidden = true
+        
         loadData()
     }
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
+        self.tabBarController?.tabBar.hidden = false
     }
     
     func updateUnread(itemJSON:JSON, cell:UITableViewCell) {
@@ -157,6 +160,8 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        self.tabBarController?.tabBar.hidden = true
+
         if (segue.identifier == "detail") {
             let tableView = self.view as! UITableView
             let offerJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]

@@ -20,6 +20,7 @@ class UserController: UIViewController {
     var receivedOffersJSON:JSON! = nil
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
+        self.tabBarController?.tabBar.hidden = false
     }
     
     @IBAction func logout(sender: AnyObject) {
@@ -57,6 +58,8 @@ class UserController: UIViewController {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        self.tabBarController?.tabBar.hidden = true
+        
         if (segue.identifier == "wishList") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.viewControllers[0] as! WishListController
