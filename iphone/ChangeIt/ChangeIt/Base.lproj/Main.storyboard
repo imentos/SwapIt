@@ -333,7 +333,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="78B3B926-C78B-40D0-88C2-40A3816A2206" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="9139F6F7-0FA6-46B3-9D8E-635638199C95" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -1667,7 +1667,7 @@
         <!--Navigation Controller-->
         <scene sceneID="PeF-8l-GEW">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TzX-86-Gk5" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="TzX-86-Gk5" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="1" title="" image="bottom_Browse_Inactive" id="T7j-zt-fkv">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                         <userDefinedRuntimeAttributes>
@@ -1770,7 +1770,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="78B3B926-C78B-40D0-88C2-40A3816A2206" width="30" height="30">
+        <image name="9139F6F7-0FA6-46B3-9D8E-635638199C95" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1845,8 +1845,8 @@ RgAAAAAAAAAAAAAAAAAAC5U
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="z1t-WL-IQK"/>
+        <segue reference="mlN-6V-Fdd"/>
         <segue reference="VZA-XN-qKl"/>
-        <segue reference="pr7-qv-vAF"/>
         <segue reference="ZP6-iX-Ypg"/>
         <segue reference="05S-WV-Wgj"/>
     </inferredMetricsTieBreakers>
