@@ -333,7 +333,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="508F12A7-E4D2-4CC7-9B02-6B804101F025" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="78B3B926-C78B-40D0-88C2-40A3816A2206" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -356,7 +356,7 @@
         <!--Navigation Controller-->
         <scene sceneID="5oN-sJ-g8m">
             <objects>
-                <navigationController id="cII-LW-dv2" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="cII-LW-dv2" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="bottom_User_Inactive" id="ups-w7-eht">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="bottom_User_Active"/>
@@ -420,7 +420,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RUH-Ar-ENC">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RUH-Ar-ENC">
                                 <rect key="frame" x="278" y="0.0" width="59" height="30"/>
                                 <state key="normal" title="All Items">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1770,7 +1770,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="508F12A7-E4D2-4CC7-9B02-6B804101F025" width="30" height="30">
+        <image name="78B3B926-C78B-40D0-88C2-40A3816A2206" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1844,10 +1844,10 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="connector_logo-01" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="z1t-WL-IQK"/>
         <segue reference="VZA-XN-qKl"/>
         <segue reference="pr7-qv-vAF"/>
         <segue reference="ZP6-iX-Ypg"/>
         <segue reference="05S-WV-Wgj"/>
-        <segue reference="z1t-WL-IQK"/>
     </inferredMetricsTieBreakers>
 </document>

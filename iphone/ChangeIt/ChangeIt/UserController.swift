@@ -22,14 +22,17 @@ class UserController: UIViewController {
     var userJSON:JSON!
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
+        self.navigationController?.navigationBarHidden = true
         self.tabBarController?.tabBar.hidden = false
     }
     
     @IBAction func unwindToUser(segue:UIStoryboardSegue) {
+        self.navigationController?.navigationBarHidden = true
         self.tabBarController?.tabBar.hidden = false
     }
 
     @IBAction func saveEmail(segue:UIStoryboardSegue) {
+        self.navigationController?.navigationBarHidden = true
         self.tabBarController?.tabBar.hidden = false
         
         let view = segue.sourceViewController as! UserEmailController
@@ -42,6 +45,7 @@ class UserController: UIViewController {
     }
     
     @IBAction func savePhone(segue:UIStoryboardSegue) {
+        self.navigationController?.navigationBarHidden = true
         self.tabBarController?.tabBar.hidden = false
         
         let view = segue.sourceViewController as! UserPhoneController
@@ -94,6 +98,7 @@ class UserController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBarHidden = false
         
         if (segue.identifier == "wishList") {
             let navi = segue.destinationViewController as! UINavigationController
