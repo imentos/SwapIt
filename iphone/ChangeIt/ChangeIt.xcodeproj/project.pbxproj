@@ -19,6 +19,8 @@
 		B333F8831BB0CB21002CCF48 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B333F8821BB0CB21002CCF48 /* ParseCrashReporting.framework */; };
 		B333F8851BB0CC63002CCF48 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B333F8841BB0CC63002CCF48 /* libstdc++.6.dylib */; };
 		B33C8F8E1B06869400160D7E /* AddWishListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33C8F8D1B06869400160D7E /* AddWishListCell.swift */; };
+		B34150401BBBA00800385915 /* UserEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B341503F1BBBA00800385915 /* UserEmailController.swift */; };
+		B34150421BBBA06400385915 /* UserPhoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34150411BBBA06400385915 /* UserPhoneController.swift */; };
 		B348CD001AFA929100CFC04E /* MakeOfferController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */; };
 		B348CD021AFBDCD500CFC04E /* OffersDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */; };
 		B3499B951AFAE3FE00DDD536 /* OffersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3499B941AFAE3FE00DDD536 /* OffersController.swift */; };
@@ -93,6 +95,8 @@
 		B333F8821BB0CB21002CCF48 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		B333F8841BB0CC63002CCF48 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		B33C8F8D1B06869400160D7E /* AddWishListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWishListCell.swift; sourceTree = "<group>"; };
+		B341503F1BBBA00800385915 /* UserEmailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEmailController.swift; sourceTree = "<group>"; };
+		B34150411BBBA06400385915 /* UserPhoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhoneController.swift; sourceTree = "<group>"; };
 		B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOfferController.swift; sourceTree = "<group>"; };
 		B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersDetailController.swift; sourceTree = "<group>"; };
 		B3499B941AFAE3FE00DDD536 /* OffersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersController.swift; sourceTree = "<group>"; };
@@ -215,6 +219,8 @@
 				B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */,
 				B31BC9E11AED04DD00E1F99A /* AddItemController.swift */,
 				B374319F1AE861A600A0808B /* UserController.swift */,
+				B34150411BBBA06400385915 /* UserPhoneController.swift */,
+				B341503F1BBBA00800385915 /* UserEmailController.swift */,
 				B30E24901AF83B6C00ED49EB /* ItemsController.swift */,
 				B39EC9B01B014B8000FFC89A /* ItemCell.swift */,
 				B30E24961AF96C2200ED49EB /* ItemDetailController.swift */,
@@ -407,11 +413,13 @@
 				B3499B951AFAE3FE00DDD536 /* OffersController.swift in Sources */,
 				B37C10291AE9BE280086864F /* WishListController.swift in Sources */,
 				B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */,
+				B34150401BBBA00800385915 /* UserEmailController.swift in Sources */,
 				B30A026F1B5EC4BE00E63437 /* MessageLabel.swift in Sources */,
 				B30E24951AF96BFA00ED49EB /* MainController.swift in Sources */,
 				B374319E1AE861A600A0808B /* AppDelegate.swift in Sources */,
 				B30E24911AF83B6C00ED49EB /* ItemsController.swift in Sources */,
 				7F12107C1BACC56400C4F65D /* BarButton.swift in Sources */,
+				B34150421BBBA06400385915 /* UserPhoneController.swift in Sources */,
 				B30E24971AF96C2200ED49EB /* ItemDetailController.swift in Sources */,
 				B37431A01AE861A600A0808B /* UserController.swift in Sources */,
 				B37C0FE51AE9652C0086864F /* SwiftyJSON.swift in Sources */,

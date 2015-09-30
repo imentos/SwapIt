@@ -49,6 +49,53 @@ Parse.Cloud.define("updateUser", function(request, response) {
     });
 });
 
+Parse.Cloud.define("updateUserPhone", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (n:User{objectId:{userId}}) SET n.phone={phone} RETURN n',
+            params: {
+                userId: request.params.userId,
+                phone: request.params.phone
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            response.success(httpResponse.text);
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+Parse.Cloud.define("updateUserEmail", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (n:User{objectId:{userId}}) SET n.email={email} RETURN n',
+            params: {
+                userId: request.params.userId,
+                email: request.params.email
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            response.success(httpResponse.text);
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
 
 Parse.Cloud.define("getUsers", function(request, response) {
     Parse.Cloud.httpRequest({
