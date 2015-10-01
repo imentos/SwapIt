@@ -80,6 +80,8 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
     }
     
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
+        addUser(PFUser.currentUser()!.objectId!, name:PFUser.currentUser()!.username!, facebookId:"", location:"")        
+        startItemsPage()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
