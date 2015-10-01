@@ -241,10 +241,12 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         let itemJSON = itemsJSON[indexPath.row]
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
-            if let imageFile = imageObj!["file"] as? PFFile {
-                let imageData = imageFile.getData()
-                let itemImage = cell.viewWithTag(101) as! UIImageView
-                itemImage.image = UIImage(data: imageData!)
+            if let x = imageObj {
+                if let imageFile = imageObj!["file"] as? PFFile {
+                    let imageData = imageFile.getData()
+                    let itemImage = cell.viewWithTag(101) as! UIImageView
+                    itemImage.image = UIImage(data: imageData!)
+                }
             }
         })
         

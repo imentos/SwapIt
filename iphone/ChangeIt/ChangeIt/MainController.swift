@@ -39,9 +39,14 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
     
     func showLoginPage() {
         login = MyLogInViewController()
-        login.fields = PFLogInFields.SignUpButton | PFLogInFields.LogInButton | PFLogInFields.Facebook | PFLogInFields.UsernameAndPassword
+        login.fields = PFLogInFields.SignUpButton | PFLogInFields.LogInButton | PFLogInFields.Facebook | PFLogInFields.UsernameAndPassword | PFLogInFields.PasswordForgotten
         login.delegate = self
+        
+        let signup = MySignupViewController()
+        login.signUpController = signup
+        
         login.signUpController?.delegate = self
+        
         self.presentViewController(login, animated: true, completion: { () -> Void in
             //
         })

@@ -21,6 +21,7 @@
 		B33C8F8E1B06869400160D7E /* AddWishListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33C8F8D1B06869400160D7E /* AddWishListCell.swift */; };
 		B34150401BBBA00800385915 /* UserEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B341503F1BBBA00800385915 /* UserEmailController.swift */; };
 		B34150421BBBA06400385915 /* UserPhoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34150411BBBA06400385915 /* UserPhoneController.swift */; };
+		B34150441BBCF1CD00385915 /* MySignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34150431BBCF1CD00385915 /* MySignupViewController.swift */; };
 		B348CD001AFA929100CFC04E /* MakeOfferController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */; };
 		B348CD021AFBDCD500CFC04E /* OffersDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */; };
 		B3499B951AFAE3FE00DDD536 /* OffersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3499B941AFAE3FE00DDD536 /* OffersController.swift */; };
@@ -97,6 +98,7 @@
 		B33C8F8D1B06869400160D7E /* AddWishListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWishListCell.swift; sourceTree = "<group>"; };
 		B341503F1BBBA00800385915 /* UserEmailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEmailController.swift; sourceTree = "<group>"; };
 		B34150411BBBA06400385915 /* UserPhoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhoneController.swift; sourceTree = "<group>"; };
+		B34150431BBCF1CD00385915 /* MySignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySignupViewController.swift; sourceTree = "<group>"; };
 		B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOfferController.swift; sourceTree = "<group>"; };
 		B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersDetailController.swift; sourceTree = "<group>"; };
 		B3499B941AFAE3FE00DDD536 /* OffersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersController.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				B38AF8E71B3A457500AB19F7 /* KxMenu.h */,
 				B38AF8E81B3A457500AB19F7 /* KxMenu.m */,
 				B3B120691B96BC420020D13E /* MyLogInViewController.swift */,
+				B34150431BBCF1CD00385915 /* MySignupViewController.swift */,
 				B30E24941AF96BFA00ED49EB /* MainController.swift */,
 				B33C8F8D1B06869400160D7E /* AddWishListCell.swift */,
 				B37C10281AE9BE280086864F /* WishListController.swift */,
@@ -412,6 +415,7 @@
 				B38AF8EB1B3E325000AB19F7 /* QuestionsController.swift in Sources */,
 				B3499B951AFAE3FE00DDD536 /* OffersController.swift in Sources */,
 				B37C10291AE9BE280086864F /* WishListController.swift in Sources */,
+				B34150441BBCF1CD00385915 /* MySignupViewController.swift in Sources */,
 				B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */,
 				B34150401BBBA00800385915 /* UserEmailController.swift in Sources */,
 				B30A026F1B5EC4BE00E63437 /* MessageLabel.swift in Sources */,

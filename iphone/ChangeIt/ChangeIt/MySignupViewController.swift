@@ -9,18 +9,18 @@
 import UIKit
 import ParseUI
 
-class MyLogInViewController: PFLogInViewController {
+class MySignupViewController: PFSignUpViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.logInView?.logo = UIImageView(image: UIImage(named: "login_screen_logo"))
-        self.logInView!.logo!.contentMode = .ScaleAspectFit;
+        self.signUpView?.logo = UIImageView(image: UIImage(named: "login_screen_logo"))
+        self.signUpView!.logo!.contentMode = .ScaleAspectFit;
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let cx = self.logInView?.logo!.center.x
+        let cx = self.signUpView?.logo!.center.x
         let size:CGFloat = UIScreen.mainScreen().nativeBounds.width / 6
-        self.logInView?.logo!.frame = CGRectMake(cx!-size/2, size/2, size, size);
+        self.signUpView?.logo!.frame = CGRectMake(cx!-size/2, size/2, size, size);
     }
 }
