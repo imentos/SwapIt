@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import Social
 
-class ItemDetailController: UITableViewController {
+class ItemDetailController: UIViewController {
     @IBOutlet var backToUserButton: UIBarButtonItem!
     @IBOutlet weak var exchangeImage: UIImageView!
     @IBOutlet weak var photoImage: UIImageView!
@@ -19,7 +19,7 @@ class ItemDetailController: UITableViewController {
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var makeOfferButton: UIBarButtonItem!
-    @IBOutlet weak var questionButton: UIButton!
+    @IBOutlet weak var questionButton: UIBarButtonItem!
     var itemJSON:JSON!
     var otherItemJSON:JSON!
     var userJSON:JSON!
@@ -31,7 +31,6 @@ class ItemDetailController: UITableViewController {
     var fromOffer:Bool! = false
     var myItemId:String!
     var horizontalConstraints:[AnyObject]!
-    var verticalConstraints:[AnyObject]!
     
     @IBOutlet weak var messageBtn: UIButton!
     @IBOutlet weak var bookmarkBtn: UIButton!
@@ -40,11 +39,9 @@ class ItemDetailController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.allowsSelection = false
-        
         photoImage.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapDetected"))
+        let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapOtherImage"))
         singleTap.numberOfTapsRequired = 1
         otherItemImageView.userInteractionEnabled = true
         otherItemImageView.addGestureRecognizer(singleTap)
@@ -88,7 +85,9 @@ class ItemDetailController: UITableViewController {
             
             PFCloud.callFunctionInBackground("getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
+                //dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.collapseItemImage()
+                    //})
                 let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 if (resultsJSON.count == 0) {
                     self.otherItemId = nil
@@ -357,14 +356,11 @@ class ItemDetailController: UITableViewController {
             self.photoImage.superview!.removeConstraints(horizontalConstraints)
             horizontalConstraints = nil
         }
-        if let y = verticalConstraints {
-            self.photoImage.superview!.removeConstraints(verticalConstraints)
-            verticalConstraints = nil
-        }
         self.photoImage.superview?.updateConstraints()
         
         self.otherItemImageView.hidden = false
         self.exchangeImage.hidden = false
+        self.view.insertSubview(exchangeImage, aboveSubview: otherItemImageView)
     }
     
     func expandItemImage() {
@@ -374,19 +370,13 @@ class ItemDetailController: UITableViewController {
             horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[item]|", options: nil, metrics: nil, views: views)
             self.photoImage.superview!.addConstraints(horizontalConstraints)
         }
-        
-        if let y = verticalConstraints {
-        } else {
-            verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[item]|", options: nil, metrics: nil, views: views)
-            self.photoImage.superview!.addConstraints(verticalConstraints)
-        }
         self.photoImage.superview?.updateConstraints()
         
         self.otherItemImageView.hidden = true
         self.exchangeImage.hidden = true
     }
     
-    func tapDetected() {
+    func tapOtherImage() {
         performSegueWithIdentifier("otherDetail", sender: self)
     }
 

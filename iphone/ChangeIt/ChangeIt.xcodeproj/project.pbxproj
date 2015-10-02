@@ -56,6 +56,8 @@
 		B3B1206A1B96BC420020D13E /* MyLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B120691B96BC420020D13E /* MyLogInViewController.swift */; };
 		B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C763421B0B9BE50040E794 /* MyItemDetailController.swift */; };
 		B3C763451B0D23C30040E794 /* QuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C763441B0D23C30040E794 /* QuestionController.swift */; };
+		B3D2AA971BBDBE4C00E00776 /* LMDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D2AA931BBDBE4C00E00776 /* LMDropdownView.m */; };
+		B3D2AA981BBDBE4C00E00776 /* UIImage+LMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D2AA961BBDBE4C00E00776 /* UIImage+LMExtension.m */; };
 		B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */; };
 		B3FCB87D1B8F734800AD9A1E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */; };
 /* End PBXBuildFile section */
@@ -138,6 +140,10 @@
 		B3B120691B96BC420020D13E /* MyLogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLogInViewController.swift; sourceTree = "<group>"; };
 		B3C763421B0B9BE50040E794 /* MyItemDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyItemDetailController.swift; sourceTree = "<group>"; };
 		B3C763441B0D23C30040E794 /* QuestionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionController.swift; sourceTree = "<group>"; };
+		B3D2AA921BBDBE4C00E00776 /* LMDropdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMDropdownView.h; sourceTree = "<group>"; };
+		B3D2AA931BBDBE4C00E00776 /* LMDropdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMDropdownView.m; sourceTree = "<group>"; };
+		B3D2AA951BBDBE4C00E00776 /* UIImage+LMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+LMExtension.h"; sourceTree = "<group>"; };
+		B3D2AA961BBDBE4C00E00776 /* UIImage+LMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+LMExtension.m"; sourceTree = "<group>"; };
 		B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyItemsController.swift; sourceTree = "<group>"; };
 		B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				B37C101B1AE990EA0086864F /* Frameworks */,
+				B3D2AA911BBDBE4C00E00776 /* LMDropdownView */,
 				B374319A1AE861A600A0808B /* ChangeIt */,
 				B37431991AE861A600A0808B /* Products */,
 				B37C100E1AE98E360086864F /* ChangeIt-Bridging-Header.h */,
@@ -271,6 +278,25 @@
 				B35C66401AE951FC0029055F /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B3D2AA911BBDBE4C00E00776 /* LMDropdownView */ = {
+			isa = PBXGroup;
+			children = (
+				B3D2AA921BBDBE4C00E00776 /* LMDropdownView.h */,
+				B3D2AA931BBDBE4C00E00776 /* LMDropdownView.m */,
+				B3D2AA941BBDBE4C00E00776 /* Vender */,
+			);
+			path = LMDropdownView;
+			sourceTree = "<group>";
+		};
+		B3D2AA941BBDBE4C00E00776 /* Vender */ = {
+			isa = PBXGroup;
+			children = (
+				B3D2AA951BBDBE4C00E00776 /* UIImage+LMExtension.h */,
+				B3D2AA961BBDBE4C00E00776 /* UIImage+LMExtension.m */,
+			);
+			path = Vender;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -392,7 +418,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd ParseCrash\necho ${DWARF_DSYM_FOLDER_PATH}\nparse symbols \"Change It\" --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd ParseCrash\necho ${DWARF_DSYM_FOLDER_PATH}\necho parse symbols \"Change It\" --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -412,12 +438,14 @@
 				B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */,
 				B348CD021AFBDCD500CFC04E /* OffersDetailController.swift in Sources */,
 				B3B1206A1B96BC420020D13E /* MyLogInViewController.swift in Sources */,
+				B3D2AA971BBDBE4C00E00776 /* LMDropdownView.m in Sources */,
 				B38AF8EB1B3E325000AB19F7 /* QuestionsController.swift in Sources */,
 				B3499B951AFAE3FE00DDD536 /* OffersController.swift in Sources */,
 				B37C10291AE9BE280086864F /* WishListController.swift in Sources */,
 				B34150441BBCF1CD00385915 /* MySignupViewController.swift in Sources */,
 				B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */,
 				B34150401BBBA00800385915 /* UserEmailController.swift in Sources */,
+				B3D2AA981BBDBE4C00E00776 /* UIImage+LMExtension.m in Sources */,
 				B30A026F1B5EC4BE00E63437 /* MessageLabel.swift in Sources */,
 				B30E24951AF96BFA00ED49EB /* MainController.swift in Sources */,
 				B374319E1AE861A600A0808B /* AppDelegate.swift in Sources */,
