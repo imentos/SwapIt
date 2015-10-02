@@ -13,6 +13,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     var wishesJSON:JSON = nil
     var enableEdit:Bool = true
     var otherWishlist:Bool = true
+    var currentWishText:UITextField!
     
     @IBOutlet var backButton: UIBarButtonItem!
     @IBOutlet var addButton: UIBarButtonItem!
@@ -107,6 +108,12 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
             self.navigationItem.rightBarButtonItem = self.deleteButton
             self.navigationItem.leftBarButtonItem = self.cancelButton
             self.updateDeleteButtonTitle()
+            
+            //self.resignFirstResponder()
+            if let x = currentWishText {
+                currentWishText.endEditing(true)
+            }
+
         } else {
             if self.wishesJSON.count > 0 {
                 self.editButton.enabled = true;
@@ -160,16 +167,6 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         super.viewDidLoad()
     }
 
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        switch editingStyle {
-        case .Delete:
-            self.wishesJSON.arrayObject?.removeAtIndex(indexPath.row)
-            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        default:
-            return
-        }
-    }
-    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if (indexPath.row == 0 && (self.tableView.editing || self.otherWishlist)) {
             return 0
@@ -197,9 +194,9 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCellWithIdentifier("AddWishListCell", forIndexPath: indexPath) as! AddWishListCell
-            let newWishText = cell.newWishListText
+            currentWishText = cell.newWishListText
             if (self.otherWishlist == false) {
-                newWishText.becomeFirstResponder()
+                currentWishText.becomeFirstResponder()
             }
             return cell
         }
