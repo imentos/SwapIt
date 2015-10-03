@@ -11,6 +11,8 @@ import Parse
 
 class UserController: UIViewController {
     
+    @IBOutlet weak var phoneButton: UIButton!
+    @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet var spinnerView: UIActivityIndicatorView!
@@ -80,6 +82,18 @@ class UserController: UIViewController {
                 self.userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 self.title = self.userJSON["name"].string
                 self.nameLabel.text = self.userJSON["name"].string
+                
+                if (self.userJSON["email"] == nil || self.userJSON["email"].string?.isEmpty == true) {
+                    self.emailButton.setImage(UIImage(named: "mail_grey"), forState: .Normal)
+                } else {
+                    self.emailButton.setImage(UIImage(named: "mail_red"), forState: .Normal)
+                }
+                
+                if (self.userJSON["phone"] == nil || self.userJSON["phone"].string?.isEmpty == true) {
+                    self.phoneButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
+                } else {
+                    self.phoneButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
+                }
                 
                 if (PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!)) {
                     self.userPhoto.layer.borderWidth = 1

@@ -333,7 +333,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="3499EC29-2540-4B63-914B-22A1C24A5391" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="C295A1F5-DCA9-481A-B69D-64A85F40BA26" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -342,9 +342,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="emailButton" destination="jgK-tW-9Yn" id="nX3-nX-3aM"/>
                         <outlet property="nameLabel" destination="HAu-iH-MQh" id="MrP-VO-oHc"/>
                         <outlet property="offerReceivedButton" destination="GdE-ph-Yu1" id="8kr-P3-aQb"/>
                         <outlet property="offerSentButton" destination="fho-44-dBl" id="LAE-a5-buV"/>
+                        <outlet property="phoneButton" destination="MAi-04-gz0" id="imq-HK-zvo"/>
                         <outlet property="spinnerView" destination="sFM-7E-bNl" id="qI1-A1-UfJ"/>
                         <outlet property="userPhoto" destination="vKM-2g-k0h" id="Zr3-SE-bg6"/>
                     </connections>
@@ -1883,7 +1885,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="3499EC29-2540-4B63-914B-22A1C24A5391" width="30" height="30">
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
+        <image name="C295A1F5-DCA9-481A-B69D-64A85F40BA26" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1940,8 +1944,6 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
         <image name="Profile_Offers_Sent" width="80" height="80"/>
