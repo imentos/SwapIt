@@ -333,7 +333,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="B2A8545E-4DEF-4C8A-9026-F3EE2407B521" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="AA08644F-1E2D-443E-A678-3C531F45309E" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -489,6 +489,13 @@
                                     <constraint firstAttribute="height" constant="200" id="idR-eK-OWm"/>
                                 </constraints>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="bottom_User_Inactive" translatesAutoresizingMaskIntoConstraints="NO" id="Hzu-eH-toG">
+                                <rect key="frame" x="16" y="213" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="hao-RZ-Uaw"/>
+                                    <constraint firstAttribute="width" constant="40" id="w2H-9g-zVO"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJG-vg-aWW">
                                 <rect key="frame" x="520" y="220" width="25" height="25"/>
                                 <constraints>
@@ -590,16 +597,86 @@
                                     <constraint firstAttribute="width" constant="50" id="PTo-rR-g3I"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="bottom_User_Inactive" translatesAutoresizingMaskIntoConstraints="NO" id="Hzu-eH-toG">
-                                <rect key="frame" x="16" y="213" width="40" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jQc-7P-Zuf">
+                                <rect key="frame" x="275" y="456" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="hao-RZ-Uaw"/>
-                                    <constraint firstAttribute="width" constant="40" id="w2H-9g-zVO"/>
+                                    <constraint firstAttribute="width" constant="50" id="0u0-BK-OCr"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="EdF-aX-CfP"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Jo5-8g-UD9"/>
+                                    <constraint firstAttribute="height" constant="50" id="ME1-z5-X6t"/>
+                                    <constraint firstAttribute="width" constant="50" id="NxJ-QJ-dbS"/>
+                                    <constraint firstAttribute="height" constant="50" id="WGv-8H-UmX"/>
                                 </constraints>
-                            </imageView>
+                                <state key="normal" image="mail_grey">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="0u0-BK-OCr"/>
+                                        <exclude reference="EdF-aX-CfP"/>
+                                        <exclude reference="Jo5-8g-UD9"/>
+                                        <exclude reference="ME1-z5-X6t"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="addEmail:" destination="uqi-YD-RXu" eventType="touchUpInside" id="bYs-Wx-HX6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E4v-WY-AdB">
+                                <rect key="frame" x="16" y="456" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="7vI-6Q-Ijx"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="auD-aB-6Jf"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="iia-jM-ioe"/>
+                                    <constraint firstAttribute="width" constant="50" id="sdh-3Y-a9R"/>
+                                    <constraint firstAttribute="height" constant="50" id="uNE-a4-NSE"/>
+                                    <constraint firstAttribute="height" constant="50" id="yUA-IP-Ck1"/>
+                                </constraints>
+                                <state key="normal" image="phone_grey">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="7vI-6Q-Ijx"/>
+                                        <exclude reference="auD-aB-6Jf"/>
+                                        <exclude reference="iia-jM-ioe"/>
+                                        <exclude reference="uNE-a4-NSE"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="addPhone:" destination="uqi-YD-RXu" eventType="touchUpInside" id="4oU-5m-YmB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hL5-Uq-WIF">
+                                <rect key="frame" x="534" y="454" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="LUd-qv-A53"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="MDW-5G-wJM"/>
+                                    <constraint firstAttribute="height" constant="30" id="fEC-Qx-dWZ"/>
+                                    <constraint firstAttribute="width" constant="46" id="lyM-TQ-WnR"/>
+                                    <constraint firstAttribute="width" constant="50" id="qro-rZ-NLM"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="uuz-de-UPX"/>
+                                </constraints>
+                                <state key="normal" image="phone_grey">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="MDW-5G-wJM"/>
+                                        <exclude reference="fEC-Qx-dWZ"/>
+                                        <exclude reference="lyM-TQ-WnR"/>
+                                        <exclude reference="uuz-de-UPX"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="addMSM:" destination="uqi-YD-RXu" eventType="touchUpInside" id="zT8-nE-MMV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ovW-xn-g8A" firstAttribute="top" secondItem="jQc-7P-Zuf" secondAttribute="bottom" constant="1" id="14t-Dq-Zyw"/>
+                            <constraint firstItem="hL5-Uq-WIF" firstAttribute="trailing" secondItem="3M3-UL-xVJ" secondAttribute="trailingMargin" id="1UP-RJ-fhw"/>
                             <constraint firstItem="LEm-7i-fqf" firstAttribute="leading" secondItem="P1d-2B-7ge" secondAttribute="trailing" constant="-25" id="33f-SZ-VhU"/>
                             <constraint firstItem="Odw-Sa-gLR" firstAttribute="top" secondItem="uKn-4i-Ugh" secondAttribute="bottom" constant="39" id="63o-1G-Ek1"/>
                             <constraint firstAttribute="centerX" secondItem="LEm-7i-fqf" secondAttribute="centerX" id="B94-r0-7vu"/>
@@ -619,13 +696,17 @@
                             <constraint firstItem="6mC-Lx-zod" firstAttribute="top" secondItem="ovW-xn-g8A" secondAttribute="bottom" id="fa7-yj-yu0"/>
                             <constraint firstItem="moK-Xn-iyU" firstAttribute="leading" secondItem="P1d-2B-7ge" secondAttribute="trailing" id="g5H-pa-vqM"/>
                             <constraint firstItem="moK-Xn-iyU" firstAttribute="top" secondItem="coU-lz-aTf" secondAttribute="bottom" id="hHl-5W-HaN"/>
+                            <constraint firstAttribute="centerX" secondItem="jQc-7P-Zuf" secondAttribute="centerX" id="hV8-gt-vrE"/>
                             <constraint firstItem="P1d-2B-7ge" firstAttribute="top" secondItem="coU-lz-aTf" secondAttribute="bottom" id="hoz-7Z-PLf"/>
                             <constraint firstItem="Odw-Sa-gLR" firstAttribute="leading" secondItem="3M3-UL-xVJ" secondAttribute="leadingMargin" id="jrK-nc-Ujh"/>
                             <constraint firstItem="pd0-pV-Cca" firstAttribute="leading" secondItem="XJG-vg-aWW" secondAttribute="trailing" constant="8" id="kfZ-Gi-ElX"/>
+                            <constraint firstItem="ovW-xn-g8A" firstAttribute="top" secondItem="E4v-WY-AdB" secondAttribute="bottom" constant="1" id="mSL-qJ-yZ3"/>
+                            <constraint firstItem="ovW-xn-g8A" firstAttribute="top" secondItem="hL5-Uq-WIF" secondAttribute="bottom" constant="1" id="mw0-89-o4h"/>
                             <constraint firstItem="uKn-4i-Ugh" firstAttribute="top" secondItem="Hzu-eH-toG" secondAttribute="bottom" constant="26" id="pbQ-fO-KhG"/>
                             <constraint firstItem="Hzu-eH-toG" firstAttribute="leading" secondItem="3M3-UL-xVJ" secondAttribute="leadingMargin" id="qed-6g-ngS"/>
                             <constraint firstItem="pd0-pV-Cca" firstAttribute="top" secondItem="moK-Xn-iyU" secondAttribute="bottom" constant="20" id="tqG-ut-hXf"/>
                             <constraint firstAttribute="centerY" secondItem="LEm-7i-fqf" secondAttribute="centerY" constant="200" id="v4j-os-oCi"/>
+                            <constraint firstItem="E4v-WY-AdB" firstAttribute="leading" secondItem="3M3-UL-xVJ" secondAttribute="leadingMargin" id="vXJ-S1-K5R"/>
                             <constraint firstAttribute="trailingMargin" secondItem="moK-Xn-iyU" secondAttribute="trailing" constant="-16" id="xut-ks-fJI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uKn-4i-Ugh" secondAttribute="trailing" id="xy5-eT-v9h"/>
                         </constraints>
@@ -646,10 +727,13 @@
                         <outlet property="backToUserButton" destination="fSm-ED-LaK" id="Fxt-bF-oMv"/>
                         <outlet property="bookmarkBtn" destination="JmU-qq-ajp" id="HhF-vl-weX"/>
                         <outlet property="descriptionTextView" destination="uKn-4i-Ugh" id="sJ2-mT-sNq"/>
+                        <outlet property="emailButton" destination="jQc-7P-Zuf" id="flV-Fw-Kfz"/>
                         <outlet property="exchangeImage" destination="LEm-7i-fqf" id="X9m-A3-UTL"/>
                         <outlet property="makeOfferButton" destination="loy-8m-j04" id="8SS-JH-vge"/>
                         <outlet property="messageBtn" destination="pd0-pV-Cca" id="Qqn-hN-hWB"/>
+                        <outlet property="msmButton" destination="hL5-Uq-WIF" id="DAl-UQ-sJg"/>
                         <outlet property="otherItemImageView" destination="moK-Xn-iyU" id="mcA-0j-CuY"/>
+                        <outlet property="phoneButton" destination="E4v-WY-AdB" id="N6y-hH-r0O"/>
                         <outlet property="photoImage" destination="P1d-2B-7ge" id="A0H-ag-Q1y"/>
                         <outlet property="questionButton" destination="zPb-zF-2ug" id="6ec-l6-s2I"/>
                         <outlet property="userLabel" destination="wQb-6f-eeS" id="pIt-bf-lhK"/>
@@ -1954,8 +2038,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="B2A8545E-4DEF-4C8A-9026-F3EE2407B521" width="30" height="30">
+        <image name="AA08644F-1E2D-443E-A678-3C531F45309E" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -2013,6 +2096,7 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
+        <image name="Arrow_Icon" width="28" height="28"/>
         <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>

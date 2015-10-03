@@ -45,8 +45,9 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
             return
         }
         
+        let strings = join(",", self.communications)
         let uuid = NSUUID().UUIDString
-        PFCloud.callFunctionInBackground("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": ""], block:{
+        PFCloud.callFunctionInBackground("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": strings], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             PFCloud.callFunctionInBackground("linkMyItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": uuid], block:{
                 (results:AnyObject?, error: NSError?) -> Void in

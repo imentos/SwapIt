@@ -32,6 +32,9 @@ class ItemDetailController: UIViewController {
     var myItemId:String!
     var horizontalConstraints:[AnyObject]!
     
+    @IBOutlet weak var phoneButton: UIButton!
+    @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var msmButton: UIButton!
     @IBOutlet weak var messageBtn: UIButton!
     @IBOutlet weak var bookmarkBtn: UIButton!
     @IBOutlet weak var wishBtn: UIButton!
@@ -48,12 +51,34 @@ class ItemDetailController: UIViewController {
         
         self.expandItemImage()
     }
+    
+    func updateCommunications() {
+        let communications = Set<String>(self.itemJSON["communication"].string!.componentsSeparatedByString(","))
+        print(communications)
+        if (communications.contains("msm") == false) {
+            self.msmButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
+        } else {
+            self.msmButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
+        }
+        if (communications.contains("email") == false) {
+            self.emailButton.setImage(UIImage(named: "mail_grey"), forState: .Normal)
+        } else {
+            self.emailButton.setImage(UIImage(named: "mail_red"), forState: .Normal)
+        }
+        if (communications.contains("phone") == false) {
+            self.phoneButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
+        } else {
+            self.phoneButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
+        }
+    }
 
     func loadData(myItem:Bool) {
         self.myItem = myItem
         // check if the offer has been made
         let itemId = self.itemJSON["objectId"].string
-
+        
+        self.updateCommunications()
+        
         if (self.acceptable == true) {
             PFCloud.callFunctionInBackground("getOfferStatus", withParameters: ["srcItemId":itemId!, "distItemId":self.myItemId!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
@@ -111,6 +136,9 @@ class ItemDetailController: UIViewController {
                     })
                 }
             })
+            
+            
+            
         })
         
         
