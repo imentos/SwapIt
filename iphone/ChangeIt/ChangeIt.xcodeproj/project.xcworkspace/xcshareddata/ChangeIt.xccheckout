@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>0865EA13-EA60-46E0-BBC5-DDB396078F17</string>
 	<key>IDESourceControlProjectName</key>
-	<string>ChangeIt</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>44C872FE82A7E691A15906017469A4A4E96AE449</key>
 		<string>https://github.com/imentos/SwapIt.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>iphone/ChangeIt/ChangeIt.xcodeproj</string>
+	<string>iphone/ChangeIt/ChangeIt.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>44C872FE82A7E691A15906017469A4A4E96AE449</key>

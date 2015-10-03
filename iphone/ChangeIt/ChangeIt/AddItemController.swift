@@ -3,10 +3,11 @@ import Parse
 import AVFoundation
 import ImageIO
 
-class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
+class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
     
-    @IBOutlet var addImageInfo: UILabel!
-    @IBOutlet var camerView: UIView!
+    @IBOutlet weak var msmButton: UIButton!
+    @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var titleTextField: UITextField!
     var imageId: String!
@@ -15,8 +16,28 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     var picker:UIImagePickerController? = UIImagePickerController()
     var popover:UIPopoverController?=nil
     
+    var communications:Set<String> = Set<String>()
+    
     private let TEXT_VIEW_PLACE_HOLDER = "Add some description"
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        picker!.delegate = self
+        
+        self.titleTextField.delegate = self
+        
+        self.descriptionTextView.delegate = self
+        self.descriptionTextView.text = TEXT_VIEW_PLACE_HOLDER
+        self.descriptionTextView.backgroundColor = UIColor.clearColor()
+        self.descriptionTextView.textColor = UIColor.lightGrayColor()
+        
+//        let recognizer = UITapGestureRecognizer(target: self, action:Selector("handleTap:"))
+//        self.camerView.addGestureRecognizer(recognizer)
+        
+        titleTextField.becomeFirstResponder()
+    }
+
     @IBAction func addItem(sender: AnyObject) {
         self.validateTitle()
         self.validateDescription()
@@ -52,25 +73,37 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         })
     }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "addItem" {
-//        }
-//    }
+    @IBAction func addMSM(sender: AnyObject) {
+        if (communications.contains("msm") == true) {
+            self.msmButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
+            communications.remove("msm")
+        } else {
+            self.msmButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
+            communications.insert("msm")
+        }
+    }
     
-//    override func shouldPerformSegueWithIdentifier(identifier: String!, sender: AnyObject!) -> Bool {
-//        if (identifier == "addItem") {
-//            self.validateTitle()
-//            self.validateDescription()
-//            if (titleTextField.text == "" || descriptionTextView.text == TEXT_VIEW_PLACE_HOLDER || imageId == nil) {
-//                
-//                return false
-//            }
-//            return true
-//        }        
-//        return true
-//    }
+    @IBAction func addEmail(sender: AnyObject) {
+        if (communications.contains("email") == true) {
+            self.emailButton.setImage(UIImage(named: "mail_grey"), forState: .Normal)
+            communications.remove("email")
+        } else {
+            self.emailButton.setImage(UIImage(named: "mail_red"), forState: .Normal)
+            communications.insert("email")
+        }
+    }
     
-    func handleTap(recognizer: UITapGestureRecognizer) {
+    @IBAction func addPhone(sender: AnyObject) {
+        if (communications.contains("phone") == true) {
+            self.phoneButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
+            communications.remove("phone")
+        } else {
+            self.phoneButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
+            communications.insert("phone")
+        }
+    }
+    
+    @IBAction func addImage(sender: AnyObject) {
         var alert:UIAlertController = UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
         var cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default) {
@@ -124,8 +157,6 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         imageObj.save()
         
         self.imageId = imageObj.objectId
-        
-        self.addImageInfo.hidden = true
     }
     
     func resizeImage(image: UIImage) -> UIImage {
@@ -146,34 +177,18 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        picker!.delegate = self
-        
-        self.titleTextField.delegate = self
-        
-        self.descriptionTextView.delegate = self
-        self.descriptionTextView.text = TEXT_VIEW_PLACE_HOLDER
-        self.descriptionTextView.backgroundColor = UIColor.clearColor()
-        self.descriptionTextView.textColor = UIColor.lightGrayColor()
-        
-        let recognizer = UITapGestureRecognizer(target: self, action:Selector("handleTap:"))
-        self.camerView.addGestureRecognizer(recognizer)
-    }
-    
     func textFieldDidEndEditing(textField: UITextField) {
         validateTitle()
     }
     
     func validateTitle() {
         let invalid = self.titleTextField.text.isEmpty;
-        self.validate(invalid, view: self.titleTextField.superview!)
+        self.validate(invalid, view: self.titleTextField)
     }
     
     func validateDescription() {
         let invalid = self.descriptionTextView.text == TEXT_VIEW_PLACE_HOLDER;
-        self.validate(invalid, view: self.descriptionTextView.superview!)
+        self.validate(invalid, view: self.descriptionTextView)
     }
     
     func validate(invalid:Bool, view:UIView) {
@@ -203,19 +218,5 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 {
-            titleTextField.becomeFirstResponder()
-        }
     }
 }
