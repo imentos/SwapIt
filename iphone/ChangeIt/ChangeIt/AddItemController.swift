@@ -35,6 +35,13 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         self.descriptionTextView.textColor = UIColor.lightGrayColor()
         
         titleTextField.becomeFirstResponder()
+        
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        view.addGestureRecognizer(tap)
+    }
+    
+    func DismissKeyboard(){
+        view.endEditing(true)
     }
     
     override func viewDidAppear(animated: Bool) {
