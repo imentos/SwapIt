@@ -5,6 +5,7 @@ import ImageIO
 
 class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
     
+    @IBOutlet var saveButton: UIBarButtonItem!
     @IBOutlet weak var msmButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var phoneButton: UIButton!
@@ -17,6 +18,7 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     var popover:UIPopoverController?=nil
     
     var communications:Set<String> = Set<String>()
+    var itemJSON:JSON!
     
     private let TEXT_VIEW_PLACE_HOLDER = "Add some description"
     
@@ -32,12 +34,49 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         self.descriptionTextView.backgroundColor = UIColor.clearColor()
         self.descriptionTextView.textColor = UIColor.lightGrayColor()
         
-//        let recognizer = UITapGestureRecognizer(target: self, action:Selector("handleTap:"))
-//        self.camerView.addGestureRecognizer(recognizer)
-        
         titleTextField.becomeFirstResponder()
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        loadData()
+    }
+    
+    func loadData() {
+        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
+            (imageObj:PFObject?, error: NSError?) -> Void in
+            let imageData = (imageObj!["file"] as! PFFile).getData()
+            self.imageView.image = UIImage(data: imageData!)
+        })
+        self.titleTextField.text = self.itemJSON["title"].string!
+        self.descriptionTextView.text = self.itemJSON["description"].string!
+        self.communications = Set<String>(self.itemJSON["communication"].string!.componentsSeparatedByString(","))
+        
+        updateCommunications()
+    }
+    
+    func updateCommunications() {
+        if (communications.contains("msm") == false) {
+            self.msmButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
+        } else {
+            self.msmButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
+        }
+        
+        if (communications.contains("email") == false) {
+            self.emailButton.setImage(UIImage(named: "mail_grey"), forState: .Normal)
+        } else {
+            self.emailButton.setImage(UIImage(named: "mail_red"), forState: .Normal)
+        }
+        
+        if (communications.contains("phone") == false) {
+            self.phoneButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
+        } else {
+            self.phoneButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
+        }
+    }
 
+    @IBAction func saveItem(sender: AnyObject) {
+    }
+    
     @IBAction func addItem(sender: AnyObject) {
         self.validateTitle()
         self.validateDescription()

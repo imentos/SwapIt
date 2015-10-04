@@ -135,15 +135,13 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier != "itemDetail" && segue.identifier != "messages") {
-            return;
-        }
-        let indexPath = detailTable.indexPathForSelectedRow()
-        let index = indexPath!.row
-        let cell = detailTable.cellForRowAtIndexPath(indexPath!)
-        var readIcon = cell!.viewWithTag(104) as! UIImageView
-
         if (segue.identifier == "itemDetail") {
+            let indexPath = detailTable.indexPathForSelectedRow()
+            let index = indexPath!.row
+            let cell = detailTable.cellForRowAtIndexPath(indexPath!)
+            cell?.backgroundColor = UIColor.clearColor()
+            var readIcon = cell!.viewWithTag(104) as! UIImageView
+            
             let offeredItemJSON = offeredItemsJSON[index]
             
             let detail = segue.destinationViewController as! ItemDetailController
@@ -155,6 +153,12 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             //readIcon.hidden = true
             
         } else if (segue.identifier == "messages") {
+            let indexPath = detailTable.indexPathForSelectedRow()
+            let index = indexPath!.row
+            let cell = detailTable.cellForRowAtIndexPath(indexPath!)
+            cell?.backgroundColor = UIColor.clearColor()
+            var readIcon = cell!.viewWithTag(104) as! UIImageView
+            
             let questionJSON = self.questionsJSON[index]
             
             let messages = segue.destinationViewController as! MessagesController
@@ -165,8 +169,12 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             messages.loadData()
             
             readIcon.hidden = true
+            
+        } else if (segue.identifier == "edit") {
+            let item = segue.destinationViewController as! AddItemController
+            item.title = "Edit Item"
+            item.itemJSON = self.itemJSON
+            item.navigationItem.rightBarButtonItem = item.saveButton
         }
-        
-        cell?.backgroundColor = UIColor.clearColor()
     }
 }

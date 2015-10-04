@@ -52,24 +52,27 @@ class ItemDetailController: UIViewController {
         self.expandItemImage()
     }
     
+    @IBAction func usePhone(sender: AnyObject) {
+        let phone = self.userJSON["phone"].string
+        print(phone)
+    }
+    
+    @IBAction func useEmail(sender: AnyObject) {
+        let email = self.userJSON["email"].string
+        print(email)
+    }
+    
+    @IBAction func useMSM(sender: AnyObject) {
+        let phone = self.userJSON["phone"].string
+        print(phone)
+    }
+    
     func updateCommunications() {
         let communications = Set<String>(self.itemJSON["communication"].string!.componentsSeparatedByString(","))
         print(communications)
-        if (communications.contains("msm") == false) {
-            self.msmButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
-        } else {
-            self.msmButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
-        }
-        if (communications.contains("email") == false) {
-            self.emailButton.setImage(UIImage(named: "mail_grey"), forState: .Normal)
-        } else {
-            self.emailButton.setImage(UIImage(named: "mail_red"), forState: .Normal)
-        }
-        if (communications.contains("phone") == false) {
-            self.phoneButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
-        } else {
-            self.phoneButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
-        }
+        self.msmButton.enabled = communications.contains("msm")
+        self.emailButton.enabled = communications.contains("email")
+        self.phoneButton.enabled = communications.contains("phone")
     }
 
     func loadData(myItem:Bool) {
