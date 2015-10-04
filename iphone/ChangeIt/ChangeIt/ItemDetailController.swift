@@ -34,13 +34,15 @@ class ItemDetailController: UIViewController {
     
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
-    @IBOutlet weak var msmButton: UIButton!
     @IBOutlet weak var messageBtn: UIButton!
     @IBOutlet weak var bookmarkBtn: UIButton!
     @IBOutlet weak var wishBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.emailButton.hidden = true
+        self.phoneButton.hidden = true
         
         photoImage.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -50,6 +52,12 @@ class ItemDetailController: UIViewController {
         otherItemImageView.addGestureRecognizer(singleTap)
         
         self.expandItemImage()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        updateCommunications()
     }
     
     @IBAction func usePhone(sender: AnyObject) {
@@ -62,15 +70,13 @@ class ItemDetailController: UIViewController {
         print(email)
     }
     
-    @IBAction func useMSM(sender: AnyObject) {
-        let phone = self.userJSON["phone"].string
-        print(phone)
-    }
-    
     func updateCommunications() {
+        if (self.itemJSON["communication"].string!.isEmpty == true) {
+            self.emailButton.enabled = false
+            self.phoneButton.enabled = false
+            return
+        }
         let communications = Set<String>(self.itemJSON["communication"].string!.componentsSeparatedByString(","))
-        print(communications)
-        self.msmButton.enabled = communications.contains("msm")
         self.emailButton.enabled = communications.contains("email")
         self.phoneButton.enabled = communications.contains("phone")
     }
@@ -80,8 +86,6 @@ class ItemDetailController: UIViewController {
         // check if the offer has been made
         let itemId = self.itemJSON["objectId"].string
         
-        self.updateCommunications()
-        
         if (self.acceptable == true) {
             PFCloud.callFunctionInBackground("getOfferStatus", withParameters: ["srcItemId":itemId!, "distItemId":self.myItemId!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
@@ -89,6 +93,9 @@ class ItemDetailController: UIViewController {
                 if (resultsJSON.count == 0) {
                     return
                 }
+                
+                self.emailButton.hidden = false
+                self.phoneButton.hidden = false
                 
                 if let status = resultsJSON[0]["status"].string {
                     if (status == "Accepted") {
@@ -139,11 +146,7 @@ class ItemDetailController: UIViewController {
                     })
                 }
             })
-            
-            
-            
         })
-        
         
         PFCloud.callFunctionInBackground("isItemBookmarked", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
             (results:AnyObject?, error: NSError?) -> Void in

@@ -34,6 +34,8 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBarHidden = true
+
         if (bookmarkMode == false) {
             self.navigationItem.leftBarButtonItem = nil
         }
