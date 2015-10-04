@@ -24,7 +24,17 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var testLabel: UILabel!
 
     @IBAction func cancel(segue:UIStoryboardSegue) {
+        PFCloud.callFunctionInBackground("getItem", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            let r = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            if (r.count == 0) {
+                return
+            }
+            self.itemJSON = r[0]
+            self.title = self.itemJSON["title"].string!
+        })
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

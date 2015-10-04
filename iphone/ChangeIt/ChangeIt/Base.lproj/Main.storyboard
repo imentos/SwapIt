@@ -333,7 +333,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="0AB7A2D4-4C02-47C2-8344-A3CE2379B118" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="C15D4E63-5C19-4553-9F4D-641C43B72235" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -1685,7 +1685,7 @@
                     <navigationItem key="navigationItem" title="Add something to offer" id="AcH-1O-FGi">
                         <barButtonItem key="leftBarButtonItem" image="Arrow_Icon" id="r6T-1f-54A">
                             <connections>
-                                <segue destination="Vjr-VF-Nlo" kind="unwind" unwindAction="cancel:" id="XkG-yl-kS6"/>
+                                <segue destination="Vjr-VF-Nlo" kind="unwind" unwindAction="cancel:" id="Bii-lF-DbL"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Add" id="b34-Is-jwW">
@@ -1703,6 +1703,7 @@
                         <outlet property="saveButton" destination="ujM-i7-TjO" id="4uI-OQ-8Io"/>
                         <outlet property="titleTextField" destination="lIz-2i-awh" id="YzV-ga-kFF"/>
                         <segue destination="Vjr-VF-Nlo" kind="unwind" identifier="addItem" unwindAction="addItem:" id="76y-Pc-Agp"/>
+                        <segue destination="Vjr-VF-Nlo" kind="unwind" identifier="cancel" unwindAction="cancel:" id="nJX-qK-o3z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p8w-M3-SFM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2052,7 +2053,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="0AB7A2D4-4C02-47C2-8344-A3CE2379B118" width="30" height="30">
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
+        <image name="C15D4E63-5C19-4553-9F4D-641C43B72235" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -2110,8 +2113,6 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
         <image name="Profile_Offers_Sent" width="80" height="80"/>

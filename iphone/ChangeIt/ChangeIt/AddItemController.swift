@@ -42,7 +42,8 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
     
     func loadData() {
-        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
+        self.imageId = itemJSON["photo"].string!
+        PFQuery(className:"Image").getObjectInBackgroundWithId(self.imageId, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.imageView.image = UIImage(data: imageData!)
@@ -75,6 +76,10 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
 
     @IBAction func saveItem(sender: AnyObject) {
+        PFCloud.callFunctionInBackground("updateItem", withParameters: ["itemId": self.itemJSON["objectId"].string!, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": join(",", self.communications)], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            self.performSegueWithIdentifier("cancel", sender: self)
+        })
     }
     
     @IBAction func addItem(sender: AnyObject) {
@@ -84,9 +89,8 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
             return
         }
         
-        let strings = join(",", self.communications)
         let uuid = NSUUID().UUIDString
-        PFCloud.callFunctionInBackground("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": strings], block:{
+        PFCloud.callFunctionInBackground("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": join(",", self.communications)], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             PFCloud.callFunctionInBackground("linkMyItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": uuid], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
