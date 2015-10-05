@@ -70,6 +70,7 @@ class QuestionsController: UITableViewController {
         
         let index = tableView.indexPathForSelectedRow()?.row
         let messages = segue.destinationViewController as! MessagesController
+        messages.fromUser = true
         messages.title = questionsJSON[index!]["item"]["title"].string
         messages.questionJSON = questionsJSON[index!]["question"]
         messages.userJSON = questionsJSON[index!]["user"]

@@ -20,6 +20,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     var repliesJSON:JSON = nil
     var userJSON:JSON = nil
     var itemJSON:JSON!
+    var fromUser:Bool! = false
     
     @IBOutlet var userPhoto: UIImageView!
     @IBOutlet var userNameLabel: UILabel!
@@ -71,6 +72,10 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableTapped() {
         self.messageTextField.endEditing(true)
+    }
+    
+    @IBAction func clickItemImage(sender: AnyObject) {
+        performSegueWithIdentifier(fromUser == true ? "itemDetail" : "cancel", sender: self)
     }
     
     @IBAction func sendMessage(sender: UIButton) {
