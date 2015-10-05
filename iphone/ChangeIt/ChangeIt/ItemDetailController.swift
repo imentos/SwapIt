@@ -23,9 +23,8 @@ class ItemDetailController: UIViewController {
     var itemJSON:JSON!
     var otherItemJSON:JSON!
     var userJSON:JSON!
-    var otherUserJSON:JSON!
     var questionJSON:JSON!
-    var otherItemId:String?
+    var otherItemId:String!
     var myItem:Bool! = false
     var acceptable:Bool! = false
     var fromOffer:Bool! = false
@@ -74,6 +73,10 @@ class ItemDetailController: UIViewController {
     }
     
     func updateCommunications() {
+        if let x = itemJSON {
+        } else {
+            return
+        }
         if (self.itemJSON["communication"].string!.isEmpty == true) {
             self.emailButton.enabled = false
             self.phoneButton.enabled = false
@@ -360,20 +363,16 @@ class ItemDetailController: UIViewController {
     }
     
     @IBAction func askQuestion(sender: AnyObject) {
-        PFCloud.callFunctionInBackground("getUser", withParameters: ["userId":(PFUser.currentUser()?.objectId)!]) {
+        // switch question when offer received 
+        PFCloud.callFunctionInBackground("getAskedQuestionByItem", withParameters: ["userId":self.acceptable == true ? self.userJSON["objectId"].string! : (PFUser.currentUser()?.objectId)!, "itemId":self.acceptable == true ? self.otherItemId : self.itemJSON["objectId"].string!], block: {
             (results:AnyObject?, error: NSError?) -> Void in
-            let userJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            self.otherUserJSON = userJSON[0]
-            PFCloud.callFunctionInBackground("getAskedQuestionByItem", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "itemId":self.itemJSON["objectId"].string!], block: {
-                (results:AnyObject?, error: NSError?) -> Void in
-                let questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                if (questionsJSON.count == 0) {
-                } else {
-                    self.questionJSON = questionsJSON[0]["question"]
-                }
-                self.performSegueWithIdentifier("messages", sender: self)
-            })
-        }
+            let questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            if (questionsJSON.count == 0) {
+            } else {
+                self.questionJSON = questionsJSON[0]["question"]
+            }
+            self.performSegueWithIdentifier("messages", sender: self)
+        })
     }
     
     func showData() {
