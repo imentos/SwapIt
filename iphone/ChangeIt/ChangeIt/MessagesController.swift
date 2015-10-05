@@ -150,7 +150,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         
         if (indexPath.row == 0) {
             let time = timestampToText(self.questionJSON["timestamp"].double!)
-            let isOwner:Bool = userJSON["objectId"].string == PFUser.currentUser()?.objectId
+            let isOwner:Bool = userJSON["objectId"].string != PFUser.currentUser()?.objectId
             
             rightLabel.text = isOwner ? self.questionJSON["text"].string : ""
             rightTimeLabel.text = isOwner ? time : ""

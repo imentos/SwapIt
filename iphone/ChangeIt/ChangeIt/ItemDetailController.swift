@@ -441,7 +441,7 @@ class ItemDetailController: UIViewController {
         } else if (segue.identifier == "messages") {
             let view = segue.destinationViewController as! MessagesController
             view.title = self.title
-            view.userJSON = self.otherUserJSON
+            view.userJSON = self.userJSON
             view.itemJSON = self.itemJSON
             view.questionJSON = self.questionJSON
             view.loadData()
