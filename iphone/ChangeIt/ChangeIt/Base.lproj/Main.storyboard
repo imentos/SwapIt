@@ -333,7 +333,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="686402D0-8332-4C6A-9E3E-530ACC56EADF" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="2A65D2A4-B7DE-42D5-B472-38B5A90CF278" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -598,7 +598,6 @@
                                                 </mask>
                                             </variation>
                                             <connections>
-                                                <action selector="addPhone:" destination="uqi-YD-RXu" eventType="touchUpInside" id="4oU-5m-YmB"/>
                                                 <action selector="usePhone:" destination="tKC-RI-IOi" eventType="touchUpInside" id="q74-zN-1pa"/>
                                             </connections>
                                         </button>
@@ -634,7 +633,6 @@
                                                 </mask>
                                             </variation>
                                             <connections>
-                                                <action selector="addEmail:" destination="uqi-YD-RXu" eventType="touchUpInside" id="bYs-Wx-HX6"/>
                                                 <action selector="useEmail:" destination="tKC-RI-IOi" eventType="touchUpInside" id="WZh-oQ-Sz5"/>
                                             </connections>
                                         </button>
@@ -669,9 +667,6 @@
                                         <exclude reference="uuz-de-UPX"/>
                                     </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="addMSM:" destination="uqi-YD-RXu" eventType="touchUpInside" id="zT8-nE-MMV"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connector_logo-01" translatesAutoresizingMaskIntoConstraints="NO" id="LEm-7i-fqf">
                                 <rect key="frame" x="275" y="119" width="50" height="50"/>
@@ -1632,27 +1627,6 @@
                                     <action selector="addPhone:" destination="uqi-YD-RXu" eventType="touchUpInside" id="l5o-5d-XAE"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUD-Zo-RKp">
-                                <rect key="frame" x="534" y="488" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="0oh-3a-BTi"/>
-                                    <constraint firstAttribute="height" constant="30" id="Mgo-DU-6tW"/>
-                                    <constraint firstAttribute="width" constant="50" id="Ung-Pe-Uuw"/>
-                                    <constraint firstAttribute="width" constant="46" id="qLK-Sx-DoD"/>
-                                </constraints>
-                                <state key="normal" image="phone_grey">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Mgo-DU-6tW"/>
-                                        <exclude reference="qLK-Sx-DoD"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="addMSM:" destination="uqi-YD-RXu" eventType="touchUpInside" id="PZI-gC-vKt"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1660,12 +1634,10 @@
                             <constraint firstItem="lIz-2i-awh" firstAttribute="leading" secondItem="6ZT-lk-40G" secondAttribute="leadingMargin" id="6Kk-wN-abb"/>
                             <constraint firstItem="uyR-dJ-CTE" firstAttribute="top" secondItem="v2X-7b-Orb" secondAttribute="bottom" constant="44" id="AY8-DS-iEM"/>
                             <constraint firstItem="ep2-iE-PR1" firstAttribute="leading" secondItem="6ZT-lk-40G" secondAttribute="leadingMargin" constant="-16" id="DMz-ir-SnN"/>
-                            <constraint firstItem="oBP-QZ-xLG" firstAttribute="top" secondItem="mUD-Zo-RKp" secondAttribute="bottom" constant="28" id="G94-iP-d4U"/>
                             <constraint firstItem="kpV-Po-65q" firstAttribute="leading" secondItem="6ZT-lk-40G" secondAttribute="leadingMargin" id="Itz-eA-Emx"/>
                             <constraint firstItem="keh-t5-8pS" firstAttribute="leading" secondItem="6ZT-lk-40G" secondAttribute="leadingMargin" id="L1p-EX-RHY"/>
                             <constraint firstAttribute="centerY" secondItem="uyR-dJ-CTE" secondAttribute="centerY" constant="-213" id="RxG-Vr-6KK"/>
                             <constraint firstItem="xhu-tH-RJt" firstAttribute="leading" secondItem="6ZT-lk-40G" secondAttribute="leadingMargin" id="X66-2x-7tr"/>
-                            <constraint firstItem="mUD-Zo-RKp" firstAttribute="trailing" secondItem="6ZT-lk-40G" secondAttribute="trailingMargin" id="Xoh-Fl-GXh"/>
                             <constraint firstItem="keh-t5-8pS" firstAttribute="top" secondItem="kpV-Po-65q" secondAttribute="bottom" constant="15" id="XpY-iu-YmZ"/>
                             <constraint firstItem="keh-t5-8pS" firstAttribute="leading" secondItem="6ZT-lk-40G" secondAttribute="leadingMargin" id="Yac-F3-do2"/>
                             <constraint firstItem="xhu-tH-RJt" firstAttribute="top" secondItem="ep2-iE-PR1" secondAttribute="bottom" constant="8" id="cqZ-mk-gBy"/>
@@ -1675,8 +1647,6 @@
                             <constraint firstAttribute="centerX" secondItem="uyR-dJ-CTE" secondAttribute="centerX" id="hdB-Zm-Anb"/>
                             <constraint firstItem="oBP-QZ-xLG" firstAttribute="top" secondItem="keh-t5-8pS" secondAttribute="bottom" constant="13" id="jcD-ng-NUY"/>
                             <constraint firstItem="uyR-dJ-CTE" firstAttribute="top" secondItem="v2X-7b-Orb" secondAttribute="bottom" constant="44" id="jkN-GW-wF3"/>
-                            <constraint firstItem="mUD-Zo-RKp" firstAttribute="top" secondItem="v2X-7b-Orb" secondAttribute="bottom" constant="44" id="lmF-Pe-Xyz"/>
-                            <constraint firstItem="mUD-Zo-RKp" firstAttribute="trailing" secondItem="6ZT-lk-40G" secondAttribute="trailingMargin" id="p1h-2G-wml"/>
                             <constraint firstItem="v2X-7b-Orb" firstAttribute="leading" secondItem="6ZT-lk-40G" secondAttribute="leadingMargin" id="pPA-w5-e1f"/>
                             <constraint firstItem="lIz-2i-awh" firstAttribute="leading" secondItem="6ZT-lk-40G" secondAttribute="leadingMargin" id="tOe-bk-HFT"/>
                             <constraint firstItem="v2X-7b-Orb" firstAttribute="top" secondItem="lIz-2i-awh" secondAttribute="bottom" constant="18" id="u3N-sT-Iwg"/>
@@ -1690,9 +1660,7 @@
                                 <exclude reference="RxG-Vr-6KK"/>
                                 <exclude reference="hdB-Zm-Anb"/>
                                 <exclude reference="jkN-GW-wF3"/>
-                                <exclude reference="G94-iP-d4U"/>
                                 <exclude reference="jcD-ng-NUY"/>
-                                <exclude reference="Xoh-Fl-GXh"/>
                             </mask>
                         </variation>
                     </view>
@@ -1712,7 +1680,6 @@
                         <outlet property="descriptionTextView" destination="v2X-7b-Orb" id="2L5-tv-Ogl"/>
                         <outlet property="emailButton" destination="uyR-dJ-CTE" id="Hxb-96-wFB"/>
                         <outlet property="imageView" destination="ep2-iE-PR1" id="mcj-pG-bki"/>
-                        <outlet property="msmButton" destination="mUD-Zo-RKp" id="gV7-5R-CaT"/>
                         <outlet property="phoneButton" destination="keh-t5-8pS" id="W8V-i3-ZWV"/>
                         <outlet property="saveButton" destination="ujM-i7-TjO" id="4uI-OQ-8Io"/>
                         <outlet property="titleTextField" destination="lIz-2i-awh" id="YzV-ga-kFF"/>
@@ -2000,7 +1967,6 @@
                                                 </mask>
                                             </variation>
                                             <connections>
-                                                <action selector="addPhone:" destination="uqi-YD-RXu" eventType="touchUpInside" id="6MB-6w-qHZ"/>
                                                 <action selector="usePhone:" destination="4Pc-qt-J2w" eventType="touchUpInside" id="q70-H4-WfR"/>
                                             </connections>
                                         </button>
@@ -2036,7 +2002,6 @@
                                                 </mask>
                                             </variation>
                                             <connections>
-                                                <action selector="addEmail:" destination="uqi-YD-RXu" eventType="touchUpInside" id="E96-El-bHg"/>
                                                 <action selector="useEmail:" destination="4Pc-qt-J2w" eventType="touchUpInside" id="VAB-Yl-h1f"/>
                                             </connections>
                                         </button>
@@ -2071,9 +2036,6 @@
                                         <exclude reference="Qr4-u1-TXf"/>
                                     </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="addMSM:" destination="uqi-YD-RXu" eventType="touchUpInside" id="kzD-8b-nO0"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connector_logo-01" translatesAutoresizingMaskIntoConstraints="NO" id="TSt-h3-EFa">
                                 <rect key="frame" x="275" y="119" width="50" height="50"/>
@@ -2167,7 +2129,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="686402D0-8332-4C6A-9E3E-530ACC56EADF" width="30" height="30">
+        <image name="2A65D2A4-B7DE-42D5-B472-38B5A90CF278" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -2247,8 +2209,8 @@ TQAAAAAAAAAAAAAAAAAAC8M
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="f7t-fM-16E"/>
-        <segue reference="05S-WV-Wgj"/>
         <segue reference="aNV-gf-JeL"/>
+        <segue reference="d4f-Ok-4UY"/>
         <segue reference="3ny-0c-RnO"/>
         <segue reference="oTP-Gb-dUv"/>
     </inferredMetricsTieBreakers>

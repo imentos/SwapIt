@@ -58,6 +58,9 @@ class ItemDetailController: UIViewController {
         super.viewDidAppear(animated)
         
         updateCommunications()
+        
+        self.emailButton.setImage(UIImage(named: self.emailButton.enabled == true ? "mail_red" : "mail_grey"), forState: .Normal)
+        self.phoneButton.setImage(UIImage(named: self.phoneButton.enabled == true ? "phone_red" : "phone_grey"), forState: .Normal)
     }
     
     @IBAction func usePhone(sender: AnyObject) {

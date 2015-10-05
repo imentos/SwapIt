@@ -6,7 +6,6 @@ import ImageIO
 class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
     
     @IBOutlet var saveButton: UIBarButtonItem!
-    @IBOutlet weak var msmButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var descriptionTextView: UITextView!
@@ -67,23 +66,8 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
     
     func updateCommunications() {
-        if (communications.contains("msm") == false) {
-            self.msmButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
-        } else {
-            self.msmButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
-        }
-        
-        if (communications.contains("email") == false) {
-            self.emailButton.setImage(UIImage(named: "mail_grey"), forState: .Normal)
-        } else {
-            self.emailButton.setImage(UIImage(named: "mail_red"), forState: .Normal)
-        }
-        
-        if (communications.contains("phone") == false) {
-            self.phoneButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
-        } else {
-            self.phoneButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
-        }
+        self.emailButton.setImage(UIImage(named: communications.contains("email") == false ? "mail_grey" : "mail_red"), forState: .Normal)
+        self.phoneButton.setImage(UIImage(named: communications.contains("phone") == false ? "phone_grey" : "phone_red"), forState: .Normal)
     }
 
     @IBAction func saveItem(sender: AnyObject) {
@@ -126,16 +110,6 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
                 }
             })
         })
-    }
-    
-    @IBAction func addMSM(sender: AnyObject) {
-        if (communications.contains("msm") == true) {
-            self.msmButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
-            communications.remove("msm")
-        } else {
-            self.msmButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
-            communications.insert("msm")
-        }
     }
     
     @IBAction func addEmail(sender: AnyObject) {
