@@ -14,6 +14,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     var offeredItemsJSON:JSON = nil
     var itemJSON:JSON!
     
+    @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet var itemImageView: UIImageView!
     @IBOutlet var detailTable: UITableView!
     @IBOutlet var segmentedControl: UISegmentedControl!
@@ -55,8 +56,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             (results:AnyObject?, error: NSError?) -> Void in
             if (results == nil) {
                 self.offeredItemsJSON = JSON([])
+                self.editButton.enabled = true
                 return
             }
+            self.editButton.enabled = false
             self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.detailTable.reloadData()
             self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.offeredItemsJSON.count), forSegmentAtIndex: 0)

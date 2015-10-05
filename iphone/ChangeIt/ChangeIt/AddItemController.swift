@@ -49,6 +49,10 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
     
     func loadData() {
+        if let x = itemJSON {
+        } else {
+            return
+        }
         self.imageId = itemJSON["photo"].string!
         PFQuery(className:"Image").getObjectInBackgroundWithId(self.imageId, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
