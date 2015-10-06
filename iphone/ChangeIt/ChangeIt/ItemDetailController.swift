@@ -125,7 +125,7 @@ class ItemDetailController: UIViewController {
                 self.showData()
             })
             
-            PFCloud.callFunctionInBackground("getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
+            PFCloud.callFunctionInBackground(self.acceptable == true ? "getReceivedItemsByUser" : "getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
                 self.collapseItemImage()
                 let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)

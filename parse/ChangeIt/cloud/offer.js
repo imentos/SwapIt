@@ -127,6 +127,36 @@ Parse.Cloud.define("unexchangeItem", function(request, response) {
     });
 });
 
+Parse.Cloud.define("getReceivedItemsByUser", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (u:User{objectId:{userId}})-[r:OFFER]->(i:Item)<-[e:EXCHANGE]-(other:Item{objectId:{itemId}}) RETURN i, other, u, e',
+            params: {
+                itemId: request.params.itemId,
+                userId: request.params.userId
+            }
+ 
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            json_result.data.forEach(function(o) {
+                aResults.push({"item": o[0].data,"otherItem": o[1].data,"user": o[2].data,"exchange": o[3].data})
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
 Parse.Cloud.define("getExchangedItemsByUser", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
