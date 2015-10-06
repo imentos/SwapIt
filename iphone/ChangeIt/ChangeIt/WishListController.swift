@@ -26,6 +26,9 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         let index = NSIndexPath(forRow: 0, inSection: 0)
         let cell = self.tableView.cellForRowAtIndexPath(index) as! AddWishListCell
         let newWishText = cell.newWishListText.text
+        if (newWishText.isEmpty == true) {
+            return false
+        }
         let wishId = NSUUID().UUIDString
         cell.newWishListText.text = ""
         
@@ -91,7 +94,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     
     @IBAction func editAction(sender: AnyObject) {
         self.tableView.reloadData()
-
+        
         self.tableView.editing = true
         self.updateButtonsToMatchTableState()
         self.hideAddWishListCell(true)
@@ -100,6 +103,9 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     func hideAddWishListCell(hidden:Bool) {
         let index = NSIndexPath(forRow: 0, inSection: 0)
         let cell = self.tableView.cellForRowAtIndexPath(index) as! AddWishListCell
+        if (hidden == true) {
+            cell.endEditing(true)
+        }
         cell.hidden = hidden
     }
     
@@ -166,7 +172,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if (indexPath.row == 0 && (self.tableView.editing || self.otherWishlist)) {
             return 0
@@ -189,7 +195,6 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         }
         return wishesJSON.count + 1
     }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
