@@ -92,30 +92,6 @@ class ItemDetailController: UIViewController {
         // check if the offer has been made
         let itemId = self.itemJSON["objectId"].string
         
-        // for offer received
-        if (self.acceptable == true) {
-            PFCloud.callFunctionInBackground("getOfferStatus", withParameters: ["srcItemId":itemId!, "distItemId":self.myItemId!], block:{
-                (results:AnyObject?, error: NSError?) -> Void in
-                let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                if (resultsJSON.count == 0) {
-                    return
-                }
-                
-                self.emailButton.hidden = false
-                self.phoneButton.hidden = false
-                
-                if let status = resultsJSON[0]["status"].string {
-                    if (status == "Accepted") {
-                        self.makeOfferButton.title = "Reject"
-                    } else {
-                        self.makeOfferButton.title = "Accept"
-                    }
-                } else {
-                    self.makeOfferButton.title = "Accept"
-                }
-            });
-        }
-        
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
@@ -125,46 +101,80 @@ class ItemDetailController: UIViewController {
                 self.showData()
             })
             
-            PFCloud.callFunctionInBackground(self.acceptable == true ? "getReceivedItemsByUser" : "getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
+            // TODO: reduce calls
+            // check if any received item
+            PFCloud.callFunctionInBackground("getReceivedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
-                self.collapseItemImage()
                 let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                if (resultsJSON.count == 0) {
-                    self.otherItemId = nil
-                    self.expandItemImage()
-                    return
+                self.acceptable = resultsJSON.count > 0
+                self.myItemId = resultsJSON[0]["item"]["objectId"].string
+                
+                // for offer received
+                if (self.acceptable == true) {
+                    PFCloud.callFunctionInBackground("getOfferStatus", withParameters: ["srcItemId":itemId!, "distItemId":self.myItemId!], block:{
+                        (results:AnyObject?, error: NSError?) -> Void in
+                        let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                        if (resultsJSON.count == 0) {
+                            return
+                        }
+                        
+                        self.emailButton.hidden = false
+                        self.phoneButton.hidden = false
+                        
+                        if let status = resultsJSON[0]["status"].string {
+                            if (status == "Accepted") {
+                                self.makeOfferButton.title = "Reject"
+                            } else {
+                                self.makeOfferButton.title = "Accept"
+                            }
+                        } else {
+                            self.makeOfferButton.title = "Accept"
+                        }
+                    });
                 }
-                // each person can only exchange one item
-                if (self.makeOfferButton != nil) {
-                    
-                    // for offer sent
-                    if (self.acceptable == false) {
-                        self.makeOfferButton.title = "Edit Offer"
+                
+                
+                PFCloud.callFunctionInBackground(self.acceptable == true ? "getReceivedItemsByUser" : "getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
+                    (results:AnyObject?, error: NSError?) -> Void in
+                    self.collapseItemImage()
+                    let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                    if (resultsJSON.count == 0) {
+                        self.otherItemId = nil
+                        self.expandItemImage()
+                        return
                     }
-                    self.otherItemId = resultsJSON[0]["item"]["objectId"].string
-                    self.otherItemJSON = resultsJSON[0]["item"]
-                    let status = resultsJSON[0]["exchange"]["status"].string
-                    print(status)
-                    
-                    // TODO: wait for design
-                    if (status == "Accepted") {
-                        self.photoImage.image = self.photoImage.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-                        self.photoImage.tintColor = UIColor.greenColor()
+                    // each person can only exchange one item
+                    if (self.makeOfferButton != nil) {
                         
-                    } else if (status == "Rejected") {
-                        self.photoImage.image = self.photoImage.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-                        self.photoImage.tintColor = UIColor.grayColor()
+                        // for offer sent
+                        if (self.acceptable == false) {
+                            self.makeOfferButton.title = "Edit Offer"
+                        }
+                        self.otherItemId = resultsJSON[0]["item"]["objectId"].string
+                        self.otherItemJSON = resultsJSON[0]["item"]
+                        let status = resultsJSON[0]["exchange"]["status"].string
+                        print(status)
                         
-                    }
-                    
-                    PFQuery(className:"Image").getObjectInBackgroundWithId(self.otherItemJSON["photo"].string!, block: {
-                        (imageObj:PFObject?, error: NSError?) -> Void in
-                        let imageData = (imageObj!["file"] as! PFFile).getData()
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            self.otherItemImageView.image = UIImage(data: imageData!)
+                        // TODO: wait for design
+                        if (status == "Accepted") {
+                            self.photoImage.image = self.photoImage.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+                            self.photoImage.tintColor = UIColor.greenColor()
+                            
+                        } else if (status == "Rejected") {
+                            self.photoImage.image = self.photoImage.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+                            self.photoImage.tintColor = UIColor.grayColor()
+                            
+                        }
+                        
+                        PFQuery(className:"Image").getObjectInBackgroundWithId(self.otherItemJSON["photo"].string!, block: {
+                            (imageObj:PFObject?, error: NSError?) -> Void in
+                            let imageData = (imageObj!["file"] as! PFFile).getData()
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                self.otherItemImageView.image = UIImage(data: imageData!)
+                            })
                         })
-                    })
-                }
+                    }
+                })
             })
         })
         
