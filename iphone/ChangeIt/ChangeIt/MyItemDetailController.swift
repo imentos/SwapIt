@@ -11,7 +11,7 @@ import Parse
 
 class MyItemDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var questionsJSON:JSON = nil
-    var offeredItemsJSON:JSON = nil
+    var receivedItemsJSON:JSON = nil
     var itemJSON:JSON!
     
     @IBOutlet weak var editButton: UIBarButtonItem!
@@ -52,13 +52,21 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             self.segmentedControl.setTitle(String(format:"Messages (%d)", self.questionsJSON.count), forSegmentAtIndex: 1)
         })
 
-        PFCloud.callFunctionInBackground("getExchangedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
+        PFCloud.callFunctionInBackground("getReceivedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
-            self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            self.editButton.enabled = self.offeredItemsJSON.count == 0
+            self.receivedItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            self.editButton.enabled = self.receivedItemsJSON.count == 0
             self.detailTable.reloadData()
-            self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.offeredItemsJSON.count), forSegmentAtIndex: 0)
+            self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
         })
+        
+//        PFCloud.callFunctionInBackground("getOfferedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
+//            (results:AnyObject?, error: NSError?) -> Void in
+//            self.receivedItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+//            self.editButton.enabled = self.receivedItemsJSON.count == 0
+//            self.detailTable.reloadData()
+//            self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
+//        })
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
@@ -82,10 +90,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (segmentedControl.selectedSegmentIndex == 0) {
-            if (offeredItemsJSON == nil) {
+            if (receivedItemsJSON == nil) {
                 return 0
             }
-            return offeredItemsJSON.count
+            return receivedItemsJSON.count
         } else {
             if (questionsJSON == nil) {
                 return 0
@@ -102,7 +110,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         let readIcon = cell.viewWithTag(104) as! UIImageView
         
         if (segmentedControl.selectedSegmentIndex == 0) {
-            let offeredItemJSON = offeredItemsJSON[indexPath.row]
+            let offeredItemJSON = receivedItemsJSON[indexPath.row]
             
             photo.layer.cornerRadius = 0
             PFQuery(className:"Image").getObjectInBackgroundWithId(offeredItemJSON["item"]["photo"].string!, block: {
@@ -150,7 +158,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             cell?.backgroundColor = UIColor.clearColor()
             var readIcon = cell!.viewWithTag(104) as! UIImageView
             
-            let offeredItemJSON = offeredItemsJSON[index]
+            let offeredItemJSON = receivedItemsJSON[index]
             
             let detail = segue.destinationViewController as! ItemDetailController
             detail.itemJSON = offeredItemJSON["item"]
