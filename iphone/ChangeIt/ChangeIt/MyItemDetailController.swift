@@ -54,13 +54,8 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
 
         PFCloud.callFunctionInBackground("getExchangedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
-            if (results == nil) {
-                self.offeredItemsJSON = JSON([])
-                self.editButton.enabled = true
-                return
-            }
-            self.editButton.enabled = false
             self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            self.editButton.enabled = self.offeredItemsJSON.count == 0
             self.detailTable.reloadData()
             self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.offeredItemsJSON.count), forSegmentAtIndex: 0)
         })

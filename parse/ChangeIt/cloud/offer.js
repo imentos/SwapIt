@@ -300,6 +300,7 @@ Parse.Cloud.define("getUnreadExchangesCountOfItem", function(request, response) 
     });
 });
 
+// TODO: remove it because no use
 Parse.Cloud.define("getItemsWithOffersByUser", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
