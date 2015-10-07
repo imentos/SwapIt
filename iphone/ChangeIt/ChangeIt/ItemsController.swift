@@ -26,7 +26,9 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var scopeButton: UIButton!
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
-        self.navigationController?.navigationBarHidden = true
+        if (bookmarkMode == false) {
+            self.navigationController?.navigationBarHidden = true
+        }
         self.tabBarController?.tabBar.hidden = false
         println("cancel")
     }
