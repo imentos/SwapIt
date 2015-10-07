@@ -16,7 +16,6 @@ class UserController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet var spinnerView: UIActivityIndicatorView!
-    @IBOutlet weak var offerSentButton: UIButton!
     @IBOutlet weak var offerReceivedButton: UIButton!
     
     var sentOffersJSON:JSON! = nil

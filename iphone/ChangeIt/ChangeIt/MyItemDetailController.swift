@@ -12,6 +12,7 @@ import Parse
 class MyItemDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var questionsJSON:JSON = nil
     var receivedItemsJSON:JSON = nil
+    var offeredItemsJSON:JSON!
     var itemJSON:JSON!
     
     @IBOutlet weak var editButton: UIBarButtonItem!
@@ -49,7 +50,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         PFCloud.callFunctionInBackground("getQuestionedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             self.questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            self.segmentedControl.setTitle(String(format:"Messages (%d)", self.questionsJSON.count), forSegmentAtIndex: 1)
+            self.segmentedControl.setTitle(String(format:"Messages (%d)", self.questionsJSON.count), forSegmentAtIndex: 2)
         })
 
         PFCloud.callFunctionInBackground("getReceivedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
@@ -60,13 +61,12 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
         })
         
-//        PFCloud.callFunctionInBackground("getOfferedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
-//            (results:AnyObject?, error: NSError?) -> Void in
-//            self.receivedItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-//            self.editButton.enabled = self.receivedItemsJSON.count == 0
-//            self.detailTable.reloadData()
-//            self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
-//        })
+        PFCloud.callFunctionInBackground("getOfferedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            self.detailTable.reloadData()
+            self.segmentedControl.setTitle(String(format:"Offers Sent (%d)", self.offeredItemsJSON.count), forSegmentAtIndex: 1)
+        })
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
@@ -81,10 +81,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if (segmentedControl.selectedSegmentIndex == 0) {
-            self.performSegueWithIdentifier("itemDetail", sender: self)
-        } else {
+        if (segmentedControl.selectedSegmentIndex == 2) {
             self.performSegueWithIdentifier("messages", sender: self)
+        } else {
+            self.performSegueWithIdentifier("itemDetail", sender: self)
         }
     }
 
@@ -94,11 +94,19 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
                 return 0
             }
             return receivedItemsJSON.count
+            
+        } else if (segmentedControl.selectedSegmentIndex == 1) {
+            if (offeredItemsJSON == nil) {
+                return 0
+            }
+            return offeredItemsJSON.count
+            
         } else {
             if (questionsJSON == nil) {
                 return 0
             }
             return questionsJSON.count
+            
         }
     }
     
@@ -110,24 +118,42 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         let readIcon = cell.viewWithTag(104) as! UIImageView
         
         if (segmentedControl.selectedSegmentIndex == 0) {
-            let offeredItemJSON = receivedItemsJSON[indexPath.row]
+            let itemJSON = receivedItemsJSON[indexPath.row]
             
             photo.layer.cornerRadius = 0
-            PFQuery(className:"Image").getObjectInBackgroundWithId(offeredItemJSON["item"]["photo"].string!, block: {
+            PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["item"]["photo"].string!, block: {
                 (imageObj:PFObject?, error: NSError?) -> Void in
                 let imageData = (imageObj!["file"] as! PFFile).getData()
                 photo.image = UIImage(data: imageData!)
             })
-            title.text = offeredItemJSON["item"]["title"].string
-            name.text = offeredItemJSON["user"]["name"].string
-            if (offeredItemJSON["exchange"]["read"].bool!) {
+            title.text = itemJSON["item"]["title"].string
+            name.text = itemJSON["user"]["name"].string
+            if (itemJSON["exchange"]["read"].bool!) {
                 cell.backgroundColor = UIColor.clearColor()
             } else {
                 cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
             }
             //readIcon.hidden = offeredItemJSON["exchange"]["read"].bool!
 
-        } else {
+        } else if (segmentedControl.selectedSegmentIndex == 1) {
+            let itemJSON = offeredItemsJSON[indexPath.row]
+            
+            photo.layer.cornerRadius = 0
+            PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["item"]["photo"].string!, block: {
+                (imageObj:PFObject?, error: NSError?) -> Void in
+                let imageData = (imageObj!["file"] as! PFFile).getData()
+                photo.image = UIImage(data: imageData!)
+            })
+            title.text = itemJSON["item"]["title"].string
+            name.text = itemJSON["user"]["name"].string
+            if (itemJSON["exchange"]["read"].bool!) {
+                cell.backgroundColor = UIColor.clearColor()
+            } else {
+                cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
+            }
+            //readIcon.hidden = offeredItemJSON["exchange"]["read"].bool!
+            
+        } else if (segmentedControl.selectedSegmentIndex == 2) {
             let questionJSON = questionsJSON[indexPath.row]
             
             photo.layer.cornerRadius = photo.bounds.height / 2
@@ -158,11 +184,11 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             cell?.backgroundColor = UIColor.clearColor()
             var readIcon = cell!.viewWithTag(104) as! UIImageView
             
-            let offeredItemJSON = receivedItemsJSON[index]
+            let itemJSON = segmentedControl.selectedSegmentIndex == 0 ? receivedItemsJSON[index] : offeredItemsJSON[index]
             
             let detail = segue.destinationViewController as! ItemDetailController
-            detail.itemJSON = offeredItemJSON["item"]
-            detail.userJSON = offeredItemJSON["user"]
+            detail.itemJSON = itemJSON["item"]
+            detail.userJSON = itemJSON["user"]
             detail.loadData(false)
             //readIcon.hidden = true
             
