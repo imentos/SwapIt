@@ -1,3 +1,33 @@
+Parse.Cloud.define("getItemsByUser", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (u:User{objectId:{userId}})-[o:OFFER]->(s:Item) RETURN s ORDER BY s.timestamp DESC',
+            params: {
+                userId: request.params.userId
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            var oOffers = {}
+            json_result.data.forEach(function(o) { 
+                aResults.push(o[0].data)
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+
 Parse.Cloud.define("getBestItemsExceptMe", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',

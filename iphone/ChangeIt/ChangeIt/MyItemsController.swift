@@ -77,7 +77,7 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     }
 
     func loadData() {
-        PFCloud.callFunctionInBackground("getItemsWithOffersByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!], block: {
+        PFCloud.callFunctionInBackground("getItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!], block: {
             (items:AnyObject?, error: NSError?) -> Void in
             self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.tableView.reloadData()
@@ -162,11 +162,11 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
 
         if (segue.identifier == "detail") {
             let tableView = self.view as! UITableView
-            let offerJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
+            let itemJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
             
             let detail = segue.destinationViewController as! MyItemDetailController
-            detail.title = offerJSON["title"].string!
-            detail.itemJSON = offerJSON
+            detail.title = itemJSON["title"].string!
+            detail.itemJSON = itemJSON
         }
     }
 
