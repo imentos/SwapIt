@@ -66,7 +66,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     @IBAction func usePhone(sender: AnyObject) {
         let phone = self.userJSON["phone"].string
         print(phone)
-        if let url = NSURL(string: "tel://\(phone)") {
+        if let url = NSURL(string: "tel:\(phone)") {
             UIApplication.sharedApplication().openURL(url)
         }
     }
