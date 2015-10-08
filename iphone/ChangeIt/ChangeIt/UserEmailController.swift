@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class UserEmailController : UIViewController {
     @IBOutlet weak var emailText: UITextField!
@@ -23,6 +24,15 @@ class UserEmailController : UIViewController {
         super.viewDidAppear(animated)
         
         self.emailText.text = email
+    }
+    
+    @IBAction func save(sender: AnyObject) {
+        let email = emailText.text
+        PFCloud.callFunctionInBackground("updateUserEmail", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "email": email], block:{
+            (userFromCloud:AnyObject?, error: NSError?) -> Void in
+            
+            self.performSegueWithIdentifier("save", sender: self)
+        })
     }
     
     @IBAction func editEmail(sender: AnyObject) {

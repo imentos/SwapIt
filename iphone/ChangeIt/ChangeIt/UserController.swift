@@ -35,27 +35,13 @@ class UserController: UIViewController {
     @IBAction func saveEmail(segue:UIStoryboardSegue) {
         self.navigationController?.navigationBarHidden = true
         self.tabBarController?.tabBar.hidden = false
-        
-        let view = segue.sourceViewController as! UserEmailController
-        let email = view.emailText.text
-        PFCloud.callFunctionInBackground("updateUserEmail", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "email": email], block:{
-            (userFromCloud:AnyObject?, error: NSError?) -> Void in
-            
-            self.loadData()
-        })
+        self.loadData()
     }
     
     @IBAction func savePhone(segue:UIStoryboardSegue) {
         self.navigationController?.navigationBarHidden = true
         self.tabBarController?.tabBar.hidden = false
-        
-        let view = segue.sourceViewController as! UserPhoneController
-        let phone = view.phoneText.text
-        PFCloud.callFunctionInBackground("updateUserPhone", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "phone": phone], block:{
-            (userFromCloud:AnyObject?, error: NSError?) -> Void in
-            
-            self.loadData()
-        })
+        self.loadData()
     }
     
     @IBAction func logout(sender: AnyObject) {

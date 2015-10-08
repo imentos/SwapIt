@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class UserPhoneController : UIViewController {
     @IBOutlet weak var phoneText: UITextField!
@@ -23,6 +24,15 @@ class UserPhoneController : UIViewController {
         super.viewDidAppear(animated)
         
         self.phoneText.text = phone
+    }
+    
+    @IBAction func save(sender: AnyObject) {
+        let phone = phoneText.text
+        PFCloud.callFunctionInBackground("updateUserPhone", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "phone": phone], block:{
+            (userFromCloud:AnyObject?, error: NSError?) -> Void in
+            
+            self.performSegueWithIdentifier("save", sender: self)
+        })
     }
     
     @IBAction func editPhone(sender: AnyObject) {

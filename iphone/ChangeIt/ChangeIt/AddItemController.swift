@@ -19,8 +19,20 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     
     var communications:Set<String> = Set<String>()
     var itemJSON:JSON!
+    var userJSON:JSON!
     
     private let TEXT_VIEW_PLACE_HOLDER = "Add some description"
+    
+    @IBAction func saveEmail(segue:UIStoryboardSegue) {
+        self.loadUser()
+    }
+    
+    @IBAction func savePhone(segue:UIStoryboardSegue) {
+        self.loadUser()
+    }
+    
+    @IBAction func cancel(segue:UIStoryboardSegue) {
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +95,18 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         
     }
     
+    func loadUser() {
+        if let user = PFUser.currentUser() {
+            PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": user.objectId!], block:{
+                (userFromCloud:AnyObject?, error: NSError?) -> Void in
+                self.userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
+            })
+        }
+    }
+    
     func loadData() {
+        self.loadUser()
+        
         if let x = itemJSON {
         } else {
             return
@@ -149,6 +172,11 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
     
     @IBAction func addEmail(sender: AnyObject) {
+        if (self.userJSON["email"].string?.isEmpty == true) {
+            performSegueWithIdentifier("email", sender: self)
+            return
+        }
+        
         if (communications.contains("email") == true) {
             self.emailButton.setImage(UIImage(named: "mail_grey"), forState: .Normal)
             communications.remove("email")
@@ -159,6 +187,11 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
     
     @IBAction func addPhone(sender: AnyObject) {
+        if (self.userJSON["phone"].string?.isEmpty == true) {
+            performSegueWithIdentifier("phone", sender: self)
+            return
+        }
+        
         if (communications.contains("phone") == true) {
             self.phoneButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
             communications.remove("phone")
