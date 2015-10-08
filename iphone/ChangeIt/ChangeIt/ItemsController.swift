@@ -49,6 +49,15 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         //self.searchDisplayController!.searchBar.selectedScopeButtonIndex = 1
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if (self.bookmarkMode == true) {
+            self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
+            }
+        }
+    }
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if let s = self.searchQuery {
         } else {
