@@ -19,10 +19,6 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var itemImageView: UIImageView!
     @IBOutlet var detailTable: UITableView!
     @IBOutlet var segmentedControl: UISegmentedControl!
-    @IBAction func indexChanged(sender: AnyObject) {
-        self.detailTable.reloadData()
-    }
-    
     @IBOutlet var testLabel: UILabel!
 
     @IBAction func cancel(segue:UIStoryboardSegue) {
@@ -56,16 +52,16 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         PFCloud.callFunctionInBackground("getReceivedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             self.receivedItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            self.editButton.enabled = self.receivedItemsJSON.count == 0
             self.detailTable.reloadData()
             self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
-        })
-        
-        PFCloud.callFunctionInBackground("getOfferedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
-            (results:AnyObject?, error: NSError?) -> Void in
-            self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            self.detailTable.reloadData()
-            self.segmentedControl.setTitle(String(format:"Offers Sent (%d)", self.offeredItemsJSON.count), forSegmentAtIndex: 1)
+            
+            PFCloud.callFunctionInBackground("getOfferedItems", withParameters: ["itemId":self.itemJSON["objectId"].string!], block:{
+                (results:AnyObject?, error: NSError?) -> Void in
+                self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                self.editButton.enabled = self.offeredItemsJSON.count == 0 && self.receivedItemsJSON.count == 0
+                self.detailTable.reloadData()
+                self.segmentedControl.setTitle(String(format:"Offers Sent (%d)", self.offeredItemsJSON.count), forSegmentAtIndex: 1)
+            })
         })
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
@@ -74,6 +70,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             self.itemImageView.image = UIImage(data: imageData!)
         })
 
+    }
+    
+    @IBAction func indexChanged(sender: AnyObject) {
+        self.detailTable.reloadData()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
