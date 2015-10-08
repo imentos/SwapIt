@@ -5,6 +5,8 @@ import ImageIO
 
 class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
     
+    @IBOutlet var frameView: UIView!
+    @IBOutlet weak var addImageButton: UIButton!
     @IBOutlet var saveButton: UIBarButtonItem!
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var phoneButton: UIButton!
@@ -12,7 +14,6 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     @IBOutlet weak var titleTextField: UITextField!
     var imageId: String!
     
-    @IBOutlet weak var imageView: UIImageView!
     var picker:UIImagePickerController? = UIImagePickerController()
     var popover:UIPopoverController?=nil
     
@@ -26,6 +27,8 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         
         picker!.delegate = self
         
+        self.addImageButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFill
+        
         self.titleTextField.delegate = self
         
         self.descriptionTextView.delegate = self
@@ -33,10 +36,14 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         self.descriptionTextView.backgroundColor = UIColor.clearColor()
         self.descriptionTextView.textColor = UIColor.lightGrayColor()
         
-        titleTextField.becomeFirstResponder()
-        
         var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
+        
+        // Keyboard stuff.
+        let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        center.addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+
     }
     
     func DismissKeyboard(){
@@ -45,6 +52,35 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     
     override func viewDidAppear(animated: Bool) {
         loadData()
+    }
+
+    func keyboardWillShow(notification: NSNotification) {
+        let info:NSDictionary = notification.userInfo!
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+        
+        let keyboardHeight: CGFloat = keyboardSize.height
+        
+        let _: CGFloat = info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber as CGFloat
+        
+        
+        UIView.animateWithDuration(0.25, delay: 0.25, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            self.frameView.frame = CGRectMake(0, (self.frameView.frame.origin.y - keyboardHeight), self.view.bounds.width, self.view.bounds.height)
+            }, completion: nil)
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        let info: NSDictionary = notification.userInfo!
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+        
+        let keyboardHeight: CGFloat = keyboardSize.height
+        
+        let _: CGFloat = info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber as CGFloat
+        
+        UIView.animateWithDuration(0.25, delay: 0.25, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            self.frameView.frame = CGRectMake(0, (self.frameView.frame.origin.y + keyboardHeight), self.view.bounds.width, self.view.bounds.height)
+            }, completion: nil)
+        
     }
     
     func loadData() {
@@ -56,7 +92,7 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         PFQuery(className:"Image").getObjectInBackgroundWithId(self.imageId, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
-            self.imageView.image = UIImage(data: imageData!)
+            self.addImageButton.setImage(UIImage(data: imageData!), forState: .Normal)
         })
         self.titleTextField.text = self.itemJSON["title"].string!
         self.descriptionTextView.text = self.itemJSON["description"].string!
@@ -178,7 +214,7 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         picker.dismissViewControllerAnimated(true, completion: nil)
         let image:UIImage = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
         let scaledImage = resizeImage(image)
-        imageView.image = scaledImage
+        addImageButton.setImage(scaledImage, forState: .Normal)
         
         let imageFile = PFFile(name:"image.png", data:UIImagePNGRepresentation(scaledImage))
         var imageObj = PFObject(className:"Image")
@@ -208,6 +244,11 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     
     func textFieldDidEndEditing(textField: UITextField) {
         validateTitle()
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.titleTextField.resignFirstResponder()
+        return true
     }
     
     func validateTitle() {
