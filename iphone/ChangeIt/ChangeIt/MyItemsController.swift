@@ -36,10 +36,10 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
                 return;
             }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            let newquestionsCountLabel = cell.viewWithTag(110) as! UILabel
+            let newquestionsCountLabel = cell.viewWithTag(105) as! UILabel
             unreadQuestions = countJSON[0].int!
             if (unreadQuestions > 0) {
-                newquestionsCountLabel.text = String(format: "(%d new)", countJSON[0].int!)
+                newquestionsCountLabel.text = String(format: "(%d)", countJSON[0].int!)
             } else {
                 newquestionsCountLabel.text = "";
             }
@@ -50,20 +50,19 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
                     return;
                 }
                 let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                let newoffersCountLabel = cell.viewWithTag(111) as! UILabel
+                let newoffersCountLabel = cell.viewWithTag(104) as! UILabel
                 unreadOffers = countJSON[0].int!
                 if (unreadOffers > 0) {
-                    newoffersCountLabel.text = String(format: "(%d new)", countJSON[0].int!)
+                    newoffersCountLabel.text = String(format: "(%d)", countJSON[0].int!)
                 } else {
                     newoffersCountLabel.text = "";
                 }
                 
-                if (unreadOffers + unreadQuestions > 0) {
-                    cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
-                } else {
-                    cell.backgroundColor = UIColor.clearColor()
-                }
-
+//                if (unreadOffers + unreadQuestions > 0) {
+//                    cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
+//                } else {
+//                    cell.backgroundColor = UIColor.clearColor()
+//                }
             })
         })
     }
@@ -103,21 +102,28 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
         let label = cell.viewWithTag(102) as! UILabel
         label.text = itemJSON["title"].string
         
-        PFCloud.callFunctionInBackground("getQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
-            (result:AnyObject?, error: NSError?) -> Void in
-            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            let questionsCountLabel = cell.viewWithTag(104) as! UILabel
-            questionsCountLabel.text = String(countJSON[0].int!)
-        })
-        
-        PFCloud.callFunctionInBackground("getExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+        PFCloud.callFunctionInBackground("getReceivedCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             let offersCountLabel = cell.viewWithTag(103) as! UILabel
-            offersCountLabel.text = String(countJSON[0].int!)
+            offersCountLabel.text = "> \(countJSON[0].int!)"
         })
 
-        updateUnread(itemJSON, cell: cell)
+        PFCloud.callFunctionInBackground("getSentCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            let offersCountLabel = cell.viewWithTag(104) as! UILabel
+            offersCountLabel.text = "< \(countJSON[0].int!)"
+        })
+        
+        PFCloud.callFunctionInBackground("getQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            let questionsCountLabel = cell.viewWithTag(105) as! UILabel
+            questionsCountLabel.text = "? \(countJSON[0].int!)"
+        })
+        
+        //updateUnread(itemJSON, cell: cell)
         return cell
     }
 
