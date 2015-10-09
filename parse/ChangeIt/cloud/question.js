@@ -5,10 +5,11 @@ Parse.Cloud.define("addQuestion", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'CREATE (n:Question {objectId: {objectId}, text: {text}, timestamp: TIMESTAMP()}) RETURN n',
+            query: 'CREATE (n:Question {objectId: {objectId}, text: {text}, owner: {owner}, timestamp: TIMESTAMP()}) RETURN n',
             params: {
                 text: request.params.text,
-                objectId: request.params.objectId
+                objectId: request.params.objectId,
+                owner: request.params.owner
             }
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',

@@ -88,7 +88,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         
         } else {
             let uuid = NSUUID().UUIDString
-            PFCloud.callFunctionInBackground("addQuestion", withParameters: ["text": self.messageTextField.text, "objectId": uuid], block:{
+            PFCloud.callFunctionInBackground("addQuestion", withParameters: ["text": self.messageTextField.text, "objectId": uuid, "owner": (PFUser.currentUser()?.objectId)!], block:{
                 (result:AnyObject?, error: NSError?) -> Void in
                 self.questionJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 let itemId = self.itemJSON["objectId"].string
@@ -150,7 +150,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         
         if (indexPath.row == 0) {
             let time = timestampToText(self.questionJSON["timestamp"].double!)
-            let isOwner:Bool = userJSON["objectId"].string != PFUser.currentUser()?.objectId
+            let isOwner:Bool = self.questionJSON["owner"].string == PFUser.currentUser()?.objectId
             
             rightLabel.text = isOwner ? self.questionJSON["text"].string : ""
             rightTimeLabel.text = isOwner ? time : ""
