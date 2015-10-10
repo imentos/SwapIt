@@ -245,7 +245,7 @@ Parse.Cloud.define("getReceivedItems", function(request, response) {
     });
 });
 
-Parse.Cloud.define("getSentCountOfItem", function(request, response) {
+Parse.Cloud.define("getExchangesCountOfItem", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
         headers: {
