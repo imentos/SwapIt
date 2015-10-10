@@ -332,7 +332,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="6D93F386-0A5E-4574-9D81-51D44A49F1A0" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="391C1DE0-A7D2-411D-BD13-7D95184662D3" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -866,6 +866,7 @@
                                         <connections>
                                             <action selector="endEditing:" destination="hWV-jf-UUS" eventType="editingDidEnd" id="3hq-My-Ol9"/>
                                             <action selector="startEditing:" destination="hWV-jf-UUS" eventType="editingDidBegin" id="6ue-uR-UQc"/>
+                                            <action selector="valueChange:" destination="hWV-jf-UUS" eventType="editingChanged" id="Fcm-iP-1W1"/>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fqq-7B-1cs">
@@ -2214,7 +2215,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="6D93F386-0A5E-4574-9D81-51D44A49F1A0" width="30" height="30">
+        <image name="391C1DE0-A7D2-411D-BD13-7D95184662D3" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -2293,12 +2294,12 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="phone_red" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="d4f-Ok-4UY"/>
-        <segue reference="7BW-aY-o1I"/>
-        <segue reference="3ny-0c-RnO"/>
-        <segue reference="PfB-1k-1GP"/>
+        <segue reference="j2P-oP-tg3"/>
         <segue reference="m89-za-nRw"/>
-        <segue reference="oTP-Gb-dUv"/>
         <segue reference="H6u-YS-i9f"/>
+        <segue reference="PfB-1k-1GP"/>
+        <segue reference="oTP-Gb-dUv"/>
+        <segue reference="tt1-Yz-IQv"/>
+        <segue reference="3ny-0c-RnO"/>
     </inferredMetricsTieBreakers>
 </document>

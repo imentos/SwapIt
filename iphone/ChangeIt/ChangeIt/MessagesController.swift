@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class MessagesController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MessagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     @IBOutlet weak var itemDetailButton: UIButton!
     @IBOutlet weak var dockHeightConstraint: NSLayoutConstraint!
@@ -31,6 +31,8 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.sendButton.enabled = false
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
@@ -59,6 +61,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
 
         //self.messageTextField.becomeFirstResponder()
         self.messageTextField.autocorrectionType = UITextAutocorrectionType.No
+        self.messageTextField.delegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -105,6 +108,10 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             let offset = CGPointMake(0, messageTableView.contentSize.height - messageTableView.frame.size.height);
             self.messageTableView.setContentOffset(offset, animated: true)
         }
+    }
+    
+    @IBAction func valueChange(sender: AnyObject) {
+        self.sendButton.enabled = self.messageTextField.text.isEmpty == false
     }
     
     @IBAction func endEditing(sender: AnyObject) {
