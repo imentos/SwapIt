@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "messages_received-04.png"
+      "filename" : "messages_icon_red_1x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "messages_icon_red_2x.png"
     },
     {
       "idiom" : "universal",
