@@ -11,7 +11,7 @@ import Parse
 import Social
 import MessageUI
 
-class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegate {
+class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegate, UIActionSheetDelegate {
     @IBOutlet var backToUserButton: UIBarButtonItem!
     @IBOutlet weak var exchangeImage: UIImageView!
     @IBOutlet weak var photoImage: UIImageView!
@@ -31,6 +31,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     var fromOffer:Bool! = false
     var myItemId:String!
     var horizontalConstraints:[AnyObject]!
+    @IBOutlet weak var acceptBtn: UIButton!
+    @IBOutlet weak var rejectBtn: UIButton!
     
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
@@ -43,6 +45,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         
         self.emailButton.hidden = true
         self.phoneButton.hidden = true
+        self.acceptBtn.hidden = true
+        self.rejectBtn.hidden = true
         
         photoImage.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -121,6 +125,29 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         self.phoneButton.enabled = communications.contains("phone")
     }
 
+    @IBAction func rejectOffer(sender: AnyObject) {
+        let actionSheet = UIActionSheet(title: "Are you sure you want to reject this offer?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Yes, Reject it.")
+        actionSheet.showInView(self.view)
+    }
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        if (buttonIndex == 0) {
+            PFCloud.callFunctionInBackground("rejectItem", withParameters: ["srcItemId":itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
+                (items:AnyObject?, error: NSError?) -> Void in
+                
+                self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
+            })
+        }
+    }
+    
+    @IBAction func acceptOffer(sender: AnyObject) {
+        PFCloud.callFunctionInBackground("acceptItem", withParameters: ["srcItemId":itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
+            (items:AnyObject?, error: NSError?) -> Void in
+            
+            self.acceptBtn.setImage(UIImage(named: "thumb_UP_red"), forState: .Normal)
+        })
+    }
+    
     func loadData(myItem:Bool) {
         self.myItem = myItem
         // check if the offer has been made
@@ -145,6 +172,11 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 
                 // for offer received
                 if (self.acceptable == true) {
+                    self.makeOfferButton.title = ""
+                    self.acceptBtn.hidden = false
+                    self.rejectBtn.hidden = false
+                    self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
+ 
                     PFCloud.callFunctionInBackground("getOfferStatus", withParameters: ["srcItemId":itemId!, "distItemId":self.myItemId!], block:{
                         (results:AnyObject?, error: NSError?) -> Void in
                         let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -155,14 +187,14 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                         self.emailButton.hidden = false
                         self.phoneButton.hidden = false
                         
-                        if let status = resultsJSON[0]["status"].string {
+                       if let status = resultsJSON[0]["status"].string {
                             if (status == "Accepted") {
-                                self.makeOfferButton.title = "Reject"
+                                self.acceptBtn.setImage(UIImage(named: "thumb_UP_red"), forState: .Normal)
                             } else {
-                                self.makeOfferButton.title = "Accept"
+                                self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
                             }
                         } else {
-                            self.makeOfferButton.title = "Accept"
+                            self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
                         }
                     });
                 }
@@ -186,19 +218,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                         }
                         self.otherItemId = resultsJSON[0]["item"]["objectId"].string
                         self.otherItemJSON = resultsJSON[0]["item"]
-                        let status = resultsJSON[0]["exchange"]["status"].string
-                        print(status)
-                        
-                        // TODO: wait for design
-                        if (status == "Accepted") {
-                            self.photoImage.image = self.photoImage.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-                            self.photoImage.tintColor = UIColor.greenColor()
-                            
-                        } else if (status == "Rejected") {
-                            self.photoImage.image = self.photoImage.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-                            self.photoImage.tintColor = UIColor.grayColor()
-                            
-                        }
                         
                         PFQuery(className:"Image").getObjectInBackgroundWithId(self.otherItemJSON["photo"].string!, block: {
                             (imageObj:PFObject?, error: NSError?) -> Void in
@@ -228,21 +247,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
-        if (identifier == "offer" && self.acceptable == true) {
-            if (self.makeOfferButton.title == "Accept") {
-                PFCloud.callFunctionInBackground("acceptItem", withParameters: ["srcItemId":itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
-                    (items:AnyObject?, error: NSError?) -> Void in
-                    self.makeOfferButton.title = "Reject"
-                })
-            } else {
-                PFCloud.callFunctionInBackground("rejectItem", withParameters: ["srcItemId":itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
-                    (items:AnyObject?, error: NSError?) -> Void in
-                    self.makeOfferButton.title = "Accept"
-                })
-            }
-
-            return false
-        }
         return true
     }
     

@@ -9,6 +9,22 @@
 import UIKit
 import Parse
 
+extension UIImage {
+    func grayScaleImage() -> UIImage {
+        let imageRect = CGRectMake(0, 0, self.size.width, self.size.height);
+        let colorSpace = CGColorSpaceCreateDeviceGray();
+        
+        let width = Int(self.size.width)
+        let height = Int(self.size.height)
+        let context = CGBitmapContextCreate(nil, width, height, 8, 0, colorSpace!, CGBitmapInfo.allZeros);
+        CGContextDrawImage(context, imageRect, self.CGImage!);
+        
+        let imageRef = CGBitmapContextCreateImage(context);
+        let newImage = UIImage(CGImage: imageRef)
+        return newImage!
+    }
+}
+
 class MyItemDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var questionsJSON:JSON = nil
     var receivedItemsJSON:JSON = nil
@@ -116,6 +132,8 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         let title = cell.viewWithTag(102) as! UILabel
         let name = cell.viewWithTag(103) as! UILabel
         let readIcon = cell.viewWithTag(104) as! UIImageView
+        let status = cell.viewWithTag(105) as! UILabel
+        status.text = ""
         
         if (segmentedControl.selectedSegmentIndex == 0) {
             let itemJSON = receivedItemsJSON[indexPath.row]
@@ -143,6 +161,14 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
                 (imageObj:PFObject?, error: NSError?) -> Void in
                 let imageData = (imageObj!["file"] as! PFFile).getData()
                 photo.image = UIImage(data: imageData!)
+                
+                if (itemJSON["exchange"]["status"] != nil) {
+                    status.text = itemJSON["exchange"]["status"].string!
+                    if (status.text == "Rejected") {
+                        photo.image = photo.image?.grayScaleImage()
+                        title.textColor = UIColor.lightGrayColor()
+                    }
+                }
             })
             title.text = itemJSON["item"]["title"].string
             name.text = itemJSON["user"]["name"].string
