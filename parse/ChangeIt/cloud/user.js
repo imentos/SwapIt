@@ -49,6 +49,30 @@ Parse.Cloud.define("updateUser", function(request, response) {
     });
 });
 
+Parse.Cloud.define("updateUserPhoto", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (n:User{objectId:{userId}}) SET n.photo={photo} RETURN n',
+            params: {
+                userId: request.params.userId,
+                photo: request.params.photo
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            response.success(httpResponse.text);
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
 Parse.Cloud.define("updateUserPhone", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',

@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class UserController: UIViewController {
+class UserController: UIViewController, UIAlertViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
@@ -21,6 +21,7 @@ class UserController: UIViewController {
     var sentOffersJSON:JSON! = nil
     var receivedOffersJSON:JSON! = nil
     var userJSON:JSON!
+    var picker:UIImagePickerController? = UIImagePickerController()
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
         self.navigationController?.navigationBarHidden = true
@@ -42,6 +43,16 @@ class UserController: UIViewController {
         self.navigationController?.navigationBarHidden = true
         self.tabBarController?.tabBar.hidden = false
         self.loadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        picker!.delegate = self
+        
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "editImage")
+        tap.numberOfTapsRequired = 1
+        self.userPhoto.userInteractionEnabled = true
+        self.userPhoto.addGestureRecognizer(tap)
     }
     
     @IBAction func logout(sender: AnyObject) {
@@ -80,16 +91,28 @@ class UserController: UIViewController {
                     self.phoneButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
                 }
                 
-                if (PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!)) {
-                    self.userPhoto.layer.borderWidth = 1
-                    self.userPhoto.layer.masksToBounds = true
-                    self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
-                    self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
-                    if let image = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=160&height=160", self.userJSON["facebookId"].string!))!) {
-                        self.userPhoto.image = UIImage(data: image)
+                if (self.userJSON["photo"] == nil) {
+                    if (PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!)) {
+                        self.userPhoto.layer.borderWidth = 1
+                        self.userPhoto.layer.masksToBounds = true
+                        self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
+                        self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
+                        if let image = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=160&height=160", self.userJSON["facebookId"].string!))!) {
+                            self.userPhoto.image = UIImage(data: image)
+                        }
+                    } else {
+                        self.userPhoto.image = UIImage(named: "bottom_User_Inactive")
                     }
                 } else {
-                    self.userPhoto.image = UIImage(named: "bottom_User_Inactive")
+                    PFQuery(className:"Image").getObjectInBackgroundWithId(self.userJSON["photo"].string!, block: {
+                        (imageObj:PFObject?, error: NSError?) -> Void in
+                        let imageData = (imageObj!["file"] as! PFFile).getData()
+                        self.userPhoto.layer.borderWidth = 1
+                        self.userPhoto.layer.masksToBounds = true
+                        self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
+                        self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
+                        self.userPhoto.image = UIImage(data: imageData!)
+                    })
                 }
             })
         }
@@ -134,9 +157,81 @@ class UserController: UIViewController {
             view.phone = self.userJSON["phone"].string
         }
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    func editImage() {
+        var alert:UIAlertController = UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        var cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default) {
+            UIAlertAction in
+            self.openCamera()
+        }
+        var gallaryAction = UIAlertAction(title: "Gallary", style: UIAlertActionStyle.Default) {
+            UIAlertAction in
+            self.openGallary()
+        }
+        var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+            UIAlertAction in
+        }
+        
+        // Add the actions
+        alert.addAction(cameraAction)
+        alert.addAction(gallaryAction)
+        alert.addAction(cancelAction)
+        
+        // Present the actionsheet
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func openCamera() {
+        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) {
+            picker!.sourceType = UIImagePickerControllerSourceType.Camera
+            self.presentViewController(picker!, animated: true, completion: nil)
+        } else {
+            openGallary()
+        }
+    }
+    
+    func openGallary() {
+        picker!.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            self.presentViewController(picker!, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        let image:UIImage = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
+        let scaledImage = resizeImage(image)
+        self.userPhoto.layer.borderWidth = 1
+        self.userPhoto.layer.masksToBounds = true
+        self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
+        self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
+        self.userPhoto.image = scaledImage
+        
+        let imageFile = PFFile(name:"image.png", data:UIImagePNGRepresentation(scaledImage))
+        var imageObj = PFObject(className:"Image")
+        imageObj["file"] = imageFile
+        imageObj.save()
+        
+        PFCloud.callFunctionInBackground("updateUserPhoto", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "photo": imageObj.objectId!], block:{
+            (userFromCloud:AnyObject?, error: NSError?) -> Void in
+        })
+    }
+    
+    func resizeImage(image: UIImage) -> UIImage {
+        let size = CGSizeApplyAffineTransform(image.size, CGAffineTransformMakeScale(0.1, 0.1))
+        let hasAlpha = false
+        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+        
+        UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
+        image.drawInRect(CGRect(origin: CGPointZero, size: size))
+        
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return scaledImage
     }
     
     override func didReceiveMemoryWarning() {

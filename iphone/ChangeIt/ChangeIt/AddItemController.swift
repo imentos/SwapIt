@@ -3,7 +3,7 @@ import Parse
 import AVFoundation
 import ImageIO
 
-class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
+class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
     
     @IBOutlet var frameView: UIView!
     @IBOutlet weak var addImageButton: UIButton!
@@ -16,7 +16,6 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     var kbHeight: CGFloat!
     
     var picker:UIImagePickerController? = UIImagePickerController()
-    var popover:UIPopoverController?=nil
     
     var communications:Set<String> = Set<String>()
     var itemJSON:JSON!

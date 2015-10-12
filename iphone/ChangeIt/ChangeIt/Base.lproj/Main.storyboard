@@ -261,8 +261,8 @@
                                     <segue destination="T13-tW-Xas" kind="presentation" identifier="email" animates="NO" id="wqD-qS-NUd"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fho-44-dBl">
-                                <rect key="frame" x="145" y="294" width="150" height="150"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fho-44-dBl">
+                                <rect key="frame" x="146" y="294" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="Rlk-p2-7jt"/>
                                     <constraint firstAttribute="height" constant="150" id="gBa-Dc-8kP"/>
@@ -332,7 +332,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="CB3018C7-1867-40CC-92C8-B8C4ADE41EBC" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="9ED3E8B8-39B7-44A6-9CEF-ECF9EDBF0825" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -2317,9 +2317,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
-        <image name="CB3018C7-1867-40CC-92C8-B8C4ADE41EBC" width="30" height="30">
+        <image name="9ED3E8B8-39B7-44A6-9CEF-ECF9EDBF0825" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -2376,6 +2374,8 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Info" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
@@ -2402,11 +2402,11 @@ RgAAAAAAAAAAAAAAAAAAC5U
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="aNV-gf-JeL"/>
+        <segue reference="wqD-qS-NUd"/>
+        <segue reference="VZA-XN-qKl"/>
         <segue reference="oTP-Gb-dUv"/>
+        <segue reference="QBJ-c3-cTd"/>
         <segue reference="05S-WV-Wgj"/>
         <segue reference="f7t-fM-16E"/>
-        <segue reference="3ny-0c-RnO"/>
-        <segue reference="H6u-YS-i9f"/>
-        <segue reference="PfB-1k-1GP"/>
     </inferredMetricsTieBreakers>
 </document>
