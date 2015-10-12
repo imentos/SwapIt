@@ -49,7 +49,6 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         })
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -163,8 +162,8 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
                 photo.image = UIImage(data: imageData!)
                 
                 if (itemJSON["exchange"]["status"] != nil) {
-                    status.text = itemJSON["exchange"]["status"].string!
-                    if (status.text == "Rejected") {
+                    status.text = itemJSON["exchange"]["status"].string! == "Accepted" ? "Intereted" : "Not Interested"
+                    if (itemJSON["exchange"]["status"].string! == "Rejected") {
                         photo.image = photo.image?.grayScaleImage()
                         title.textColor = UIColor.lightGrayColor()
                     }

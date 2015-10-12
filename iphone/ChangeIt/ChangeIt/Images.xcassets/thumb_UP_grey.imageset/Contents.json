@@ -2,12 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "thumb_up_1x_grey-04.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "thumb_UP_grey_2x-01.png"
+      "filename" : "thumb_up_2x_grey-03.png"
     },
     {
       "idiom" : "universal",
