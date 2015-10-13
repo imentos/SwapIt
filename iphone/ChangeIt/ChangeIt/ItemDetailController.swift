@@ -30,6 +30,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     var acceptable:Bool! = false
     var fromOffer:Bool! = false
     var myItemId:String!
+    var fromOtherItems:Bool! = false
     var horizontalConstraints:[AnyObject]!
     @IBOutlet weak var acceptBtn: UIButton!
     @IBOutlet weak var rejectBtn: UIButton!
@@ -475,6 +476,10 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     func tapOtherUser() {
+        if (fromOtherItems == true) {
+            return
+        }
+        
         performSegueWithIdentifier("otherItems", sender: self)
     }
     
@@ -521,6 +526,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 detail.itemJSON = self.otherItemJSON
                 detail.loadData(true)
             });
+            
         } else if (segue.identifier == "otherItems") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.topViewController as! OtherItemsController

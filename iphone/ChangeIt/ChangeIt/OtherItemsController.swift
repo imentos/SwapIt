@@ -113,7 +113,7 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
             let selectedIndex = self.tableView.indexPathForSelectedRow()?.row
             
             let detail = segue.destinationViewController as! ItemDetailController
-            detail.fromOffer = true
+            detail.fromOtherItems = true
             detail.itemJSON = self.itemsJSON[selectedIndex!]
             detail.userJSON = self.userJSON
             detail.loadData(false)
