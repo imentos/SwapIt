@@ -179,7 +179,7 @@ Parse.Cloud.define("getUnreadQuestionsCountOfItem", function(request, response) 
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (n:Item{objectId:{itemId}})<-[r:LINK]-(q:Question) WHERE r.read = false RETURN COUNT(r)',
+            query: 'MATCH (n:Item{objectId:{itemId}})<-[r:LINK]-(q:Question)<-[a:ASK]-(u:User) WHERE r.read = false AND NOT ((u)-[:OFFER]->(:Item)-[:EXCHANGE]->(n))  RETURN COUNT(r)',
             params: {
                 itemId: request.params.itemId
             }
@@ -207,7 +207,7 @@ Parse.Cloud.define("getQuestionsCountOfItem", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (n:Item{objectId:{itemId}})<-[r:LINK]-(q:Question) RETURN COUNT(r)',
+            query: 'MATCH (n:Item{objectId:{itemId}})<-[r:LINK]-(q:Question)<-[a:ASK]-(u:User) WHERE NOT ((u)-[:OFFER]->(:Item)-[:EXCHANGE]->(n)) RETURN COUNT(r)',
             params: {
                 itemId: request.params.itemId
             }
@@ -236,7 +236,7 @@ Parse.Cloud.define("getQuestionedItems", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User)-[a:ASK]->(q:Question)-[r:LINK]->(i:Item{objectId:{itemId}}) RETURN q, u, r ORDER BY q.timestamp DESC',
+            query: 'MATCH (u:User)-[a:ASK]->(q:Question)-[r:LINK]->(i:Item{objectId:{itemId}}) WHERE NOT ((u)-[:OFFER]->(:Item)-[:EXCHANGE]->(i)) RETURN q, u, r ORDER BY q.timestamp DESC',
             params: {
                 itemId: request.params.itemId
             }
