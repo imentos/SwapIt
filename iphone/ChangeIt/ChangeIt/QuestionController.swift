@@ -32,13 +32,7 @@ class QuestionController: UITableViewController {
         self.questionTextView.text = questionJSON["question"]["text"].string
         self.userNameLabel.text = questionJSON["user"]["name"].string
         
-        self.userPhoto.layer.borderWidth = 1
-        self.userPhoto.layer.masksToBounds = true
-        self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
-        self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
-        if let data = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=120&height=120", questionJSON["user"]["facebookId"].string!))!) {
-            self.userPhoto.image = UIImage(data: data)
-        }
+        displayUserPhoto(self.userPhoto, self.questionJSON["user"])
 
         let timestampAsDouble = NSTimeInterval(questionJSON["question"]["timestamp"].double!) / 1000.0
         var date = NSDate(timeIntervalSince1970:timestampAsDouble)

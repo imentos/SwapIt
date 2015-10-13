@@ -60,6 +60,7 @@
 		B3D2AA981BBDBE4C00E00776 /* UIImage+LMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D2AA961BBDBE4C00E00776 /* UIImage+LMExtension.m */; };
 		B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */; };
 		B3F014991BCCC51100DD33C7 /* OtherItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F014981BCCC51100DD33C7 /* OtherItemsController.swift */; };
+		B3F0149B1BCD732B00DD33C7 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F0149A1BCD732B00DD33C7 /* Helper.swift */; };
 		B3FCB87D1B8F734800AD9A1E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */; };
 /* End PBXBuildFile section */
 
@@ -147,6 +148,7 @@
 		B3D2AA961BBDBE4C00E00776 /* UIImage+LMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+LMExtension.m"; sourceTree = "<group>"; };
 		B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyItemsController.swift; sourceTree = "<group>"; };
 		B3F014981BCCC51100DD33C7 /* OtherItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherItemsController.swift; sourceTree = "<group>"; };
+		B3F0149A1BCD732B00DD33C7 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -241,10 +243,11 @@
 				B30A026E1B5EC4BD00E63437 /* MessageLabel.swift */,
 				B3C763441B0D23C30040E794 /* QuestionController.swift */,
 				B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */,
+				B3F0149A1BCD732B00DD33C7 /* Helper.swift */,
+				7F12107B1BACC56400C4F65D /* BarButton.swift */,
 				B37431A61AE861A600A0808B /* Images.xcassets */,
 				B37431A81AE861A600A0808B /* LaunchScreen.xib */,
 				B374319B1AE861A600A0808B /* Supporting Files */,
-				7F12107B1BACC56400C4F65D /* BarButton.swift */,
 			);
 			path = ChangeIt;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				B3499B951AFAE3FE00DDD536 /* OffersController.swift in Sources */,
 				B37C10291AE9BE280086864F /* WishListController.swift in Sources */,
 				B34150441BBCF1CD00385915 /* MySignupViewController.swift in Sources */,
+				B3F0149B1BCD732B00DD33C7 /* Helper.swift in Sources */,
 				B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */,
 				B34150401BBBA00800385915 /* UserEmailController.swift in Sources */,
 				B3D2AA981BBDBE4C00E00776 /* UIImage+LMExtension.m in Sources */,

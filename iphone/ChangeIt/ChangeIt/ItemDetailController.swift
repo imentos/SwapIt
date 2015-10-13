@@ -438,13 +438,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         self.descriptionTextView.text = itemJSON["description"].string
         self.userLabel.text = userJSON["name"].string
         
-        self.userPhoto.layer.borderWidth = 1
-        self.userPhoto.layer.masksToBounds = true
-        self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
-        self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
-        if let data = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=80&height=80", userJSON["facebookId"].string!))!) {
-            self.userPhoto.image = UIImage(data: data)
-        }
+        displayUserPhoto(self.userPhoto, self.userJSON)
         
         if (self.myItem == true) {
             self.makeOfferButton.enabled = false
