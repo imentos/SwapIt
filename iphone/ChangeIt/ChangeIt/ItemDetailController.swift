@@ -223,7 +223,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                             (imageObj:PFObject?, error: NSError?) -> Void in
                             let imageData = (imageObj!["file"] as! PFFile).getData()
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                self.otherItemImageView.image = UIImage(data: imageData!)
+                                self.otherItemImageView.image = self.photoImage.image
+                                self.photoImage.image = UIImage(data: imageData!)
                             })
                         })
                     }
