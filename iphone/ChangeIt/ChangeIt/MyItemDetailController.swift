@@ -175,11 +175,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             })
             title.text = itemJSON["item"]["title"].string
             name.text = itemJSON["user"]["name"].string
-            if (itemJSON["exchange"]["read"].bool!) {
-                statusIcon.image = nil
-            } else {
-                statusIcon.image = UIImage(named: "offer_new")
-            }
+
             //readIcon.hidden = offeredItemJSON["exchange"]["read"].bool!
             
         } else if (segmentedControl.selectedSegmentIndex == 2) {
