@@ -132,7 +132,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         let name = cell.viewWithTag(103) as! UILabel
         let readIcon = cell.viewWithTag(104) as! UIImageView
         let status = cell.viewWithTag(105) as! UILabel
+        let statusIcon = cell.viewWithTag(106) as! UIImageView
+        
         status.text = ""
+        statusIcon.image = nil
         
         if (segmentedControl.selectedSegmentIndex == 0) {
             let itemJSON = receivedItemsJSON[indexPath.row]
@@ -146,9 +149,9 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             title.text = itemJSON["item"]["title"].string
             name.text = itemJSON["user"]["name"].string
             if (itemJSON["exchange"]["read"].bool!) {
-                cell.backgroundColor = UIColor.clearColor()
+                statusIcon.image = nil
             } else {
-                cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
+                statusIcon.image = UIImage(named: "offer_new")
             }
             //readIcon.hidden = offeredItemJSON["exchange"]["read"].bool!
 
@@ -163,6 +166,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
                 
                 if (itemJSON["exchange"]["status"] != nil) {
                     status.text = itemJSON["exchange"]["status"].string! == "Accepted" ? "Intereted" : "Not Interested"
+                    statusIcon.image = itemJSON["exchange"]["status"].string! == "Accepted" ? UIImage(named:"offer_accepted") : UIImage(named:"offer_rejected")
                     if (itemJSON["exchange"]["status"].string! == "Rejected") {
                         photo.image = photo.image?.grayScaleImage()
                         title.textColor = UIColor.lightGrayColor()
@@ -172,9 +176,9 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             title.text = itemJSON["item"]["title"].string
             name.text = itemJSON["user"]["name"].string
             if (itemJSON["exchange"]["read"].bool!) {
-                cell.backgroundColor = UIColor.clearColor()
+                statusIcon.image = nil
             } else {
-                cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
+                statusIcon.image = UIImage(named: "offer_new")
             }
             //readIcon.hidden = offeredItemJSON["exchange"]["read"].bool!
             
@@ -190,11 +194,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
 
             title.text = questionJSON["question"]["text"].string
             name.text = questionJSON["user"]["name"].string
-            cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
             if (questionJSON["link"]["read"].bool!) {
-                cell.backgroundColor = UIColor.clearColor()
+                statusIcon.image = nil
             } else {
-                cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
+                statusIcon.image = UIImage(named: "offer_new")
             }
             //readIcon.hidden = questionJSON["link"]["read"].bool!
         }
@@ -206,7 +209,6 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             let indexPath = detailTable.indexPathForSelectedRow()
             let index = indexPath!.row
             let cell = detailTable.cellForRowAtIndexPath(indexPath!)
-            cell?.backgroundColor = UIColor.clearColor()
             var readIcon = cell!.viewWithTag(104) as! UIImageView
             
             let itemJSON = segmentedControl.selectedSegmentIndex == 0 ? receivedItemsJSON[index] : offeredItemsJSON[index]
@@ -221,7 +223,6 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             let indexPath = detailTable.indexPathForSelectedRow()
             let index = indexPath!.row
             let cell = detailTable.cellForRowAtIndexPath(indexPath!)
-            cell?.backgroundColor = UIColor.clearColor()
             var readIcon = cell!.viewWithTag(104) as! UIImageView
             
             let questionJSON = self.questionsJSON[index]
