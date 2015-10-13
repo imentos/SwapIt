@@ -59,6 +59,7 @@
 		B3D2AA971BBDBE4C00E00776 /* LMDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D2AA931BBDBE4C00E00776 /* LMDropdownView.m */; };
 		B3D2AA981BBDBE4C00E00776 /* UIImage+LMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D2AA961BBDBE4C00E00776 /* UIImage+LMExtension.m */; };
 		B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */; };
+		B3F014991BCCC51100DD33C7 /* OtherItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F014981BCCC51100DD33C7 /* OtherItemsController.swift */; };
 		B3FCB87D1B8F734800AD9A1E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */; };
 /* End PBXBuildFile section */
 
@@ -145,6 +146,7 @@
 		B3D2AA951BBDBE4C00E00776 /* UIImage+LMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+LMExtension.h"; sourceTree = "<group>"; };
 		B3D2AA961BBDBE4C00E00776 /* UIImage+LMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+LMExtension.m"; sourceTree = "<group>"; };
 		B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyItemsController.swift; sourceTree = "<group>"; };
+		B3F014981BCCC51100DD33C7 /* OtherItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherItemsController.swift; sourceTree = "<group>"; };
 		B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -231,6 +233,7 @@
 				B374319F1AE861A600A0808B /* UserController.swift */,
 				B34150411BBBA06400385915 /* UserPhoneController.swift */,
 				B341503F1BBBA00800385915 /* UserEmailController.swift */,
+				B3F014981BCCC51100DD33C7 /* OtherItemsController.swift */,
 				B30E24901AF83B6C00ED49EB /* ItemsController.swift */,
 				B39EC9B01B014B8000FFC89A /* ItemCell.swift */,
 				B30E24961AF96C2200ED49EB /* ItemDetailController.swift */,
@@ -433,6 +436,7 @@
 				B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */,
 				B3C763451B0D23C30040E794 /* QuestionController.swift in Sources */,
 				B31BC9E21AED04DD00E1F99A /* AddItemController.swift in Sources */,
+				B3F014991BCCC51100DD33C7 /* OtherItemsController.swift in Sources */,
 				B38AF8E91B3A457500AB19F7 /* KxMenu.m in Sources */,
 				B37C10271AE9B81F0086864F /* WishListDetailController.swift in Sources */,
 				B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */,

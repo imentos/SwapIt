@@ -91,12 +91,12 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
                     self.phoneButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
                 }
                 
+                self.userPhoto.layer.borderWidth = 1
+                self.userPhoto.layer.masksToBounds = true
+                self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
+                self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
                 if (self.userJSON["photo"] == nil) {
                     if (PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!)) {
-                        self.userPhoto.layer.borderWidth = 1
-                        self.userPhoto.layer.masksToBounds = true
-                        self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
-                        self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
                         if let image = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=160&height=160", self.userJSON["facebookId"].string!))!) {
                             self.userPhoto.image = UIImage(data: image)
                         }
@@ -107,11 +107,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
                     PFQuery(className:"Image").getObjectInBackgroundWithId(self.userJSON["photo"].string!, block: {
                         (imageObj:PFObject?, error: NSError?) -> Void in
                         let imageData = (imageObj!["file"] as! PFFile).getData()
-                        self.userPhoto.layer.borderWidth = 1
-                        self.userPhoto.layer.masksToBounds = true
-                        self.userPhoto.layer.borderColor = UIColor.blackColor().CGColor
-                        self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
-                        self.userPhoto.image = UIImage(data: imageData!)
+                         self.userPhoto.image = UIImage(data: imageData!)
                     })
                 }
             })

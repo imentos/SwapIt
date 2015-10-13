@@ -55,6 +55,11 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         otherItemImageView.userInteractionEnabled = true
         otherItemImageView.addGestureRecognizer(singleTap)
         
+        let userTap = UITapGestureRecognizer(target: self, action: Selector("tapOtherUser"))
+        userTap.numberOfTapsRequired = 1
+        self.userPhoto.userInteractionEnabled = true
+        self.userPhoto.addGestureRecognizer(userTap)
+        
         self.expandItemImage()
     }
     
@@ -475,6 +480,10 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         self.exchangeImage.hidden = true
     }
     
+    func tapOtherUser() {
+        performSegueWithIdentifier("otherItems", sender: self)
+    }
+    
     func tapOtherImage() {
         performSegueWithIdentifier("otherDetail", sender: self)
     }
@@ -518,6 +527,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 detail.itemJSON = self.otherItemJSON
                 detail.loadData(true)
             });
+        } else if (segue.identifier == "otherItems") {
+            let navi = segue.destinationViewController as! UINavigationController
+            let view = navi.topViewController as! OtherItemsController
+//            view.title = self.title
+            view.userJSON = self.userJSON
+            view.loadData()
         }
     }
 }
