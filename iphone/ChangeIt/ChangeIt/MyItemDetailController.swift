@@ -185,12 +185,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         } else if (segmentedControl.selectedSegmentIndex == 2) {
             let questionJSON = questionsJSON[indexPath.row]
             
-            photo.layer.cornerRadius = photo.bounds.height / 2
-            if let data = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=120&height=120", questionJSON["user"]["facebookId"].string!))!) {
-                photo.image = UIImage(data: data)
-            } else {
-                photo.image = UIImage(named: "bottom_User_Active")
-            }
+            displayUserPhoto(photo, questionJSON["user"])
 
             title.text = questionJSON["question"]["text"].string
             name.text = questionJSON["user"]["name"].string
