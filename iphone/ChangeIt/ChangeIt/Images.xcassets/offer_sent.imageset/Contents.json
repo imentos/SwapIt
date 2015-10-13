@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "my_list_icons-02.png"
+      "filename" : "mylist-icons_up_1x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "mylist-icons_up_2x.png"
     },
     {
       "idiom" : "universal",
