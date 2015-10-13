@@ -165,9 +165,15 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
                 photo.image = UIImage(data: imageData!)
                 
                 if (itemJSON["exchange"]["status"] != nil) {
-                    status.text = itemJSON["exchange"]["status"].string! == "Accepted" ? "Intereted" : "Not Interested"
-                    statusIcon.image = itemJSON["exchange"]["status"].string! == "Accepted" ? UIImage(named:"offer_accepted") : UIImage(named:"offer_rejected")
+                    if (itemJSON["exchange"]["status"].string! == "Accepted") {
+                        status.text = "Interested"
+                        statusIcon.image = UIImage(named:"offer_accepted")
+                    }
+
                     if (itemJSON["exchange"]["status"].string! == "Rejected") {
+                        status.text = "Not Interested"
+                        statusIcon.image = UIImage(named:"offer_rejected")
+                        
                         photo.image = photo.image?.grayScaleImage()
                         title.textColor = UIColor.lightGrayColor()
                     }

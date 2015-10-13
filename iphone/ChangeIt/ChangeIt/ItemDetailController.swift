@@ -147,11 +147,33 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     @IBAction func acceptOffer(sender: AnyObject) {
-        PFCloud.callFunctionInBackground("acceptItem", withParameters: ["srcItemId":itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
-            (items:AnyObject?, error: NSError?) -> Void in
-            
-            self.acceptBtn.setImage(UIImage(named: "thumb_UP_red"), forState: .Normal)
+        let itemId = self.itemJSON["objectId"].string
+        PFCloud.callFunctionInBackground("getOfferStatus", withParameters: ["srcItemId":itemId!, "distItemId":self.myItemId!], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            if let status = resultsJSON[0]["status"].string {
+                if (status == "Accepted") {
+                    PFCloud.callFunctionInBackground("unacceptItem", withParameters: ["srcItemId":self.itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
+                        (items:AnyObject?, error: NSError?) -> Void in
+                        
+                        self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
+                    })
+                } else {
+                    PFCloud.callFunctionInBackground("acceptItem", withParameters: ["srcItemId":self.itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
+                        (items:AnyObject?, error: NSError?) -> Void in
+                        
+                        self.acceptBtn.setImage(UIImage(named: "thumb_UP_red"), forState: .Normal)
+                    })
+                }
+            } else {
+                PFCloud.callFunctionInBackground("acceptItem", withParameters: ["srcItemId":self.itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
+                    (items:AnyObject?, error: NSError?) -> Void in
+                    
+                    self.acceptBtn.setImage(UIImage(named: "thumb_UP_red"), forState: .Normal)
+                })
+            }
         })
+
     }
     
     func loadData(myItem:Bool) {
