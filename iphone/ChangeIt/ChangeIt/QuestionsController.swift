@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class QuestionsController: UITableViewController {
+class QuestionsController: UITableViewController, UIActionSheetDelegate {
     var questionsJSON:JSON = nil
 
     @IBAction func cancel(segue:UIStoryboardSegue) {
@@ -36,6 +36,24 @@ class QuestionsController: UITableViewController {
         return 1
     }
 
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == .Delete) {
+            let actionSheet = UIActionSheet(title: "Are you sure you want to delete this question?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "OK")
+            actionSheet.tag = indexPath.row
+            actionSheet.showInView(self.view)
+        }
+    }
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        if (buttonIndex == 0) {
+            let questionJSON = questionsJSON[actionSheet.tag]
+            PFCloud.callFunctionInBackground("deleteQuestion", withParameters: ["questionId": (questionJSON["question"]["objectId"].string)!], block: {
+                (result:AnyObject?, error: NSError?) -> Void in
+                self.loadData()
+            })
+        }
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (questionsJSON == nil) {
             return 0

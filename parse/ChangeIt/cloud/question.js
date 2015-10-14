@@ -257,6 +257,49 @@ Parse.Cloud.define("getQuestionedItems", function(request, response) {
         }
     });
 });
+
+Parse.Cloud.define("deleteUnusedQuestions", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (reply:Reply)-[r]-(q:Question)-[a:ASK]-() WHERE NOT (q)-[:LINK]->() DELETE a,q,r,reply'
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            response.success("success");
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+Parse.Cloud.define("deleteQuestion", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (q:Question{objectId:{questionId}}) OPTIONAL MATCH (q)-[r]-() DELETE q, r',
+            params: {
+                questionId: request.params.questionId
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            response.success(httpResponse.text);
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
  
 Parse.Cloud.define("askItemQuestionByUser", function(request, response) {
     Parse.Cloud.httpRequest({
