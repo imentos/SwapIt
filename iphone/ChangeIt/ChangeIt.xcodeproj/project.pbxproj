@@ -61,6 +61,12 @@
 		B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */; };
 		B3F014991BCCC51100DD33C7 /* OtherItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F014981BCCC51100DD33C7 /* OtherItemsController.swift */; };
 		B3F0149B1BCD732B00DD33C7 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F0149A1BCD732B00DD33C7 /* Helper.swift */; };
+		B3F014BB1BCE1FD700DD33C7 /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014B01BCE1FD700DD33C7 /* JTSAnimatedGIFUtility.m */; };
+		B3F014BC1BCE1FD700DD33C7 /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014B21BCE1FD700DD33C7 /* JTSImageInfo.m */; };
+		B3F014BD1BCE1FD700DD33C7 /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014B41BCE1FD700DD33C7 /* JTSImageViewController.m */; };
+		B3F014BE1BCE1FD700DD33C7 /* JTSSimpleImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014B61BCE1FD700DD33C7 /* JTSSimpleImageDownloader.m */; };
+		B3F014BF1BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014B81BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.m */; };
+		B3F014C01BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014BA1BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m */; };
 		B3FCB87D1B8F734800AD9A1E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */; };
 /* End PBXBuildFile section */
 
@@ -149,6 +155,18 @@
 		B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyItemsController.swift; sourceTree = "<group>"; };
 		B3F014981BCCC51100DD33C7 /* OtherItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherItemsController.swift; sourceTree = "<group>"; };
 		B3F0149A1BCD732B00DD33C7 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		B3F014AF1BCE1FD700DD33C7 /* JTSAnimatedGIFUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTSAnimatedGIFUtility.h; path = JTSImageVC/JTSAnimatedGIFUtility.h; sourceTree = "<group>"; };
+		B3F014B01BCE1FD700DD33C7 /* JTSAnimatedGIFUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTSAnimatedGIFUtility.m; path = JTSImageVC/JTSAnimatedGIFUtility.m; sourceTree = "<group>"; };
+		B3F014B11BCE1FD700DD33C7 /* JTSImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTSImageInfo.h; path = JTSImageVC/JTSImageInfo.h; sourceTree = "<group>"; };
+		B3F014B21BCE1FD700DD33C7 /* JTSImageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTSImageInfo.m; path = JTSImageVC/JTSImageInfo.m; sourceTree = "<group>"; };
+		B3F014B31BCE1FD700DD33C7 /* JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTSImageViewController.h; path = JTSImageVC/JTSImageViewController.h; sourceTree = "<group>"; };
+		B3F014B41BCE1FD700DD33C7 /* JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTSImageViewController.m; path = JTSImageVC/JTSImageViewController.m; sourceTree = "<group>"; };
+		B3F014B51BCE1FD700DD33C7 /* JTSSimpleImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTSSimpleImageDownloader.h; path = JTSImageVC/JTSSimpleImageDownloader.h; sourceTree = "<group>"; };
+		B3F014B61BCE1FD700DD33C7 /* JTSSimpleImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTSSimpleImageDownloader.m; path = JTSImageVC/JTSSimpleImageDownloader.m; sourceTree = "<group>"; };
+		B3F014B71BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplication+JTSImageViewController.h"; path = "JTSImageVC/UIApplication+JTSImageViewController.h"; sourceTree = "<group>"; };
+		B3F014B81BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+JTSImageViewController.m"; path = "JTSImageVC/UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
+		B3F014B91BCE1FD700DD33C7 /* UIImage+JTSImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+JTSImageEffects.h"; path = "JTSImageVC/UIImage+JTSImageEffects.h"; sourceTree = "<group>"; };
+		B3F014BA1BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+JTSImageEffects.m"; path = "JTSImageVC/UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
 		B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,6 +210,7 @@
 		B374318F1AE861A600A0808B = {
 			isa = PBXGroup;
 			children = (
+				B3F0149C1BCE1E6800DD33C7 /* JTSImageVC */,
 				B37C101B1AE990EA0086864F /* Frameworks */,
 				B3D2AA911BBDBE4C00E00776 /* LMDropdownView */,
 				B374319A1AE861A600A0808B /* ChangeIt */,
@@ -303,6 +322,25 @@
 				B3D2AA961BBDBE4C00E00776 /* UIImage+LMExtension.m */,
 			);
 			path = Vender;
+			sourceTree = "<group>";
+		};
+		B3F0149C1BCE1E6800DD33C7 /* JTSImageVC */ = {
+			isa = PBXGroup;
+			children = (
+				B3F014AF1BCE1FD700DD33C7 /* JTSAnimatedGIFUtility.h */,
+				B3F014B01BCE1FD700DD33C7 /* JTSAnimatedGIFUtility.m */,
+				B3F014B11BCE1FD700DD33C7 /* JTSImageInfo.h */,
+				B3F014B21BCE1FD700DD33C7 /* JTSImageInfo.m */,
+				B3F014B31BCE1FD700DD33C7 /* JTSImageViewController.h */,
+				B3F014B41BCE1FD700DD33C7 /* JTSImageViewController.m */,
+				B3F014B51BCE1FD700DD33C7 /* JTSSimpleImageDownloader.h */,
+				B3F014B61BCE1FD700DD33C7 /* JTSSimpleImageDownloader.m */,
+				B3F014B71BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.h */,
+				B3F014B81BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.m */,
+				B3F014B91BCE1FD700DD33C7 /* UIImage+JTSImageEffects.h */,
+				B3F014BA1BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m */,
+			);
+			name = JTSImageVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,14 +473,19 @@
 			files = (
 				B33C8F8E1B06869400160D7E /* AddWishListCell.swift in Sources */,
 				B348CD001AFA929100CFC04E /* MakeOfferController.swift in Sources */,
+				B3F014BE1BCE1FD700DD33C7 /* JTSSimpleImageDownloader.m in Sources */,
 				B35412E21B53515C007785B3 /* MessagesController.swift in Sources */,
 				B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */,
 				B3C763451B0D23C30040E794 /* QuestionController.swift in Sources */,
 				B31BC9E21AED04DD00E1F99A /* AddItemController.swift in Sources */,
 				B3F014991BCCC51100DD33C7 /* OtherItemsController.swift in Sources */,
+				B3F014C01BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m in Sources */,
 				B38AF8E91B3A457500AB19F7 /* KxMenu.m in Sources */,
 				B37C10271AE9B81F0086864F /* WishListDetailController.swift in Sources */,
+				B3F014BC1BCE1FD700DD33C7 /* JTSImageInfo.m in Sources */,
 				B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */,
+				B3F014BD1BCE1FD700DD33C7 /* JTSImageViewController.m in Sources */,
+				B3F014BF1BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.m in Sources */,
 				B348CD021AFBDCD500CFC04E /* OffersDetailController.swift in Sources */,
 				B3B1206A1B96BC420020D13E /* MyLogInViewController.swift in Sources */,
 				B3D2AA971BBDBE4C00E00776 /* LMDropdownView.m in Sources */,
@@ -455,6 +498,7 @@
 				B34150401BBBA00800385915 /* UserEmailController.swift in Sources */,
 				B3D2AA981BBDBE4C00E00776 /* UIImage+LMExtension.m in Sources */,
 				B30A026F1B5EC4BE00E63437 /* MessageLabel.swift in Sources */,
+				B3F014BB1BCE1FD700DD33C7 /* JTSAnimatedGIFUtility.m in Sources */,
 				B30E24951AF96BFA00ED49EB /* MainController.swift in Sources */,
 				B374319E1AE861A600A0808B /* AppDelegate.swift in Sources */,
 				B30E24911AF83B6C00ED49EB /* ItemsController.swift in Sources */,

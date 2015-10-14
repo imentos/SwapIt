@@ -50,6 +50,11 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         self.rejectBtn.hidden = true
         
         photoImage.setTranslatesAutoresizingMaskIntoConstraints(false)
+
+        let photoTap = UITapGestureRecognizer(target: self, action: Selector("tapPhotoImage"))
+        photoTap.numberOfTapsRequired = 1
+        photoImage.userInteractionEnabled = true
+        photoImage.addGestureRecognizer(photoTap)
         
         let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapOtherImage"))
         singleTap.numberOfTapsRequired = 1
@@ -503,6 +508,18 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         }
         
         performSegueWithIdentifier("otherItems", sender: self)
+    }
+    
+    func tapPhotoImage() {
+        let imageInfo = JTSImageInfo()
+        imageInfo.image = self.photoImage.image
+        imageInfo.referenceRect = self.photoImage.frame;
+        imageInfo.referenceView = self.photoImage.superview;
+        imageInfo.referenceContentMode = self.photoImage.contentMode;
+        imageInfo.referenceCornerRadius = self.photoImage.layer.cornerRadius;
+        
+        let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: JTSImageViewControllerBackgroundOptions.Scaled)
+        imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition._FromOriginalPosition)
     }
     
     func tapOtherImage() {
