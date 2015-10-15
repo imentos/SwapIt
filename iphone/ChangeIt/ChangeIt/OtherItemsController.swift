@@ -44,6 +44,8 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
 //        self.title = offerJSON["src"]["title"].string
         
 //        PFQuery(className:"Image").getObjectInBackgroundWithId(userJSON["photo"].string!, block: {

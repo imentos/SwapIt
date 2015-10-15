@@ -54,6 +54,8 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
         loadData()
     }
     

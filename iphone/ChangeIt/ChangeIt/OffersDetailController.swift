@@ -23,6 +23,8 @@ class OffersDetailController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
         self.title = offerJSON["src"]["title"].string
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(offerJSON["src"]["photo"].string!, block: {

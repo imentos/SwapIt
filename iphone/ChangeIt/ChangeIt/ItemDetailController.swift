@@ -523,7 +523,16 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     func tapOtherImage() {
-        performSegueWithIdentifier("otherDetail", sender: self)
+//        performSegueWithIdentifier("otherDetail", sender: self)
+        let imageInfo = JTSImageInfo()
+        imageInfo.image = self.otherItemImageView.image
+        imageInfo.referenceRect = self.otherItemImageView.frame;
+        imageInfo.referenceView = self.otherItemImageView.superview;
+        imageInfo.referenceContentMode = self.otherItemImageView.contentMode;
+        imageInfo.referenceCornerRadius = self.otherItemImageView.layer.cornerRadius;
+        
+        let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: JTSImageViewControllerBackgroundOptions.Scaled)
+        imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition._FromOriginalPosition)
     }
 
     override func didReceiveMemoryWarning() {

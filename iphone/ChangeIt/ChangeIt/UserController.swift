@@ -68,6 +68,8 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
         loadData()
     }
     
