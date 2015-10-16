@@ -28,7 +28,7 @@ class UserPhoneController : UIViewController {
     
     @IBAction func save(sender: AnyObject) {
         let phone = phoneText.text
-        PFCloud.callFunctionInBackground("updateUserPhone", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "phone": phone], block:{
+        PFCloud.callFunctionInBackground("updateUserPhone", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "phone": phone!], block:{
             (userFromCloud:AnyObject?, error: NSError?) -> Void in
             
             self.performSegueWithIdentifier("save", sender: self)

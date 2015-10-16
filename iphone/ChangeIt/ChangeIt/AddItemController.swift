@@ -48,7 +48,7 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         self.descriptionTextView.backgroundColor = UIColor.clearColor()
         self.descriptionTextView.textColor = UIColor.lightGrayColor()
         
-        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
         
         // Keyboard stuff.
@@ -78,7 +78,7 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
     
     func animateTextField(up: Bool) {
-        var movement = (up ? -kbHeight : kbHeight)
+        let movement = (up ? -kbHeight : kbHeight)
         
         UIView.animateWithDuration(0.3, animations: {
             self.view.frame = CGRectOffset(self.view.frame, 0, movement)
@@ -124,7 +124,7 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
 
     @IBAction func saveItem(sender: AnyObject) {
-        PFCloud.callFunctionInBackground("updateItem", withParameters: ["itemId": self.itemJSON["objectId"].string!, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": join(",", self.communications)], block:{
+        PFCloud.callFunctionInBackground("updateItem", withParameters: ["itemId": self.itemJSON["objectId"].string!, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": self.communications.joinWithSeparator(",")], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             self.performSegueWithIdentifier("cancel", sender: self)
         })
@@ -138,7 +138,7 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         }
         
         let uuid = NSUUID().UUIDString
-        PFCloud.callFunctionInBackground("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": join(",", self.communications)], block:{
+        PFCloud.callFunctionInBackground("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": self.communications.joinWithSeparator(",")], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             PFCloud.callFunctionInBackground("linkMyItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": uuid], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
@@ -196,17 +196,17 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
     
     @IBAction func addImage(sender: AnyObject) {
-        var alert:UIAlertController = UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let alert:UIAlertController = UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        var cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default) {
+        let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default) {
             UIAlertAction in
             self.openCamera()
         }
-        var gallaryAction = UIAlertAction(title: "Gallery", style: UIAlertActionStyle.Default) {
+        let gallaryAction = UIAlertAction(title: "Gallery", style: UIAlertActionStyle.Default) {
             UIAlertAction in
             self.openGallary()
         }
-        var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
             UIAlertAction in
         }
         
@@ -237,20 +237,19 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         }
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         picker.dismissViewControllerAnimated(true, completion: nil)
-        let image:UIImage = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
         let scaledImage = resizeImage(image)
         addImageButton.setImage(scaledImage, forState: .Normal)
         
-        let imageFile = PFFile(name:"image.png", data:UIImagePNGRepresentation(scaledImage))
+        let imageFile = PFFile(name:"image.png", data:UIImagePNGRepresentation(scaledImage)!)
         var imageObj = PFObject(className:"Image")
         imageObj["file"] = imageFile
         imageObj.save()
         
         self.imageId = imageObj.objectId
     }
-    
+        
     func resizeImage(image: UIImage) -> UIImage {
         let size = CGSizeApplyAffineTransform(image.size, CGAffineTransformMakeScale(0.1, 0.1))
         let hasAlpha = false
@@ -279,7 +278,7 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
     
     func validateTitle() {
-        let invalid = self.titleTextField.text.isEmpty;
+        let invalid = self.titleTextField.text!.isEmpty;
         self.validate(invalid, view: self.titleTextField)
     }
     

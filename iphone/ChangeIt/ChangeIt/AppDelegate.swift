@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // https://parse.com/docs/ios_guide#localdatastore/iOS
         //Parse.enableLocalDatastore()
         
-        ParseCrashReporting.enable()
+//        ParseCrashReporting.enable()
         
         // Initialize Parse.
         Parse.setApplicationId("AyaLli8Wgpr6AS56sQiHn9fONdtdt7R18jckKsCp",

@@ -12,14 +12,14 @@ class MessageLabel: UILabel {
     var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.layer.cornerRadius = 10.0;
         self.numberOfLines = 2
     }
         
     override func textRectForBounds(bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
         let textTrim = self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        if (count(textTrim!) == 0) {
+        if (textTrim!.characters.count == 0) {
             return CGRect(x: 0, y: 0, width: 0, height: 0)
         }
         var rect = edgeInsets.apply(bounds)

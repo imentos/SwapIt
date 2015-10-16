@@ -91,7 +91,7 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) 
         let itemJSON = itemsJSON[indexPath.row]
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
@@ -170,7 +170,7 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
 
         if (segue.identifier == "detail") {
             let tableView = self.view as! UITableView
-            let itemJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
+            let itemJSON = itemsJSON[(tableView.indexPathForSelectedRow?.row)!]
             
             let detail = segue.destinationViewController as! MyItemDetailController
             detail.title = itemJSON["title"].string!

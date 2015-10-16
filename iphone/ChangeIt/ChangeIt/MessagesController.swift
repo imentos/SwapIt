@@ -26,7 +26,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var userNameLabel: UILabel!
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
-        println("cancel")
+        print("cancel")
     }
 
     override func viewDidLoad() {
@@ -42,7 +42,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             self.itemDetailButton.setImage(UIImage(data: imageData!), forState: UIControlState.Normal)
         })
         
-        displayUserPhoto(self.userPhoto, self.userJSON)
+        displayUserPhoto(self.userPhoto, userJSON: self.userJSON)
 
         self.userNameLabel.text = self.userJSON["name"].string
         
@@ -80,14 +80,14 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func sendMessage(sender: UIButton) {
         if let q = questionJSON {
             let uuid = NSUUID().UUIDString
-            PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": self.messageTextField.text, "objectId": uuid, "questionId": (questionJSON["objectId"].string)!, "userId": (PFUser.currentUser()?.objectId)!], block:{
+            PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": self.messageTextField.text!, "objectId": uuid, "questionId": (questionJSON["objectId"].string)!, "userId": (PFUser.currentUser()?.objectId)!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
                 self.loadData()
             })
         
         } else {
             let uuid = NSUUID().UUIDString
-            PFCloud.callFunctionInBackground("addQuestion", withParameters: ["text": self.messageTextField.text, "objectId": uuid, "owner": (PFUser.currentUser()?.objectId)!], block:{
+            PFCloud.callFunctionInBackground("addQuestion", withParameters: ["text": self.messageTextField.text!, "objectId": uuid, "owner": (PFUser.currentUser()?.objectId)!], block:{
                 (result:AnyObject?, error: NSError?) -> Void in
                 self.questionJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 let itemId = self.itemJSON["objectId"].string
@@ -107,7 +107,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func valueChange(sender: AnyObject) {
-        self.sendButton.enabled = self.messageTextField.text.isEmpty == false
+        self.sendButton.enabled = self.messageTextField.text!.isEmpty == false
     }
     
     @IBAction func endEditing(sender: AnyObject) {
@@ -137,15 +137,15 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     func timestampToText(ts:Double)->String {
         let timestampAsDouble = NSTimeInterval(ts) / 1000.0
-        var date = NSDate(timeIntervalSince1970:timestampAsDouble)
-        var dateFormatter = NSDateFormatter()
+        let date = NSDate(timeIntervalSince1970:timestampAsDouble)
+        let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = .ShortStyle
         dateFormatter.timeStyle = .ShortStyle
         return dateFormatter.stringFromDate(date)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.messageTableView.dequeueReusableCellWithIdentifier("message") as! UITableViewCell
+        let cell:UITableViewCell = self.messageTableView.dequeueReusableCellWithIdentifier("message")!
         let leftLabel = cell.viewWithTag(100) as! UILabel
         let rightLabel = cell.viewWithTag(101) as! UILabel
         let leftTimeLabel = cell.viewWithTag(200) as! UILabel

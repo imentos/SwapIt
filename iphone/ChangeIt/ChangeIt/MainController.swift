@@ -7,7 +7,7 @@ extension UITabBarItem {
         // offset to center
         self.imageInsets = UIEdgeInsets(top:6,left:0,bottom:-6,right:0)
         // displace to hide
-        self.setTitlePositionAdjustment(UIOffset(horizontal:0,vertical:30000))
+        self.titlePositionAdjustment = UIOffset(horizontal:0,vertical:30000)
         return self
     }
 }
@@ -28,9 +28,10 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
         if let user = PFUser.currentUser() {
             startItemsPage()
         }
-        let tabItems = tabBar.items as! [UITabBarItem]
-        for item in tabItems {
-            item.tabBarItemShowingOnlyImage()
+        if let tabItems = tabBar.items {
+            for item in tabItems {
+                item.tabBarItemShowingOnlyImage()
+            }
         }
     }
     
@@ -41,7 +42,7 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
     
     func showLoginPage() {
         login = MyLogInViewController()
-        login.fields = PFLogInFields.SignUpButton | PFLogInFields.LogInButton | PFLogInFields.Facebook | PFLogInFields.UsernameAndPassword | PFLogInFields.PasswordForgotten
+        login.fields = [PFLogInFields.SignUpButton, PFLogInFields.LogInButton, PFLogInFields.Facebook, PFLogInFields.UsernameAndPassword, PFLogInFields.PasswordForgotten]
         login.delegate = self
         
         let signup = MySignupViewController()
@@ -110,17 +111,17 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
             //println(user?.objectId)
             if let user = user {
                 if user.isNew {
-                    println("User signed up and logged in through Facebook!")
+                    print("User signed up and logged in through Facebook!")
                 } else {
-                    println("User logged in through Facebook!")
+                    print("User logged in through Facebook!")
                 }
                 
-                var req = FBRequest.requestForMe()
+                let req = FBRequest.requestForMe()
                 req.startWithCompletionHandler{
                     (connection:FBRequestConnection!, result:AnyObject!, error:NSError!) -> Void in
-                    var resultdict = result as! NSDictionary
-                    println("Result Dict: \(resultdict)")
-                    println(resultdict["name"])
+                    let resultdict = result as! NSDictionary
+                    print("Result Dict: \(resultdict)")
+                    print(resultdict["name"])
                     let name = resultdict["name"] as! String
                     let facebookId = resultdict["id"] as! String
                     
@@ -134,7 +135,7 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
 
                 }
             } else {
-                println("Uh oh. The user cancelled the Facebook login.")
+                print("Uh oh. The user cancelled the Facebook login.")
             }
         })
         

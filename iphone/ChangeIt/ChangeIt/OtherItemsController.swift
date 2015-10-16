@@ -19,7 +19,7 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var userName: UILabel!
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
-        println("cancel")
+        print("cancel")
     }
     
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
         
         self.userName.text = self.userJSON["name"].string!
         
-        displayUserPhoto(self.userPhoto, self.userJSON)
+        displayUserPhoto(self.userPhoto, userJSON: self.userJSON)
     }
     
     func loadData() {
@@ -73,7 +73,7 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) as! UITableViewCell
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) 
         let itemJSON = itemsJSON[indexPath.row]
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
@@ -112,7 +112,7 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "detail") {
-            let selectedIndex = self.tableView.indexPathForSelectedRow()?.row
+            let selectedIndex = self.tableView.indexPathForSelectedRow?.row
             
             let detail = segue.destinationViewController as! ItemDetailController
             detail.fromOtherItems = true

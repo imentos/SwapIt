@@ -62,7 +62,7 @@ class MakeOfferController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) 
         cell.selectionStyle = .None
         
         if (selectedIndexes.contains(self.itemsJSON[indexPath.row]["objectId"].string!)) {

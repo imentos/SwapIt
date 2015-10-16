@@ -28,7 +28,7 @@ class UserEmailController : UIViewController {
     
     @IBAction func save(sender: AnyObject) {
         let email = emailText.text
-        PFCloud.callFunctionInBackground("updateUserEmail", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "email": email], block:{
+        PFCloud.callFunctionInBackground("updateUserEmail", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "email": email!], block:{
             (userFromCloud:AnyObject?, error: NSError?) -> Void in
             
             self.performSegueWithIdentifier("save", sender: self)

@@ -16,12 +16,12 @@ extension UIImage {
         
         let width = Int(self.size.width)
         let height = Int(self.size.height)
-        let context = CGBitmapContextCreate(nil, width, height, 8, 0, colorSpace!, CGBitmapInfo.allZeros);
+        let context = CGBitmapContextCreate(nil, width, height, 8, 0, colorSpace!, .allZeros);
         CGContextDrawImage(context, imageRect, self.CGImage!);
         
         let imageRef = CGBitmapContextCreateImage(context);
-        let newImage = UIImage(CGImage: imageRef)
-        return newImage!
+        let newImage = UIImage(CGImage: imageRef!)
+        return newImage
     }
 }
 
@@ -128,7 +128,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("myItemDetail", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("myItemDetail", forIndexPath: indexPath) 
         let photo = cell.viewWithTag(101) as! UIImageView
         let title = cell.viewWithTag(102) as! UILabel
         let name = cell.viewWithTag(103) as! UILabel
@@ -189,7 +189,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         } else if (segmentedControl.selectedSegmentIndex == 2) {
             let questionJSON = questionsJSON[indexPath.row]
             
-            displayUserPhoto(photo, questionJSON["user"])
+            displayUserPhoto(photo, userJSON: questionJSON["user"])
 
             title.text = questionJSON["question"]["text"].string
             name.text = questionJSON["user"]["name"].string
@@ -205,7 +205,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "itemDetail") {
-            let indexPath = detailTable.indexPathForSelectedRow()
+            let indexPath = detailTable.indexPathForSelectedRow
             let index = indexPath!.row
             let cell = detailTable.cellForRowAtIndexPath(indexPath!)
             var readIcon = cell!.viewWithTag(104) as! UIImageView
@@ -219,10 +219,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             //readIcon.hidden = true
             
         } else if (segue.identifier == "messages") {
-            let indexPath = detailTable.indexPathForSelectedRow()
+            let indexPath = detailTable.indexPathForSelectedRow
             let index = indexPath!.row
             let cell = detailTable.cellForRowAtIndexPath(indexPath!)
-            var readIcon = cell!.viewWithTag(104) as! UIImageView
+            let readIcon = cell!.viewWithTag(104) as! UIImageView
             
             let questionJSON = self.questionsJSON[index]
             

@@ -26,13 +26,13 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         let index = NSIndexPath(forRow: 0, inSection: 0)
         let cell = self.tableView.cellForRowAtIndexPath(index) as! AddWishListCell
         let newWishText = cell.newWishListText.text
-        if (newWishText.isEmpty == true) {
+        if (newWishText!.isEmpty == true) {
             return false
         }
         let wishId = NSUUID().UUIDString
         cell.newWishListText.text = ""
         
-        PFCloud.callFunctionInBackground("addWish", withParameters: ["name": newWishText, "objectId": wishId], block: {
+        PFCloud.callFunctionInBackground("addWish", withParameters: ["name": newWishText!, "objectId": wishId], block: {
             (wishes:AnyObject?, error: NSError?) -> Void in
             PFCloud.callFunctionInBackground("linkMyWish", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "objectId": wishId], block: {
                 (wishes:AnyObject?, error: NSError?) -> Void in
@@ -44,7 +44,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
 
     @IBAction func deleteAction(sender: AnyObject) {
         var title = ""
-        if (self.tableView.indexPathsForSelectedRows()?.count == 1) {
+        if (self.tableView.indexPathsForSelectedRows?.count == 1) {
             title = "Are you sure you want to remove this wish list?"
         } else {
             title = "Are you sure you want to remove these wish lists?"
@@ -56,7 +56,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         if (buttonIndex == 0) {
             let userId = PFUser.currentUser()?.objectId
-            let selectedRows = self.tableView.indexPathsForSelectedRows()
+            let selectedRows = self.tableView.indexPathsForSelectedRows
             let selectedRowsCount = selectedRows?.count
             if (selectedRowsCount != self.wishesJSON.count) {
                 var deleteObjectIds = [String]()
@@ -132,7 +132,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     }
     
     func updateDeleteButtonTitle() {
-        let selectedRows = self.tableView.indexPathsForSelectedRows()
+        let selectedRows = self.tableView.indexPathsForSelectedRows
         
         let allItemsAreSelected = selectedRows == nil ? false : selectedRows!.count == self.wishesJSON.count
         let noItemsAreSelected = selectedRows == nil ? true :selectedRows!.count == 0
@@ -205,7 +205,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
             }
             return cell
         }
-        let cell = tableView.dequeueReusableCellWithIdentifier("wishList", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("wishList", forIndexPath: indexPath) 
         cell.textLabel?.text = wishesJSON[indexPath.row - 1]["name"].string
         cell.selectionStyle = UITableViewCellSelectionStyle.Default
         

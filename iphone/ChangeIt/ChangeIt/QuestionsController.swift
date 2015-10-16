@@ -62,7 +62,7 @@ class QuestionsController: UITableViewController, UIActionSheetDelegate {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("question", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("question", forIndexPath: indexPath) 
         
         let itemTitle = cell.viewWithTag(102) as! UILabel
         itemTitle.text = questionsJSON[indexPath.row]["item"]["title"].string
@@ -86,7 +86,7 @@ class QuestionsController: UITableViewController, UIActionSheetDelegate {
             return
         }
         
-        let index = tableView.indexPathForSelectedRow()?.row
+        let index = tableView.indexPathForSelectedRow?.row
         let messages = segue.destinationViewController as! MessagesController
         messages.fromUser = true
         messages.title = questionsJSON[index!]["item"]["title"].string

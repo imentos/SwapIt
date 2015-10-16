@@ -30,7 +30,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.navigationController?.navigationBarHidden = true
         }
         self.tabBarController?.tabBar.hidden = false
-        println("cancel")
+        print("cancel")
     }
     
     override func viewDidLoad() {
@@ -64,7 +64,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             return
         }
         if (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) {
-            println("currentPageNumber:\(currentPageNumber)")
+            print("currentPageNumber:\(currentPageNumber)")
             if (isPageRefreshing == false){
                 isPageRefreshing = true;
                 if (self.searchQuery == "nearMe") {
@@ -143,11 +143,11 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                     for item in items {
                         let itemId = item["neo4jId"] as! String
                         // TODO: see how to make async calls
-                        var itemResult = PFCloud.callFunction("getItemExceptMe", withParameters: ["itemId": itemId, "userId": (PFUser.currentUser()?.objectId)!])
+                        let itemResult = PFCloud.callFunction("getItemExceptMe", withParameters: ["itemId": itemId, "userId": (PFUser.currentUser()?.objectId)!])
                         if (itemResult == nil) {
                             continue
                         }
-                        var itemJSON = JSON(data:(itemResult as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                        let itemJSON = JSON(data:(itemResult as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                         total = total + itemJSON.arrayValue
                     }
                     self.itemsJSON = JSON(total)
@@ -182,24 +182,29 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles as! [String]
-        let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
-        loadDataByFunction(getQuery(selectedScope), limit:ITEMS_PER_PAGE) { (results) -> Void in
+        if let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles {
+            let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
+            loadDataByFunction(getQuery(selectedScope), limit:ITEMS_PER_PAGE) { (results) -> Void in
+            }
         }
     }
     
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
-        let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles as! [String]
-        let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
-        self.filterContentForSearchText(searchString, scope: selectedScope)
-        return true
+        if let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles {
+            let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
+            self.filterContentForSearchText(searchString, scope: selectedScope)
+            return true
+        }
+        return false
     }
     
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchScope searchOption: Int) -> Bool {
-        let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles as! [String]
-        let searchString = self.searchDisplayController!.searchBar.text.isEmpty ? ".*" : self.searchDisplayController!.searchBar.text
-        self.filterContentForSearchText(searchString, scope: scopes[searchOption])
-        return true
+        if let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles {
+            let searchString = self.searchDisplayController!.searchBar.text!.isEmpty ? ".*" : self.searchDisplayController!.searchBar.text
+            self.filterContentForSearchText(searchString!, scope: scopes[searchOption])
+            return true
+        }
+        return false
     }
 
     func getQuery(scope:String)->String {
@@ -250,16 +255,17 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = self.tableView.dequeueReusableCellWithIdentifier("item") as! UITableViewCell
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath)
 //        let itemJSON = (tableView == self.searchDisplayController!.searchResultsTableView) ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
         let itemJSON = itemsJSON[indexPath.row]
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             if let x = imageObj {
                 if let imageFile = imageObj!["file"] as? PFFile {
-                    let imageData = imageFile.getData()
-                    let itemImage = cell.viewWithTag(101) as! UIImageView
-                    itemImage.image = UIImage(data: imageData!)
+                    if let imageData = imageFile.getData() {
+                        let itemImage = cell.viewWithTag(101) as! UIImageView
+                        itemImage.image = UIImage(data: imageData)
+                    }
                 }
             }
         })
@@ -281,7 +287,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        if tableView == self.searchDisplayController!.searchResultsTableView {
 //            itemJSON = filteredItems[(tableView.indexPathForSelectedRow()?.row)!]
 //        } else {
-            itemJSON = itemsJSON[(tableView.indexPathForSelectedRow()?.row)!]
+            itemJSON = itemsJSON[(tableView.indexPathForSelectedRow?.row)!]
 //        }
 
         // get user info based on item

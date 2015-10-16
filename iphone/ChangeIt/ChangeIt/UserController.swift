@@ -49,7 +49,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         super.viewDidLoad()
         picker!.delegate = self
         
-        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "editImage")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "editImage")
         tap.numberOfTapsRequired = 1
         self.userPhoto.userInteractionEnabled = true
         self.userPhoto.addGestureRecognizer(tap)
@@ -93,7 +93,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
                     self.phoneButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
                 }
                 
-                displayUserPhoto(self.userPhoto, self.userJSON)
+                displayUserPhoto(self.userPhoto, userJSON: self.userJSON)
             })
         }
     }
@@ -139,17 +139,17 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     }
     
     func editImage() {
-        var alert:UIAlertController = UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let alert:UIAlertController = UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        var cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default) {
+        let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default) {
             UIAlertAction in
             self.openCamera()
         }
-        var gallaryAction = UIAlertAction(title: "Gallery", style: UIAlertActionStyle.Default) {
+        let gallaryAction = UIAlertAction(title: "Gallery", style: UIAlertActionStyle.Default) {
             UIAlertAction in
             self.openGallary()
         }
-        var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
             UIAlertAction in
         }
         
@@ -180,9 +180,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         }
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        picker.dismissViewControllerAnimated(true, completion: nil)
-        let image:UIImage = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         let scaledImage = resizeImage(image)
         self.userPhoto.layer.borderWidth = 1
         self.userPhoto.layer.masksToBounds = true
@@ -190,7 +188,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
         self.userPhoto.image = scaledImage
         
-        let imageFile = PFFile(name:"image.png", data:UIImagePNGRepresentation(scaledImage))
+        let imageFile = PFFile(name:"image.png", data:UIImagePNGRepresentation(scaledImage)!)
         var imageObj = PFObject(className:"Image")
         imageObj["file"] = imageFile
         imageObj.save()

@@ -32,11 +32,11 @@ class QuestionController: UITableViewController {
         self.questionTextView.text = questionJSON["question"]["text"].string
         self.userNameLabel.text = questionJSON["user"]["name"].string
         
-        displayUserPhoto(self.userPhoto, self.questionJSON["user"])
+        displayUserPhoto(self.userPhoto, userJSON: self.questionJSON["user"])
 
         let timestampAsDouble = NSTimeInterval(questionJSON["question"]["timestamp"].double!) / 1000.0
-        var date = NSDate(timeIntervalSince1970:timestampAsDouble)
-        var dateFormatter = NSDateFormatter()
+        let date = NSDate(timeIntervalSince1970:timestampAsDouble)
+        let dateFormatter = NSDateFormatter()
         //dateFormatter.dateFormat = "yyyy.MM.dd"//"EEE, MMM d, 'yy"
         dateFormatter.dateStyle = .FullStyle
         self.timestamp.text = dateFormatter.stringFromDate(date)

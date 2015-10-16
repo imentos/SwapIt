@@ -45,7 +45,7 @@ class OffersController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("offer", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("offer", forIndexPath: indexPath) 
         let offerJSON = offersJSON[indexPath.row]
         
         PFQuery(className:"Image").getObjectInBackgroundWithId(offerJSON["src"]["photo"].string!, block: {
@@ -62,7 +62,7 @@ class OffersController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "offerDetail") {
-            let offerJSON = offersJSON[(tableView.indexPathForSelectedRow()?.row)!]
+            let offerJSON = offersJSON[(tableView.indexPathForSelectedRow?.row)!]
             
             //let navi = segue.destinationViewController as! UINavigationController
             //let details = navi.topViewController as! OffersDetailController

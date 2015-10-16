@@ -31,7 +31,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     var fromOffer:Bool! = false
     var myItemId:String!
     var fromOtherItems:Bool! = false
-    var horizontalConstraints:[AnyObject]!
+    var horizontalConstraints:[NSLayoutConstraint]!
     @IBOutlet weak var acceptBtn: UIButton!
     @IBOutlet weak var rejectBtn: UIButton!
     
@@ -49,7 +49,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         self.acceptBtn.hidden = true
         self.rejectBtn.hidden = true
         
-        photoImage.setTranslatesAutoresizingMaskIntoConstraints(false)
+        photoImage.translatesAutoresizingMaskIntoConstraints = false
 
         let photoTap = UITapGestureRecognizer(target: self, action: Selector("tapPhotoImage"))
         photoTap.numberOfTapsRequired = 1
@@ -364,7 +364,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         })
         let saveAction = UIAlertAction(title: "Twitter", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            println("share on Twitter")
+            print("share on Twitter")
             // TWITTER START
             if(SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter)) {
                 // Create the tweet
@@ -390,7 +390,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         //
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
             (alert: UIAlertAction!) -> Void in
-            println("Cancelled")
+            print("Cancelled")
         })
         
         
@@ -441,7 +441,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
-        println("cancel")
+        print("cancel")
     }
     
     @IBAction func askQuestion(sender: AnyObject) {
@@ -466,7 +466,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         self.descriptionTextView.text = itemJSON["description"].string
         self.userLabel.text = userJSON["name"].string
         
-        displayUserPhoto(self.userPhoto, self.userJSON)
+        displayUserPhoto(self.userPhoto, userJSON: self.userJSON)
         
         if (self.myItem == true) {
             self.makeOfferButton.enabled = false
@@ -493,7 +493,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         let views = Dictionary(dictionaryLiteral: ("item",self.photoImage))
         if let x = horizontalConstraints {
         } else {
-            horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[item]|", options: nil, metrics: nil, views: views)
+            horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[item]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
             self.photoImage.superview!.addConstraints(horizontalConstraints)
         }
         self.photoImage.superview?.updateConstraints()
@@ -519,7 +519,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         imageInfo.referenceCornerRadius = self.photoImage.layer.cornerRadius;
         
         let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: JTSImageViewControllerBackgroundOptions.Scaled)
-        imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition._FromOriginalPosition)
+        imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition.FromOriginalPosition)
     }
     
     func tapOtherImage() {
@@ -532,7 +532,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         imageInfo.referenceCornerRadius = self.otherItemImageView.layer.cornerRadius;
         
         let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: JTSImageViewControllerBackgroundOptions.Scaled)
-        imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition._FromOriginalPosition)
+        imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition.FromOriginalPosition)
     }
 
     override func didReceiveMemoryWarning() {

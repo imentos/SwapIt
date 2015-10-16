@@ -15,7 +15,7 @@ class OffersDetailController: UITableViewController {
     @IBOutlet var itemImageView: UIImageView!
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
-        println("cancel")
+        print("cancel")
     }
     
     override func viewDidLoad() {
@@ -48,7 +48,7 @@ class OffersDetailController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("offerFrom", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("offerFrom", forIndexPath: indexPath) 
         
         let dstJSON = offerJSON["src"]["dst"][indexPath.row]
 
@@ -74,7 +74,7 @@ class OffersDetailController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "itemDetail") {
-            let selectedIndex = self.tableView.indexPathForSelectedRow()?.row
+            let selectedIndex = self.tableView.indexPathForSelectedRow?.row
             
             let detail = segue.destinationViewController as! ItemDetailController
             detail.fromOffer = true
