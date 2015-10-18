@@ -55,7 +55,6 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         center.addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
-
     }
     
     func DismissKeyboard(){
@@ -67,26 +66,40 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         
         loadData()
     }
-
+    
+    override func viewDidDisappear(animated: Bool) {
+        let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
+        center.removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        center.removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
     func keyboardWillShow(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
                 kbHeight = keyboardSize.height
-                self.animateTextField(true)
+                if (self.view.frame.origin.y >= 0) {
+                    self.moveViewUp(true)
+                } else {
+                    self.moveViewUp(false)
+                }
             }
         }
     }
     
-    func animateTextField(up: Bool) {
+    func keyboardWillHide(notification: NSNotification) {
+        if (self.view.frame.origin.y >= 0) {
+            self.moveViewUp(true)
+        } else {
+            self.moveViewUp(false)
+        }
+    }
+    
+    func moveViewUp(up: Bool) {
         let movement = (up ? -kbHeight : kbHeight)
         
         UIView.animateWithDuration(0.3, animations: {
             self.view.frame = CGRectOffset(self.view.frame, 0, movement)
         })
-    }
-    
-    func keyboardWillHide(notification: NSNotification) {
-        self.animateTextField(false)
     }
     
     func loadUser() {
@@ -122,7 +135,7 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         self.emailButton.setImage(UIImage(named: communications.contains("email") == false ? "mail_grey" : "mail_red"), forState: .Normal)
         self.phoneButton.setImage(UIImage(named: communications.contains("phone") == false ? "phone_grey" : "phone_red"), forState: .Normal)
     }
-
+    
     @IBAction func saveItem(sender: AnyObject) {
         PFCloud.callFunctionInBackground("updateItem", withParameters: ["itemId": self.itemJSON["objectId"].string!, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": self.communications.joinWithSeparator(",")], block:{
             (results:AnyObject?, error: NSError?) -> Void in
@@ -154,7 +167,7 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
                                 (result, error) -> Void in
                                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                     self.performSegueWithIdentifier("addItem", sender: self)
-                                })                                
+                                })
                             })
                         }
                     } else {
@@ -249,7 +262,7 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         
         self.imageId = imageObj.objectId
     }
-        
+    
     func resizeImage(image: UIImage) -> UIImage {
         let size = CGSizeApplyAffineTransform(image.size, CGAffineTransformMakeScale(0.1, 0.1))
         let hasAlpha = false
@@ -296,6 +309,10 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
+        if (self.view.frame.origin.y >= 0) {
+            self.moveViewUp(true)
+        }
+        
         if (self.descriptionTextView.text == TEXT_VIEW_PLACE_HOLDER) {
             self.descriptionTextView.text = ""
             self.descriptionTextView.textColor = UIColor.blackColor()
