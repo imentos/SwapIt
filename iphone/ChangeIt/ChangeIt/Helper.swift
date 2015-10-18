@@ -14,13 +14,10 @@ func displayUserPhoto(userPhoto:UIImageView, userJSON:JSON) {
     userPhoto.layer.masksToBounds = true
     userPhoto.layer.borderColor = UIColor.blackColor().CGColor
     userPhoto.layer.cornerRadius = userPhoto.bounds.height / 2
+    userPhoto.image = UIImage(named: "bottom_User_Inactive")
     if (userJSON["photo"] == nil) {
-        if (PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!)) {
-            if let image = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=160&height=160", userJSON["facebookId"].string!))!) {
-                userPhoto.image = UIImage(data: image)
-            }
-        } else {
-            userPhoto.image = UIImage(named: "bottom_User_Inactive")
+        if let image = NSData(contentsOfURL: NSURL(string: String(format:"https://graph.facebook.com/%@/picture?width=160&height=160", userJSON["facebookId"].string!))!) {
+            userPhoto.image = UIImage(data: image)
         }
     } else {
         PFQuery(className:"Image").getObjectInBackgroundWithId(userJSON["photo"].string!, block: {

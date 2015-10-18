@@ -26,7 +26,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     var userJSON:JSON!
     var questionJSON:JSON!
     var otherItemId:String!
-    var myItem:Bool! = false
     var acceptable:Bool! = false
     var fromOffer:Bool! = false
     var myItemId:String!
@@ -182,7 +181,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     func loadData(myItem:Bool) {
-        self.myItem = myItem
         // check if the offer has been made
         let itemId = self.itemJSON["objectId"].string
         
@@ -192,7 +190,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             self.photoImage.image = UIImage(data: imageData!)
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.showData()
+                self.showData(myItem)
             })
             
             // TODO: reduce calls
@@ -200,7 +198,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             PFCloud.callFunctionInBackground("getReceivedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
                 let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                self.acceptable = resultsJSON.count > 0
+                self.acceptable = resultsJSON.count > 0 && self.fromOffer == false
                 self.myItemId = resultsJSON[0]["item"]["objectId"].string
                 
                 // for offer received
@@ -231,7 +229,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                         }
                     });
                 }
-                
                 
                 PFCloud.callFunctionInBackground(self.acceptable == true ? "getReceivedItemsByUser" : "getExchangedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
                     (results:AnyObject?, error: NSError?) -> Void in
@@ -309,21 +306,11 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.makeOfferButton.title = "Edit Offer"
                     self.loadData(false)
-                    
-                    self.allWaytoUserPage()
                 })
             })
         } else {
             self.makeOfferButton.title = "Make Offer"
             self.loadData(false)
-            
-            self.allWaytoUserPage()
-        }
-    }
-    
-    func allWaytoUserPage() {
-        if (self.fromOffer == true) {
-            self.navigationItem.leftBarButtonItem = self.backToUserButton
         }
     }
     
@@ -457,7 +444,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         })
     }
     
-    func showData() {
+    func showData(myItem:Bool) {
         if let i = itemJSON {
         } else {
             return
@@ -468,7 +455,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         
         displayUserPhoto(self.userPhoto, userJSON: self.userJSON)
         
-        if (self.myItem == true) {
+        if (myItem == true) {
             self.makeOfferButton.enabled = false
             self.wishBtn.enabled = false
             self.bookmarkBtn.enabled = false

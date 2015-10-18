@@ -23,8 +23,6 @@
 		B34150421BBBA06400385915 /* UserPhoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34150411BBBA06400385915 /* UserPhoneController.swift */; };
 		B34150441BBCF1CD00385915 /* MySignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34150431BBCF1CD00385915 /* MySignupViewController.swift */; };
 		B348CD001AFA929100CFC04E /* MakeOfferController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */; };
-		B348CD021AFBDCD500CFC04E /* OffersDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */; };
-		B3499B951AFAE3FE00DDD536 /* OffersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3499B941AFAE3FE00DDD536 /* OffersController.swift */; };
 		B35412E21B53515C007785B3 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35412E11B53515C007785B3 /* MessagesController.swift */; };
 		B35C66411AE951FC0029055F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35C66361AE951FC0029055F /* AudioToolbox.framework */; };
 		B35C66421AE951FC0029055F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35C66371AE951FC0029055F /* CFNetwork.framework */; };
@@ -110,8 +108,6 @@
 		B34150411BBBA06400385915 /* UserPhoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhoneController.swift; sourceTree = "<group>"; };
 		B34150431BBCF1CD00385915 /* MySignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySignupViewController.swift; sourceTree = "<group>"; };
 		B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOfferController.swift; sourceTree = "<group>"; };
-		B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersDetailController.swift; sourceTree = "<group>"; };
-		B3499B941AFAE3FE00DDD536 /* OffersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersController.swift; sourceTree = "<group>"; };
 		B35412E11B53515C007785B3 /* MessagesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		B35C66361AE951FC0029055F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B35C66371AE951FC0029055F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -248,8 +244,6 @@
 				B3CE9D7B1BCF769800A03A20 /* SwiftyJSON.swift */,
 				7F1210771BACC02D00C4F65D /* Geogtq-Rg.otf */,
 				B348CCFF1AFA929100CFC04E /* MakeOfferController.swift */,
-				B3499B941AFAE3FE00DDD536 /* OffersController.swift */,
-				B348CD011AFBDCD500CFC04E /* OffersDetailController.swift */,
 				B31BC9E11AED04DD00E1F99A /* AddItemController.swift */,
 				B374319F1AE861A600A0808B /* UserController.swift */,
 				B34150411BBBA06400385915 /* UserPhoneController.swift */,
@@ -488,11 +482,9 @@
 				B3F014BD1BCE1FD700DD33C7 /* JTSImageViewController.m in Sources */,
 				B3F014BF1BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.m in Sources */,
 				B3CE9D7C1BCF769800A03A20 /* SwiftyJSON.swift in Sources */,
-				B348CD021AFBDCD500CFC04E /* OffersDetailController.swift in Sources */,
 				B3B1206A1B96BC420020D13E /* MyLogInViewController.swift in Sources */,
 				B3D2AA971BBDBE4C00E00776 /* LMDropdownView.m in Sources */,
 				B38AF8EB1B3E325000AB19F7 /* QuestionsController.swift in Sources */,
-				B3499B951AFAE3FE00DDD536 /* OffersController.swift in Sources */,
 				B37C10291AE9BE280086864F /* WishListController.swift in Sources */,
 				B34150441BBCF1CD00385915 /* MySignupViewController.swift in Sources */,
 				B3F0149B1BCD732B00DD33C7 /* Helper.swift in Sources */,

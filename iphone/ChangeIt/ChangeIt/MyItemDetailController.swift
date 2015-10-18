@@ -98,10 +98,15 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if (segmentedControl.selectedSegmentIndex == 2) {
-            self.performSegueWithIdentifier("messages", sender: self)
+        if (segmentedControl.selectedSegmentIndex == 0) {
+            self.performSegueWithIdentifier("offerReceived", sender: self)
+            
+        } else if (segmentedControl.selectedSegmentIndex == 1) {
+            self.performSegueWithIdentifier("offerSent", sender: self)
+            
         } else {
-            self.performSegueWithIdentifier("itemDetail", sender: self)
+            self.performSegueWithIdentifier("messages", sender: self)
+            
         }
     }
 
@@ -204,7 +209,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "itemDetail") {
+        if (segue.identifier == "offerSent") {
             let indexPath = detailTable.indexPathForSelectedRow
             let index = indexPath!.row
             let cell = detailTable.cellForRowAtIndexPath(indexPath!)
@@ -215,8 +220,24 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             let detail = segue.destinationViewController as! ItemDetailController
             detail.itemJSON = itemJSON["item"]
             detail.userJSON = itemJSON["user"]
+            detail.fromOffer = true
             detail.loadData(false)
             //readIcon.hidden = true
+            
+        } else if (segue.identifier == "offerReceived") {
+            let indexPath = detailTable.indexPathForSelectedRow
+            let index = indexPath!.row
+            let cell = detailTable.cellForRowAtIndexPath(indexPath!)
+            var readIcon = cell!.viewWithTag(104) as! UIImageView
+            
+            let itemJSON = segmentedControl.selectedSegmentIndex == 0 ? receivedItemsJSON[index] : offeredItemsJSON[index]
+            
+            let detail = segue.destinationViewController as! ItemDetailController
+            detail.itemJSON = itemJSON["item"]
+            detail.userJSON = itemJSON["user"]
+            detail.fromOffer = false
+            detail.loadData(false)
+                //readIcon.hidden = true
             
         } else if (segue.identifier == "messages") {
             let indexPath = detailTable.indexPathForSelectedRow

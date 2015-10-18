@@ -108,11 +108,6 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
             view.title = "Wish List"
             view.loadData(PFUser.currentUser()?.objectId!, otherWishlist: false)
             
-        } else if (segue.identifier == "offerSent") {
-            let view = segue.destinationViewController as! OffersController
-            view.title = "Offers Sent"
-            view.loadData()
-            
         } else if (segue.identifier == "bookmarks") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.topViewController as! ItemsController
