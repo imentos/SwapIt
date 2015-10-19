@@ -172,6 +172,62 @@ Parse.Cloud.define("setQuestionRead", function(request, response) {
     });
 });
 
+Parse.Cloud.define("setQuestionUnread", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (q:Question{objectId:{objectId}})-[r:LINK]->() SET r.read = false RETURN q',
+            params: {
+                objectId: request.params.objectId
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            json_result.data.forEach(function(o) {
+                aResults.push(o[0])
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+Parse.Cloud.define("getUnreadReceivedQuestionsCountOfItem", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (n:Item{objectId:{itemId}})<-[r:LINK]-(q:Question)<-[a:ASK]-(u:User) WHERE r.read = false AND ((u)-[:OFFER]->(:Item)-[:EXCHANGE]->(n))  RETURN COUNT(r)',
+            params: {
+                itemId: request.params.itemId
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            json_result.data.forEach(function(o) {
+                aResults.push(o[0])
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
 Parse.Cloud.define("getUnreadQuestionsCountOfItem", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
@@ -227,7 +283,6 @@ Parse.Cloud.define("getQuestionsCountOfItem", function(request, response) {
         }
     });
 });
-
 
 Parse.Cloud.define("getQuestionedItems", function(request, response) {
     Parse.Cloud.httpRequest({

@@ -86,6 +86,11 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             let uuid = NSUUID().UUIDString
             PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": self.messageTextField.text!, "objectId": uuid, "questionId": (questionJSON["objectId"].string)!, "userId": (PFUser.currentUser()?.objectId)!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
+                
+                PFCloud.callFunctionInBackground("setQuestionUnread", withParameters: ["objectId": self.questionJSON["objectId"].string!], block:{
+                    (results:AnyObject?, error: NSError?) -> Void in
+                })
+                
                 self.loadData()
             })
         

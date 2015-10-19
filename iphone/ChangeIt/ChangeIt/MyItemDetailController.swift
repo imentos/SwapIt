@@ -160,12 +160,20 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             } else {
                 statusIcon.image = UIImage(named: "offer_new")
             }
-
-//            if (questionJSON["link"]["read"].bool!) {
-//                statusIcon.image = nil
-//            } else {
-//                statusIcon.image = UIImage(named: "offer_new")
-//            }
+            
+            PFCloud.callFunctionInBackground("getUnreadReceivedQuestionsCountOfItem", withParameters: ["itemId":self.itemJSON["objectId"].string!], block:{
+                (result:AnyObject?, error: NSError?) -> Void in
+                if (result == nil) {
+                    return;
+                }
+                let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                let unreadQuestions = countJSON[0].int!
+                if (unreadQuestions > 0) {
+                    newQuestionIcon.image = UIImage(named: "offer_new")
+                } else {
+                    newQuestionIcon.image = nil
+                }
+            })
         
         } else if (segmentedControl.selectedSegmentIndex == 1) {
             let itemJSON = offeredItemsJSON[indexPath.row]
