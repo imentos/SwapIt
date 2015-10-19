@@ -20,11 +20,6 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
         self.tabBarController?.tabBar.hidden = false
-//
-//        let indexPath = self.tableView.indexPathForSelectedRow()
-//        let cell = tableView.cellForRowAtIndexPath(indexPath!)
-//        let itemJSON = itemsJSON[indexPath!.row]
-//        updateUnread(itemJSON, cell: cell!)
     }
     
     func updateUnread(itemJSON:JSON, cell:UITableViewCell) {
@@ -57,12 +52,6 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
                 } else {
                     newoffersCountLabel.text = "0";
                 }
-                
-//                if (unreadOffers + unreadQuestions > 0) {
-//                    cell.backgroundColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:0.2)
-//                } else {
-//                    cell.backgroundColor = UIColor.clearColor()
-//                }
             })
         })
     }
