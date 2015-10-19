@@ -15,6 +15,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     @IBOutlet var backToUserButton: UIBarButtonItem!
     @IBOutlet weak var exchangeImage: UIImageView!
     @IBOutlet weak var photoImage: UIImageView!
+    @IBOutlet var originalPhotoImage: UIImage!
     @IBOutlet var otherItemImageView: UIImageView!
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var userPhoto: UIImageView!
@@ -196,6 +197,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.photoImage.image = UIImage(data: imageData!)
+            self.originalPhotoImage = UIImage(data: imageData!)
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.showData(myItem)
@@ -323,29 +325,18 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     @IBAction func socialShare(sender: AnyObject) {
-       // var alert:UIAlertController = UIAlertController(title: "Share Item", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-        
         let optionMenu = UIAlertController(title: nil, message: "Share On", preferredStyle: .ActionSheet)
-        
-        // 2
         let deleteAction = UIAlertAction(title: "Facebook", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            //println("share on facebook")
-            // Facebook START
             if (SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook))
             {
                 // Create the post
                 let post = SLComposeViewController(forServiceType: (SLServiceTypeFacebook))
-                //
-               // NSString  ttt=[mylabelname text]
-                //[slComposeViewController setInitialText:[NSString stringWithFormat:@"Posting to Facebook: %@", posttofacebooktext]];
-                //
                 var f = "I am using BRTTR app and found "
-                //p += self.userLabel.text!
                 f += self.title!
                 f += "... Download the app here."
                 post.setInitialText(f)
-                post.addImage(self.photoImage.image)
+                post.addImage(self.originalPhotoImage)
                 post.addURL(NSURL(string: "http://www.brttr.com"))
                 self.presentViewController(post, animated: true, completion: nil)
             } else {
@@ -355,7 +346,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 
                 self.presentViewController(alert, animated: true, completion: nil)
             }
-            //
         })
         let saveAction = UIAlertAction(title: "Twitter", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
@@ -379,37 +369,18 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
             }
-            //
         })
         
-        //
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
         })
         
-        
-        // 4
         optionMenu.addAction(deleteAction)
         optionMenu.addAction(saveAction)
         optionMenu.addAction(cancelAction)
         
-        // 5
         self.presentViewController(optionMenu, animated: true, completion: nil)
-        
-        
-//        var shareToFacebook : SLComposeViewController =
-//        SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-//        shareToFacebook.setInitialText("This is dummy text.")
-//        self.presentViewController(shareToFacebook, animated: true, completion:nil)
-//>>>>>>> Stashed changes
-        
-        //var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
-            //UIAlertAction in
-        //}
-        //alert.addAction(cancelAction)
-
-        //self.presentViewController(alert, animated: true, completion: nil)
     }
 
     @IBAction func bookmarkItem(sender: AnyObject) {
