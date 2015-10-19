@@ -95,11 +95,13 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
     
     func moveViewUp(up: Bool) {
-        let movement = (up ? -kbHeight : kbHeight)
-        
-        UIView.animateWithDuration(0.3, animations: {
-            self.view.frame = CGRectOffset(self.view.frame, 0, movement)
-        })
+        if let h = kbHeight {
+            let movement = (up ? -kbHeight : kbHeight)
+            
+            UIView.animateWithDuration(0.3, animations: {
+                self.view.frame = CGRectOffset(self.view.frame, 0, movement)
+            })
+        }
     }
     
     func loadUser() {
