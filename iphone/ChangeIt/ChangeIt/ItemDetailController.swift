@@ -66,6 +66,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         self.userPhoto.addGestureRecognizer(userTap)
         
         self.expandItemImage()
+        
+        if (self.fromOffer == false) {
+            PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["objectId": itemJSON["objectId"].string!], block:{
+                (results:AnyObject?, error: NSError?) -> Void in
+            })
+        }
     }
     
     override func viewDidAppear(animated: Bool) {

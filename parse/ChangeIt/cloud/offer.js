@@ -333,7 +333,7 @@ Parse.Cloud.define("setExchangeRead", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item{objectId:{objectId}})-[r:EXCHANGE]->() SET r.read = true RETURN o',
+            query: 'MATCH (o:Item{objectId:{objectId}})<-[r:EXCHANGE]->() SET r.read = true RETURN o',
             params: {
                 objectId: request.params.objectId
             }

@@ -56,6 +56,10 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         //self.messageTextField.becomeFirstResponder()
         self.messageTextField.autocorrectionType = UITextAutocorrectionType.No
         self.messageTextField.delegate = self
+        
+        PFCloud.callFunctionInBackground("setQuestionRead", withParameters: ["objectId": questionJSON["objectId"].string!], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+        })
     }
     
     override func viewDidAppear(animated: Bool) {

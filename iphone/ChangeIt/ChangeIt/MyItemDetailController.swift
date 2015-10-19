@@ -137,9 +137,9 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         let photo = cell.viewWithTag(101) as! UIImageView
         let title = cell.viewWithTag(102) as! UILabel
         let name = cell.viewWithTag(103) as! UILabel
-        let readIcon = cell.viewWithTag(104) as! UIImageView
         let status = cell.viewWithTag(105) as! UILabel
         let statusIcon = cell.viewWithTag(106) as! UIImageView
+        let newQuestionIcon = cell.viewWithTag(107) as! UIImageView
         
         status.text = ""
         statusIcon.image = nil
@@ -160,8 +160,13 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             } else {
                 statusIcon.image = UIImage(named: "offer_new")
             }
-            //readIcon.hidden = offeredItemJSON["exchange"]["read"].bool!
 
+//            if (questionJSON["link"]["read"].bool!) {
+//                statusIcon.image = nil
+//            } else {
+//                statusIcon.image = UIImage(named: "offer_new")
+//            }
+        
         } else if (segmentedControl.selectedSegmentIndex == 1) {
             let itemJSON = offeredItemsJSON[indexPath.row]
             
@@ -188,8 +193,6 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             })
             title.text = itemJSON["item"]["title"].string
             name.text = itemJSON["user"]["name"].string
-
-            //readIcon.hidden = offeredItemJSON["exchange"]["read"].bool!
             
         } else if (segmentedControl.selectedSegmentIndex == 2) {
             let questionJSON = questionsJSON[indexPath.row]
@@ -203,7 +206,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             } else {
                 statusIcon.image = UIImage(named: "offer_new")
             }
-            //readIcon.hidden = questionJSON["link"]["read"].bool!
+
         }
         return cell
     }
@@ -212,9 +215,6 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         if (segue.identifier == "offerSent") {
             let indexPath = detailTable.indexPathForSelectedRow
             let index = indexPath!.row
-            let cell = detailTable.cellForRowAtIndexPath(indexPath!)
-            var readIcon = cell!.viewWithTag(104) as! UIImageView
-            
             let itemJSON = segmentedControl.selectedSegmentIndex == 0 ? receivedItemsJSON[index] : offeredItemsJSON[index]
             
             let detail = segue.destinationViewController as! ItemDetailController
@@ -222,14 +222,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             detail.userJSON = itemJSON["user"]
             detail.fromOffer = true
             detail.loadData(false)
-            //readIcon.hidden = true
             
         } else if (segue.identifier == "offerReceived") {
             let indexPath = detailTable.indexPathForSelectedRow
             let index = indexPath!.row
-            let cell = detailTable.cellForRowAtIndexPath(indexPath!)
-            var readIcon = cell!.viewWithTag(104) as! UIImageView
-            
             let itemJSON = segmentedControl.selectedSegmentIndex == 0 ? receivedItemsJSON[index] : offeredItemsJSON[index]
             
             let detail = segue.destinationViewController as! ItemDetailController
@@ -237,14 +233,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             detail.userJSON = itemJSON["user"]
             detail.fromOffer = false
             detail.loadData(false)
-                //readIcon.hidden = true
             
         } else if (segue.identifier == "messages") {
             let indexPath = detailTable.indexPathForSelectedRow
             let index = indexPath!.row
-            let cell = detailTable.cellForRowAtIndexPath(indexPath!)
-            let readIcon = cell!.viewWithTag(104) as! UIImageView
-            
             let questionJSON = self.questionsJSON[index]
             
             let messages = segue.destinationViewController as! MessagesController
@@ -253,8 +245,6 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             messages.userJSON = questionJSON["user"]
             messages.itemJSON = itemJSON
             messages.loadData()
-            
-            readIcon.hidden = true
             
         } else if (segue.identifier == "edit") {
             let item = segue.destinationViewController as! AddItemController
