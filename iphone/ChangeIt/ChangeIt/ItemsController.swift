@@ -16,6 +16,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     var searchQuery:String!
     
     var searchController = UISearchController()
+    var isDataFiltered:Bool = false
     
     // pagination
     let ITEMS_PER_PAGE:Int = 3
@@ -210,11 +211,16 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         return "getAllItemsExceptMe"
     }
     
+    
+    
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
+        if searchText.isEmpty {
+            isDataFiltered = false
+        } else {
         PFCloud.callFunctionInBackground(getQuery(scope), withParameters: ["search": searchText, "userId": (PFUser.currentUser()?.objectId)!, "limit": ITEMS_PER_PAGE], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if (results == nil) {
@@ -222,8 +228,10 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 return
             }
             self.filteredItems = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            self.isDataFiltered = true
             self.tableView.reloadData()
         })
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -240,20 +248,15 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if itemsJSON == nil {
-            return 0
-        }
-        if (self.searchController.active) {
+        if (self.isDataFiltered) {
             return self.filteredItems.count
-        } else {
-            return self.itemsJSON.count
         }
         return self.itemsJSON.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath)
-        let itemJSON = self.searchController.active ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
+        var itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             if let x = imageObj {
@@ -277,15 +280,15 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         //self.navigationController?.navigationBarHidden = false
         self.tabBarController?.tabBar.hidden = true
-        self.searchController.active = false
         
         var itemJSON:JSON = nil
         let tableView = sender as! UITableView
-        if self.searchController.active {
+        if self.isDataFiltered {
             itemJSON = filteredItems[(tableView.indexPathForSelectedRow?.row)!]
         } else {
             itemJSON = itemsJSON[(tableView.indexPathForSelectedRow?.row)!]
         }
+        self.searchController.active = false
 
         // get user info based on item
         PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(itemJSON["objectId"].string)!], block:{
