@@ -9,11 +9,13 @@
 import UIKit
 import Parse
 
-class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
+class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating {
     var bookmarkMode:Bool = false
     var itemsJSON:JSON = nil
     var filteredItems:JSON = JSON("{}")
     var searchQuery:String!
+    
+    var searchController = UISearchController()
     
     // pagination
     let ITEMS_PER_PAGE:Int = 3
@@ -27,7 +29,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
         if (bookmarkMode == false) {
-            self.navigationController?.navigationBarHidden = true
+            //self.navigationController?.navigationBarHidden = true
         }
         self.tabBarController?.tabBar.hidden = false
         print("cancel")
@@ -37,16 +39,33 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         super.viewDidLoad()
         
         if (bookmarkMode == false) {
-            self.navigationController?.navigationBarHidden = true
+//            self.navigationController?.navigationBarHidden = true
             self.navigationItem.leftBarButtonItem = nil
         }
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.scopeButton.hidden = bookmarkMode
+        //self.scopeButton.hidden = bookmarkMode
 
-        //self.searchDisplayController!.searchResultsTableView.rowHeight = tableView.rowHeight;
-        //self.searchDisplayController!.searchBar.selectedScopeButtonIndex = 1
+        searchController = ({
+            let searchController = UISearchController(searchResultsController: nil)
+            searchController.searchResultsUpdater = self
+            searchController.hidesNavigationBarDuringPresentation = true
+            searchController.dimsBackgroundDuringPresentation = false
+            
+            //setup the search bar
+//            searchController.searchBar.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+//            self.searchBarContainer?.addSubview(searchController.searchBar)
+            searchController.searchBar.sizeToFit()
+            
+//            self.navigationItem.titleView = searchController.searchBar
+            self.tableView.tableHeaderView = searchController.searchBar
+            
+            return searchController
+        })()
+    }
+    
+    @IBAction func search(sender: AnyObject) {
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -115,14 +134,14 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func getAllItemsExceptMe(limit:Int) {
         searchQuery = "getAllItemsExceptMe"
-        scopeButton.setTitle("All Items", forState:.Normal)
+//        scopeButton.setTitle("All Items", forState:.Normal)
         self.loadDataByFunction(searchQuery, limit:limit) { (results) -> Void in
         }
     }
     
     func getBestItemsExceptMe(limit:Int) {
         searchQuery = "getBestItemsExceptMe"
-        scopeButton.setTitle("Best Match", forState:.Normal)
+//        scopeButton.setTitle("Best Match", forState:.Normal)
         self.loadDataByFunction(searchQuery, limit:limit) { (results) -> Void in
             if (results.count == 0) {
                 self.getAllItemsExceptMe(limit)
@@ -132,7 +151,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func getNearMeItems(limit:Int, complete:(results:JSON) -> Void) {
         searchQuery = "nearMe"
-        scopeButton.setTitle("Near Me", forState:.Normal)
+//        scopeButton.setTitle("Near Me", forState:.Normal)
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint, error) -> Void in
             let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: Double(limit))
@@ -181,51 +200,29 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             menuItems:[all, best, location]);
     }
     
-    func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        if let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles {
-            let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
-            loadDataByFunction(getQuery(selectedScope), limit:ITEMS_PER_PAGE) { (results) -> Void in
-            }
-        }
-    }
-    
-    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
-        if let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles {
-            let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
-            self.filterContentForSearchText(searchString, scope: selectedScope)
-            return true
-        }
-        return false
-    }
-    
-    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchScope searchOption: Int) -> Bool {
-        if let scopes = self.searchDisplayController!.searchBar.scopeButtonTitles {
-            let searchString = self.searchDisplayController!.searchBar.text!.isEmpty ? ".*" : self.searchDisplayController!.searchBar.text
-            self.filterContentForSearchText(searchString!, scope: scopes[searchOption])
-            return true
-        }
-        return false
-    }
-
     func getQuery(scope:String)->String {
-        if (scope == "All") {
-            return "getAllItemsExceptMe"
-        } else if (scope == "Best Matched") {
-            return "getBestItemsExceptMe"
-        } else {
-        }
+//        if (scope == "All") {
+//            return "getAllItemsExceptMe"
+//        } else if (scope == "Best Matched") {
+//            return "getBestItemsExceptMe"
+//        } else {
+//        }
         return "getAllItemsExceptMe"
     }
     
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+    
     func filterContentForSearchText(searchText: String, scope: String = "All") {
-        PFCloud.callFunctionInBackground(getQuery(scope), withParameters: ["search": searchText, "userId": (PFUser.currentUser()?.objectId)!], block:{
+        PFCloud.callFunctionInBackground(getQuery(scope), withParameters: ["search": searchText, "userId": (PFUser.currentUser()?.objectId)!, "limit": ITEMS_PER_PAGE], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if (results == nil) {
                 self.filteredItems = JSON("{}")
                 return
             }
             self.filteredItems = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            self.searchDisplayController?.searchResultsTableView.reloadData()
+            self.tableView.reloadData()
         })
     }
     
@@ -246,18 +243,17 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         if itemsJSON == nil {
             return 0
         }
-//        if tableView == self.searchDisplayController!.searchResultsTableView {
-//            return self.filteredItems.count
-//        } else {
-//            return self.itemsJSON.count
-//        }
+        if (self.searchController.active) {
+            return self.filteredItems.count
+        } else {
+            return self.itemsJSON.count
+        }
         return self.itemsJSON.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath)
-//        let itemJSON = (tableView == self.searchDisplayController!.searchResultsTableView) ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
-        let itemJSON = itemsJSON[indexPath.row]
+        let itemJSON = self.searchController.active ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
         PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             if let x = imageObj {
@@ -279,16 +275,17 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         if (segue.identifier == "cancel") {
             return
         }
-        self.navigationController?.navigationBarHidden = false
+        //self.navigationController?.navigationBarHidden = false
         self.tabBarController?.tabBar.hidden = true
+        self.searchController.active = false
         
         var itemJSON:JSON = nil
         let tableView = sender as! UITableView
-//        if tableView == self.searchDisplayController!.searchResultsTableView {
-//            itemJSON = filteredItems[(tableView.indexPathForSelectedRow()?.row)!]
-//        } else {
+        if self.searchController.active {
+            itemJSON = filteredItems[(tableView.indexPathForSelectedRow?.row)!]
+        } else {
             itemJSON = itemsJSON[(tableView.indexPathForSelectedRow?.row)!]
-//        }
+        }
 
         // get user info based on item
         PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(itemJSON["objectId"].string)!], block:{
