@@ -3,9 +3,8 @@ import Parse
 import AVFoundation
 import ImageIO
 
-class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
+class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
     
-    @IBOutlet var frameView: UIView!
     @IBOutlet weak var addImageButton: UIButton!
     @IBOutlet var saveButton: UIBarButtonItem!
     @IBOutlet weak var emailButton: UIButton!
@@ -13,7 +12,6 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var titleTextField: UITextField!
     var imageId: String!
-    var kbHeight: CGFloat!
     
     var picker:UIImagePickerController? = UIImagePickerController()
     
@@ -50,11 +48,6 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
-        
-        // Keyboard stuff.
-        let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        center.addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func DismissKeyboard(){
@@ -65,43 +58,6 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
         super.viewDidAppear(animated)
         
         loadData()
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        let center: NSNotificationCenter = NSNotificationCenter.defaultCenter()
-        center.removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-        center.removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-    }
-    
-    func keyboardWillShow(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-                kbHeight = keyboardSize.height
-                if (self.view.frame.origin.y >= 0) {
-                    self.moveViewUp(true)
-                } else {
-                    self.moveViewUp(false)
-                }
-            }
-        }
-    }
-    
-    func keyboardWillHide(notification: NSNotification) {
-        if (self.view.frame.origin.y >= 0) {
-            self.moveViewUp(true)
-        } else {
-            self.moveViewUp(false)
-        }
-    }
-    
-    func moveViewUp(up: Bool) {
-        if let h = kbHeight {
-            let movement = (up ? -kbHeight : kbHeight)
-            
-            UIView.animateWithDuration(0.3, animations: {
-                self.view.frame = CGRectOffset(self.view.frame, 0, movement)
-            })
-        }
     }
     
     func loadUser() {
@@ -311,10 +267,6 @@ class AddItemController: UIViewController,UIAlertViewDelegate,UIImagePickerContr
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
-        if (self.view.frame.origin.y >= 0) {
-            self.moveViewUp(true)
-        }
-        
         if (self.descriptionTextView.text == TEXT_VIEW_PLACE_HOLDER) {
             self.descriptionTextView.text = ""
             self.descriptionTextView.textColor = UIColor.blackColor()
