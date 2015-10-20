@@ -70,7 +70,7 @@ class QuestionsController: UITableViewController, UIActionSheetDelegate {
         let question = cell.viewWithTag(103) as! UILabel
         question.text = questionsJSON[indexPath.row]["question"]["text"].string
         
-        PFQuery(className:"Image").getObjectInBackgroundWithId(questionsJSON[indexPath.row]["item"]["photo"].string!, block: {
+        createImageQuery().getObjectInBackgroundWithId(questionsJSON[indexPath.row]["item"]["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             let imageView = cell.viewWithTag(101) as! UIImageView

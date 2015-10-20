@@ -48,7 +48,7 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
         
 //        self.title = offerJSON["src"]["title"].string
         
-//        PFQuery(className:"Image").getObjectInBackgroundWithId(userJSON["photo"].string!, block: {
+//        createImageQuery().getObjectInBackgroundWithId(userJSON["photo"].string!, block: {
 //            (imageObj:PFObject?, error: NSError?) -> Void in
 //            let imageData = (imageObj!["file"] as! PFFile).getData()
 //            self.itemImageView.image = UIImage(data: imageData!)
@@ -76,7 +76,7 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
         let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) 
         let itemJSON = itemsJSON[indexPath.row]
         
-        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
+        createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             let imageView = cell.viewWithTag(101) as! UIImageView

@@ -255,7 +255,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath)
         var itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
-        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
+        createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             if let x = imageObj {
                 if let imageFile = imageObj!["file"] as? PFFile {

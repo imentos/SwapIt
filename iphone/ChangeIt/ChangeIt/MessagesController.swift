@@ -34,7 +34,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.sendButton.enabled = false
         
-        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
+        createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.itemDetailButton.setTitle("", forState: .Normal)

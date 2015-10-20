@@ -193,7 +193,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         // check if the offer has been made
         let itemId = self.itemJSON["objectId"].string
         
-        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
+        createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.photoImage.image = UIImage(data: imageData!)
@@ -259,7 +259,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                         self.otherItemId = resultsJSON[0]["item"]["objectId"].string
                         self.otherItemJSON = resultsJSON[0]["item"]
                         
-                        PFQuery(className:"Image").getObjectInBackgroundWithId(self.otherItemJSON["photo"].string!, block: {
+                        createImageQuery().getObjectInBackgroundWithId(self.otherItemJSON["photo"].string!, block: {
                             (imageObj:PFObject?, error: NSError?) -> Void in
                             let imageData = (imageObj!["file"] as! PFFile).getData()
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in

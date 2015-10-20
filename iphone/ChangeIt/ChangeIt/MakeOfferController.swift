@@ -73,7 +73,7 @@ class MakeOfferController: UITableViewController {
             cell.accessoryType = .None
         }
         
-        PFQuery(className:"Image").getObjectInBackgroundWithId(itemsJSON[indexPath.row]["photo"].string!, block: {
+        createImageQuery().getObjectInBackgroundWithId(itemsJSON[indexPath.row]["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             let imageView = cell.viewWithTag(101) as! UIImageView

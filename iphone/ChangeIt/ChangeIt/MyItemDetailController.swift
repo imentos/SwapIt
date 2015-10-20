@@ -81,7 +81,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             })
         })
         
-        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
+        createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.itemImageView.image = UIImage(data: imageData!)
@@ -148,7 +148,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             let itemJSON = receivedItemsJSON[indexPath.row]
             
             photo.layer.cornerRadius = 0
-            PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["item"]["photo"].string!, block: {
+            createImageQuery().getObjectInBackgroundWithId(itemJSON["item"]["photo"].string!, block: {
                 (imageObj:PFObject?, error: NSError?) -> Void in
                 let imageData = (imageObj!["file"] as! PFFile).getData()
                 photo.image = UIImage(data: imageData!)
@@ -179,7 +179,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             let itemJSON = offeredItemsJSON[indexPath.row]
             
             photo.layer.cornerRadius = 0
-            PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["item"]["photo"].string!, block: {
+            createImageQuery().getObjectInBackgroundWithId(itemJSON["item"]["photo"].string!, block: {
                 (imageObj:PFObject?, error: NSError?) -> Void in
                 let imageData = (imageObj!["file"] as! PFFile).getData()
                 photo.image = UIImage(data: imageData!)

@@ -83,7 +83,7 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) 
         let itemJSON = itemsJSON[indexPath.row]
         
-        PFQuery(className:"Image").getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
+        createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             let imageView = cell.viewWithTag(101) as! UIImageView

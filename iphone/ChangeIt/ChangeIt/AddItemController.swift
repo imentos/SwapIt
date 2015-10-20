@@ -77,7 +77,7 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
             return
         }
         self.imageId = itemJSON["photo"].string!
-        PFQuery(className:"Image").getObjectInBackgroundWithId(self.imageId, block: {
+        createImageQuery().getObjectInBackgroundWithId(self.imageId, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             self.addImageButton.setImage(UIImage(data: imageData!), forState: .Normal)

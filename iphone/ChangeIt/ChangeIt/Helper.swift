@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import ParseUI
 
 func displayUserPhoto(userPhoto:UIImageView, userJSON:JSON) {
     userPhoto.layer.borderWidth = 1
@@ -20,11 +21,16 @@ func displayUserPhoto(userPhoto:UIImageView, userJSON:JSON) {
             userPhoto.image = UIImage(data: image)
         }
     } else {
-        PFQuery(className:"Image").getObjectInBackgroundWithId(userJSON["photo"].string!, block: {
+        createImageQuery().getObjectInBackgroundWithId(userJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()
             userPhoto.image = UIImage(data: imageData!)
         })
     }
-    
+}
+
+func createImageQuery()->PFQuery {
+    let query = PFQuery(className:"Image")
+    query.cachePolicy = .CacheElseNetwork
+    return query
 }
