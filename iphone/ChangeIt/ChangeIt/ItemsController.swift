@@ -23,10 +23,8 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     var currentPageNumber = 1
     var isPageRefreshing:Bool = false;
     
-    
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var scopeButton: UIButton!
+    @IBOutlet weak var searchBarContainer: UIView!
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
         if (bookmarkMode == false) {
@@ -46,27 +44,44 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        //self.scopeButton.hidden = bookmarkMode
 
         searchController = ({
             let searchController = UISearchController(searchResultsController: nil)
             searchController.searchResultsUpdater = self
-            searchController.hidesNavigationBarDuringPresentation = true
+            searchController.hidesNavigationBarDuringPresentation = false
             searchController.dimsBackgroundDuringPresentation = false
             
             //setup the search bar
 //            searchController.searchBar.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
 //            self.searchBarContainer?.addSubview(searchController.searchBar)
-            searchController.searchBar.sizeToFit()
+//            searchController.searchBar.sizeToFit()
             
-//            self.navigationItem.titleView = searchController.searchBar
-            self.tableView.tableHeaderView = searchController.searchBar
+            self.navigationItem.titleView = searchController.searchBar
+//            self.tableView.tableHeaderView = searchController.searchBar
+            searchController.searchBar.sizeToFit()
             
             return searchController
         })()
     }
     
-    @IBAction func search(sender: AnyObject) {
+    // from UISearchResultsUpdating
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        let searchText = searchController.searchBar.text!
+        if searchText.isEmpty {
+            isDataFiltered = false
+            self.tableView.reloadData()
+        } else {
+            PFCloud.callFunctionInBackground(getQuery("All"), withParameters: ["search": searchText, "userId": (PFUser.currentUser()?.objectId)!, "limit": ITEMS_PER_PAGE], block:{
+                (results:AnyObject?, error: NSError?) -> Void in
+                if (results == nil) {
+                    self.filteredItems = JSON("{}")
+                    return
+                }
+                self.filteredItems = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                self.isDataFiltered = true
+                self.tableView.reloadData()
+            })
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -135,14 +150,12 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func getAllItemsExceptMe(limit:Int) {
         searchQuery = "getAllItemsExceptMe"
-//        scopeButton.setTitle("All Items", forState:.Normal)
         self.loadDataByFunction(searchQuery, limit:limit) { (results) -> Void in
         }
     }
     
     func getBestItemsExceptMe(limit:Int) {
         searchQuery = "getBestItemsExceptMe"
-//        scopeButton.setTitle("Best Match", forState:.Normal)
         self.loadDataByFunction(searchQuery, limit:limit) { (results) -> Void in
             if (results.count == 0) {
                 self.getAllItemsExceptMe(limit)
@@ -152,7 +165,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func getNearMeItems(limit:Int, complete:(results:JSON) -> Void) {
         searchQuery = "nearMe"
-//        scopeButton.setTitle("Near Me", forState:.Normal)
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint, error) -> Void in
             let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: Double(limit))
@@ -212,28 +224,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     
-    
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        filterContentForSearchText(searchController.searchBar.text!)
-    }
-    
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
-        if searchText.isEmpty {
-            isDataFiltered = false
-        } else {
-        PFCloud.callFunctionInBackground(getQuery(scope), withParameters: ["search": searchText, "userId": (PFUser.currentUser()?.objectId)!, "limit": ITEMS_PER_PAGE], block:{
-            (results:AnyObject?, error: NSError?) -> Void in
-            if (results == nil) {
-                self.filteredItems = JSON("{}")
-                return
-            }
-            self.filteredItems = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            self.isDataFiltered = true
-            self.tableView.reloadData()
-        })
-        }
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -288,7 +278,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else {
             itemJSON = itemsJSON[(tableView.indexPathForSelectedRow?.row)!]
         }
-        self.searchController.active = false
 
         // get user info based on item
         PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(itemJSON["objectId"].string)!], block:{
