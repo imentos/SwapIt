@@ -138,18 +138,22 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         // if no wish list, show all items. Otherwise, show best matched items.
         var wishesJSON:JSON!
         print("userId:\(PFUser.currentUser()?.objectId)")
-        PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":(PFUser.currentUser()?.objectId)!], block: {
-            (wishes:AnyObject?, error: NSError?) -> Void in
-            if (wishes == nil) {
-                return
-            }
-            let wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            if (wishesJSON.count == 0) {
-                self.getAllItemsExceptMe(self.ITEMS_PER_PAGE)
-            } else {
-                self.getBestItemsExceptMe(self.ITEMS_PER_PAGE)
-            }
-        })
+        
+        self.getAllItemsExceptMe(self.ITEMS_PER_PAGE)
+        
+        // TODO: first version, don't show items by wish
+//        PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":(PFUser.currentUser()?.objectId)!], block: {
+//            (wishes:AnyObject?, error: NSError?) -> Void in
+//            if (wishes == nil) {
+//                return
+//            }
+//            let wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+//            if (wishesJSON.count == 0) {
+//                self.getAllItemsExceptMe(self.ITEMS_PER_PAGE)
+//            } else {
+//                self.getBestItemsExceptMe(self.ITEMS_PER_PAGE)
+//            }
+//        })
     }
     
     func getAllItemsExceptMe(limit:Int) {
