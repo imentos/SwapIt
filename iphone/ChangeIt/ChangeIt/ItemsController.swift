@@ -50,6 +50,10 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             searchController.searchResultsUpdater = self
             searchController.hidesNavigationBarDuringPresentation = false
             searchController.dimsBackgroundDuringPresentation = false
+            searchController.searchBar.showsCancelButton = false // not working
+            
+            // without this, filtered data show black screen
+            self.definesPresentationContext  = true
             
             //setup the search bar
 //            searchController.searchBar.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
@@ -62,6 +66,15 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             return searchController
         })()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if (self.bookmarkMode == true) {
+            self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
+            }
+        }
     }
     
     // from UISearchResultsUpdating
@@ -81,15 +94,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.isDataFiltered = true
                 self.tableView.reloadData()
             })
-        }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if (self.bookmarkMode == true) {
-            self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
-            }
         }
     }
     

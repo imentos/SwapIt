@@ -67,7 +67,7 @@ Parse.Cloud.define("getAllItemsExceptMe", function(request, response) {
         body: {
             query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE o.title=~{search} AND NOT u.objectId={userId} RETURN o ORDER BY o.timestamp DESC LIMIT {limit}',
             params: {
-                search: "(?i)" + request.params.search,
+                search: "(?i).*" + request.params.search + ".*",
                 userId: request.params.userId,
                 limit: request.params.limit
             }
