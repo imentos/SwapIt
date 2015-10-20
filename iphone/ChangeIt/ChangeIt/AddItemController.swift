@@ -72,7 +72,7 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     func loadData() {
         self.loadUser()
         
-        if let x = itemJSON {
+        if let _ = itemJSON {
         } else {
             return
         }
@@ -113,7 +113,7 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
             (results:AnyObject?, error: NSError?) -> Void in
             PFCloud.callFunctionInBackground("linkMyItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": uuid], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
-                var item = PFObject(className: "Item")
+                let item = PFObject(className: "Item")
                 item["neo4jId"] = uuid
                 item.saveInBackgroundWithBlock {
                     (success: Bool, error: NSError?) -> Void in
@@ -214,11 +214,11 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         addImageButton.setImage(scaledImage, forState: .Normal)
         
         let imageFile = PFFile(name:"image.png", data:UIImagePNGRepresentation(scaledImage)!)
-        var imageObj = PFObject(className:"Image")
+        let imageObj = PFObject(className:"Image")
         imageObj["file"] = imageFile
-        imageObj.save()
-        
-        self.imageId = imageObj.objectId
+        imageObj.saveInBackgroundWithBlock { (result, error) -> Void in
+            self.imageId = imageObj.objectId
+        }
     }
     
     func resizeImage(image: UIImage) -> UIImage {

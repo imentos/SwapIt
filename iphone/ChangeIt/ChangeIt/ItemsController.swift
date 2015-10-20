@@ -98,7 +98,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if let s = self.searchQuery {
+        if let _ = self.searchQuery {
         } else {
             return
         }
@@ -257,7 +257,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         var itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
         createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
-            if let x = imageObj {
+            if let _ = imageObj {
                 if let imageFile = imageObj!["file"] as? PFFile {
                     if let imageData = imageFile.getData() {
                         let itemImage = cell.viewWithTag(101) as! UIImageView

@@ -116,7 +116,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
             self.updateDeleteButtonTitle()
             
             //self.resignFirstResponder()
-            if let x = currentWishText {
+            if let _ = currentWishText {
                 currentWishText.endEditing(true)
             }
 

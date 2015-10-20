@@ -65,7 +65,7 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let x = itemsJSON {
+        if let _ = itemsJSON {
             return itemsJSON.count
         } else {
             return 0

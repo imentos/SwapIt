@@ -82,7 +82,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func sendMessage(sender: UIButton) {
-        if let q = questionJSON {
+        if let _ = questionJSON {
             let uuid = NSUUID().UUIDString
             PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": self.messageTextField.text!, "objectId": uuid, "questionId": (questionJSON["objectId"].string)!, "userId": (PFUser.currentUser()?.objectId)!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
@@ -132,7 +132,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func loadData() {
-        if let q = questionJSON {
+        if let _ = questionJSON {
             PFCloud.callFunctionInBackground("getRepliesOfQuestion", withParameters: ["questionId":(questionJSON["objectId"].string)!], block: {
                 (replies:AnyObject?, error: NSError?) -> Void in
                 self.repliesJSON = JSON(data:(replies as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -197,7 +197,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let q = questionJSON {
+        if let _ = questionJSON {
             return self.repliesJSON.count + 1
         } else {
             return 0

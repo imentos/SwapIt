@@ -18,14 +18,14 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let user = PFUser.currentUser() {
+        if let _ = PFUser.currentUser() {
         } else {
             showLoginPage()
         }
     }
     
     override func viewDidLoad() {
-        if let user = PFUser.currentUser() {
+        if let _ = PFUser.currentUser() {
             startItemsPage()
         }
         if let tabItems = tabBar.items {

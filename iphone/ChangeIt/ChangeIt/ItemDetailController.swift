@@ -130,7 +130,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     func updateCommunications() {
-        if let x = itemJSON {
+        if let _ = itemJSON {
         } else {
             return
         }
@@ -296,7 +296,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         let distId = itemJSON["objectId"].string
         
         // don't do anything if no change
-        if let id = otherItemId {
+        if let _ = otherItemId {
             if let srcId = offer.selectedIndexes.first {
                 if (srcId == otherItemId) {
                     return
@@ -424,7 +424,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     func showData(myItem:Bool) {
-        if let i = itemJSON {
+        if let _ = itemJSON {
         } else {
             return
         }
@@ -444,7 +444,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     func collapseItemImage() {
-        if let x = horizontalConstraints {
+        if let _ = horizontalConstraints {
             self.photoImage.superview!.removeConstraints(horizontalConstraints)
             horizontalConstraints = nil
         }
@@ -457,7 +457,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     
     func expandItemImage() {
         let views = Dictionary(dictionaryLiteral: ("item",self.photoImage))
-        if let x = horizontalConstraints {
+        if let _ = horizontalConstraints {
         } else {
             horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[item]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
             self.photoImage.superview!.addConstraints(horizontalConstraints)

@@ -58,8 +58,9 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     @IBAction func logout(sender: AnyObject) {
         let currentInstall = PFInstallation.currentInstallation()
         currentInstall["user"] = NSNull()
-        
-        currentInstall.save()
+        currentInstall.saveInBackgroundWithBlock { (result, error) -> Void in
+            //
+        }
         PFUser.logOut()
         self.dismissViewControllerAnimated(true, completion: nil)
         
@@ -184,13 +185,14 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         self.userPhoto.image = scaledImage
         
         let imageFile = PFFile(name:"image.png", data:UIImagePNGRepresentation(scaledImage)!)
-        var imageObj = PFObject(className:"Image")
+        let imageObj = PFObject(className:"Image")
         imageObj["file"] = imageFile
-        imageObj.save()
-        
-        PFCloud.callFunctionInBackground("updateUserPhoto", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "photo": imageObj.objectId!], block:{
-            (userFromCloud:AnyObject?, error: NSError?) -> Void in
-        })
+        imageObj.saveInBackgroundWithBlock { (result, error) -> Void in
+            PFCloud.callFunctionInBackground("updateUserPhoto", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "photo": imageObj.objectId!], block:{
+                (userFromCloud:AnyObject?, error: NSError?) -> Void in
+            })
+
+        }
     }
     
     func resizeImage(image: UIImage) -> UIImage {
