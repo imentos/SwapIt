@@ -102,6 +102,12 @@ import UIKit
             label.tag = 101
             
             
+            let icon = UIImageView()//frame: CGRectMake(10, 0, 20, 20))
+            icon.backgroundColor = UIColor.redColor()
+            icon.image = UIImage(named: "s")
+            icon.contentMode = UIViewContentMode.ScaleAspectFit
+            icon.translatesAutoresizingMaskIntoConstraints = false
+            icon.tag = 103
             
             
             
@@ -109,11 +115,12 @@ import UIKit
             
             
             
-            
-            let button = UIButton()//frame: CGRectMake(0, 40, 70, 40))
-            button.setTitle("test", forState: .Normal)
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.tag = 102
+            let counter = UILabel()//frame: CGRectMake(0, 40, 70, 40))
+            counter.text = "0"
+            counter.textAlignment = .Center
+            counter.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
+            counter.translatesAutoresizingMaskIntoConstraints = false
+            counter.tag = 102
             
             
             
@@ -121,22 +128,11 @@ import UIKit
             view.userInteractionEnabled = false
             view.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(label)
-            view.addSubview(button)
+            view.addSubview(counter)
+            view.addSubview(icon)
             
             self.addSubview(view)
             views.append(view)
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            //            view.updateConstraints()
-            
-            
         }
         
         addIndividualItemConstraints(views, mainView: self, padding: 0)
@@ -244,22 +240,31 @@ import UIKit
             
             
             let label = view.viewWithTag(101) as! UILabel
-            let button = view.viewWithTag(102) as! UIButton
-            let dic = ["label":label, "button":button]
+            let counter = view.viewWithTag(102) as! UILabel
+            let icon = view.viewWithTag(103) as! UIImageView
+            let dic = ["label":label, "counter":counter, "icon":icon]
             
             
             let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
             
-            let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            //            let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
             
-            let hbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[button]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            let hbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[counter]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            let hbConstraints1 = NSLayoutConstraint.constraintsWithVisualFormat("H:|[icon]-[counter]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
             
-            let vbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[button(100)]-10-[label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            
+            //            let hbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[icon]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            
+            
+            let vbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[icon]-[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            let vbConstraints1 = NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[counter]-[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
             
             view.addConstraints(hConstraints)
-            view.addConstraints(vConstraints)
+            //            view.addConstraints(vConstraints)
             view.addConstraints(hbConstraints)
+            //            view.addConstraints(hbConstraints1)
             view.addConstraints(vbConstraints)
+            view.addConstraints(vbConstraints1)
         }
     }
     
