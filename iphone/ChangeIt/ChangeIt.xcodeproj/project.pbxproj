@@ -50,6 +50,12 @@
 		B38AF8E91B3A457500AB19F7 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B38AF8E81B3A457500AB19F7 /* KxMenu.m */; };
 		B38AF8EB1B3E325000AB19F7 /* QuestionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */; };
 		B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39EC9B01B014B8000FFC89A /* ItemCell.swift */; };
+		B3AE29051BD70D7500F492ED /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3AE29001BD70D7500F492ED /* fontawesome-webfont.ttf */; settings = {ASSET_TAGS = (); }; };
+		B3AE29061BD70D7500F492ED /* PPiFlatSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AE29021BD70D7500F492ED /* PPiFlatSegmentedControl.m */; settings = {ASSET_TAGS = (); }; };
+		B3AE29071BD70D7500F492ED /* PPiFlatSegmentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AE29041BD70D7500F492ED /* PPiFlatSegmentItem.m */; settings = {ASSET_TAGS = (); }; };
+		B3AE290C1BD70E1F00F492ED /* UIAwesomeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AE29091BD70E1F00F492ED /* UIAwesomeButton.m */; settings = {ASSET_TAGS = (); }; };
+		B3AE290D1BD70E1F00F492ED /* UIButton+PPiAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AE290B1BD70E1F00F492ED /* UIButton+PPiAwesome.m */; settings = {ASSET_TAGS = (); }; };
+		B3AE29101BD70F9D00F492ED /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AE290F1BD70F9D00F492ED /* NSString+FontAwesome.m */; settings = {ASSET_TAGS = (); }; };
 		B3B1206A1B96BC420020D13E /* MyLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B120691B96BC420020D13E /* MyLogInViewController.swift */; };
 		B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C763421B0B9BE50040E794 /* MyItemDetailController.swift */; };
 		B3CE9D7C1BCF769800A03A20 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CE9D7B1BCF769800A03A20 /* SwiftyJSON.swift */; settings = {ASSET_TAGS = (); }; };
@@ -139,6 +145,17 @@
 		B38AF8E81B3A457500AB19F7 /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
 		B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsController.swift; sourceTree = "<group>"; };
 		B39EC9B01B014B8000FFC89A /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		B3AE29001BD70D7500F492ED /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
+		B3AE29011BD70D7500F492ED /* PPiFlatSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPiFlatSegmentedControl.h; sourceTree = "<group>"; };
+		B3AE29021BD70D7500F492ED /* PPiFlatSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPiFlatSegmentedControl.m; sourceTree = "<group>"; };
+		B3AE29031BD70D7500F492ED /* PPiFlatSegmentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPiFlatSegmentItem.h; sourceTree = "<group>"; };
+		B3AE29041BD70D7500F492ED /* PPiFlatSegmentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPiFlatSegmentItem.m; sourceTree = "<group>"; };
+		B3AE29081BD70E1F00F492ED /* UIAwesomeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAwesomeButton.h; sourceTree = "<group>"; };
+		B3AE29091BD70E1F00F492ED /* UIAwesomeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAwesomeButton.m; sourceTree = "<group>"; };
+		B3AE290A1BD70E1F00F492ED /* UIButton+PPiAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+PPiAwesome.h"; sourceTree = "<group>"; };
+		B3AE290B1BD70E1F00F492ED /* UIButton+PPiAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+PPiAwesome.m"; sourceTree = "<group>"; };
+		B3AE290E1BD70F9D00F492ED /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		B3AE290F1BD70F9D00F492ED /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
 		B3B120691B96BC420020D13E /* MyLogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLogInViewController.swift; sourceTree = "<group>"; };
 		B3C763421B0B9BE50040E794 /* MyItemDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyItemDetailController.swift; sourceTree = "<group>"; };
 		B3CE9D7B1BCF769800A03A20 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
@@ -204,6 +221,7 @@
 		B374318F1AE861A600A0808B = {
 			isa = PBXGroup;
 			children = (
+				B3AE28FF1BD70D7500F492ED /* PPiFlatSegmentedControl */,
 				B3F0149C1BCE1E6800DD33C7 /* JTSImageVC */,
 				B37C101B1AE990EA0086864F /* Frameworks */,
 				B3D2AA911BBDBE4C00E00776 /* LMDropdownView */,
@@ -294,6 +312,25 @@
 				B35C66401AE951FC0029055F /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B3AE28FF1BD70D7500F492ED /* PPiFlatSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				B3AE290E1BD70F9D00F492ED /* NSString+FontAwesome.h */,
+				B3AE290F1BD70F9D00F492ED /* NSString+FontAwesome.m */,
+				B3AE29081BD70E1F00F492ED /* UIAwesomeButton.h */,
+				B3AE29091BD70E1F00F492ED /* UIAwesomeButton.m */,
+				B3AE290A1BD70E1F00F492ED /* UIButton+PPiAwesome.h */,
+				B3AE290B1BD70E1F00F492ED /* UIButton+PPiAwesome.m */,
+				B3AE29001BD70D7500F492ED /* fontawesome-webfont.ttf */,
+				B3AE29011BD70D7500F492ED /* PPiFlatSegmentedControl.h */,
+				B3AE29021BD70D7500F492ED /* PPiFlatSegmentedControl.m */,
+				B3AE29031BD70D7500F492ED /* PPiFlatSegmentItem.h */,
+				B3AE29041BD70D7500F492ED /* PPiFlatSegmentItem.m */,
+			);
+			name = PPiFlatSegmentedControl;
+			path = Control;
 			sourceTree = "<group>";
 		};
 		B3D2AA911BBDBE4C00E00776 /* LMDropdownView */ = {
@@ -426,6 +463,7 @@
 			files = (
 				B37431A51AE861A600A0808B /* Main.storyboard in Resources */,
 				7F1210791BACC02D00C4F65D /* Geogtq-Md.otf in Resources */,
+				B3AE29051BD70D7500F492ED /* fontawesome-webfont.ttf in Resources */,
 				B37431AA1AE861A600A0808B /* LaunchScreen.xib in Resources */,
 				B37431A71AE861A600A0808B /* Images.xcassets in Resources */,
 				7F1210781BACC02D00C4F65D /* Geogtq-Lg.otf in Resources */,
@@ -466,18 +504,21 @@
 				B33C8F8E1B06869400160D7E /* AddWishListCell.swift in Sources */,
 				B348CD001AFA929100CFC04E /* MakeOfferController.swift in Sources */,
 				B3F014BE1BCE1FD700DD33C7 /* JTSSimpleImageDownloader.m in Sources */,
+				B3AE29071BD70D7500F492ED /* PPiFlatSegmentItem.m in Sources */,
 				B35412E21B53515C007785B3 /* MessagesController.swift in Sources */,
 				B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */,
 				B31BC9E21AED04DD00E1F99A /* AddItemController.swift in Sources */,
 				B3F014991BCCC51100DD33C7 /* OtherItemsController.swift in Sources */,
 				B3F014C01BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m in Sources */,
 				B38AF8E91B3A457500AB19F7 /* KxMenu.m in Sources */,
+				B3AE29101BD70F9D00F492ED /* NSString+FontAwesome.m in Sources */,
 				B37C10271AE9B81F0086864F /* WishListDetailController.swift in Sources */,
 				B3F014BC1BCE1FD700DD33C7 /* JTSImageInfo.m in Sources */,
 				B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */,
 				B3F014BD1BCE1FD700DD33C7 /* JTSImageViewController.m in Sources */,
 				B3F014BF1BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.m in Sources */,
 				B3CE9D7C1BCF769800A03A20 /* SwiftyJSON.swift in Sources */,
+				B3AE290D1BD70E1F00F492ED /* UIButton+PPiAwesome.m in Sources */,
 				B3B1206A1B96BC420020D13E /* MyLogInViewController.swift in Sources */,
 				B3D2AA971BBDBE4C00E00776 /* LMDropdownView.m in Sources */,
 				B38AF8EB1B3E325000AB19F7 /* QuestionsController.swift in Sources */,
@@ -485,11 +526,13 @@
 				B34150441BBCF1CD00385915 /* MySignupViewController.swift in Sources */,
 				B3F0149B1BCD732B00DD33C7 /* Helper.swift in Sources */,
 				B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */,
+				B3AE290C1BD70E1F00F492ED /* UIAwesomeButton.m in Sources */,
 				B34150401BBBA00800385915 /* UserEmailController.swift in Sources */,
 				B3D2AA981BBDBE4C00E00776 /* UIImage+LMExtension.m in Sources */,
 				B30A026F1B5EC4BE00E63437 /* MessageLabel.swift in Sources */,
 				B3F014BB1BCE1FD700DD33C7 /* JTSAnimatedGIFUtility.m in Sources */,
 				B30E24951AF96BFA00ED49EB /* MainController.swift in Sources */,
+				B3AE29061BD70D7500F492ED /* PPiFlatSegmentedControl.m in Sources */,
 				B374319E1AE861A600A0808B /* AppDelegate.swift in Sources */,
 				B30E24911AF83B6C00ED49EB /* ItemsController.swift in Sources */,
 				7F12107C1BACC56400C4F65D /* BarButton.swift in Sources */,

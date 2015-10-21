@@ -19,9 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // [Optional] Power your app with Local Datastore. For more info, go to
         // https://parse.com/docs/ios_guide#localdatastore/iOS
-        //Parse.enableLocalDatastore()
+//        Parse.enableLocalDatastore()
         
-//        ParseCrashReporting.enable()
+        ParseCrashReporting.enable()
         
         // Initialize Parse.
         Parse.setApplicationId("AyaLli8Wgpr6AS56sQiHn9fONdtdt7R18jckKsCp",
