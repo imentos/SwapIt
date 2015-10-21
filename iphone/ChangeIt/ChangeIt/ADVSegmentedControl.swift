@@ -91,7 +91,7 @@ import UIKit
         
         for index in 1...items.count {
             
-            let label = UILabel(frame: CGRectMake(0, 0, 70, 40))
+            let label = UILabel()//frame: CGRectMake(0, 0, 70, 80))
             label.userInteractionEnabled = true
             label.text = items[index - 1]
             label.backgroundColor = UIColor.clearColor()
@@ -103,14 +103,14 @@ import UIKit
             
             
             
-
             
             
             
             
             
             
-            let button = UIButton(frame: CGRectMake(0, 0, 70, 40))
+            
+            let button = UIButton()//frame: CGRectMake(0, 40, 70, 40))
             button.setTitle("test", forState: .Normal)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.tag = 102
@@ -131,11 +131,11 @@ import UIKit
             
             
             
-
-
-
-            view.updateConstraints()
-
+            
+            
+            
+            //            view.updateConstraints()
+            
             
         }
         
@@ -244,12 +244,22 @@ import UIKit
             
             
             let label = view.viewWithTag(101) as! UILabel
-            let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[item]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: Dictionary(dictionaryLiteral: ("item",label))
-            )
-            let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[item]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: Dictionary(dictionaryLiteral: ("item",label))
-            )
+            let button = view.viewWithTag(102) as! UIButton
+            let dic = ["label":label, "button":button]
+            
+            
+            let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            
+            let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            
+            let hbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[button]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            
+            let vbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[button(100)]-10-[label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            
             view.addConstraints(hConstraints)
             view.addConstraints(vConstraints)
+            view.addConstraints(hbConstraints)
+            view.addConstraints(vbConstraints)
         }
     }
     
