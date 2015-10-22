@@ -184,7 +184,6 @@ import UIKit
             let counter = item.viewWithTag(102) as! UILabel
             counter.textColor = selectedLabelColor
             counter.backgroundColor = unselectedLabelColor
-            print("\(counter.text)")
         }
         
         let view = views[selectedSegmentIndex]

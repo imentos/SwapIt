@@ -333,9 +333,10 @@ Parse.Cloud.define("setExchangeRead", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item{objectId:{objectId}})<-[r:EXCHANGE]->() SET r.read = true RETURN o',
+            query: 'MATCH (u:User{objectId:{userId})->[f:OFFER]->(o:Item{objectId:{itemId}})<-[r:EXCHANGE]-() SET r.read = true RETURN o',
             params: {
-                objectId: request.params.objectId
+                itemId: request.params.itemId,
+                userId: request.params.userId
             }
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',

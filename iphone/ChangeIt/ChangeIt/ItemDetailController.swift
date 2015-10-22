@@ -75,7 +75,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         super.viewDidAppear(animated)
         
         if (self.fromOffer == false) {
-            PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["objectId": itemJSON["objectId"].string!], block:{
+            PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["itemId": itemJSON["objectId"].string!, "userId":(PFUser.currentUser()?.objectId)!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
             })
         }
