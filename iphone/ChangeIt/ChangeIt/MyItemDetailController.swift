@@ -34,9 +34,9 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet var itemImageView: UIImageView!
     @IBOutlet var detailTable: UITableView!
-    @IBOutlet var segmentedControl: UISegmentedControl!
     @IBOutlet var testLabel: UILabel!
-
+    @IBOutlet var segmentedControl: ADVSegmentedControl!
+    
     @IBAction func cancel(segue:UIStoryboardSegue) {
         PFCloud.callFunctionInBackground("getItem", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
@@ -51,6 +51,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        segmentedControl.addTarget(self, action: "segmentValueChanged:", forControlEvents: .ValueChanged)
+        segmentedControl.items = ["Offers Received", "Offers Sent", "Questions Asked"]
+        segmentedControl.icons = ["offer_received", "offer_sent", "offer_messages"]
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -63,21 +67,21 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         PFCloud.callFunctionInBackground("getQuestionedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             self.questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            self.segmentedControl.setTitle(String(format:"Messages (%d)", self.questionsJSON.count), forSegmentAtIndex: 2)
+//            self.segmentedControl.setTitle(String(format:"Messages (%d)", self.questionsJSON.count), forSegmentAtIndex: 2)
         })
 
         PFCloud.callFunctionInBackground("getReceivedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             self.receivedItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.detailTable.reloadData()
-            self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
+//            self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
             
             PFCloud.callFunctionInBackground("getOfferedItems", withParameters: ["itemId":self.itemJSON["objectId"].string!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
                 self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 self.editButton.enabled = self.offeredItemsJSON.count == 0 && self.receivedItemsJSON.count == 0
                 self.detailTable.reloadData()
-                self.segmentedControl.setTitle(String(format:"Offers Sent (%d)", self.offeredItemsJSON.count), forSegmentAtIndex: 1)
+//                self.segmentedControl.setTitle(String(format:"Offers Sent (%d)", self.offeredItemsJSON.count), forSegmentAtIndex: 1)
             })
         })
         
@@ -87,6 +91,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             self.itemImageView.image = UIImage(data: imageData!)
         })
 
+    }
+    
+    func segmentValueChanged(sender: AnyObject?){
+        self.detailTable.reloadData()
     }
     
     @IBAction func indexChanged(sender: AnyObject) {
