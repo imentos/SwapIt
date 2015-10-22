@@ -56,6 +56,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         segmentedControl.items = ["Offers Received", "Offers Sent", "Questions Asked"]
         segmentedControl.icons = ["segmented_icons_dn_red", "segmented_icons_up_red", "segmented_icons_message_red"]
         segmentedControl.otherIcons = ["segmented_icons_dn_white", "segmented_icons_up_white", "segmented_icons_message_white"]
+        segmentedControl.font = UIFont.systemFontOfSize(10)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -166,6 +167,21 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
                 (imageObj:PFObject?, error: NSError?) -> Void in
                 let imageData = (imageObj!["file"] as! PFFile).getData()
                 photo.image = UIImage(data: imageData!)
+                
+                if (itemJSON["exchange"]["status"] != nil) {
+                    if (itemJSON["exchange"]["status"].string! == "Accepted") {
+                        status.text = "Interested"
+                        statusIcon.image = UIImage(named:"offer_accepted")
+                    }
+                    
+                    if (itemJSON["exchange"]["status"].string! == "Rejected") {
+                        status.text = "Not Interested"
+                        statusIcon.image = UIImage(named:"offer_rejected")
+                        
+                        photo.image = photo.image?.grayScaleImage()
+                        title.textColor = UIColor.lightGrayColor()
+                    }
+                }
             })
             title.text = itemJSON["item"]["title"].string
             name.text = itemJSON["user"]["name"].string
