@@ -19,7 +19,13 @@ import UIKit
         }
     }
     
-    var selectedIndex : Int = 0 {
+    var icons: [String] = ["Item 1", "Item 2", "Item 3"] {
+        didSet {
+            setupLabels()
+        }
+    }
+    
+    var selectedSegmentIndex : Int = 0 {
         didSet {
             displayNewSelectedIndex()
         }
@@ -66,10 +72,10 @@ import UIKit
         setupView()
     }
     
-    func setupView() {
-        layer.cornerRadius = frame.height / 4
+    func setupView(){
+        layer.cornerRadius = 1
         layer.borderColor = UIColor(white: 1.0, alpha: 0.5).CGColor
-        layer.borderWidth = 2
+        layer.borderWidth = 1
         
         backgroundColor = UIColor.clearColor()
         
@@ -91,30 +97,32 @@ import UIKit
         for index in 1...items.count {
             
             let label = UILabel()
-            label.userInteractionEnabled = true
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.tag = 101
             label.text = items[index - 1]
             label.backgroundColor = UIColor.clearColor()
             label.textAlignment = .Center
-            label.font = UIFont(name: "Avenir-Black", size: 15)
+//            label.font = UIFont(name: "Avenir-Black", size: 15)
             label.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.tag = 101
             
             let icon = UIImageView()
-            icon.image = UIImage(named: "s")
-            icon.contentMode = UIViewContentMode.ScaleAspectFit
             icon.translatesAutoresizingMaskIntoConstraints = false
             icon.tag = 103
+            icon.image = UIImage(named: icons[index - 1])
+            icon.contentMode = UIViewContentMode.ScaleAspectFill
             
             let counter = UILabel()
-            counter.text = "0"
-            counter.textAlignment = .Center
-            counter.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
             counter.translatesAutoresizingMaskIntoConstraints = false
             counter.backgroundColor = UIColor.redColor()
             counter.layer.masksToBounds = true
             counter.layer.cornerRadius = 10
             counter.tag = 102
+            counter.text = "00"
+            counter.textAlignment = .Center
+            counter.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
+            counter.backgroundColor = index == 1 ? unselectedLabelColor : selectedLabelColor
+            counter.layer.cornerRadius = 15
+            counter.clipsToBounds = true
             
             let view = UIView()
             view.userInteractionEnabled = false
@@ -138,14 +146,13 @@ import UIKit
         selectFrame.size.width = newWidth
         thumbView.frame = selectFrame
         thumbView.backgroundColor = thumbColor
-        thumbView.layer.cornerRadius = thumbView.frame.height / 4
+        thumbView.layer.cornerRadius = 1
         
         displayNewSelectedIndex()
         
     }
     
     override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        
         let location = touch.locationInView(self)
         
         var calculatedIndex : Int?
@@ -157,9 +164,8 @@ import UIKit
             }
         }
         
-        
         if calculatedIndex != nil {
-            selectedIndex = calculatedIndex!
+            selectedSegmentIndex = calculatedIndex!
             sendActionsForControlEvents(.ValueChanged)
         }
         
@@ -172,15 +178,18 @@ import UIKit
             label.textColor = unselectedLabelColor
             
             let counter = item.viewWithTag(102) as! UILabel
-            counter.textColor = unselectedLabelColor
+            counter.textColor = selectedLabelColor
+            counter.backgroundColor = unselectedLabelColor
         }
         
-        let view = views[selectedIndex]
+        let view = views[selectedSegmentIndex]
         let label = view.viewWithTag(101) as! UILabel
         label.textColor = selectedLabelColor
         
         let counter = view.viewWithTag(102) as! UILabel
-        counter.textColor = selectedLabelColor
+        counter.textColor = unselectedLabelColor
+        counter.backgroundColor = selectedLabelColor
+        
         
         UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: [], animations: {
             
@@ -190,7 +199,6 @@ import UIKit
     }
     
     func addIndividualItemConstraints(items: [UIView], mainView: UIView, padding: CGFloat) {
-        
         let constraints = mainView.constraints
         
         for (index, view) in items.enumerate() {
@@ -236,32 +244,23 @@ import UIKit
             
             
             
-            
+            // setup contraints for internal view
             let label = view.viewWithTag(101) as! UILabel
             let counter = view.viewWithTag(102) as! UILabel
             let icon = view.viewWithTag(103) as! UIImageView
-            let dic = ["label":label, "counter":counter, "icon":icon, "view":view]
+            let dic = ["label":label, "counter":counter, "icon":icon]
             
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-5-[icon(20)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-25-[icon(20)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
             
-            let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:[view]-(<=0)-[counter(20)]", options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: dic)
-            view.addConstraints(horizontalConstraints)
-            let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[view]-(<=0)-[counter(20)]", options: NSLayoutFormatOptions.AlignAllCenterX, metrics: nil, views: dic)
-            view.addConstraints(verticalConstraints)
-            
-            
-            
-            //            let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
             //
-            //            let hbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[icon(20)][counter]-(10)-|", options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: dic)
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-2-[counter(30)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[counter(30)]-(30)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
+            
             //
-            //            let vbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[icon(20)]-[label]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-            //            let vbConstraints1 = NSLayoutConstraint.constraintsWithVisualFormat("V:|-20-[counter]-[label]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
             
-            //            view.addConstraints(hConstraints)
-            //            view.addConstraints(hbConstraints)
-            //            view.addConstraints(vbConstraints)
-            //            view.addConstraints(vbConstraints1)
-            
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[label]-5-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
         }
     }
     
@@ -269,11 +268,19 @@ import UIKit
         for item in views {
             let label = item.viewWithTag(101) as! UILabel
             label.textColor = unselectedLabelColor
+            
+            let counter = item.viewWithTag(102) as! UILabel
+            counter.textColor = unselectedLabelColor
+            counter.backgroundColor = selectedLabelColor
         }
         
         if views.count > 0 {
             let label = views[0].viewWithTag(101) as! UILabel
             label.textColor = selectedLabelColor
+            
+            let counter = views[0].viewWithTag(102) as! UILabel
+            counter.textColor = selectedLabelColor
+            counter.backgroundColor = unselectedLabelColor
         }
         
         thumbView.backgroundColor = thumbColor
