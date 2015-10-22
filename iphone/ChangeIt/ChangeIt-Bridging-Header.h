@@ -9,3 +9,5 @@
 #import "LMDropdownView/LMDropdownView.h"
 
 #import "JTSImageVC/JTSImageViewController.h"
+
+#import "PTSMessagingCell/PTSMessagingCell.h"
