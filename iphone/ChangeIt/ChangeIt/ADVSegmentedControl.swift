@@ -86,6 +86,13 @@ import UIKit
         insertSubview(thumbView, atIndex: 0)
     }
     
+    func setTitle(title:String, forSegmentAtIndex:Int) {
+        print("\(views.count)")
+        let view = views[selectedSegmentIndex]
+        let counter = view.viewWithTag(102) as! UILabel
+        counter.text = title
+    }
+    
     func setupLabels(){
         
         for label in views {
@@ -113,11 +120,8 @@ import UIKit
             
             let counter = UILabel()
             counter.translatesAutoresizingMaskIntoConstraints = false
-            counter.backgroundColor = UIColor.redColor()
-            counter.layer.masksToBounds = true
-            counter.layer.cornerRadius = 10
             counter.tag = 102
-            counter.text = "00"
+//            counter.text = "00"
             counter.textAlignment = .Center
             counter.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
             counter.backgroundColor = index == 1 ? unselectedLabelColor : selectedLabelColor
@@ -180,6 +184,7 @@ import UIKit
             let counter = item.viewWithTag(102) as! UILabel
             counter.textColor = selectedLabelColor
             counter.backgroundColor = unselectedLabelColor
+            print("\(counter.text)")
         }
         
         let view = views[selectedSegmentIndex]

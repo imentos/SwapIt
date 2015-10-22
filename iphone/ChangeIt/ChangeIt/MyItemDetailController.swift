@@ -67,21 +67,26 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         PFCloud.callFunctionInBackground("getQuestionedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             self.questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-//            self.segmentedControl.setTitle(String(format:"Messages (%d)", self.questionsJSON.count), forSegmentAtIndex: 2)
-        })
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.segmentedControl.setTitle(String(format:"%02d", self.questionsJSON.count), forSegmentAtIndex: 2)
+                })        })
 
         PFCloud.callFunctionInBackground("getReceivedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             self.receivedItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.detailTable.reloadData()
-//            self.segmentedControl.setTitle(String(format:"Offers Received (%d)", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
-            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.segmentedControl.setTitle(String(format:"%02d", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
+                })            
             PFCloud.callFunctionInBackground("getOfferedItems", withParameters: ["itemId":self.itemJSON["objectId"].string!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
                 self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 self.editButton.enabled = self.offeredItemsJSON.count == 0 && self.receivedItemsJSON.count == 0
                 self.detailTable.reloadData()
-//                self.segmentedControl.setTitle(String(format:"Offers Sent (%d)", self.offeredItemsJSON.count), forSegmentAtIndex: 1)
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.segmentedControl.setTitle(String(format:"%02d", self.offeredItemsJSON.count), forSegmentAtIndex: 1)
+                })
             })
         })
         
