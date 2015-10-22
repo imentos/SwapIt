@@ -66,9 +66,8 @@ import UIKit
         setupView()
     }
     
-    func setupView(){
-        
-        layer.cornerRadius = frame.height / 2
+    func setupView() {
+        layer.cornerRadius = frame.height / 4
         layer.borderColor = UIColor(white: 1.0, alpha: 0.5).CGColor
         layer.borderWidth = 2
         
@@ -91,7 +90,7 @@ import UIKit
         
         for index in 1...items.count {
             
-            let label = UILabel()//frame: CGRectMake(0, 0, 70, 80))
+            let label = UILabel()
             label.userInteractionEnabled = true
             label.text = items[index - 1]
             label.backgroundColor = UIColor.clearColor()
@@ -101,28 +100,21 @@ import UIKit
             label.translatesAutoresizingMaskIntoConstraints = false
             label.tag = 101
             
-            
-            let icon = UIImageView()//frame: CGRectMake(10, 0, 20, 20))
-            icon.backgroundColor = UIColor.redColor()
+            let icon = UIImageView()
             icon.image = UIImage(named: "s")
             icon.contentMode = UIViewContentMode.ScaleAspectFit
             icon.translatesAutoresizingMaskIntoConstraints = false
             icon.tag = 103
             
-            
-            
-            
-            
-            
-            
-            let counter = UILabel()//frame: CGRectMake(0, 40, 70, 40))
+            let counter = UILabel()
             counter.text = "0"
             counter.textAlignment = .Center
             counter.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
             counter.translatesAutoresizingMaskIntoConstraints = false
+            counter.backgroundColor = UIColor.redColor()
+            counter.layer.masksToBounds = true
+            counter.layer.cornerRadius = 10
             counter.tag = 102
-            
-            
             
             let view = UIView()
             view.userInteractionEnabled = false
@@ -146,7 +138,7 @@ import UIKit
         selectFrame.size.width = newWidth
         thumbView.frame = selectFrame
         thumbView.backgroundColor = thumbColor
-        thumbView.layer.cornerRadius = thumbView.frame.height / 2
+        thumbView.layer.cornerRadius = thumbView.frame.height / 4
         
         displayNewSelectedIndex()
         
@@ -178,11 +170,17 @@ import UIKit
         for (index, item) in views.enumerate() {
             let label = item.viewWithTag(101) as! UILabel
             label.textColor = unselectedLabelColor
+            
+            let counter = item.viewWithTag(102) as! UILabel
+            counter.textColor = unselectedLabelColor
         }
         
         let view = views[selectedIndex]
         let label = view.viewWithTag(101) as! UILabel
         label.textColor = selectedLabelColor
+        
+        let counter = view.viewWithTag(102) as! UILabel
+        counter.textColor = selectedLabelColor
         
         UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: [], animations: {
             
@@ -242,29 +240,28 @@ import UIKit
             let label = view.viewWithTag(101) as! UILabel
             let counter = view.viewWithTag(102) as! UILabel
             let icon = view.viewWithTag(103) as! UIImageView
-            let dic = ["label":label, "counter":counter, "icon":icon]
+            let dic = ["label":label, "counter":counter, "icon":icon, "view":view]
             
             
-            let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-            
-            //            let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-            
-            let hbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[counter]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-            let hbConstraints1 = NSLayoutConstraint.constraintsWithVisualFormat("H:|[icon]-[counter]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:[view]-(<=0)-[counter(20)]", options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: dic)
+            view.addConstraints(horizontalConstraints)
+            let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[view]-(<=0)-[counter(20)]", options: NSLayoutFormatOptions.AlignAllCenterX, metrics: nil, views: dic)
+            view.addConstraints(verticalConstraints)
             
             
-            //            let hbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[icon]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
             
+            //            let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            //
+            //            let hbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[icon(20)][counter]-(10)-|", options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: dic)
+            //
+            //            let vbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[icon(20)]-[label]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            //            let vbConstraints1 = NSLayoutConstraint.constraintsWithVisualFormat("V:|-20-[counter]-[label]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
             
-            let vbConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[icon]-[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-            let vbConstraints1 = NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[counter]-[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+            //            view.addConstraints(hConstraints)
+            //            view.addConstraints(hbConstraints)
+            //            view.addConstraints(vbConstraints)
+            //            view.addConstraints(vbConstraints1)
             
-            view.addConstraints(hConstraints)
-            //            view.addConstraints(vConstraints)
-            view.addConstraints(hbConstraints)
-            //            view.addConstraints(hbConstraints1)
-            view.addConstraints(vbConstraints)
-            view.addConstraints(vbConstraints1)
         }
     }
     
