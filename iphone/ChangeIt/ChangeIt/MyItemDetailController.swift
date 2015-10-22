@@ -169,7 +169,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
                 let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 let unreadQuestions = countJSON[0].int!
                 if (unreadQuestions > 0) {
-                    newQuestionIcon.image = UIImage(named: "offer_new")
+                    newQuestionIcon.image = UIImage(named: "message_new")
                 } else {
                     newQuestionIcon.image = nil
                 }

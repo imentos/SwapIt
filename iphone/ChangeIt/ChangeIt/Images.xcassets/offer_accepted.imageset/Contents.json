@@ -2,13 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "mylist_icons_thumb_1x.png"
+      "filename" : "offer_accepted_1x.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "mylist_icons_thumb_2x.png"
+      "filename" : "offer_accepted_2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
