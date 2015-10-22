@@ -65,6 +65,7 @@
 		B3F014BE1BCE1FD700DD33C7 /* JTSSimpleImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014B61BCE1FD700DD33C7 /* JTSSimpleImageDownloader.m */; };
 		B3F014BF1BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014B81BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.m */; };
 		B3F014C01BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014BA1BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m */; };
+		B3F215BE1BD95E3600B53F62 /* UserInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F215BD1BD95E3600B53F62 /* UserInfoController.swift */; settings = {ASSET_TAGS = (); }; };
 		B3FCB87D1B8F734800AD9A1E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */; };
 /* End PBXBuildFile section */
 
@@ -163,6 +164,7 @@
 		B3F014B81BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+JTSImageViewController.m"; path = "JTSImageVC/UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
 		B3F014B91BCE1FD700DD33C7 /* UIImage+JTSImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+JTSImageEffects.h"; path = "JTSImageVC/UIImage+JTSImageEffects.h"; sourceTree = "<group>"; };
 		B3F014BA1BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+JTSImageEffects.m"; path = "JTSImageVC/UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
+		B3F215BD1BD95E3600B53F62 /* UserInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoController.swift; sourceTree = "<group>"; };
 		B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -261,6 +263,7 @@
 				B37431A61AE861A600A0808B /* Images.xcassets */,
 				B37431A81AE861A600A0808B /* LaunchScreen.xib */,
 				B374319B1AE861A600A0808B /* Supporting Files */,
+				B3F215BD1BD95E3600B53F62 /* UserInfoController.swift */,
 			);
 			path = ChangeIt;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				B34150401BBBA00800385915 /* UserEmailController.swift in Sources */,
 				B3D2AA981BBDBE4C00E00776 /* UIImage+LMExtension.m in Sources */,
 				B30A026F1B5EC4BE00E63437 /* MessageLabel.swift in Sources */,
+				B3F215BE1BD95E3600B53F62 /* UserInfoController.swift in Sources */,
 				B3F014BB1BCE1FD700DD33C7 /* JTSAnimatedGIFUtility.m in Sources */,
 				B30E24951AF96BFA00ED49EB /* MainController.swift in Sources */,
 				B374319E1AE861A600A0808B /* AppDelegate.swift in Sources */,
