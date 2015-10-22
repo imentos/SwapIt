@@ -54,7 +54,8 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         
         segmentedControl.addTarget(self, action: "segmentValueChanged:", forControlEvents: .ValueChanged)
         segmentedControl.items = ["Offers Received", "Offers Sent", "Questions Asked"]
-        segmentedControl.icons = ["offer_received", "offer_sent", "offer_messages"]
+        segmentedControl.icons = ["segmented_icons_dn_red", "segmented_icons_up_red", "segmented_icons_message_red"]
+        segmentedControl.otherIcons = ["segmented_icons_dn_white", "segmented_icons_up_white", "segmented_icons_message_white"]
     }
     
     override func viewDidAppear(animated: Bool) {

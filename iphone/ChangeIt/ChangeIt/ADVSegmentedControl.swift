@@ -24,6 +24,12 @@ import UIKit
             setupLabels()
         }
     }
+
+    var otherIcons: [String] = ["Item 1", "Item 2", "Item 3"] {
+        didSet {
+            setupLabels()
+        }
+    }
     
     var selectedSegmentIndex : Int = 0 {
         didSet {
@@ -184,6 +190,9 @@ import UIKit
             let counter = item.viewWithTag(102) as! UILabel
             counter.textColor = selectedLabelColor
             counter.backgroundColor = unselectedLabelColor
+            
+            let icon = item.viewWithTag(103) as! UIImageView
+            icon.image = UIImage(named: icons[index])
         }
         
         let view = views[selectedSegmentIndex]
@@ -193,6 +202,9 @@ import UIKit
         let counter = view.viewWithTag(102) as! UILabel
         counter.textColor = unselectedLabelColor
         counter.backgroundColor = selectedLabelColor
+        
+        let icon = view.viewWithTag(103) as! UIImageView
+        icon.image = UIImage(named: otherIcons[selectedSegmentIndex])
         
         
         UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: [], animations: {
