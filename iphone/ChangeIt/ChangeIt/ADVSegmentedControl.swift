@@ -88,7 +88,7 @@ import UIKit
     
     func setTitle(title:String, forSegmentAtIndex:Int) {
         print("\(views.count)")
-        let view = views[selectedSegmentIndex]
+        let view = views[forSegmentAtIndex]
         let counter = view.viewWithTag(102) as! UILabel
         counter.text = title
     }
@@ -121,7 +121,7 @@ import UIKit
             let counter = UILabel()
             counter.translatesAutoresizingMaskIntoConstraints = false
             counter.tag = 102
-//            counter.text = "00"
+            counter.text = "00"
             counter.textAlignment = .Center
             counter.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
             counter.backgroundColor = index == 1 ? unselectedLabelColor : selectedLabelColor
