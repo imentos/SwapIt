@@ -13,7 +13,7 @@
 
 static CGFloat textMarginHorizontal = 15.0f;
 static CGFloat textMarginVertical = 7.5f;
-static CGFloat messageTextSize = 14.0;
+static CGFloat messageTextSize = 17.0;
 
 @synthesize sent, messageLabel, messageView, timeLabel, avatarImageView, balloonView;
 
@@ -44,7 +44,7 @@ static CGFloat messageTextSize = 14.0;
     if (sent == YES && selected == YES) {
         return [[UIImage imageNamed:@"balloon_selected_right"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
     } else if (sent == YES && selected == NO) {
-        return [[UIImage imageNamed:@"balloon_read_right"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
+        return [[UIImage imageNamed:@"balloon_selected_right"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
     } else if (sent == NO && selected == YES) {
         return [[UIImage imageNamed:@"balloon_selected_left"] stretchableImageWithLeftCapWidth:24 topCapHeight:15];
     } else {
@@ -78,7 +78,7 @@ static CGFloat messageTextSize = 14.0;
         
         /*Time-Label*/
         self.timeLabel.font = [UIFont boldSystemFontOfSize:12.0f];
-        self.timeLabel.textColor = [UIColor darkGrayColor];
+        self.timeLabel.textColor = [UIColor lightGrayColor];
         self.timeLabel.backgroundColor = [UIColor clearColor];
         
         /*...and adds them to the view.*/

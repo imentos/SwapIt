@@ -166,14 +166,17 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             let time = timestampToText(self.questionJSON["timestamp"].double!)
             
             cell!.messageLabel.text = text
+            cell!.messageLabel.textColor = isOwner ? UIColor.whiteColor() : UIColor.blackColor()
             cell!.timeLabel.text = time
-            cell!.sent = isOwner            
+            cell!.sent = isOwner
+            
         } else {
             let isOwner:Bool = self.repliesJSON[indexPath.row - 1]["owner"].string == PFUser.currentUser()?.objectId
             let text = self.repliesJSON[indexPath.row - 1]["text"].string
             let time = timestampToText(self.repliesJSON[indexPath.row - 1]["timestamp"].double!)
             
             cell!.messageLabel.text = text
+            cell!.messageLabel.textColor = isOwner ? UIColor.whiteColor() : UIColor.blackColor()
             cell!.timeLabel.text = time
             cell?.sent = isOwner
         }
