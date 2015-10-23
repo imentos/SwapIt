@@ -56,6 +56,16 @@
 		B397913A1BD9828B0069DAF4 /* balloon_unread_left.png in Resources */ = {isa = PBXBuildFile; fileRef = B39791321BD9828B0069DAF4 /* balloon_unread_left.png */; settings = {ASSET_TAGS = (); }; };
 		B397913B1BD9828B0069DAF4 /* balloon_unread_right.png in Resources */ = {isa = PBXBuildFile; fileRef = B39791331BD9828B0069DAF4 /* balloon_unread_right.png */; settings = {ASSET_TAGS = (); }; };
 		B397913C1BD9828B0069DAF4 /* PTSMessagingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B39791351BD9828B0069DAF4 /* PTSMessagingCell.m */; settings = {ASSET_TAGS = (); }; };
+		B397913F1BD9F6060069DAF4 /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B397913D1BD9F6060069DAF4 /* Instabug.bundle */; settings = {ASSET_TAGS = (); }; };
+		B39791401BD9F6060069DAF4 /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B397913E1BD9F6060069DAF4 /* Instabug.framework */; settings = {ASSET_TAGS = (); }; };
+		B39791421BD9F6E50069DAF4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39791411BD9F6E50069DAF4 /* CoreMotion.framework */; };
+		B39791441BD9F6EE0069DAF4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39791431BD9F6EE0069DAF4 /* CoreTelephony.framework */; };
+		B39791461BD9F6FC0069DAF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39791451BD9F6FC0069DAF4 /* Foundation.framework */; };
+		B39791481BD9F7040069DAF4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39791471BD9F7040069DAF4 /* GLKit.framework */; };
+		B397914A1BD9F7160069DAF4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39791491BD9F7160069DAF4 /* MessageUI.framework */; };
+		B397914C1BD9F71E0069DAF4 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B397914B1BD9F71E0069DAF4 /* OpenGLES.framework */; };
+		B397914E1BD9F7340069DAF4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B397914D1BD9F7340069DAF4 /* UIKit.framework */; };
+		B39791501BD9F73F0069DAF4 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B397914F1BD9F73F0069DAF4 /* libc++.tbd */; };
 		B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39EC9B01B014B8000FFC89A /* ItemCell.swift */; };
 		B3B1206A1B96BC420020D13E /* MyLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B120691B96BC420020D13E /* MyLogInViewController.swift */; };
 		B3B994301BD8040000A362ED /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9942F1BD8040000A362ED /* ADVSegmentedControl.swift */; settings = {ASSET_TAGS = (); }; };
@@ -155,6 +165,16 @@
 		B39791331BD9828B0069DAF4 /* balloon_unread_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon_unread_right.png; sourceTree = "<group>"; };
 		B39791341BD9828B0069DAF4 /* PTSMessagingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTSMessagingCell.h; sourceTree = "<group>"; };
 		B39791351BD9828B0069DAF4 /* PTSMessagingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTSMessagingCell.m; sourceTree = "<group>"; };
+		B397913D1BD9F6060069DAF4 /* Instabug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Instabug.bundle; sourceTree = "<group>"; };
+		B397913E1BD9F6060069DAF4 /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Instabug.framework; sourceTree = "<group>"; };
+		B39791411BD9F6E50069DAF4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		B39791431BD9F6EE0069DAF4 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		B39791451BD9F6FC0069DAF4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B39791471BD9F7040069DAF4 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		B39791491BD9F7160069DAF4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		B397914B1BD9F71E0069DAF4 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		B397914D1BD9F7340069DAF4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		B397914F1BD9F73F0069DAF4 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B39EC9B01B014B8000FFC89A /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		B3B120691B96BC420020D13E /* MyLogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLogInViewController.swift; sourceTree = "<group>"; };
 		B3B9942F1BD8040000A362ED /* ADVSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADVSegmentedControl.swift; sourceTree = "<group>"; };
@@ -188,12 +208,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B39791501BD9F73F0069DAF4 /* libc++.tbd in Frameworks */,
+				B397914E1BD9F7340069DAF4 /* UIKit.framework in Frameworks */,
+				B35C66481AE951FD0029055F /* QuartzCore.framework in Frameworks */,
+				B397914C1BD9F71E0069DAF4 /* OpenGLES.framework in Frameworks */,
+				B397914A1BD9F7160069DAF4 /* MessageUI.framework in Frameworks */,
+				B39791481BD9F7040069DAF4 /* GLKit.framework in Frameworks */,
+				B39791461BD9F6FC0069DAF4 /* Foundation.framework in Frameworks */,
+				B39791441BD9F6EE0069DAF4 /* CoreTelephony.framework in Frameworks */,
+				B39791421BD9F6E50069DAF4 /* CoreMotion.framework in Frameworks */,
+				B35C66431AE951FC0029055F /* CoreGraphics.framework in Frameworks */,
+				B35C66411AE951FC0029055F /* AudioToolbox.framework in Frameworks */,
 				B333F8851BB0CC63002CCF48 /* libstdc++.6.dylib in Frameworks */,
 				B37C100B1AE98D7B0086864F /* Social.framework in Frameworks */,
 				B333F8831BB0CB21002CCF48 /* ParseCrashReporting.framework in Frameworks */,
-				B35C66411AE951FC0029055F /* AudioToolbox.framework in Frameworks */,
+				B39791401BD9F6060069DAF4 /* Instabug.framework in Frameworks */,
 				B35C66421AE951FC0029055F /* CFNetwork.framework in Frameworks */,
-				B35C66431AE951FC0029055F /* CoreGraphics.framework in Frameworks */,
 				B37C0FFD1AE989CE0086864F /* Bolts.framework in Frameworks */,
 				B37C10001AE989CE0086864F /* Parse.framework in Frameworks */,
 				B35C66441AE951FC0029055F /* CoreLocation.framework in Frameworks */,
@@ -201,7 +231,6 @@
 				B35C66461AE951FC0029055F /* libz.dylib in Frameworks */,
 				B3FCB87D1B8F734800AD9A1E /* ParseUI.framework in Frameworks */,
 				B35C66471AE951FD0029055F /* MobileCoreServices.framework in Frameworks */,
-				B35C66481AE951FD0029055F /* QuartzCore.framework in Frameworks */,
 				B37C10231AE993DD0086864F /* FacebookSDK.framework in Frameworks */,
 				B35C66491AE951FD0029055F /* Security.framework in Frameworks */,
 				B35C664A1AE951FD0029055F /* StoreKit.framework in Frameworks */,
@@ -295,6 +324,16 @@
 		B37C101B1AE990EA0086864F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B397914F1BD9F73F0069DAF4 /* libc++.tbd */,
+				B397914D1BD9F7340069DAF4 /* UIKit.framework */,
+				B397914B1BD9F71E0069DAF4 /* OpenGLES.framework */,
+				B39791491BD9F7160069DAF4 /* MessageUI.framework */,
+				B39791471BD9F7040069DAF4 /* GLKit.framework */,
+				B39791451BD9F6FC0069DAF4 /* Foundation.framework */,
+				B39791431BD9F6EE0069DAF4 /* CoreTelephony.framework */,
+				B39791411BD9F6E50069DAF4 /* CoreMotion.framework */,
+				B397913D1BD9F6060069DAF4 /* Instabug.bundle */,
+				B397913E1BD9F6060069DAF4 /* Instabug.framework */,
 				B333F8841BB0CC63002CCF48 /* libstdc++.6.dylib */,
 				B333F8821BB0CB21002CCF48 /* ParseCrashReporting.framework */,
 				B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */,
@@ -472,6 +511,7 @@
 				B37431A71AE861A600A0808B /* Images.xcassets in Resources */,
 				B39791381BD9828B0069DAF4 /* balloon_selected_left.png in Resources */,
 				7F1210781BACC02D00C4F65D /* Geogtq-Lg.otf in Resources */,
+				B397913F1BD9F6060069DAF4 /* Instabug.bundle in Resources */,
 				7F12107A1BACC02D00C4F65D /* Geogtq-Rg.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

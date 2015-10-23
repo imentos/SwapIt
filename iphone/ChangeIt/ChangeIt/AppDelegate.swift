@@ -10,6 +10,7 @@ import UIKit
 import Parse
 import ParseUI
 import ParseCrashReporting
+//import Instabug
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.tintColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:1)
         
         UITableViewCell.appearance().selectionStyle = .None
+        
+          Instabug.startWithToken("26aa8dffa6a4e781859f60b4fb796f0d", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
         
         return true
     }

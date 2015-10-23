@@ -11,3 +11,5 @@
 #import "JTSImageVC/JTSImageViewController.h"
 
 #import "PTSMessagingCell/PTSMessagingCell.h"
+
+#import <Instabug/Instabug.h>
