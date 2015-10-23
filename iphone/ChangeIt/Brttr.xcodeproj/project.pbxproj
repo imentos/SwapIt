@@ -138,14 +138,14 @@
 		B35C663E1AE951FC0029055F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B35C663F1AE951FC0029055F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B35C66401AE951FC0029055F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		B37431981AE861A600A0808B /* ChangeIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChangeIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B37431981AE861A600A0808B /* Brttr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brttr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B374319C1AE861A600A0808B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B374319D1AE861A600A0808B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B374319F1AE861A600A0808B /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		B37431A41AE861A600A0808B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B37431A61AE861A600A0808B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B37431A91AE861A600A0808B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		B37431AF1AE861A600A0808B /* ChangeItTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChangeItTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B37431AF1AE861A600A0808B /* Brttr.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Brttr.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B37C0FF81AE989CE0086864F /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		B37C0FFB1AE989CE0086864F /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		B37C100A1AE98D7B0086864F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -265,8 +265,8 @@
 		B37431991AE861A600A0808B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B37431981AE861A600A0808B /* ChangeIt.app */,
-				B37431AF1AE861A600A0808B /* ChangeItTests.xctest */,
+				B37431981AE861A600A0808B /* Brttr.app */,
+				B37431AF1AE861A600A0808B /* Brttr.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -413,9 +413,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B37431971AE861A600A0808B /* ChangeIt */ = {
+		B37431971AE861A600A0808B /* Brttr */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B37431B91AE861A600A0808B /* Build configuration list for PBXNativeTarget "ChangeIt" */;
+			buildConfigurationList = B37431B91AE861A600A0808B /* Build configuration list for PBXNativeTarget "Brttr" */;
 			buildPhases = (
 				B37431941AE861A600A0808B /* Sources */,
 				B37431951AE861A600A0808B /* Frameworks */,
@@ -427,14 +427,14 @@
 			);
 			dependencies = (
 			);
-			name = ChangeIt;
+			name = Brttr;
 			productName = ChangeIt;
-			productReference = B37431981AE861A600A0808B /* ChangeIt.app */;
+			productReference = B37431981AE861A600A0808B /* Brttr.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B37431AE1AE861A600A0808B /* ChangeItTests */ = {
+		B37431AE1AE861A600A0808B /* BrttrTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B37431BC1AE861A600A0808B /* Build configuration list for PBXNativeTarget "ChangeItTests" */;
+			buildConfigurationList = B37431BC1AE861A600A0808B /* Build configuration list for PBXNativeTarget "BrttrTests" */;
 			buildPhases = (
 				B37431AB1AE861A600A0808B /* Sources */,
 				B37431AC1AE861A600A0808B /* Frameworks */,
@@ -445,9 +445,9 @@
 			dependencies = (
 				B37431B11AE861A600A0808B /* PBXTargetDependency */,
 			);
-			name = ChangeItTests;
+			name = BrttrTests;
 			productName = ChangeItTests;
-			productReference = B37431AF1AE861A600A0808B /* ChangeItTests.xctest */;
+			productReference = B37431AF1AE861A600A0808B /* Brttr.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -476,7 +476,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B37431931AE861A600A0808B /* Build configuration list for PBXProject "ChangeIt" */;
+			buildConfigurationList = B37431931AE861A600A0808B /* Build configuration list for PBXProject "Brttr" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -489,8 +489,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B37431971AE861A600A0808B /* ChangeIt */,
-				B37431AE1AE861A600A0808B /* ChangeItTests */,
+				B37431971AE861A600A0808B /* Brttr */,
+				B37431AE1AE861A600A0808B /* BrttrTests */,
 			);
 		};
 /* End PBXProject section */
@@ -537,7 +537,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd ParseCrash\necho ${DWARF_DSYM_FOLDER_PATH}\necho parse symbols \"Change It\" --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "#--- SCRIPT BEGIN ---\n# SKIP_SIMULATOR_BUILDS=1\nSCRIPT_SRC=$(find \"$PROJECT_DIR\" -name 'Instabug_dsym_upload.sh' | head -1)\nif [ ! \"${SCRIPT_SRC}\" ]; then\necho \"Instabug: err: script not found. Make sure that you're including Instabug.bundle in your project directory\"\nexit 1\nfi\nsource \"${SCRIPT_SRC}\"\n#--- SCRIPT END ---\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -597,7 +597,7 @@
 /* Begin PBXTargetDependency section */
 		B37431B11AE861A600A0808B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B37431971AE861A600A0808B /* ChangeIt */;
+			target = B37431971AE861A600A0808B /* Brttr */;
 			targetProxy = B37431B01AE861A600A0808B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -733,7 +733,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Brttr;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ChangeIt-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -761,7 +761,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Brttr;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ChangeIt-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -782,8 +782,8 @@
 				);
 				INFOPLIST_FILE = ChangeItTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChangeIt.app/ChangeIt";
+				PRODUCT_NAME = Brttr;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Brttr.app/Brttr";
 			};
 			name = Debug;
 		};
@@ -797,15 +797,15 @@
 				);
 				INFOPLIST_FILE = ChangeItTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChangeIt.app/ChangeIt";
+				PRODUCT_NAME = Brttr;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Brttr.app/Brttr";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B37431931AE861A600A0808B /* Build configuration list for PBXProject "ChangeIt" */ = {
+		B37431931AE861A600A0808B /* Build configuration list for PBXProject "Brttr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B37431B71AE861A600A0808B /* Debug */,
@@ -814,7 +814,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B37431B91AE861A600A0808B /* Build configuration list for PBXNativeTarget "ChangeIt" */ = {
+		B37431B91AE861A600A0808B /* Build configuration list for PBXNativeTarget "Brttr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B37431BA1AE861A600A0808B /* Debug */,
@@ -823,7 +823,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B37431BC1AE861A600A0808B /* Build configuration list for PBXNativeTarget "ChangeItTests" */ = {
+		B37431BC1AE861A600A0808B /* Build configuration list for PBXNativeTarget "BrttrTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B37431BD1AE861A600A0808B /* Debug */,

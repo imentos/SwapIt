@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ChangeIt.xcodeproj">
+      location = "self:/Users/i818292/ios projects/SwapIt/iphone/ChangeIt/Brttr.xcodeproj">
    </FileRef>
 </Workspace>

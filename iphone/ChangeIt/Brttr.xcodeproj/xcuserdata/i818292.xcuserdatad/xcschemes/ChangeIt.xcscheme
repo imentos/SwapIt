@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B37431971AE861A600A0808B"
-               BuildableName = "ChangeIt.app"
-               BlueprintName = "ChangeIt"
-               ReferencedContainer = "container:ChangeIt.xcodeproj">
+               BuildableName = "Brttr.app"
+               BlueprintName = "Brttr"
+               ReferencedContainer = "container:Brttr.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,27 +29,27 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B37431AE1AE861A600A0808B"
-               BuildableName = "ChangeItTests.xctest"
-               BlueprintName = "ChangeItTests"
-               ReferencedContainer = "container:ChangeIt.xcodeproj">
+               BuildableName = "Brttr.xctest"
+               BlueprintName = "BrttrTests"
+               ReferencedContainer = "container:Brttr.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Debug">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B37431AE1AE861A600A0808B"
-               BuildableName = "ChangeItTests.xctest"
-               BlueprintName = "ChangeItTests"
-               ReferencedContainer = "container:ChangeIt.xcodeproj">
+               BuildableName = "Brttr.xctest"
+               BlueprintName = "BrttrTests"
+               ReferencedContainer = "container:Brttr.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,29 +57,32 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B37431971AE861A600A0808B"
-            BuildableName = "ChangeIt.app"
-            BlueprintName = "ChangeIt"
-            ReferencedContainer = "container:ChangeIt.xcodeproj">
+            BuildableName = "Brttr.app"
+            BlueprintName = "Brttr"
+            ReferencedContainer = "container:Brttr.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B37431971AE861A600A0808B"
-            BuildableName = "ChangeIt.app"
-            BlueprintName = "ChangeIt"
-            ReferencedContainer = "container:ChangeIt.xcodeproj">
+            BuildableName = "Brttr.app"
+            BlueprintName = "Brttr"
+            ReferencedContainer = "container:Brttr.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -90,19 +93,19 @@
       </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B37431971AE861A600A0808B"
-            BuildableName = "ChangeIt.app"
-            BlueprintName = "ChangeIt"
-            ReferencedContainer = "container:ChangeIt.xcodeproj">
+            BuildableName = "Brttr.app"
+            BlueprintName = "Brttr"
+            ReferencedContainer = "container:Brttr.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
