@@ -72,6 +72,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         super.viewDidAppear(animated)
         
         if (self.bookmarkMode == true) {
+            self.searchController.searchBar.hidden = true
             self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
             }
         }
