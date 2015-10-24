@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITableViewCell.appearance().selectionStyle = .None
         
         // instabug
-        Instabug.startWithToken("26aa8dffa6a4e781859f60b4fb796f0d", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
+        Instabug.startWithToken("09d7d874a8efe64a9a186afc07982018", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
         
         // notification
         let notificationType: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]

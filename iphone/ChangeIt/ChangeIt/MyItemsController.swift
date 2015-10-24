@@ -63,13 +63,21 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     
     func updateTotalUnreadCount() {
         var totalUnread:Int = 0
-        PFCloud.callFunctionInBackground("getUnreadQuestionsCount", withParameters:nil, block: {
+        PFCloud.callFunctionInBackground("getUnreadQuestionsCount", withParameters:["userId": (PFUser.currentUser()?.objectId)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
+            if let _ = result {
+            } else {
+                return
+            }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             totalUnread += countJSON[0].int!
 
-            PFCloud.callFunctionInBackground("getUnreadExchangesCount", withParameters:nil, block: {
+            PFCloud.callFunctionInBackground("getUnreadExchangesCount", withParameters:["userId": (PFUser.currentUser()?.objectId)!], block: {
                 (result:AnyObject?, error: NSError?) -> Void in
+                if let _ = result {
+                } else {
+                    return
+                }
                 let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 totalUnread += countJSON[0].int!
                 

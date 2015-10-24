@@ -88,13 +88,14 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 // Send push notification to query
                 let pushQuery = PFInstallation.query()
-                pushQuery!.whereKey("user", equalTo: self.userJSON["objectId"].string!)
-
+                pushQuery!.whereKey("user", equalTo: PFUser(withoutDataWithObjectId: self.userJSON["objectId"].string!))
                 let push = PFPush()
                 push.setQuery(pushQuery)
-                push.setData(["type": "message", "objectId": uuid])
+                push.setData(["type": "message", "from": (PFUser.currentUser()?.objectId)!, "to": self.userJSON["objectId"].string!, "objectId": uuid])
                 push.sendPushInBackgroundWithBlock({ (result, error) -> Void in
-                    //
+                    if let _ = error {
+                        print(error)
+                    }
                 })
                 
                 PFCloud.callFunctionInBackground("setQuestionUnread", withParameters: ["objectId": self.questionJSON["objectId"].string!], block:{

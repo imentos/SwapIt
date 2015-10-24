@@ -235,8 +235,9 @@ Parse.Cloud.define("getUnreadQuestionsCount", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (n:Item)<-[r:LINK]-(q:Question)<-[a:ASK]-(u:User) WHERE r.read = false AND NOT ((u)-[:OFFER]->(:Item)-[:EXCHANGE]->(n))  RETURN COUNT(r)',
+            query: 'MATCH (u:User{objectId:{userId}})-[f:OFFER]->(n:Item)<-[r:LINK]-(q:Question)<-[a:ASK]-(u:User) WHERE r.read = false AND NOT ((u)-[:OFFER]->(:Item)-[:EXCHANGE]->(n))  RETURN COUNT(r)',
             params: {
+                userId: request.params.userId
             }
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',

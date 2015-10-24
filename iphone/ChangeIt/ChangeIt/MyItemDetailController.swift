@@ -26,8 +26,8 @@ extension UIImage {
 }
 
 class MyItemDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var questionsJSON:JSON = nil
-    var receivedItemsJSON:JSON = nil
+    var questionsJSON:JSON!
+    var receivedItemsJSON:JSON!
     var offeredItemsJSON:JSON!
     var itemJSON:JSON!
     
@@ -127,23 +127,20 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (segmentedControl.selectedSegmentIndex == 0) {
-            if (receivedItemsJSON == nil) {
-                return 0
+            if let _ = receivedItemsJSON {
+                return receivedItemsJSON.count
             }
-            return receivedItemsJSON.count
-            
+            return 0
         } else if (segmentedControl.selectedSegmentIndex == 1) {
-            if (offeredItemsJSON == nil) {
-                return 0
+            if let _ = offeredItemsJSON {
+                return offeredItemsJSON.count
             }
-            return offeredItemsJSON.count
-            
+            return 0
         } else {
-            if (questionsJSON == nil) {
-                return 0
+            if let _ = questionsJSON {
+                return questionsJSON.count
             }
-            return questionsJSON.count
-            
+            return 0
         }
     }
     

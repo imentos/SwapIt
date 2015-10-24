@@ -362,9 +362,9 @@ Parse.Cloud.define("getUnreadExchangesCount", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (n:Item)<-[r:EXCHANGE]-() WHERE r.read = false RETURN COUNT(r)',
+            query: 'MATCH (u:User{objectId:{userId}})-[f:OFFER]->(n:Item)<-[r:EXCHANGE]-() WHERE r.read = false RETURN COUNT(r)',
             params: {
-                
+                userId: request.params.userId
             }
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',

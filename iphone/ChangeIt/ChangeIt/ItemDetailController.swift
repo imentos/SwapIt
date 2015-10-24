@@ -67,17 +67,17 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         self.userPhoto.addGestureRecognizer(userTap)
         
         self.expandItemImage()
-        
-
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         if (self.fromOffer == false) {
-            PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["itemId": itemJSON["objectId"].string!, "userId":self.userJSON["objectId"].string!], block:{
-                (results:AnyObject?, error: NSError?) -> Void in
-            })
+            if let _ = itemJSON {
+                PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["itemId": itemJSON["objectId"].string!, "userId":self.userJSON["objectId"].string!], block:{
+                    (results:AnyObject?, error: NSError?) -> Void in
+                })
+            }
         }
         
         updateCommunications()
@@ -318,15 +318,15 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     self.loadData(false)
                     
                     
-                    
-                    
                     let pushQuery = PFInstallation.query()
-                    pushQuery!.whereKey("user", equalTo: self.userJSON["objectId"].string!)
+                    pushQuery!.whereKey("user", equalTo: PFUser(withoutDataWithObjectId: self.userJSON["objectId"].string!))
                     let push = PFPush()
                     push.setQuery(pushQuery)
-                    push.setData(["type": "offer", "from": (PFUser.currentUser()?.objectId)!])
+                    push.setData(["type": "offer", "from": (PFUser.currentUser()?.objectId)!, "to": self.userJSON["objectId"].string!])
                     push.sendPushInBackgroundWithBlock({ (result, error) -> Void in
-                        //
+                        if let _ = error {
+                            print(error)
+                        }
                     })
 
                 })
