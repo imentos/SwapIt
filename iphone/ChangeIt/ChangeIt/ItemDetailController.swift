@@ -75,7 +75,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         super.viewDidAppear(animated)
         
         if (self.fromOffer == false) {
-            PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["itemId": itemJSON["objectId"].string!, "userId":(PFUser.currentUser()?.objectId)!], block:{
+            PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["itemId": itemJSON["objectId"].string!, "userId":self.userJSON["objectId"].string!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
             })
         }
@@ -316,6 +316,19 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.makeOfferButton.title = "Edit Offer"
                     self.loadData(false)
+                    
+                    
+                    
+                    
+                    let pushQuery = PFInstallation.query()
+                    pushQuery!.whereKey("user", equalTo: self.userJSON["objectId"].string!)
+                    let push = PFPush()
+                    push.setQuery(pushQuery)
+                    push.setData(["type": "offer", "from": (PFUser.currentUser()?.objectId)!])
+                    push.sendPushInBackgroundWithBlock({ (result, error) -> Void in
+                        //
+                    })
+
                 })
             })
         } else {

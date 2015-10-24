@@ -35,12 +35,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // global style
         self.window!.tintColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:1)
-        
         UITableViewCell.appearance().selectionStyle = .None
         
-          Instabug.startWithToken("26aa8dffa6a4e781859f60b4fb796f0d", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
+        // instabug
+        Instabug.startWithToken("26aa8dffa6a4e781859f60b4fb796f0d", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
+        
+        // notification
+        let notificationType: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
+        
+        let settings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: notificationType, categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+        UIApplication.sharedApplication().registerForRemoteNotifications()
         
         return true
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let installation = PFInstallation.currentInstallation()
+        installation.setDeviceTokenFromData(deviceToken)
+        installation["user"] = PFUser.currentUser()
+        installation.saveInBackgroundWithBlock { (result, error) -> Void in
+        }
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print(error)
+    }
+    
+    func updateTabBadge(index:Int, value:String?) {
+        let tab = self.window?.rootViewController as! UITabBarController
+        if let tabItems = tab.tabBar.items {
+            if let item:UITabBarItem = tabItems[index] {
+                item.badgeValue = value
+            }
+        }
+    }
+    
+    func application(application: UIApplication,  didReceiveRemoteNotification userInfo: [NSObject : AnyObject],  fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        if let type:String = userInfo["type"] as? String {
+            print("type:\(type)")
+            if (type == "message") {
+                updateTabBadge(0, value:"")
+            } else if (type == "offer") {
+                updateTabBadge(2, value:"")
+            }
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {

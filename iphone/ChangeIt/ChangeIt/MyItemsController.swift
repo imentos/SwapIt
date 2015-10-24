@@ -25,6 +25,7 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     func updateUnread(itemJSON:JSON, cell:UITableViewCell) {
         var unreadQuestions = 0
         var unreadOffers = 0
+        
         PFCloud.callFunctionInBackground("getUnreadQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
             if (result == nil) {
@@ -60,10 +61,30 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
         super.viewDidLoad()
     }
     
+    func updateTotalUnreadCount() {
+        var totalUnread:Int = 0
+        PFCloud.callFunctionInBackground("getUnreadQuestionsCount", withParameters:nil, block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            totalUnread += countJSON[0].int!
+
+            PFCloud.callFunctionInBackground("getUnreadExchangesCount", withParameters:nil, block: {
+                (result:AnyObject?, error: NSError?) -> Void in
+                let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                totalUnread += countJSON[0].int!
+                
+                let app:AppDelegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
+                app.updateTabBadge(2, value: totalUnread == 0 ? nil : "")
+            })
+        })
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         loadData()
+        
+        updateTotalUnreadCount()
     }
 
     func loadData() {
