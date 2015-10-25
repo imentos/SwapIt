@@ -317,16 +317,23 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     self.makeOfferButton.title = "Edit Offer"
                     self.loadData(false)
                     
-                    
+                    // push
                     let pushQuery = PFInstallation.query()
                     pushQuery!.whereKey("user", equalTo: PFUser(withoutDataWithObjectId: self.userJSON["objectId"].string!))
                     let push = PFPush()
                     push.setQuery(pushQuery)
-                    push.setData(["type": "offer", "from": (PFUser.currentUser()?.objectId)!, "to": self.userJSON["objectId"].string!])
-                    push.sendPushInBackgroundWithBlock({ (result, error) -> Void in
-                        if let _ = error {
-                            print(error)
-                        }
+                    PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!], block:{
+                        (userFromCloud:AnyObject?, error: NSError?) -> Void in
+                        let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
+                        let name = userJSON["name"].string!
+                        let item = self.itemJSON["title"].string!
+                        let alert = "Your item \"\(item)\" got an offer from \(name)"
+                        push.setData(["alert": alert, "type": "offer", "from": (PFUser.currentUser()?.objectId)!, "to": self.userJSON["objectId"].string!])
+                        push.sendPushInBackgroundWithBlock({ (result, error) -> Void in
+                            if let _ = error {
+                                print(error)
+                            }
+                        })
                     })
 
                 })

@@ -47,6 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().registerUserNotificationSettings(settings)
         UIApplication.sharedApplication().registerForRemoteNotifications()
         
+        if let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+            handleRemoteNofication(userInfo)
+        }
         return true
     }
     
@@ -63,15 +66,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func updateTabBadge(index:Int, value:String?) {
-        let tab = self.window?.rootViewController as! UITabBarController
-        if let tabItems = tab.tabBar.items {
+        let main:MainController = self.window?.rootViewController as! MainController
+        main.selectedIndex = index
+        if let tabItems = main.tabBar.items {
             if let item:UITabBarItem = tabItems[index] {
                 item.badgeValue = value
             }
         }
     }
     
-    func application(application: UIApplication,  didReceiveRemoteNotification userInfo: [NSObject : AnyObject],  fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+    func handleRemoteNofication(userInfo:NSDictionary) {
         if let type:String = userInfo["type"] as? String {
             print("type:\(type)")
             if (type == "message") {
@@ -80,6 +84,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 updateTabBadge(2, value:"")
             }
         }
+    }
+    
+    func application(application: UIApplication,  didReceiveRemoteNotification userInfo: [NSObject : AnyObject],  fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        handleRemoteNofication(userInfo)
     }
 
     func applicationWillResignActive(application: UIApplication) {

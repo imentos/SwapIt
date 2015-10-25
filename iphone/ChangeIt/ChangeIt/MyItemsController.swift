@@ -93,6 +93,8 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
         loadData()
         
         updateTotalUnreadCount()
+        
+        self.tabBarController!.tabBar.hidden = false
     }
 
     func loadData() {

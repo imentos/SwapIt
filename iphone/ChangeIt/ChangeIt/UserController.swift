@@ -72,6 +72,8 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         super.viewDidAppear(animated)
         
         loadData()
+        
+        self.tabBarController?.tabBar.hidden = false
     }
     
     func loadData() {

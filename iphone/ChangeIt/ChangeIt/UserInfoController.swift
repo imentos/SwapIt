@@ -15,7 +15,7 @@ class UserInfoController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = NSURL(string: "http://brttr.com/main.html")
+        let url = NSURL(string: "http://brttr.com")
         self.webview.loadRequest(NSURLRequest(URL: url!))
     }
 }

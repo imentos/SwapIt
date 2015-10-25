@@ -75,8 +75,11 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.searchController.searchBar.hidden = true
             self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
             }
+        } else {
+            loadData() { (results) -> Void in
+            }
         }
-    }
+ }
     
     // from UISearchResultsUpdating
     func updateSearchResultsForSearchController(searchController: UISearchController) {

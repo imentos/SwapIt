@@ -64,10 +64,6 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
     
     func startItemsPage() {
         self.selectedIndex = 1
-        let navi = self.selectedViewController as! UINavigationController
-        let itemsPage = navi.topViewController as! ItemsController
-        itemsPage.loadData() { (results) -> Void in
-        }
     }
     
     func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
