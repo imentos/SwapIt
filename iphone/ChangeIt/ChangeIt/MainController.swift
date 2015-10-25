@@ -104,7 +104,6 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
         let permissions = ["public_profile"]
         PFFacebookUtils.logInWithPermissions(permissions, block: {
             (user: PFUser?, error: NSError?) -> Void in
-            //println(user?.objectId)
             if let user = user {
                 if user.isNew {
                     print("User signed up and logged in through Facebook!")
@@ -112,6 +111,12 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
                     print("User logged in through Facebook!")
                 }
                 
+                print("u:\(PFUser.currentUser())")
+                let installation = PFInstallation.currentInstallation()
+                installation["user"] = PFUser.currentUser()
+                installation.saveInBackgroundWithBlock { (result, error) -> Void in
+                }
+
                 let req = FBRequest.requestForMe()
                 req.startWithCompletionHandler{
                     (connection:FBRequestConnection!, result:AnyObject!, error:NSError!) -> Void in
