@@ -62,6 +62,12 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidAppear(animated)
         
         scrollDown()
+        
+        if let _ = questionJSON {
+            PFCloud.callFunctionInBackground("setQuestionRead", withParameters: ["objectId": self.questionJSON["objectId"].string!], block:{
+                (results:AnyObject?, error: NSError?) -> Void in
+            })
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -151,10 +157,6 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
                 self.messageTextField.text = ""
 
                 self.scrollDown()
-                
-                PFCloud.callFunctionInBackground("setQuestionRead", withParameters: ["objectId": self.questionJSON["objectId"].string!], block:{
-                    (results:AnyObject?, error: NSError?) -> Void in
-                })
             })
         }
     }
