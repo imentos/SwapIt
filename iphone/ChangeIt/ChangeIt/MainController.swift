@@ -12,7 +12,7 @@ extension UITabBarItem {
     }
 }
 
-class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
+class MainController: UITabBarController, UITabBarControllerDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
     var login:MyLogInViewController!
     
     override func viewDidAppear(animated: Bool) {
@@ -25,6 +25,10 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.delegate = self
+        
         if let _ = PFUser.currentUser() {
             startItemsPage()
         }
@@ -53,6 +57,17 @@ class MainController: UITabBarController, PFLogInViewControllerDelegate, PFSignU
         self.presentViewController(login, animated: true, completion: { () -> Void in
             //
         })
+    }
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        let indexOfTab = tabBarController.viewControllers!.indexOf(viewController)
+        if (indexOfTab == 1) {
+            let navi = viewController as! UINavigationController
+            let view = navi.topViewController as! ItemsController
+            view.loadData({ (results) -> Void in
+                //
+            })
+        }
     }
     
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {

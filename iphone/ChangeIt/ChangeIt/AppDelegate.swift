@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let type:String = userInfo["type"] as? String {
             print("type:\(type)")
             if (type == "message") {
-                updateTabBadge(0, value:"")
+                updateTabBadge(2, value:"")
             } else if (type == "offer") {
                 updateTabBadge(2, value:"")
             }
