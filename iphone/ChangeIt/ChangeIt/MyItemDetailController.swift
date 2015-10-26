@@ -144,6 +144,28 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    func updatePhotoConstraints(photo:UIImageView, value:CGFloat) {
+        for c in photo.constraints {
+            if (c.identifier == "imageWidth") {
+                c.constant = value
+            } else if (c.identifier == "imageHeight") {
+                c.constant = value
+            }
+        }
+        photo.updateConstraints()
+    }
+    
+    func updateViewConstraints(photo:UIView, value:CGFloat) {
+        for c in photo.constraints {
+            if (c.identifier == "imageTop") {
+                c.constant = value
+            } else if (c.identifier == "imageLeading") {
+                c.constant = value
+            }
+        }
+        photo.updateConstraints()
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("myItemDetail", forIndexPath: indexPath) 
         let photo = cell.viewWithTag(101) as! UIImageView
@@ -159,7 +181,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         if (segmentedControl.selectedSegmentIndex == 0) {
             let itemJSON = receivedItemsJSON[indexPath.row]
             
+            updatePhotoConstraints(photo, value:120.0)
+            updateViewConstraints(cell.contentView, value:-8.0)
             photo.layer.cornerRadius = 0
+            
             createImageQuery().getObjectInBackgroundWithId(itemJSON["item"]["photo"].string!, block: {
                 (imageObj:PFObject?, error: NSError?) -> Void in
                 let imageData = (imageObj!["file"] as! PFFile).getData()
@@ -205,7 +230,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         } else if (segmentedControl.selectedSegmentIndex == 1) {
             let itemJSON = offeredItemsJSON[indexPath.row]
             
+            updatePhotoConstraints(photo, value:120.0)
+            updateViewConstraints(cell.contentView, value:-8.0)
             photo.layer.cornerRadius = 0
+            
             createImageQuery().getObjectInBackgroundWithId(itemJSON["item"]["photo"].string!, block: {
                 (imageObj:PFObject?, error: NSError?) -> Void in
                 let imageData = (imageObj!["file"] as! PFFile).getData()
@@ -232,6 +260,9 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         } else if (segmentedControl.selectedSegmentIndex == 2) {
             let questionJSON = questionsJSON[indexPath.row]
             
+            updatePhotoConstraints(photo, value:100.0)
+            updateViewConstraints(cell.contentView, value:5.0)
+            cell.contentView.layoutIfNeeded()            
             displayUserPhoto(photo, userJSON: questionJSON["user"])
 
             title.text = questionJSON["question"]["text"].string
