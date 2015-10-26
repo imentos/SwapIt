@@ -267,11 +267,10 @@ import UIKit
             let dic = ["label":label, "counter":counter, "icon":icon]
             
             view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-5-[icon(20)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
-            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-25-[icon(20)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
             
             //
             view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-2-[counter(30)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
-            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[counter(30)]-(30)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(<=25)-[icon(20)]-(>=10)-[counter(30)]-(<=30)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
             
             //
             view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
