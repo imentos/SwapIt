@@ -25,23 +25,19 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
         self.navigationController?.navigationBarHidden = true
-        self.tabBarController?.tabBar.hidden = false
     }
     
     @IBAction func unwindToUser(segue:UIStoryboardSegue) {
         self.navigationController?.navigationBarHidden = true
-        self.tabBarController?.tabBar.hidden = false
     }
 
     @IBAction func saveEmail(segue:UIStoryboardSegue) {
         self.navigationController?.navigationBarHidden = true
-        self.tabBarController?.tabBar.hidden = false
         self.loadData()
     }
     
     @IBAction func savePhone(segue:UIStoryboardSegue) {
         self.navigationController?.navigationBarHidden = true
-        self.tabBarController?.tabBar.hidden = false
         self.loadData()
     }
     
@@ -68,12 +64,16 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         main.showLoginPage()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.hidden = false
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         loadData()
-        
-        self.tabBarController?.tabBar.hidden = false
     }
     
     func loadData() {

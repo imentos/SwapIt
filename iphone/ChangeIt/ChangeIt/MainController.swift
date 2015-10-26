@@ -59,17 +59,6 @@ class MainController: UITabBarController, UITabBarControllerDelegate, PFLogInVie
         })
     }
     
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        let indexOfTab = tabBarController.viewControllers!.indexOf(viewController)
-        if (indexOfTab == 1) {
-            let navi = viewController as! UINavigationController
-            let view = navi.topViewController as! ItemsController
-            view.loadData({ (results) -> Void in
-                //
-            })
-        }
-    }
-    
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
         // when click an empty view controller, perform modal segue
         if (item.tag == 2) {

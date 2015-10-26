@@ -30,7 +30,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         if (bookmarkMode == false) {
             //self.navigationController?.navigationBarHidden = true
         }
-        self.tabBarController?.tabBar.hidden = false
         print("cancel")
     }
     
@@ -68,6 +67,12 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         })()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.hidden = false
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -79,7 +84,8 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             loadData() { (results) -> Void in
             }
         }
- }
+    }
+    
     
     // from UISearchResultsUpdating
     func updateSearchResultsForSearchController(searchController: UISearchController) {

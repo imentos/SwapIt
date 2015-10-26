@@ -13,13 +13,10 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     var itemsJSON:JSON = nil
 
     @IBAction func addItem(segue:UIStoryboardSegue) {
-        self.tabBarController?.tabBar.hidden = false
-        
         loadData()
     }
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
-        self.tabBarController?.tabBar.hidden = false
     }
     
     func updateUnread(itemJSON:JSON, cell:UITableViewCell) {
@@ -57,8 +54,22 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
         })
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.hidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        loadData()
+        
+        updateTotalUnreadCount()
     }
     
     func updateTotalUnreadCount() {
@@ -87,16 +98,6 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
         })
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        loadData()
-        
-        updateTotalUnreadCount()
-        
-        self.tabBarController!.tabBar.hidden = false
-    }
-
     func loadData() {
         PFCloud.callFunctionInBackground("getItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!], block: {
             (items:AnyObject?, error: NSError?) -> Void in

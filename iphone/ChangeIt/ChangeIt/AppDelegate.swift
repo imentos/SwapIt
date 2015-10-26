@@ -64,9 +64,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(error)
     }
     
-    func updateTabBadge(index:Int, value:String?) {
+    func switchTab(index:Int) {
         let main:MainController = self.window?.rootViewController as! MainController
         main.selectedIndex = index
+        if let tab:UINavigationController = main.viewControllers![index] as? UINavigationController {
+            tab.popToRootViewControllerAnimated(true)
+        }
+    }
+    
+    func updateTabBadge(index:Int, value:String?) {
+        let main:MainController = self.window?.rootViewController as! MainController
         if let tabItems = main.tabBar.items {
             if let item:UITabBarItem = tabItems[index] {
                 item.badgeValue = value
@@ -79,8 +86,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("type:\(type)")
             if (type == "message") {
                 updateTabBadge(2, value:"")
+                switchTab(2)
             } else if (type == "offer") {
                 updateTabBadge(2, value:"")
+                switchTab(2)
             }
         }
     }
