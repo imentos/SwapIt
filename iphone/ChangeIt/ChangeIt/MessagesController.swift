@@ -89,15 +89,14 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": self.messageTextField.text!, "objectId": uuid, "questionId": (questionJSON["objectId"].string)!, "userId": (PFUser.currentUser()?.objectId)!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
                 
-                
-                
-                
                 // Send push notification to query
                 let pushQuery = PFInstallation.query()
                 pushQuery!.whereKey("user", equalTo: PFUser(withoutDataWithObjectId: self.userJSON["objectId"].string!))
                 let push = PFPush()
+                let item = self.itemJSON["title"].string!
+                let alert = "You got a new message for your item \"\(item)\""
                 push.setQuery(pushQuery)
-                push.setData(["type": "message", "from": (PFUser.currentUser()?.objectId)!, "to": self.userJSON["objectId"].string!, "objectId": uuid])
+                push.setData(["alert": alert, "type": "message", "from": (PFUser.currentUser()?.objectId)!, "to": self.userJSON["objectId"].string!, "objectId": uuid])
                 push.sendPushInBackgroundWithBlock({ (result, error) -> Void in
                     if let _ = error {
                         print(error)
