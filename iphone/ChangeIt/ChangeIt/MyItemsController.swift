@@ -57,7 +57,7 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tabBarController?.tabBar.hidden = false
+        //self.tabBarController?.tabBar.hidden = false
     }
     
     override func viewDidLoad() {
@@ -187,7 +187,7 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        self.tabBarController?.tabBar.hidden = true
+        //self.tabBarController?.tabBar.hidden = true
 
         if (segue.identifier == "detail") {
             let tableView = self.view as! UITableView

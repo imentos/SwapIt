@@ -70,7 +70,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tabBarController?.tabBar.hidden = false
+        //self.tabBarController?.tabBar.hidden = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -287,7 +287,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             return
         }
         //self.navigationController?.navigationBarHidden = false
-        self.tabBarController?.tabBar.hidden = true
+        //self.tabBarController?.tabBar.hidden = true
         
         var itemJSON:JSON = nil
         let tableView = sender as! UITableView

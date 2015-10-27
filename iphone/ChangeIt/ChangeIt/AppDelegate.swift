@@ -67,9 +67,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func switchTab(index:Int) {
         let main:MainController = self.window?.rootViewController as! MainController
         main.selectedIndex = index
-        if let tab:UINavigationController = main.viewControllers![index] as? UINavigationController {
-            tab.popToRootViewControllerAnimated(true)
-        }
+//        if let tab:UINavigationController = main.viewControllers![index] as? UINavigationController {
+//            tab.popToRootViewControllerAnimated(true)
+//        }
     }
     
     func updateTabBadge(index:Int, value:String?) {

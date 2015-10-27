@@ -67,7 +67,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tabBarController?.tabBar.hidden = false
+        //self.tabBarController?.tabBar.hidden = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -102,7 +102,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        self.tabBarController?.tabBar.hidden = true
+        //self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBarHidden = false
         
         if (segue.identifier == "wishList") {
