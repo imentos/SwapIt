@@ -94,16 +94,19 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             isDataFiltered = false
             self.tableView.reloadData()
         } else {
-            PFCloud.callFunctionInBackground(getQuery("All"), withParameters: ["search": searchText, "userId": (PFUser.currentUser()?.objectId)!, "limit": ITEMS_PER_PAGE], block:{
-                (results:AnyObject?, error: NSError?) -> Void in
-                if (results == nil) {
-                    self.filteredItems = JSON("{}")
-                    return
-                }
-                self.filteredItems = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                self.isDataFiltered = true
-                self.tableView.reloadData()
-            })
+            
+            getNearMeItems(searchText, limit:ITEMS_PER_PAGE) { (results) -> Void in
+            }
+//            PFCloud.callFunctionInBackground(getQuery("All"), withParameters: ["search": searchText, "userId": (PFUser.currentUser()?.objectId)!, "limit": ITEMS_PER_PAGE], block:{
+//                (results:AnyObject?, error: NSError?) -> Void in
+//                if (results == nil) {
+//                    self.filteredItems = JSON("{}")
+//                    return
+//                }
+//                self.filteredItems = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+//                self.isDataFiltered = true
+//                self.tableView.reloadData()
+//            })
         }
     }
     
@@ -117,7 +120,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             if (isPageRefreshing == false){
                 isPageRefreshing = true;
                 if (self.searchQuery == "nearMe") {
-                    self.getNearMeItems(self.currentPageNumber++ * ITEMS_PER_PAGE) { (results) -> Void in
+                    self.getNearMeItems(self.searchQuery, limit: self.currentPageNumber++ * ITEMS_PER_PAGE) { (results) -> Void in
                         self.isPageRefreshing = false
                     }
                 } else {
@@ -149,8 +152,8 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         var wishesJSON:JSON!
         print("userId:\(PFUser.currentUser()?.objectId)")
         
-        self.getAllItemsExceptMe(self.ITEMS_PER_PAGE)
-        
+        //self.getAllItemsExceptMe(self.ITEMS_PER_PAGE)
+        self.getAllItemsNearMe(self.ITEMS_PER_PAGE)
         // TODO: first version, don't show items by wish
 //        PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":(PFUser.currentUser()?.objectId)!], block: {
 //            (wishes:AnyObject?, error: NSError?) -> Void in
@@ -181,30 +184,39 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     
-    func getNearMeItems(limit:Int, complete:(results:JSON) -> Void) {
+    func getAllItemsNearMe(limit:Int) {
+        searchQuery = "getAllItemsExceptMe"
+        self.getNearMeItems(searchQuery, limit:limit) { (results) -> Void in
+        }
+    }
+    
+    func getNearMeItems(query:String, limit:Int, complete:(results:JSON) -> Void) {
         searchQuery = "nearMe"
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint, error) -> Void in
-            let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: Double(limit))
+            print("\(geoPoint)")
+            let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: 0.1)//Double(limit))
+            query.cachePolicy = .CacheElseNetwork
             query.findObjectsInBackgroundWithBlock({
                 (results, error) -> Void in
                 if let items = results as? [PFObject] {
-                    var total:[JSON] = []
+                    var ids:[String] = []
                     for item in items {
                         let itemId = item["neo4jId"] as! String
-                        // TODO: see how to make async calls
-                        let itemResult = PFCloud.callFunction("getItemExceptMe", withParameters: ["itemId": itemId, "userId": (PFUser.currentUser()?.objectId)!])
-                        if (itemResult == nil) {
-                            continue
-                        }
-                        let itemJSON = JSON(data:(itemResult as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                        total = total + itemJSON.arrayValue
+                        ids.append(itemId)
                     }
-                    self.itemsJSON = JSON(total)
-                    self.tableView.reloadData()
+                    
+                    print("ids:\(ids)")
+                    
+                    PFCloud.callFunctionInBackground("getAllItemsByList", withParameters: ["search": query, "ids": ids, "userId": (PFUser.currentUser()?.objectId)!, "limit":limit], block: { (itemResult, error) -> Void in
+                        if (itemResult == nil) {
+                            return
+                        }
+                        self.itemsJSON = JSON(data:(itemResult as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                        self.tableView.reloadData()
+                        complete(results:self.itemsJSON)
+                    })
                 }
-                
-                complete(results:self.itemsJSON)
             })
         }
     }
@@ -218,8 +230,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func loadNearMe(sender: AnyObject) {
-        getNearMeItems(ITEMS_PER_PAGE) { (results) -> Void in
-        }
+        getAllItemsNearMe(ITEMS_PER_PAGE)
     }
     
     @IBAction func pressed(sender: AnyObject) {
