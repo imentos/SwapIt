@@ -87,6 +87,34 @@ Parse.Cloud.define("getRepliesOfQuestion", function(request, response) {
     });
 });
 
+Parse.Cloud.define("getQuestionCreator", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (u:User)-[a:ASK]->(q:Question{objectId:{questionId}}) RETURN u',
+            params: {
+                questionId: request.params.questionId
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            json_result.data.forEach(function(o) {
+                aResults.push(o[0].data)
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
 Parse.Cloud.define("getAskedQuestions", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
@@ -210,6 +238,34 @@ Parse.Cloud.define("getUnreadReceivedQuestionsCountOfItem", function(request, re
             query: 'MATCH (n:Item{objectId:{itemId}})<-[r:LINK]-(q:Question)<-[a:ASK]-(u:User) WHERE r.read = false AND ((u)-[:OFFER]->(:Item)-[:EXCHANGE]->(n))  RETURN COUNT(r)',
             params: {
                 itemId: request.params.itemId
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            json_result.data.forEach(function(o) {
+                aResults.push(o[0])
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+Parse.Cloud.define("getUnreadRepliesCount", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH ()<-[r:LINK]-(q:Question)<-[a:ASK]-(u:User{objectId:{userId}}) WHERE r.read = false RETURN COUNT(r)',
+            params: {
+                userId: request.params.userId
             }
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',

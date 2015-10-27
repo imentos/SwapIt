@@ -64,6 +64,22 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         main.showLoginPage()
     }
     
+    func updateTotalUnreadCount() {
+        var totalUnread:Int = 0
+        PFCloud.callFunctionInBackground("getUnreadRepliesCount", withParameters:["userId": (PFUser.currentUser()?.objectId)!], block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            if let _ = result {
+            } else {
+                return
+            }
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            totalUnread += countJSON[0].int!
+            
+            let app:AppDelegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
+            app.updateTabBadge(0, value: totalUnread == 0 ? nil : "")
+        })
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -74,6 +90,8 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         super.viewDidAppear(animated)
         
         loadData()
+        
+        updateTotalUnreadCount()
     }
     
     func loadData() {

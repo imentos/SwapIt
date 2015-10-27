@@ -83,25 +83,44 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         performSegueWithIdentifier(fromUser == true ? "itemDetail" : "cancel", sender: self)
     }
     
+    func sendNewReplyNotification(qid:String) {
+        let pushQuery = PFInstallation.query()
+        pushQuery!.whereKey("user", equalTo: PFUser(withoutDataWithObjectId: self.userJSON["objectId"].string!))
+        let push = PFPush()
+        let item = self.itemJSON["title"].string!
+        let alert = "You got a new message for your item \"\(item)\""
+        push.setQuery(pushQuery)
+        push.setData(["alert": alert, "type": "reply", "from": (PFUser.currentUser()?.objectId)!, "to": self.userJSON["objectId"].string!, "qid": qid])
+        push.sendPushInBackgroundWithBlock({ (result, error) -> Void in
+            if let _ = error {
+                print(error)
+            }
+        })
+    }
+    
+    // this will go to receiver's my items
+    func sendNewQuestionNotification(qid:String) {
+        let pushQuery = PFInstallation.query()
+        pushQuery!.whereKey("user", equalTo: PFUser(withoutDataWithObjectId: self.userJSON["objectId"].string!))
+        let push = PFPush()
+        let item = self.itemJSON["title"].string!
+        let alert = "You got a new message for your item \"\(item)\""
+        push.setQuery(pushQuery)
+        push.setData(["alert": alert, "type": "message", "from": (PFUser.currentUser()?.objectId)!, "to": self.userJSON["objectId"].string!, "qid": qid])
+        push.sendPushInBackgroundWithBlock({ (result, error) -> Void in
+            if let _ = error {
+                print(error)
+            }
+        })
+    }
+    
     @IBAction func sendMessage(sender: UIButton) {
         if let _ = questionJSON {
             let uuid = NSUUID().UUIDString
             PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": self.messageTextField.text!, "objectId": uuid, "questionId": (questionJSON["objectId"].string)!, "userId": (PFUser.currentUser()?.objectId)!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
                 
-                // Send push notification to query
-                let pushQuery = PFInstallation.query()
-                pushQuery!.whereKey("user", equalTo: PFUser(withoutDataWithObjectId: self.userJSON["objectId"].string!))
-                let push = PFPush()
-                let item = self.itemJSON["title"].string!
-                let alert = "You got a new message for your item \"\(item)\""
-                push.setQuery(pushQuery)
-                push.setData(["alert": alert, "type": "message", "from": (PFUser.currentUser()?.objectId)!, "to": self.userJSON["objectId"].string!, "objectId": uuid])
-                push.sendPushInBackgroundWithBlock({ (result, error) -> Void in
-                    if let _ = error {
-                        print(error)
-                    }
-                })
+                self.sendNewReplyNotification((self.questionJSON["objectId"].string)!)
                 
                 PFCloud.callFunctionInBackground("setQuestionUnread", withParameters: ["objectId": self.questionJSON["objectId"].string!], block:{
                     (results:AnyObject?, error: NSError?) -> Void in
@@ -119,6 +138,8 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
                 PFCloud.callFunctionInBackground("askItemQuestionByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": itemId!, "questionId": uuid], block:{
                     (items:AnyObject?, error: NSError?) -> Void in
                     self.loadData()
+                    
+                    self.sendNewQuestionNotification(uuid)
                 })
             })
         }

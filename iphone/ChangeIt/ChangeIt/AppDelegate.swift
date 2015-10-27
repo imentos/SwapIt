@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().registerForRemoteNotifications()
         
         if let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
-            handleRemoteNofication(userInfo)
+            handleRemoteNofications(userInfo)
         }
         return true
     }
@@ -64,14 +64,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(error)
     }
     
-    func switchTab(index:Int) {
-        let main:MainController = self.window?.rootViewController as! MainController
-        main.selectedIndex = index
-//        if let tab:UINavigationController = main.viewControllers![index] as? UINavigationController {
-//            tab.popToRootViewControllerAnimated(true)
-//        }
-    }
-    
     func updateTabBadge(index:Int, value:String?) {
         let main:MainController = self.window?.rootViewController as! MainController
         if let tabItems = main.tabBar.items {
@@ -81,21 +73,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func handleRemoteNofication(userInfo:NSDictionary) {
+    func handleRemoteNofications(userInfo:NSDictionary) {
         if let type:String = userInfo["type"] as? String {
             print("type:\(type)")
             if (type == "message") {
-                updateTabBadge(2, value:"")
-                switchTab(2)
+                updateTabBadge(2, value: "")
             } else if (type == "offer") {
-                updateTabBadge(2, value:"")
-                switchTab(2)
+                updateTabBadge(2, value: "")
+            } else if (type == "reply") {
+                if let qid:String = userInfo["qid"] as? String {
+                    PFCloud.callFunctionInBackground("getQuestionCreator", withParameters: ["questionId":qid], block:{
+                        (results:AnyObject?, error: NSError?) -> Void in
+                        let userJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                        
+                        if ((PFUser.currentUser()?.objectId)! == userJSON[0]["objectId"].string!) {
+                            self.updateTabBadge(0, value: "")                            
+                        } else {
+                            self.updateTabBadge(2, value: "")
+                        }
+                    })
+                }
+                
             }
         }
     }
     
     func application(application: UIApplication,  didReceiveRemoteNotification userInfo: [NSObject : AnyObject],  fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        handleRemoteNofication(userInfo)
+        handleRemoteNofications(userInfo)
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -123,6 +127,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
         return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, withSession:PFFacebookUtils.session())
     }
-
 }
 
