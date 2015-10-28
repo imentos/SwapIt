@@ -44,7 +44,9 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         self.descriptionTextView.delegate = self
         self.descriptionTextView.text = TEXT_VIEW_PLACE_HOLDER
         self.descriptionTextView.backgroundColor = UIColor.clearColor()
-        self.descriptionTextView.textColor = UIColor.lightGrayColor()
+        if navigationItem.rightBarButtonItem != self.saveButton {
+            self.descriptionTextView.textColor = UIColor.lightGrayColor()
+        }
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)

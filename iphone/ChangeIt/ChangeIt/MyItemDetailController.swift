@@ -83,7 +83,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             PFCloud.callFunctionInBackground("getOfferedItems", withParameters: ["itemId":self.itemJSON["objectId"].string!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
                 self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                self.editButton.enabled = self.offeredItemsJSON.count == 0 && self.receivedItemsJSON.count == 0
+//                self.editButton.enabled = self.offeredItemsJSON.count == 0 && self.receivedItemsJSON.count == 0
                 self.detailTable.reloadData()
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
