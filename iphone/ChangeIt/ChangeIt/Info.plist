@@ -28,11 +28,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>34</string>
+	<string>38</string>
 	<key>FacebookAppID</key>
 	<string>839127896135278</string>
 	<key>FacebookDisplayName</key>
-	<string>Change It</string>
+	<string>Brttr</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

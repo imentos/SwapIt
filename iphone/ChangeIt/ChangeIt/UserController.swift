@@ -65,6 +65,10 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     }
     
     func updateTotalUnreadCount() {
+        if let _=PFUser.currentUser() {            
+        } else {
+            return
+        }
         var totalUnread:Int = 0
         PFCloud.callFunctionInBackground("getUnreadRepliesCount", withParameters:["userId": (PFUser.currentUser()?.objectId)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in

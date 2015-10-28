@@ -96,19 +96,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		B37C10161AE98F1F0086864F /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		7F1210751BACC02D00C4F65D /* Geogtq-Lg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Geogtq-Lg.otf"; sourceTree = "<group>"; };
 		7F1210761BACC02D00C4F65D /* Geogtq-Md.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Geogtq-Md.otf"; sourceTree = "<group>"; };
@@ -420,7 +407,6 @@
 				B37431941AE861A600A0808B /* Sources */,
 				B37431951AE861A600A0808B /* Frameworks */,
 				B37431961AE861A600A0808B /* Resources */,
-				B37C10161AE98F1F0086864F /* Embed Frameworks */,
 				B333F8861BB1203A002CCF48 /* ShellScript */,
 			);
 			buildRules = (
@@ -540,7 +526,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#--- SCRIPT BEGIN ---\n# SKIP_SIMULATOR_BUILDS=1\nSCRIPT_SRC=$(find \"$PROJECT_DIR\" -name 'Instabug_dsym_upload.sh' | head -1)\nif [ ! \"${SCRIPT_SRC}\" ]; then\necho \"Instabug: err: script not found. Make sure that you're including Instabug.bundle in your project directory\"\nexit 1\nfi\nsource \"${SCRIPT_SRC}\"\n#--- SCRIPT END ---\n";
+			shellScript = "#--- SCRIPT BEGIN ---\n# SKIP_SIMULATOR_BUILDS=1\nSCRIPT_SRC=$(find \"$PROJECT_DIR\" -name 'Instabug_dsym_upload.sh' | head -1)\nif [ ! \"${SCRIPT_SRC}\" ]; then\necho \"Instabug: err: script not found. Make sure that you're including Instabug.bundle in your project directory\"\nexit 1\nfi\n#source \"${SCRIPT_SRC}\"\n#--- SCRIPT END ---\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -723,6 +709,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -751,6 +738,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
