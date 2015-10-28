@@ -40,6 +40,7 @@
 		B37431A51AE861A600A0808B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B37431A31AE861A600A0808B /* Main.storyboard */; };
 		B37431A71AE861A600A0808B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B37431A61AE861A600A0808B /* Images.xcassets */; };
 		B37431AA1AE861A600A0808B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B37431A81AE861A600A0808B /* LaunchScreen.xib */; };
+		B375F7211BE16F260067E98B /* UserSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375F7201BE16F260067E98B /* UserSettingsController.swift */; settings = {ASSET_TAGS = (); }; };
 		B37C0FFD1AE989CE0086864F /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C0FF81AE989CE0086864F /* Bolts.framework */; };
 		B37C10001AE989CE0086864F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C0FFB1AE989CE0086864F /* Parse.framework */; };
 		B37C100B1AE98D7B0086864F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C100A1AE98D7B0086864F /* Social.framework */; };
@@ -133,6 +134,7 @@
 		B37431A61AE861A600A0808B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B37431A91AE861A600A0808B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B37431AF1AE861A600A0808B /* Brttr.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Brttr.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B375F7201BE16F260067E98B /* UserSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsController.swift; sourceTree = "<group>"; };
 		B37C0FF81AE989CE0086864F /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		B37C0FFB1AE989CE0086864F /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		B37C100A1AE98D7B0086864F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -283,6 +285,8 @@
 				B374319F1AE861A600A0808B /* UserController.swift */,
 				B34150411BBBA06400385915 /* UserPhoneController.swift */,
 				B341503F1BBBA00800385915 /* UserEmailController.swift */,
+				B375F7201BE16F260067E98B /* UserSettingsController.swift */,
+				B3F215BD1BD95E3600B53F62 /* UserInfoController.swift */,
 				B3F014981BCCC51100DD33C7 /* OtherItemsController.swift */,
 				B30E24901AF83B6C00ED49EB /* ItemsController.swift */,
 				B39EC9B01B014B8000FFC89A /* ItemCell.swift */,
@@ -295,7 +299,6 @@
 				B37431A61AE861A600A0808B /* Images.xcassets */,
 				B37431A81AE861A600A0808B /* LaunchScreen.xib */,
 				B374319B1AE861A600A0808B /* Supporting Files */,
-				B3F215BD1BD95E3600B53F62 /* UserInfoController.swift */,
 			);
 			path = ChangeIt;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				B3CE9D7C1BCF769800A03A20 /* SwiftyJSON.swift in Sources */,
 				B3B1206A1B96BC420020D13E /* MyLogInViewController.swift in Sources */,
 				B3D2AA971BBDBE4C00E00776 /* LMDropdownView.m in Sources */,
+				B375F7211BE16F260067E98B /* UserSettingsController.swift in Sources */,
 				B38AF8EB1B3E325000AB19F7 /* QuestionsController.swift in Sources */,
 				B37C10291AE9BE280086864F /* WishListController.swift in Sources */,
 				B34150441BBCF1CD00385915 /* MySignupViewController.swift in Sources */,

@@ -199,30 +199,35 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func getNearMeItems(searchText:String, limit:Int, complete:(results:JSON) -> Void) {
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint, error) -> Void in
-            print("\(geoPoint)")
-            NSLog("\(geoPoint)")
-            let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: 0.1)//Double(limit))
-            query.cachePolicy = .CacheElseNetwork
-            query.findObjectsInBackgroundWithBlock({
-                (results, error) -> Void in
-                if let items = results as? [PFObject] {
-                    var ids:[String] = []
-                    for item in items {
-                        let itemId = item["neo4jId"] as! String
-                        ids.append(itemId)
-                    }
-                    
-                    print("ids:\(ids)")
-                    
-                    PFCloud.callFunctionInBackground("getAllItemsByList", withParameters: ["search": searchText, "ids": ids, "userId": (PFUser.currentUser()?.objectId)!, "limit":limit], block: { (itemResult, error) -> Void in
-                        if (itemResult == nil) {
-                            complete(results:JSON([]))
-                            return
+
+            PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": (PFUser.currentUser()!.objectId)!], block:{
+                (userFromCloud:AnyObject?, error: NSError?) -> Void in
+                let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
+                let distance = userJSON["distance"].doubleValue
+                print("distance:\(distance)")
+                let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: distance)
+                query.cachePolicy = .CacheElseNetwork
+                query.findObjectsInBackgroundWithBlock({
+                    (results, error) -> Void in
+                    if let items = results as? [PFObject] {
+                        var ids:[String] = []
+                        for item in items {
+                            let itemId = item["neo4jId"] as! String
+                            ids.append(itemId)
                         }
-                        let results = JSON(data:(itemResult as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                        complete(results:results)
-                    })
-                }
+                        
+                        NSLog("ids:\(ids)")
+                        
+                        PFCloud.callFunctionInBackground("getAllItemsByList", withParameters: ["search": searchText, "ids": ids, "userId": (PFUser.currentUser()?.objectId)!, "limit":limit], block: { (itemResult, error) -> Void in
+                            if (itemResult == nil) {
+                                complete(results:JSON([]))
+                                return
+                            }
+                            let results = JSON(data:(itemResult as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                            complete(results:results)
+                        })
+                    }
+                })
             })
         }
     }

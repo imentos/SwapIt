@@ -13,9 +13,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userPhoto: UIImageView!
-    @IBOutlet var spinnerView: UIActivityIndicatorView!
     @IBOutlet weak var offerReceivedButton: UIButton!
     
     var sentOffersJSON:JSON! = nil
@@ -24,20 +22,20 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     var picker:UIImagePickerController? = UIImagePickerController()
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
-        self.navigationController?.navigationBarHidden = true
     }
     
     @IBAction func unwindToUser(segue:UIStoryboardSegue) {
-        self.navigationController?.navigationBarHidden = true
     }
 
     @IBAction func saveEmail(segue:UIStoryboardSegue) {
-        self.navigationController?.navigationBarHidden = true
         self.loadData()
     }
     
     @IBAction func savePhone(segue:UIStoryboardSegue) {
-        self.navigationController?.navigationBarHidden = true
+        self.loadData()
+    }
+    
+    @IBAction func saveSettings(segue:UIStoryboardSegue) {
         self.loadData()
     }
     
@@ -104,7 +102,6 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in
                 self.userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 self.title = self.userJSON["name"].string
-                self.nameLabel.text = self.userJSON["name"].string
                 
                 if (self.userJSON["email"] == nil || self.userJSON["email"].string?.isEmpty == true) {
                     self.emailButton.setImage(UIImage(named: "mail_grey"), forState: .Normal)
@@ -124,9 +121,6 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        //self.tabBarController?.tabBar.hidden = true
-        self.navigationController?.navigationBarHidden = false
-        
         if (segue.identifier == "wishList") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.viewControllers[0] as! WishListController
@@ -151,6 +145,11 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
             let view = navi.topViewController as! UserEmailController
             view.email = self.userJSON["email"].string
 
+        } else if (segue.identifier == "settings") {
+            let navi = segue.destinationViewController as! UINavigationController
+            let view = navi.topViewController as! UserSettingsController
+            view.userJSON = self.userJSON
+            
         } else if (segue.identifier == "phone") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.topViewController as! UserPhoneController
