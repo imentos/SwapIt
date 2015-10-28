@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>39</string>
+	<string>42</string>
 	<key>FacebookAppID</key>
 	<string>839127896135278</string>
 	<key>FacebookDisplayName</key>
@@ -42,6 +42,8 @@
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>my message</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>my message for whenin</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Geogtq-Lg.otf</string>
