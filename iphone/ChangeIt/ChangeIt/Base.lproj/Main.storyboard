@@ -139,7 +139,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6t7-16-zda" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="yL6-aD-5tC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4304" y="-1708"/>
+            <point key="canvasLocation" x="5116" y="-1708"/>
         </scene>
         <!--User-->
         <scene sceneID="hNz-n2-bh7">
@@ -277,6 +277,17 @@
                                     <segue destination="333-jV-tje" kind="presentation" id="O93-vW-lws"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="poF-th-LgS">
+                                <rect key="frame" x="20" y="16" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="Hhn-LO-hPp"/>
+                                    <constraint firstAttribute="height" constant="30" id="Hm5-bm-pYg"/>
+                                </constraints>
+                                <state key="normal" title="Setting"/>
+                                <connections>
+                                    <segue destination="wTd-FH-MGo" kind="presentation" id="NEJ-fh-B3V"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -302,8 +313,10 @@
                             <constraint firstItem="jgK-tW-9Yn" firstAttribute="leading" secondItem="vKM-2g-k0h" secondAttribute="trailing" constant="14" id="aFr-nM-fiU"/>
                             <constraint firstItem="fho-44-dBl" firstAttribute="centerX" secondItem="IBg-eF-q2s" secondAttribute="centerX" constant="6" id="aIG-na-X85"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="IBg-eF-q2s" secondAttribute="bottom" constant="107" id="auj-I8-FBG"/>
+                            <constraint firstItem="poF-th-LgS" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="16" id="bDp-BT-lQA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GdE-ph-Yu1" secondAttribute="trailing" constant="35" id="d8s-1y-bqk"/>
                             <constraint firstItem="fho-44-dBl" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="20" id="dUl-PZ-yQK"/>
+                            <constraint firstItem="poF-th-LgS" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="eyD-sl-3DR"/>
                             <constraint firstItem="vKM-2g-k0h" firstAttribute="centerX" secondItem="GdE-ph-Yu1" secondAttribute="centerX" constant="-79" id="fjQ-ZH-Lcg"/>
                             <constraint firstItem="vKM-2g-k0h" firstAttribute="top" secondItem="HAu-iH-MQh" secondAttribute="bottom" constant="38" id="gXG-lD-zRg"/>
                             <constraint firstItem="jgK-tW-9Yn" firstAttribute="centerY" secondItem="vKM-2g-k0h" secondAttribute="centerY" id="i0J-TO-R7n"/>
@@ -335,7 +348,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="20F9C8D9-F89B-4D22-B1EB-579936563A39" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="46F7C00B-9A35-45A1-A4C7-86CB675C0D91" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="61S-XJ-g6S">
                             <connections>
@@ -1579,7 +1592,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kUv-cM-Wv4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="suf-8T-jF7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1991" y="-2031"/>
+            <point key="canvasLocation" x="2905" y="-1695"/>
         </scene>
         <!--Questions Controller-->
         <scene sceneID="s8D-62-1ZM">
@@ -1636,7 +1649,7 @@
                 <exit id="b2P-A6-L34" userLabel="Exit" sceneMemberID="exit"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vz4-VH-ua4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2734" y="-1033"/>
+            <point key="canvasLocation" x="3546" y="-1033"/>
         </scene>
         <!--My Wish List-->
         <scene sceneID="YvQ-jl-vuO">
@@ -2068,7 +2081,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zbb-7a-r8i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3556" y="-1708"/>
+            <point key="canvasLocation" x="4368" y="-1708"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mGh-AN-7y4">
@@ -2405,6 +2418,45 @@
             </objects>
             <point key="canvasLocation" x="2864" y="675"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="n2S-dP-JfJ">
+            <objects>
+                <viewController id="1Qx-Wh-EQT" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9eA-nE-GBr"/>
+                        <viewControllerLayoutGuide type="bottom" id="LWd-ui-gk0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="x7R-xp-DJh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Woh-DG-rlh">
+                                <rect key="frame" x="202" y="184" width="197" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="SAR-1Y-6et"/>
+                                    <constraint firstAttribute="width" constant="193" id="ckh-xG-KRg"/>
+                                </constraints>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Woh-DG-rlh" firstAttribute="centerX" secondItem="x7R-xp-DJh" secondAttribute="centerX" id="4uN-8Z-n5j"/>
+                            <constraint firstItem="Woh-DG-rlh" firstAttribute="top" secondItem="9eA-nE-GBr" secondAttribute="bottom" constant="140" id="Em3-kv-85l"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ymz-6x-1hW">
+                        <barButtonItem key="leftBarButtonItem" image="close_btn" id="fel-vh-MPH">
+                            <connections>
+                                <segue destination="hJ3-Kn-J9v" kind="unwind" unwindAction="cancel:" id="Afl-Ie-Cnr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TrR-ev-zcc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="hJ3-Kn-J9v" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1331" y="-1459"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="WQb-br-53x">
             <objects>
@@ -2421,11 +2473,29 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnk-Sb-CUi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1223" y="-1611"/>
+            <point key="canvasLocation" x="2035" y="-1611"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="P7z-re-p1S">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wTd-FH-MGo" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nyU-H6-bAo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1Qx-Wh-EQT" kind="relationship" relationship="rootViewController" id="Rt3-rw-8bm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aQw-Zv-3ke" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="519" y="-1459"/>
         </scene>
     </scenes>
     <resources>
-        <image name="20F9C8D9-F89B-4D22-B1EB-579936563A39" width="30" height="30">
+        <image name="46F7C00B-9A35-45A1-A4C7-86CB675C0D91" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -2512,12 +2582,12 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="thumb_UP_grey" width="40" height="41"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kMU-BD-GAR"/>
+        <segue reference="oTP-Gb-dUv"/>
         <segue reference="f7t-fM-16E"/>
         <segue reference="05S-WV-Wgj"/>
         <segue reference="8gr-Ij-jLJ"/>
-        <segue reference="3ny-0c-RnO"/>
-        <segue reference="MJq-ai-fc1"/>
-        <segue reference="QCd-2q-564"/>
+        <segue reference="VZA-XN-qKl"/>
+        <segue reference="QBJ-c3-cTd"/>
+        <segue reference="wqD-qS-NUd"/>
     </inferredMetricsTieBreakers>
 </document>
