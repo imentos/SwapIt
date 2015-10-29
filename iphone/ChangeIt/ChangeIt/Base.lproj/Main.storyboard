@@ -70,7 +70,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TOr-rw-yc3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="zre-at-Gww" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3492" y="-2440"/>
+            <point key="canvasLocation" x="3694" y="-2799"/>
         </scene>
         <!--User Email Controller-->
         <scene sceneID="F82-JM-oLE">
@@ -139,7 +139,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6t7-16-zda" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="yL6-aD-5tC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5116" y="-1708"/>
+            <point key="canvasLocation" x="3694" y="-2041"/>
         </scene>
         <!--User-->
         <scene sceneID="hNz-n2-bh7">
@@ -217,9 +217,6 @@
                                 <state key="normal" image="phone_red">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="cIv-Dn-fwE" kind="presentation" identifier="phone" animates="NO" id="QBJ-c3-cTd"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jgK-tW-9Yn">
                                 <rect key="frame" x="354" y="98" width="50" height="50"/>
@@ -230,9 +227,6 @@
                                 <state key="normal" image="mail_red">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="T13-tW-Xas" kind="presentation" identifier="email" animates="NO" id="wqD-qS-NUd"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fho-44-dBl">
                                 <rect key="frame" x="146" y="298" width="150" height="150"/>
@@ -303,7 +297,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="8477C16B-119A-4A15-9543-450592E8D725" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="91C57B7E-44E7-4AA8-AD97-F18B1222F126" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="leftBarButtonItem" title="Settings" id="vaF-Fq-WOc">
@@ -1552,7 +1546,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kUv-cM-Wv4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="suf-8T-jF7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2905" y="-1695"/>
+            <point key="canvasLocation" x="2117" y="-1661"/>
         </scene>
         <!--Questions Controller-->
         <scene sceneID="s8D-62-1ZM">
@@ -1609,7 +1603,7 @@
                 <exit id="b2P-A6-L34" userLabel="Exit" sceneMemberID="exit"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vz4-VH-ua4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3546" y="-1033"/>
+            <point key="canvasLocation" x="3056" y="-889"/>
         </scene>
         <!--My Wish List-->
         <scene sceneID="YvQ-jl-vuO">
@@ -2041,7 +2035,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zbb-7a-r8i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4368" y="-1708"/>
+            <point key="canvasLocation" x="2986" y="-2041"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mGh-AN-7y4">
@@ -2059,7 +2053,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iXA-Ee-5Eb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2744" y="-2440"/>
+            <point key="canvasLocation" x="2992" y="-2799"/>
         </scene>
         <!--Item Detail Controller-->
         <scene sceneID="1aX-tG-fVs">
@@ -2391,7 +2385,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Woh-DG-rlh">
-                                <rect key="frame" x="18" y="184" width="554" height="31"/>
+                                <rect key="frame" x="18" y="298" width="554" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="SAR-1Y-6et"/>
                                     <constraint firstAttribute="width" constant="550" id="ckh-xG-KRg"/>
@@ -2400,12 +2394,69 @@
                                     <action selector="sliderChange:" destination="1Qx-Wh-EQT" eventType="valueChanged" id="mr9-Im-8mI"/>
                                 </connections>
                             </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTa-sT-kyN">
+                                <rect key="frame" x="47" y="159" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="VNJ-GL-eta"/>
+                                    <constraint firstAttribute="width" constant="50" id="VZF-vQ-pqI"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="j0i-yw-sQQ"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="xU6-Iw-em1"/>
+                                </constraints>
+                                <state key="normal" image="mail_red">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="T13-tW-Xas" kind="presentation" identifier="email" id="t7D-G3-Vmd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1EJ-bi-1kf">
+                                <rect key="frame" x="47" y="79" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="41V-DX-rkt"/>
+                                    <constraint firstAttribute="width" constant="50" id="Aho-Eg-w18"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="DaS-vy-5yV"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Mrj-TE-lNb"/>
+                                </constraints>
+                                <state key="normal" image="phone_red">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="cIv-Dn-fwE" kind="presentation" identifier="phone" id="HZ0-SR-sJn"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q8t-qr-CtT">
+                                <rect key="frame" x="139" y="169" width="299" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="lZI-Pu-iSN"/>
+                                    <constraint firstAttribute="width" constant="299" id="wzt-9s-MrP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="crr-Wn-uhW">
+                                <rect key="frame" x="139" y="89" width="299" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="299" id="d66-kj-gR7"/>
+                                    <constraint firstAttribute="height" constant="30" id="laQ-a5-6Ee"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="1EJ-bi-1kf" firstAttribute="leading" secondItem="x7R-xp-DJh" secondAttribute="leadingMargin" constant="27" id="0Kd-Wy-GDc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Woh-DG-rlh" secondAttribute="trailing" constant="10" id="2Zu-9Q-9S5"/>
                             <constraint firstItem="Woh-DG-rlh" firstAttribute="centerX" secondItem="x7R-xp-DJh" secondAttribute="centerX" constant="-5" id="4uN-8Z-n5j"/>
-                            <constraint firstItem="Woh-DG-rlh" firstAttribute="top" secondItem="9eA-nE-GBr" secondAttribute="bottom" constant="140" id="Em3-kv-85l"/>
+                            <constraint firstItem="vTa-sT-kyN" firstAttribute="leading" secondItem="x7R-xp-DJh" secondAttribute="leadingMargin" constant="27" id="A50-Qv-7rX"/>
+                            <constraint firstItem="q8t-qr-CtT" firstAttribute="leading" secondItem="vTa-sT-kyN" secondAttribute="trailing" constant="42" id="Aas-fz-kvv"/>
+                            <constraint firstItem="crr-Wn-uhW" firstAttribute="top" secondItem="9eA-nE-GBr" secondAttribute="bottom" constant="45" id="CQX-dZ-k00"/>
+                            <constraint firstItem="Woh-DG-rlh" firstAttribute="top" secondItem="9eA-nE-GBr" secondAttribute="bottom" constant="254" id="Em3-kv-85l"/>
+                            <constraint firstItem="q8t-qr-CtT" firstAttribute="leading" secondItem="vTa-sT-kyN" secondAttribute="trailing" constant="42" id="GC5-NT-hL9"/>
+                            <constraint firstItem="crr-Wn-uhW" firstAttribute="leading" secondItem="1EJ-bi-1kf" secondAttribute="trailing" constant="42" id="IB1-jM-qNW"/>
+                            <constraint firstItem="1EJ-bi-1kf" firstAttribute="top" secondItem="9eA-nE-GBr" secondAttribute="bottom" constant="35" id="VWK-Hj-Jvh"/>
+                            <constraint firstItem="q8t-qr-CtT" firstAttribute="top" secondItem="crr-Wn-uhW" secondAttribute="bottom" constant="50" id="gCf-hx-DAN"/>
+                            <constraint firstItem="vTa-sT-kyN" firstAttribute="top" secondItem="1EJ-bi-1kf" secondAttribute="bottom" constant="30" id="glU-CX-GLq"/>
                             <constraint firstItem="Woh-DG-rlh" firstAttribute="leading" secondItem="x7R-xp-DJh" secondAttribute="leadingMargin" id="gyg-Lf-h9A"/>
                         </constraints>
                     </view>
@@ -2422,6 +2473,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="emailButton" destination="vTa-sT-kyN" id="Zzg-GE-qWI"/>
+                        <outlet property="emailText" destination="q8t-qr-CtT" id="8ce-o9-3yR"/>
+                        <outlet property="phoneButton" destination="1EJ-bi-1kf" id="57Q-vH-sZ4"/>
+                        <outlet property="phoneText" destination="crr-Wn-uhW" id="Gtd-97-Hwc"/>
                         <outlet property="slider" destination="Woh-DG-rlh" id="idh-b7-jqF"/>
                         <segue destination="hJ3-Kn-J9v" kind="unwind" identifier="save" unwindAction="saveSettings:" id="qJ5-Zx-UE7"/>
                     </connections>
@@ -2429,7 +2484,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TrR-ev-zcc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="hJ3-Kn-J9v" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1331" y="-1459"/>
+            <point key="canvasLocation" x="2117" y="-2429"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WQb-br-53x">
@@ -2447,7 +2502,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnk-Sb-CUi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2035" y="-1611"/>
+            <point key="canvasLocation" x="1371" y="-1661"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="P7z-re-p1S">
@@ -2465,11 +2520,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aQw-Zv-3ke" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="519" y="-1459"/>
+            <point key="canvasLocation" x="1371" y="-2429"/>
         </scene>
     </scenes>
     <resources>
-        <image name="8477C16B-119A-4A15-9543-450592E8D725" width="30" height="30">
+        <image name="91C57B7E-44E7-4AA8-AD97-F18B1222F126" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -2555,12 +2610,12 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="thumb_UP_grey" width="40" height="41"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="05S-WV-Wgj"/>
         <segue reference="8gr-Ij-jLJ"/>
-        <segue reference="QBJ-c3-cTd"/>
         <segue reference="oTP-Gb-dUv"/>
         <segue reference="VZA-XN-qKl"/>
-        <segue reference="wqD-qS-NUd"/>
+        <segue reference="t7D-G3-Vmd"/>
+        <segue reference="HZ0-SR-sJn"/>
+        <segue reference="j2P-oP-tg3"/>
         <segue reference="m9L-vR-T2e"/>
     </inferredMetricsTieBreakers>
 </document>

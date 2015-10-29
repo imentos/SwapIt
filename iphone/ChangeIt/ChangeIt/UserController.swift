@@ -27,14 +27,6 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     @IBAction func unwindToUser(segue:UIStoryboardSegue) {
     }
 
-    @IBAction func saveEmail(segue:UIStoryboardSegue) {
-        self.loadData()
-    }
-    
-    @IBAction func savePhone(segue:UIStoryboardSegue) {
-        self.loadData()
-    }
-    
     @IBAction func saveSettings(segue:UIStoryboardSegue) {
         self.loadData()
     }
@@ -140,20 +132,11 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
             view.title = "Questions Asked"
             view.loadData()
         
-        } else if (segue.identifier == "email") {
-            let navi = segue.destinationViewController as! UINavigationController
-            let view = navi.topViewController as! UserEmailController
-            view.email = self.userJSON["email"].string
-
         } else if (segue.identifier == "settings") {
             let navi = segue.destinationViewController as! UINavigationController
             let view = navi.topViewController as! UserSettingsController
             view.userJSON = self.userJSON
             
-        } else if (segue.identifier == "phone") {
-            let navi = segue.destinationViewController as! UINavigationController
-            let view = navi.topViewController as! UserPhoneController
-            view.phone = self.userJSON["phone"].string
         }
     }
     
