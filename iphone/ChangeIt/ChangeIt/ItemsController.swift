@@ -65,6 +65,16 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             return searchController
         })()
+        
+        // load data
+        if (self.bookmarkMode == true) {
+            self.searchController.searchBar.hidden = true
+            self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
+            }
+        } else {
+            loadData() { (results) -> Void in
+            }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -76,14 +86,15 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        if (self.bookmarkMode == true) {
-            self.searchController.searchBar.hidden = true
-            self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
-            }
-        } else {
-            loadData() { (results) -> Void in
-            }
-        }
+        // TODO: why I move here?
+//        if (self.bookmarkMode == true) {
+//            self.searchController.searchBar.hidden = true
+//            self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
+//            }
+//        } else {
+//            loadData() { (results) -> Void in
+//            }
+//        }
     }
     
     

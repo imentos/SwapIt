@@ -11,8 +11,6 @@ import Parse
 
 class UserController: UIViewController, UIAlertViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    @IBOutlet weak var phoneButton: UIButton!
-    @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var offerReceivedButton: UIButton!
     
@@ -94,18 +92,6 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in
                 self.userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 self.title = self.userJSON["name"].string
-                
-                if (self.userJSON["email"] == nil || self.userJSON["email"].string?.isEmpty == true) {
-                    self.emailButton.setImage(UIImage(named: "mail_grey"), forState: .Normal)
-                } else {
-                    self.emailButton.setImage(UIImage(named: "mail_red"), forState: .Normal)
-                }
-                
-                if (self.userJSON["phone"] == nil || self.userJSON["phone"].string?.isEmpty == true) {
-                    self.phoneButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
-                } else {
-                    self.phoneButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
-                }
                 
                 displayUserPhoto(self.userPhoto, userJSON: self.userJSON)
             })
