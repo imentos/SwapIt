@@ -382,7 +382,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 t += "... Download the app here."
                 
                 tweet.setInitialText(t)
-                tweet.addImage(self.photoImage.image)
+                tweet.addImage(self.originalPhotoImage)
                 
                 self.presentViewController(tweet, animated: true, completion: nil)
             } else {
