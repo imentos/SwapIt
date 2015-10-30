@@ -19,7 +19,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     var isDataFiltered:Bool = false
     
     // pagination
-    let ITEMS_PER_PAGE:Int = 3
+    let ITEMS_PER_PAGE:Int = 5
     var currentPageNumber = 1
     var isPageRefreshing:Bool = false;
     
@@ -65,16 +65,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             return searchController
         })()
-        
-        // load data
-        if (self.bookmarkMode == true) {
-            self.searchController.searchBar.hidden = true
-            self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
-            }
-        } else {
-            loadData() { (results) -> Void in
-            }
-        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -86,15 +76,14 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        // TODO: why I move here?
-//        if (self.bookmarkMode == true) {
-//            self.searchController.searchBar.hidden = true
-//            self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
-//            }
-//        } else {
-//            loadData() { (results) -> Void in
-//            }
-//        }
+        if (self.bookmarkMode == true) {
+            self.searchController.searchBar.hidden = true
+            self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
+            }
+        } else {
+            loadData() { (results) -> Void in
+            }
+        }
     }
     
     
@@ -213,6 +202,10 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
 
             PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": (PFUser.currentUser()!.objectId)!], block:{
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in
+                if let _ = userFromCloud {
+                } else {
+                    return
+                }
                 let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 let distance = userJSON["distance"].doubleValue
                 print("distance:\(distance)")
