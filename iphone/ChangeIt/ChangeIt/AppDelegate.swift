@@ -45,8 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIBarButtonItem.appearance().setTitleTextAttributes(titleDict, forState: .Normal)
         UINavigationBar.appearance().titleTextAttributes = titleDict
 
-        // debug font name
-//        
+        // debug font name        
 //        for family: String in UIFont.familyNames()
 //        {
 //            print("\(family)")

@@ -167,7 +167,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     alert.show()
                     
                 } else {
-                    let actionSheet = UIActionSheet(title: "Are you sure you want to reject this offer?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Yes, Reject it.")
+                    let actionSheet = UIActionSheet(title: "Are you sure you are not interested in this offer?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Yes, I am not interested.")
                     actionSheet.tag = 0
                     actionSheet.showInView(self.view)
                     

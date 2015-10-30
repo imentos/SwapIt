@@ -269,7 +269,7 @@ import UIKit
             view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-5-[icon(20)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
             
             //
-            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-2-[counter(30)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-5-[counter(30)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
             view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(<=25)-[icon(20)]-(>=10)-[counter(30)]-(<=30)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
             
             //
