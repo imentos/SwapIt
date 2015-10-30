@@ -32,6 +32,8 @@ class UserSettingsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Settings"
+        
         if let _:JSON = userJSON["distance"] {
             slider.value = userJSON["distance"].floatValue
         } else {
