@@ -275,7 +275,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="8F7233DE-BF26-470E-BFAA-3B8DF30394BF" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="FEC8F0C4-191C-4FEB-8FC4-2FD670DB815C" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="leftBarButtonItem" image="setup" id="vaF-Fq-WOc">
@@ -638,7 +638,7 @@
                                     <constraint firstAttribute="width" constant="50" id="Whz-4B-Jjt"/>
                                     <constraint firstAttribute="height" constant="50" id="n4C-mw-dkB"/>
                                 </constraints>
-                                <state key="normal" image="thumb_DN_red">
+                                <state key="normal" image="thumb_DN_grey">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -2590,7 +2590,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="8F7233DE-BF26-470E-BFAA-3B8DF30394BF" width="30" height="30">
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="Bookmark_Icon-01" width="55" height="55"/>
+        <image name="FEC8F0C4-191C-4FEB-8FC4-2FD670DB815C" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -2647,8 +2649,6 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="Bookmark_Icon-01" width="55" height="55"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Info" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
@@ -2665,7 +2665,7 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="close_btn" width="21" height="20"/>
         <image name="connector_logo-01" width="60" height="60"/>
         <image name="distance" width="292" height="292"/>
-        <image name="logout" width="50" height="50"/>
+        <image name="logout" width="22" height="22"/>
         <image name="mail_grey" width="36" height="36"/>
         <image name="mail_red" width="36" height="36"/>
         <image name="messages" width="36" height="36"/>
@@ -2674,9 +2674,9 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="offer_sent" width="16" height="16"/>
         <image name="phone_grey" width="36" height="36"/>
         <image name="phone_red" width="36" height="36"/>
-        <image name="setup" width="50" height="50"/>
+        <image name="setup" width="22" height="22"/>
         <image name="share_icon_big_red" width="36" height="36"/>
-        <image name="thumb_DN_red" width="40" height="41"/>
+        <image name="thumb_DN_grey" width="31" height="36"/>
         <image name="thumb_UP_grey" width="40" height="41"/>
         <image name="wishlist_big_red" width="36" height="36"/>
     </resources>
