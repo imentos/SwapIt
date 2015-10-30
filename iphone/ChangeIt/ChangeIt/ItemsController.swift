@@ -298,6 +298,12 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                     if let imageData = imageFile.getData() {
                         let itemImage = cell.viewWithTag(101) as! UIImageView
                         itemImage.image = UIImage(data: imageData)
+                        
+                        if (itemImage.subviews.count == 0) {
+                            let overlay = UIView(frame: itemImage.frame)
+                            overlay.backgroundColor = UIColor(red:0, green:0, blue:0, alpha:0.35)
+                            itemImage.addSubview(overlay)
+                        }
                     }
                 }
             }
