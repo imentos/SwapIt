@@ -38,7 +38,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var messageBtn: UIButton!
-    @IBOutlet weak var bookmarkBtn: UIBarButtonItem!
+    @IBOutlet weak var bookmarkBtn: UIButton!
     @IBOutlet weak var wishBtn: UIButton!
     
     override func viewDidLoad() {
@@ -293,12 +293,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             if (resultsJSON.count == 0) {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.bookmarkBtn.image = UIImage(named:"Bookmark_Icon-01")
+                    self.bookmarkBtn.setImage(UIImage(named:"Bookmark_Icon-01"), forState: .Normal)
                 })
                 return
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.bookmarkBtn.image = UIImage(named:"Bookmarked_Icon")
+                self.bookmarkBtn.setImage(UIImage(named:"Bookmarked_Icon"), forState: .Normal)
             })
         })
     }
@@ -430,14 +430,15 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 PFCloud.callFunctionInBackground("bookmarkItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": (self.itemJSON["objectId"].string)!], block:{
                     (items:AnyObject?, error: NSError?) -> Void in
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.bookmarkBtn.image = UIImage(named:"Bookmarked_Icon")
+                        self.bookmarkBtn.setImage(UIImage(named:"Bookmarked_Icon"), forState: .Normal)
                     })
                 })
             } else {
                 PFCloud.callFunctionInBackground("unbookmarkItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": (self.itemJSON["objectId"].string)!], block:{
                     (items:AnyObject?, error: NSError?) -> Void in
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.bookmarkBtn.image = UIImage(named:"Bookmark_Icon-01")
+                        self.bookmarkBtn.setImage(UIImage(named:"Bookmark_Icon-01"), forState: .Normal)
+
                     })
                 })
             }

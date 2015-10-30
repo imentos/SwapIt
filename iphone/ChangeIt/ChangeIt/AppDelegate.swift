@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // global style
         self.window!.tintColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:1)
         UITableViewCell.appearance().selectionStyle = .None
+        UILabel.appearance().font = UIFont(name: "Geogtq-Rg", size: 18)
         
         // instabug
         Instabug.startWithToken("09d7d874a8efe64a9a186afc07982018", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)

@@ -181,7 +181,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         if (segmentedControl.selectedSegmentIndex == 0) {
             let itemJSON = receivedItemsJSON[indexPath.row]
             
-            updatePhotoConstraints(photo, value:120.0)
+            updatePhotoConstraints(photo, value:100.0)
             updateViewConstraints(cell.contentView, value:-8.0)
             photo.layer.cornerRadius = 0
             
@@ -230,7 +230,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         } else if (segmentedControl.selectedSegmentIndex == 1) {
             let itemJSON = offeredItemsJSON[indexPath.row]
             
-            updatePhotoConstraints(photo, value:120.0)
+            updatePhotoConstraints(photo, value:100.0)
             updateViewConstraints(cell.contentView, value:-8.0)
             photo.layer.cornerRadius = 0
             
@@ -260,8 +260,8 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         } else if (segmentedControl.selectedSegmentIndex == 2) {
             let questionJSON = questionsJSON[indexPath.row]
             
-            updatePhotoConstraints(photo, value:100.0)
-            updateViewConstraints(cell.contentView, value:5.0)
+            updatePhotoConstraints(photo, value:60.0)
+            updateViewConstraints(cell.contentView, value:10.0)
             cell.contentView.layoutIfNeeded()            
             displayUserPhoto(photo, userJSON: questionJSON["user"])
 
