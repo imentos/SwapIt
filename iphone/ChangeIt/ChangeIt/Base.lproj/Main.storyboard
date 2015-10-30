@@ -275,7 +275,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="CF6CD724-BD8F-4B1A-B7BF-A4705D38DDB6" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="DDCC78F7-7A29-4F31-95F4-43AB127787FE" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="leftBarButtonItem" image="setup" id="vaF-Fq-WOc">
@@ -1622,12 +1622,9 @@
                                                 <outlet property="delegate" destination="Wh9-sZ-Hkq" id="haz-gw-wzQ"/>
                                             </connections>
                                         </textField>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8N-nE-PYh">
-                                            <rect key="frame" x="17" y="15" width="20" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="plus" translatesAutoresizingMaskIntoConstraints="NO" id="n2l-tO-Dev">
+                                            <rect key="frame" x="17" y="20" width="20" height="20"/>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
@@ -2608,7 +2605,7 @@
     <resources>
         <image name="Arrow_Icon" width="28" height="28"/>
         <image name="Bookmark_Icon-01" width="55" height="55"/>
-        <image name="CF6CD724-BD8F-4B1A-B7BF-A4705D38DDB6" width="30" height="30">
+        <image name="DDCC78F7-7A29-4F31-95F4-43AB127787FE" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -2691,6 +2688,7 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="offer_sent" width="16" height="16"/>
         <image name="phone_grey" width="36" height="36"/>
         <image name="phone_red" width="36" height="36"/>
+        <image name="plus" width="45" height="45"/>
         <image name="setup" width="22" height="22"/>
         <image name="share_icon_big_red" width="36" height="36"/>
         <image name="thumb_DN_grey" width="31" height="36"/>
