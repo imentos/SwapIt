@@ -44,6 +44,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.emailButton.hidden = true
+        self.phoneButton.hidden = true
         self.acceptBtn.hidden = true
         self.rejectBtn.hidden = true
         
@@ -256,6 +258,9 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                         if (resultsJSON.count == 0) {
                             return
                         }
+                        
+                        self.emailButton.hidden = false
+                        self.phoneButton.hidden = false
                         
                        if let status = resultsJSON[0]["status"].string {
                             if (status == "Accepted") {
