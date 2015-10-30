@@ -274,7 +274,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="082BC0CE-C516-47A6-9023-61D7502BDDCE" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="73758D09-66C4-4417-A30B-548BF33B5A61" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="leftBarButtonItem" image="setup" id="vaF-Fq-WOc">
@@ -2353,7 +2353,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="082BC0CE-C516-47A6-9023-61D7502BDDCE" width="30" height="30">
+        <image name="73758D09-66C4-4417-A30B-548BF33B5A61" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
