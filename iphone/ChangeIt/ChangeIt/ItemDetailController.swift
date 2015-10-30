@@ -151,15 +151,29 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
 
     @IBAction func acceptOffer(sender: AnyObject) {
-        let actionSheet = UIActionSheet(title: "Are you sure you want to accept this offer?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Yes, Accept it.")
+        let actionSheet = UIActionSheet(title: "Are you interested in this offer?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Yes, I am interested.")
         actionSheet.tag = 1
         actionSheet.showInView(self.view)
     }
     
     @IBAction func rejectOffer(sender: AnyObject) {
-        let actionSheet = UIActionSheet(title: "Are you sure you want to reject this offer?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Yes, Reject it.")
-        actionSheet.tag = 0
-        actionSheet.showInView(self.view)
+        let itemId = self.itemJSON["objectId"].string
+        PFCloud.callFunctionInBackground("getOfferStatus", withParameters: ["srcItemId":itemId!, "distItemId":self.myItemId!], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            if let status = resultsJSON[0]["status"].string {
+                if (status == "Rejected") {
+                    let alert = UIAlertView(title: "Brttr", message: "You have informed the user that you are not interested in this offer.", delegate: self, cancelButtonTitle: "OK")
+                    alert.show()
+                    
+                } else {
+                    let actionSheet = UIActionSheet(title: "Are you sure you want to reject this offer?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Yes, Reject it.")
+                    actionSheet.tag = 0
+                    actionSheet.showInView(self.view)
+                    
+                }
+            }
+        })        
     }
     
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {

@@ -36,7 +36,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // global style
         self.window!.tintColor = UIColor(red:0.851, green:0.047, blue:0.314, alpha:1)
         UITableViewCell.appearance().selectionStyle = .None
-        UILabel.appearance().font = UIFont(name: "Geogtq-Rg", size: 18)
+        
+        let font = UIFont(name: "Geogrotesque-Regular", size: 18)
+        UILabel.appearance().font = font
+        UITextField.appearance().font = font
+        UITextView.appearance().font = font
+        let titleDict = [NSFontAttributeName: font!]
+        UIBarButtonItem.appearance().setTitleTextAttributes(titleDict, forState: .Normal)
+        UINavigationBar.appearance().titleTextAttributes = titleDict
+
+        // debug font name
+//        
+//        for family: String in UIFont.familyNames()
+//        {
+//            print("\(family)")
+//            for names: String in UIFont.fontNamesForFamilyName(family)
+//            {
+//                print("== \(names)")
+//            }
+//        }
         
         // instabug
         Instabug.startWithToken("09d7d874a8efe64a9a186afc07982018", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
