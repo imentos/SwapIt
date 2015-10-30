@@ -2,13 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "thumb_DN_grey_1x-02.png"
+      "filename" : "offer_reject_grey-1.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "thumb_DN_grey_2x-01.png"
+      "filename" : "offer_reject_grey-2.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
