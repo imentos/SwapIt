@@ -22,6 +22,10 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     func updateUnread(itemJSON:JSON, cell:UITableViewCell) {
         var unreadQuestions = 0
         var unreadOffers = 0
+        let newoffersCountLabel = cell.viewWithTag(113) as! UILabel
+        let newquestionsCountLabel = cell.viewWithTag(115) as! UILabel
+        newoffersCountLabel.hidden = true
+        newquestionsCountLabel.hidden = true
         
         PFCloud.callFunctionInBackground("getUnreadQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
@@ -29,12 +33,12 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
                 return;
             }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            let newquestionsCountLabel = cell.viewWithTag(115) as! UILabel
             unreadQuestions = countJSON[0].int!
             if (unreadQuestions > 0) {
-                newquestionsCountLabel.text = "\(countJSON[0].int!)"
+                newquestionsCountLabel.text = "\(countJSON[0].int!) /"
+                newquestionsCountLabel.hidden = false
             } else {
-                newquestionsCountLabel.text = "0";
+                newquestionsCountLabel.hidden = true
             }
             
             PFCloud.callFunctionInBackground("getUnreadExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
@@ -43,12 +47,12 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
                     return;
                 }
                 let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                let newoffersCountLabel = cell.viewWithTag(113) as! UILabel
                 unreadOffers = countJSON[0].int!
                 if (unreadOffers > 0) {
-                    newoffersCountLabel.text = "\(countJSON[0].int!)"
+                    newoffersCountLabel.text = "\(countJSON[0].int!) /"
+                    newoffersCountLabel.hidden = false
                 } else {
-                    newoffersCountLabel.text = "0";
+                    newoffersCountLabel.hidden = true
                 }
             })
         })
@@ -129,7 +133,7 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
             (result:AnyObject?, error: NSError?) -> Void in
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             let offersCountLabel = cell.viewWithTag(103) as! UILabel
-            offersCountLabel.text = "/ \(countJSON[0].int!)"
+            offersCountLabel.text = "\(countJSON[0].int!)"
         })
 
         PFCloud.callFunctionInBackground("getExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
@@ -143,7 +147,7 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
             (result:AnyObject?, error: NSError?) -> Void in
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             let questionsCountLabel = cell.viewWithTag(105) as! UILabel
-            questionsCountLabel.text = "/ \(countJSON[0].int!)"
+            questionsCountLabel.text = "\(countJSON[0].int!)"
         })
         
         updateUnread(itemJSON, cell: cell)
