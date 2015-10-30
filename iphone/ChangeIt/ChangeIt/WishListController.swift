@@ -177,7 +177,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         if (indexPath.row == 0 && (self.tableView.editing || self.otherWishlist)) {
             return 0
         }
-        return 44
+        return 50
     }
     
     override func didReceiveMemoryWarning() {
@@ -206,8 +206,17 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
             return cell
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("wishList", forIndexPath: indexPath) 
-        cell.textLabel?.text = wishesJSON[indexPath.row - 1]["name"].string
+        let wish = cell.viewWithTag(101) as! UILabel
+        wish.text = wishesJSON[indexPath.row - 1]["name"].string
         cell.selectionStyle = UITableViewCellSelectionStyle.Default
+        
+        for c in cell.contentView.constraints {
+            if (c.identifier == "leading") {
+                c.constant = tableView.editing == true ? 0 : 37
+            }
+        }
+        cell.contentView.updateConstraints()
+
         
         return cell
     }

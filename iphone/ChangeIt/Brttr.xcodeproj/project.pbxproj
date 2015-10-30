@@ -46,7 +46,6 @@
 		B37C100B1AE98D7B0086864F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C100A1AE98D7B0086864F /* Social.framework */; };
 		B37C10231AE993DD0086864F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C10221AE993DD0086864F /* FacebookSDK.framework */; };
 		B37C10251AE993E60086864F /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C10241AE993E60086864F /* ParseFacebookUtils.framework */; };
-		B37C10271AE9B81F0086864F /* WishListDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C10261AE9B81E0086864F /* WishListDetailController.swift */; };
 		B37C10291AE9BE280086864F /* WishListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C10281AE9BE280086864F /* WishListController.swift */; };
 		B38AF8E91B3A457500AB19F7 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B38AF8E81B3A457500AB19F7 /* KxMenu.m */; };
 		B38AF8EB1B3E325000AB19F7 /* QuestionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */; };
@@ -141,7 +140,6 @@
 		B37C100E1AE98E360086864F /* ChangeIt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChangeIt-Bridging-Header.h"; sourceTree = "<group>"; };
 		B37C10221AE993DD0086864F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		B37C10241AE993E60086864F /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
-		B37C10261AE9B81E0086864F /* WishListDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishListDetailController.swift; sourceTree = "<group>"; };
 		B37C10281AE9BE280086864F /* WishListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishListController.swift; sourceTree = "<group>"; };
 		B38AF8E71B3A457500AB19F7 /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
 		B38AF8E81B3A457500AB19F7 /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
@@ -271,7 +269,6 @@
 				B30E24941AF96BFA00ED49EB /* MainController.swift */,
 				B33C8F8D1B06869400160D7E /* AddWishListCell.swift */,
 				B37C10281AE9BE280086864F /* WishListController.swift */,
-				B37C10261AE9B81E0086864F /* WishListDetailController.swift */,
 				B374319D1AE861A600A0808B /* AppDelegate.swift */,
 				B37431A31AE861A600A0808B /* Main.storyboard */,
 				B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */,
@@ -547,7 +544,6 @@
 				B3F014991BCCC51100DD33C7 /* OtherItemsController.swift in Sources */,
 				B3F014C01BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m in Sources */,
 				B38AF8E91B3A457500AB19F7 /* KxMenu.m in Sources */,
-				B37C10271AE9B81F0086864F /* WishListDetailController.swift in Sources */,
 				B3F014BC1BCE1FD700DD33C7 /* JTSImageInfo.m in Sources */,
 				B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */,
 				B3F014BD1BCE1FD700DD33C7 /* JTSImageViewController.m in Sources */,
