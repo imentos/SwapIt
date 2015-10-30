@@ -274,7 +274,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="09F04BC2-EB59-49B4-BCBC-7C90D321E331" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="082BC0CE-C516-47A6-9023-61D7502BDDCE" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="leftBarButtonItem" image="setup" id="vaF-Fq-WOc">
@@ -1801,7 +1801,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add a title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B5v-Ak-ViP">
-                                                    <rect key="frame" x="8" y="8" width="584" height="29"/>
+                                                    <rect key="frame" x="15" y="8" width="584" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="600" id="Fpx-Ea-DQu"/>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="600" id="K06-RK-fMm"/>
@@ -1825,11 +1825,11 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="B5v-Ak-ViP" firstAttribute="leading" secondItem="sIt-cj-Vg4" secondAttribute="leadingMargin" id="Ona-tr-jv8"/>
+                                                <constraint firstItem="B5v-Ak-ViP" firstAttribute="leading" secondItem="sIt-cj-Vg4" secondAttribute="leadingMargin" constant="7" id="Ona-tr-jv8"/>
                                                 <constraint firstItem="B5v-Ak-ViP" firstAttribute="top" secondItem="sIt-cj-Vg4" secondAttribute="topMargin" id="g26-KF-E9m"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="B5v-Ak-ViP" secondAttribute="bottom" id="nVn-mg-UnI"/>
-                                                <constraint firstItem="B5v-Ak-ViP" firstAttribute="leading" secondItem="sIt-cj-Vg4" secondAttribute="leadingMargin" id="tSg-2V-hZl"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="B5v-Ak-ViP" secondAttribute="trailing" id="vvW-s7-BWg"/>
+                                                <constraint firstItem="B5v-Ak-ViP" firstAttribute="leading" secondItem="sIt-cj-Vg4" secondAttribute="leadingMargin" constant="7" id="tSg-2V-hZl"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="B5v-Ak-ViP" secondAttribute="trailing" constant="-7" id="vvW-s7-BWg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1840,8 +1840,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="84.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZGv-IX-zMn">
-                                                    <rect key="frame" x="8" y="4" width="584" height="101"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZGv-IX-zMn">
+                                                    <rect key="frame" x="8" y="4" width="584" height="72.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="101" id="SY5-wd-abi"/>
@@ -1860,7 +1860,7 @@
                                             <constraints>
                                                 <constraint firstItem="ZGv-IX-zMn" firstAttribute="leading" secondItem="UnS-yd-vuE" secondAttribute="leadingMargin" id="1DP-kn-30H"/>
                                                 <constraint firstItem="ZGv-IX-zMn" firstAttribute="top" secondItem="UnS-yd-vuE" secondAttribute="topMargin" constant="-4" id="gnh-IU-Z5e"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="ZGv-IX-zMn" secondAttribute="bottom" constant="0.5" id="jI1-WQ-KZG"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ZGv-IX-zMn" secondAttribute="bottom" id="jI1-WQ-KZG"/>
                                                 <constraint firstItem="ZGv-IX-zMn" firstAttribute="trailing" secondItem="UnS-yd-vuE" secondAttribute="trailingMargin" id="w6C-NH-S0W"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1873,7 +1873,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mode of Communication" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLe-Xo-V89">
-                                                    <rect key="frame" x="8" y="8" width="190" height="21"/>
+                                                    <rect key="frame" x="15" y="8" width="190" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="190" id="3aE-kM-sRE"/>
                                                         <constraint firstAttribute="height" constant="21" id="ONe-h5-JQD"/>
@@ -1930,7 +1930,7 @@
                                                 <constraint firstItem="9aA-5R-2FM" firstAttribute="centerX" secondItem="RzM-qt-Ip4" secondAttribute="centerX" id="URG-Hu-fub"/>
                                                 <constraint firstItem="9aA-5R-2FM" firstAttribute="top" secondItem="RzM-qt-Ip4" secondAttribute="topMargin" constant="29" id="Vzz-rx-5Lf"/>
                                                 <constraint firstItem="eLe-Xo-V89" firstAttribute="top" secondItem="RzM-qt-Ip4" secondAttribute="topMargin" id="ZYY-5u-hDB"/>
-                                                <constraint firstItem="eLe-Xo-V89" firstAttribute="leading" secondItem="RzM-qt-Ip4" secondAttribute="leadingMargin" id="kWy-Ax-WGz"/>
+                                                <constraint firstItem="eLe-Xo-V89" firstAttribute="leading" secondItem="RzM-qt-Ip4" secondAttribute="leadingMargin" constant="7" id="kWy-Ax-WGz"/>
                                                 <constraint firstItem="tA5-PI-sXo" firstAttribute="top" secondItem="eLe-Xo-V89" secondAttribute="bottom" constant="8" id="mIp-rw-Ira"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -2353,7 +2353,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="09F04BC2-EB59-49B4-BCBC-7C90D321E331" width="30" height="30">
+        <image name="082BC0CE-C516-47A6-9023-61D7502BDDCE" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -2447,8 +2447,8 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <segue reference="oTP-Gb-dUv"/>
         <segue reference="gHT-u4-dtX"/>
         <segue reference="3ny-0c-RnO"/>
-        <segue reference="t7D-G3-Vmd"/>
-        <segue reference="HZ0-SR-sJn"/>
         <segue reference="ATH-Gx-uhw"/>
+        <segue reference="QCd-2q-564"/>
+        <segue reference="MJq-ai-fc1"/>
     </inferredMetricsTieBreakers>
 </document>

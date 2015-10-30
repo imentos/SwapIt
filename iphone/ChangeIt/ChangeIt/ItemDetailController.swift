@@ -44,8 +44,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.emailButton.hidden = true
-//        self.phoneButton.hidden = true
         self.acceptBtn.hidden = true
         self.rejectBtn.hidden = true
         
@@ -87,29 +85,30 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     @IBAction func usePhone(sender: AnyObject) {
-        let phone = self.userJSON["phone"].string
-        print(phone)
-        if let url = NSURL(string: "tel:\(phone)") {
-            UIApplication.sharedApplication().openURL(url)
+        if let phone = self.userJSON["phone"].string {
+            print(phone)
+            if let url = NSURL(string: "tel:\(phone)") {
+                UIApplication.sharedApplication().openURL(url)
+            }
         }
     }
     
     @IBAction func useEmail(sender: AnyObject) {
-        let email = self.userJSON["email"].string
-        print(email)
-        
-        let mailComposeViewController = configuredMailComposeViewController()
-        if MFMailComposeViewController.canSendMail() {
-            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
-        } else {
-            self.showSendMailErrorAlert()
+        if let email = self.userJSON["email"].string {
+            print(email)
+            
+            let mailComposeViewController = configuredMailComposeViewController()
+            if MFMailComposeViewController.canSendMail() {
+                self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+            } else {
+                self.showSendMailErrorAlert()
+            }
         }
     }
     
     func configuredMailComposeViewController() -> MFMailComposeViewController {
         let mailComposerVC = MFMailComposeViewController()
-        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
-        
+        mailComposerVC.mailComposeDelegate = self
         mailComposerVC.setToRecipients([self.userJSON["email"].string!])
         mailComposerVC.setSubject("Sending you an in-app e-mail...")
         mailComposerVC.setMessageBody("Sending e-mail in-app is not so bad!", isHTML: false)
@@ -140,8 +139,15 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             return
         }
         let communications = Set<String>(self.itemJSON["communication"].string!.componentsSeparatedByString(","))
-        self.emailButton.enabled = communications.contains("email")
-        self.phoneButton.enabled = communications.contains("phone")
+        
+        self.emailButton.enabled = false
+        self.phoneButton.enabled = false
+        if let _ = self.userJSON["email"].string {
+            self.emailButton.enabled = communications.contains("email")
+        }
+        if let _ = self.userJSON["phone"].string {
+            self.phoneButton.enabled = communications.contains("phone")
+        }
     }
 
     @IBAction func acceptOffer(sender: AnyObject) {
@@ -236,9 +242,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                         if (resultsJSON.count == 0) {
                             return
                         }
-                        
-//                        self.emailButton.hidden = false
-//                        self.phoneButton.hidden = false
                         
                        if let status = resultsJSON[0]["status"].string {
                             if (status == "Accepted") {

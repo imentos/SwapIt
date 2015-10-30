@@ -169,6 +169,8 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+
         let scaledImage = resizeImage(image)
         self.userPhoto.layer.borderWidth = 1
         self.userPhoto.layer.masksToBounds = true
@@ -181,11 +183,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         imageObj["file"] = imageFile
         imageObj.saveInBackgroundWithBlock { (result, error) -> Void in
             PFCloud.callFunctionInBackground("updateUserPhoto", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "photo": imageObj.objectId!], block:{
-                (userFromCloud:AnyObject?, error: NSError?) -> Void in
-                
-                self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    
-                })
+                (userFromCloud:AnyObject?, error: NSError?) -> Void in 
             })
         }
     }

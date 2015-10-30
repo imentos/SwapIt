@@ -106,6 +106,7 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     @IBAction func addItem(sender: AnyObject) {
         self.validateTitle()
         self.validateDescription()
+        self.validate(imageId == nil, view:nil)
         if (titleTextField.text == "" || descriptionTextView.text == TEXT_VIEW_PLACE_HOLDER || imageId == nil) {
             return
         }
@@ -212,6 +213,7 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         picker.dismissViewControllerAnimated(true, completion: nil)
+        
         let scaledImage = resizeImage(image)
         addImageButton.setImage(scaledImage, forState: .Normal)
         
@@ -242,7 +244,7 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        validateTitle()
+//        validateTitle()
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -260,12 +262,18 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         self.validate(invalid, view: self.descriptionTextView)
     }
     
-    func validate(invalid:Bool, view:UIView) {
-        if (invalid) {
-            view.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.2)
-        } else {
-            view.backgroundColor = UIColor.clearColor()
+    func validate(invalid:Bool, view:UIView?) {
+        if (invalid == true) {
+            let alert = UIAlertController(title: "Alert", message: "Please complete all required fields before continuing.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
+        
+//        if (invalid) {
+//            view.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.2)
+//        } else {
+//            view.backgroundColor = UIColor.clearColor()
+//        }
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
@@ -281,7 +289,7 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
             self.descriptionTextView.textColor = UIColor.lightGrayColor()
         }
         
-        validateDescription()
+//        validateDescription()
     }
     
     override func didReceiveMemoryWarning() {
