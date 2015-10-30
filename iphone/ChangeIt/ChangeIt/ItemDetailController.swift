@@ -48,6 +48,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         self.phoneButton.hidden = true
         self.acceptBtn.hidden = true
         self.rejectBtn.hidden = true
+        self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
+        self.rejectBtn.setImage(UIImage(named: "thumb_DN_grey"), forState: .Normal)
         
         photoImage.translatesAutoresizingMaskIntoConstraints = false
 
@@ -273,7 +275,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                             }
                         } else {
                             self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
-                            self.rejectBtn.setImage(UIImage(named: "thumb_DN_red"), forState: .Normal)
+                            self.rejectBtn.setImage(UIImage(named: "thumb_DN_grey"), forState: .Normal)
                         }
                     });
                 }
