@@ -41,6 +41,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     @IBOutlet weak var bookmarkBtn: UIButton!
     @IBOutlet weak var wishBtn: UIButton!
     
+    @IBOutlet var locationLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,6 +87,38 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         
         self.emailButton.setImage(UIImage(named: self.emailButton.enabled == true ? "mail_red" : "mail_grey"), forState: .Normal)
         self.phoneButton.setImage(UIImage(named: self.phoneButton.enabled == true ? "phone_red" : "phone_grey"), forState: .Normal)
+
+        updateLocation()
+    }
+    
+    func updateLocation() {
+        self.locationLabel.text = ""
+        let query = PFQuery(className:"Item")
+        query.whereKey("neo4jId", equalTo: self.itemJSON["objectId"].string!)
+        query.cachePolicy = .CacheElseNetwork
+        query.findObjectsInBackgroundWithBlock({
+            (results, error) -> Void in
+            if error == nil {
+                for object in results! {
+                    let descLocation = object["currentLocation"] as! PFGeoPoint
+                    print(descLocation)
+                    let loc = CLLocation(latitude: descLocation.latitude, longitude: descLocation.longitude)
+                    self.locationToAddress(loc)
+                }
+            }
+        })
+    }
+    
+    func locationToAddress(loc:CLLocation) {
+        CLGeocoder().reverseGeocodeLocation(loc) { (placemarks, err) -> Void in
+            if placemarks!.count > 0 {
+                let placemark = placemarks![0] as CLPlacemark
+                self.locationLabel.text = "\(placemark.locality!), \(placemark.administrativeArea!), \(placemark.ISOcountryCode!)"
+                
+            } else {
+                print("No Placemarks!")
+            }
+        }
     }
     
     @IBAction func usePhone(sender: AnyObject) {
