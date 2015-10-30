@@ -182,8 +182,11 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         imageObj.saveInBackgroundWithBlock { (result, error) -> Void in
             PFCloud.callFunctionInBackground("updateUserPhoto", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "photo": imageObj.objectId!], block:{
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in
+                
+                self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                    
+                })
             })
-
         }
     }
     
