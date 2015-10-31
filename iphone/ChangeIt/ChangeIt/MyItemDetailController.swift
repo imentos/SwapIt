@@ -287,7 +287,6 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             detail.itemJSON = itemJSON["item"]
             detail.userJSON = itemJSON["user"]
             detail.fromOffer = true
-            detail.loadData(false)
             
         } else if (segue.identifier == "offerReceived") {
             let indexPath = detailTable.indexPathForSelectedRow
@@ -298,7 +297,6 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             detail.itemJSON = itemJSON["item"]
             detail.userJSON = itemJSON["user"]
             detail.fromOffer = false
-            detail.loadData(false)
             
         } else if (segue.identifier == "messages") {
             let indexPath = detailTable.indexPathForSelectedRow

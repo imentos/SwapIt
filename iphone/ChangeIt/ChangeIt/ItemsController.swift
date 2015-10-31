@@ -337,7 +337,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             let detail = segue.destinationViewController as! ItemDetailController
             detail.userJSON = userJSON[0]
             detail.itemJSON = itemJSON
-            detail.loadData(false)
         })
     }
 }

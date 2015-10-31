@@ -47,8 +47,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         
         self.emailButton.hidden = true
         self.phoneButton.hidden = true
-        self.acceptBtn.hidden = true
-        self.rejectBtn.hidden = true
         self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
         self.rejectBtn.setImage(UIImage(named: "thumb_DN_grey"), forState: .Normal)
         
@@ -74,6 +72,11 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        self.acceptBtn.hidden = true
+        self.rejectBtn.hidden = true
+
+        self.loadData(false)
         
         if (self.fromOffer == false) {
             if let _ = itemJSON {
