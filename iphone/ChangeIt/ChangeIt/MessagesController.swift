@@ -163,7 +163,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func startEditing(sender: AnyObject) {
         self.view.layoutIfNeeded()
-        self.dockHeightConstraint.constant = 270
+        self.dockHeightConstraint.constant = 210
 
         self.loadData()
     }
