@@ -3,6 +3,7 @@ import Parse
 import AVFoundation
 import ImageIO
 
+// This class is also for editing item
 class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var addImageButton: UIButton!
@@ -74,6 +75,10 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     func loadData() {
         self.loadUser()
         
+        communications.removeAll()
+        self.emailButton.setImage(UIImage(named: "mail_grey"), forState: .Normal)
+        self.phoneButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)
+        
         if let _ = itemJSON {
         } else {
             return
@@ -140,7 +145,12 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     }
     
     @IBAction func addEmail(sender: AnyObject) {
-        if (self.userJSON["email"].string?.isEmpty == true) {
+        if let email = self.userJSON["email"].string {
+            if (email.isEmpty == true) {
+                performSegueWithIdentifier("email", sender: self)
+                return
+            }
+        } else {
             performSegueWithIdentifier("email", sender: self)
             return
         }
@@ -155,7 +165,12 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     }
     
     @IBAction func addPhone(sender: AnyObject) {
-        if (self.userJSON["phone"].string?.isEmpty == true) {
+        if let phone = self.userJSON["phone"].string {
+            if (phone.isEmpty == true) {
+                performSegueWithIdentifier("phone", sender: self)
+                return
+            }
+        } else {
             performSegueWithIdentifier("phone", sender: self)
             return
         }
