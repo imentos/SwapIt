@@ -187,7 +187,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         }
     }
     
-    func confirmOffer() {
+    func confirmAcceptOffer() {
         let actionSheet = UIActionSheet(title: "Are you sure you are interested in this offer?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Yes, I am interested.")
         actionSheet.tag = 1
         actionSheet.showInView(self.view)
@@ -204,12 +204,18 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     alert.show()
                     
                 } else {
-                    self.confirmOffer()
+                    self.confirmAcceptOffer()
                 }
             } else {
-                self.confirmOffer()
+                self.confirmAcceptOffer()
             }
         })
+    }
+    
+    func confirmRejectOffer() {
+        let actionSheet = UIActionSheet(title: "Are you sure you are not interested in this offer?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Yes, I am not interested.")
+        actionSheet.tag = 0
+        actionSheet.showInView(self.view)
     }
     
     @IBAction func rejectOffer(sender: AnyObject) {
@@ -223,11 +229,10 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     alert.show()
                     
                 } else {
-                    let actionSheet = UIActionSheet(title: "Are you sure you are not interested in this offer?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Yes, I am not interested.")
-                    actionSheet.tag = 0
-                    actionSheet.showInView(self.view)
-                    
+                    self.confirmRejectOffer()
                 }
+            } else {
+                self.confirmRejectOffer()
             }
         })        
     }
@@ -240,6 +245,13 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     
                     self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
                     self.rejectBtn.setImage(UIImage(named: "thumb_DN_red"), forState: .Normal)
+                    
+                    // remove connection
+                    PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":self.myItemId!, "distItemId":self.itemJSON["objectId"].string!], block:{
+                        (items:AnyObject?, error: NSError?) -> Void in
+                        
+                        self.performSegueWithIdentifier("cancel", sender: self)
+                    })
                 })
                 
             } else if (actionSheet.tag == 1) {
@@ -272,6 +284,10 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             // check if any received item
             PFCloud.callFunctionInBackground("getReceivedItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
+                if let _ = results {
+                } else {
+                    return
+                }
                 let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 self.acceptable = resultsJSON.count > 0 && self.fromOffer == false
                 self.myItemId = resultsJSON[0]["item"]["objectId"].string
@@ -623,16 +639,17 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             view.questionJSON = self.questionJSON
             view.loadData()
             
-        } else if (segue.identifier == "otherDetail") {
-            PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(otherItemJSON["objectId"].string)!], block:{
-                (user:AnyObject?, error: NSError?) -> Void in
-                let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                
-                let detail = segue.destinationViewController as! ItemDetailController
-                detail.userJSON = userJSON[0]
-                detail.itemJSON = self.otherItemJSON
-                detail.loadData(true)
-            });
+            // TODO: remove it
+//        } else if (segue.identifier == "otherDetail") {
+//            PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(otherItemJSON["objectId"].string)!], block:{
+//                (user:AnyObject?, error: NSError?) -> Void in
+//                let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+//                
+//                let detail = segue.destinationViewController as! ItemDetailController
+//                detail.userJSON = userJSON[0]
+//                detail.itemJSON = self.otherItemJSON
+//                detail.loadData(true)
+//            });
             
         } else if (segue.identifier == "otherItems") {
             let navi = segue.destinationViewController as! UINavigationController
