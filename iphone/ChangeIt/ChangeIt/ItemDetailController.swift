@@ -203,7 +203,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             if let status = resultsJSON[0]["status"].string {
                 if (status == "Accepted") {
-                    let alert = UIAlertView(title: "Brttr", message: "You have informed the user that you are interested in this offer.", delegate: self, cancelButtonTitle: "OK")
+                    let alert = UIAlertView(title: "Brttr", message: "You have already informed that you are interested in this offer. Try to send a message to the user and initiate communication.", delegate: self, cancelButtonTitle: "OK")
                     alert.show()
                     
                 } else {
