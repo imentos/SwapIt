@@ -266,7 +266,7 @@ import UIKit
             let icon = view.viewWithTag(103) as! UIImageView
             let dic = ["label":label, "counter":counter, "icon":icon]
             
-            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-5-[icon(20)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[icon(20)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
             
             //
             view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-5-[counter(30)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic))
