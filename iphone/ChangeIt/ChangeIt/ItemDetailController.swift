@@ -73,6 +73,11 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+        if let _ = self.itemJSON {
+        } else {
+            return
+        }
+        
         self.acceptBtn.hidden = true
         self.rejectBtn.hidden = true
 
@@ -127,8 +132,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     @IBAction func usePhone(sender: AnyObject) {
         if let phone = self.userJSON["phone"].string {
             print(phone)
-            if let url = NSURL(string: "tel:\(phone)") {
-                UIApplication.sharedApplication().openURL(url)
+
+            if let phoneCallURL = NSURL(string: "tel://\(phone)") {
+                let application:UIApplication = UIApplication.sharedApplication()
+                if (application.canOpenURL(phoneCallURL)) {
+                    application.openURL(phoneCallURL);
+                }
             }
         }
     }
