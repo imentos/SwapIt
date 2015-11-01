@@ -67,6 +67,11 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         self.userPhoto.userInteractionEnabled = true
         self.userPhoto.addGestureRecognizer(userTap)
         
+        let userNameTap = UITapGestureRecognizer(target: self, action: Selector("tapOtherUser"))
+        userNameTap.numberOfTapsRequired = 1
+        self.userLabel.userInteractionEnabled = true
+        self.userLabel.addGestureRecognizer(userNameTap)
+        
         self.expandItemImage()
     }
     
@@ -658,8 +663,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
 //            });
             
         } else if (segue.identifier == "otherItems") {
-            let navi = segue.destinationViewController as! UINavigationController
-            let view = navi.topViewController as! OtherItemsController
+            let view = segue.destinationViewController as! OtherItemsController
 //            view.title = self.title
             view.userJSON = self.userJSON
             view.loadData()
