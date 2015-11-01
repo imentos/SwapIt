@@ -45,9 +45,9 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     @IBAction func deleteAction(sender: AnyObject) {
         var title = ""
         if (self.tableView.indexPathsForSelectedRows?.count == 1) {
-            title = "Are you sure you want to remove this wish list?"
+            title = "Are you sure you want to remove this item from wish list?"
         } else {
-            title = "Are you sure you want to remove these wish lists?"
+            title = "Are you sure you want to remove all items from your wish list?"
         }
         let actionSheet = UIActionSheet(title: title, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "OK")
         actionSheet.showInView(self.view)
