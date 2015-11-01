@@ -67,6 +67,10 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         if let user = PFUser.currentUser() {
             PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": user.objectId!], block:{
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
                 self.userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
             })
         }
@@ -104,6 +108,10 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     @IBAction func saveItem(sender: AnyObject) {
         PFCloud.callFunctionInBackground("updateItem", withParameters: ["itemId": self.itemJSON["objectId"].string!, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": self.communications.joinWithSeparator(",")], block:{
             (results:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             self.performSegueWithIdentifier("cancel", sender: self)
         })
     }
@@ -119,8 +127,16 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         let uuid = NSUUID().UUIDString
         PFCloud.callFunctionInBackground("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": self.communications.joinWithSeparator(",")], block:{
             (results:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             PFCloud.callFunctionInBackground("linkMyItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": uuid], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
                 let item = PFObject(className: "Item")
                 item["neo4jId"] = uuid
                 item.saveInBackgroundWithBlock {
@@ -128,9 +144,17 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
                     if (success) {
                         PFGeoPoint.geoPointForCurrentLocationInBackground {
                             (geoPoint, error) -> Void in
+                            if let error = error {
+                                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                                return
+                            }
                             item.setObject(geoPoint!, forKey: "currentLocation")
                             item.saveInBackgroundWithBlock({
                                 (result, error) -> Void in
+                                if let error = error {
+                                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                                    return
+                                }
                                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                     self.performSegueWithIdentifier("addItem", sender: self)
                                 })

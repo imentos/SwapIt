@@ -29,9 +29,11 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
         
         PFCloud.callFunctionInBackground("getUnreadQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
-            if (result == nil) {
-                return;
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
             }
+
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             unreadQuestions = countJSON[0].int!
             if (unreadQuestions > 0) {
@@ -43,9 +45,11 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
             
             PFCloud.callFunctionInBackground("getUnreadExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
                 (result:AnyObject?, error: NSError?) -> Void in
-                if (result == nil) {
-                    return;
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
                 }
+                
                 let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 unreadOffers = countJSON[0].int!
                 if (unreadOffers > 0) {
@@ -80,8 +84,8 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
         var totalUnread:Int = 0
         PFCloud.callFunctionInBackground("getUnreadQuestionsCount", withParameters:["userId": (PFUser.currentUser()?.objectId)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
-            if let _ = result {
-            } else {
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
                 return
             }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -89,10 +93,11 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
 
             PFCloud.callFunctionInBackground("getUnreadExchangesCount", withParameters:["userId": (PFUser.currentUser()?.objectId)!], block: {
                 (result:AnyObject?, error: NSError?) -> Void in
-                if let _ = result {
-                } else {
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
                     return
                 }
+
                 let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 totalUnread += countJSON[0].int!
                 
@@ -105,6 +110,10 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     func loadData() {
         PFCloud.callFunctionInBackground("getItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!], block: {
             (items:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.tableView.reloadData()
         })
@@ -131,6 +140,10 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
         
         PFCloud.callFunctionInBackground("getReceivedCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             let offersCountLabel = cell.viewWithTag(103) as! UILabel
             offersCountLabel.text = "\(countJSON[0].int!)"
@@ -138,6 +151,10 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
 
         PFCloud.callFunctionInBackground("getExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             let offersCountLabel = cell.viewWithTag(104) as! UILabel
             offersCountLabel.text = "\(countJSON[0].int!)"
@@ -145,6 +162,10 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
         
         PFCloud.callFunctionInBackground("getQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             let questionsCountLabel = cell.viewWithTag(105) as! UILabel
             questionsCountLabel.text = "\(countJSON[0].int!)"
@@ -175,8 +196,16 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
             let itemJSON = itemsJSON[actionSheet.tag]
             PFCloud.callFunctionInBackground("deleteItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
                 (result:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
                PFCloud.callFunctionInBackground("deleteUnusedQuestions", withParameters: nil, block: {
                     (result:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
                     self.loadData()
                 })
             })

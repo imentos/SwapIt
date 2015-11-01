@@ -30,6 +30,10 @@ class UserPhoneController : UIViewController {
         let phone = phoneText.text
         PFCloud.callFunctionInBackground("updateUserPhone", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "phone": phone!], block:{
             (userFromCloud:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             
             self.performSegueWithIdentifier("save", sender: self)
         })

@@ -60,8 +60,8 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         var totalUnread:Int = 0
         PFCloud.callFunctionInBackground("getUnreadRepliesCount", withParameters:["userId": (PFUser.currentUser()?.objectId)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
-            if let _ = result {
-            } else {
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
                 return
             }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -90,6 +90,10 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         if let user = PFUser.currentUser() {
             PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": user.objectId!], block:{
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
                 self.userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 self.title = self.userJSON["name"].string
                 
@@ -184,6 +188,10 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         imageObj.saveInBackgroundWithBlock { (result, error) -> Void in
             PFCloud.callFunctionInBackground("updateUserPhoto", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "photo": imageObj.objectId!], block:{
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in 
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
             })
         }
     }

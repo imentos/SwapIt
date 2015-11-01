@@ -30,6 +30,10 @@ class UserEmailController : UIViewController {
         let email = emailText.text
         PFCloud.callFunctionInBackground("updateUserEmail", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "email": email!], block:{
             (userFromCloud:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             
             self.performSegueWithIdentifier("save", sender: self)
         })

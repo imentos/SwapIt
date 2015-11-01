@@ -24,6 +24,10 @@ class MakeOfferController: UITableViewController {
     func loadData() {
         PFCloud.callFunctionInBackground("getItemsOfUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!], block: {
             (items:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             
             for (var i = 0; i < self.itemsJSON.count; i++) {

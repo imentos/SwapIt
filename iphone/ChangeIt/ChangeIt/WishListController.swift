@@ -34,8 +34,16 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         
         PFCloud.callFunctionInBackground("addWish", withParameters: ["name": newWishText!, "objectId": wishId], block: {
             (wishes:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             PFCloud.callFunctionInBackground("linkMyWish", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "objectId": wishId], block: {
                 (wishes:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
                 self.loadData((PFUser.currentUser()?.objectId)!, otherWishlist: false)
             })
         })
@@ -68,6 +76,10 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
                 
                 PFCloud.callFunctionInBackground("deleteWishesOfUser", withParameters: ["userId":userId!, "objectIds":deleteObjectIds], block: {
                     (wishes:AnyObject?, error: NSError?) -> Void in
+                    if let error = error {
+                        NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        return
+                    }
                     self.loadData((PFUser.currentUser()?.objectId)!, otherWishlist: false)
                     self.tableView.editing = false
                 })
@@ -77,6 +89,10 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
                 
                 PFCloud.callFunctionInBackground("deleteAllWishesOfUser", withParameters: ["userId":userId!], block: {
                     (wishes:AnyObject?, error: NSError?) -> Void in
+                    if let error = error {
+                        NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        return
+                    }
                     self.loadData((PFUser.currentUser()?.objectId)!, otherWishlist: false)
                     self.tableView.editing = false
                 })
@@ -156,6 +172,10 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         var wishesJSON:JSON!
         PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":userId], block: {
             (wishes:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             self.wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.otherWishlist = otherWishlist
             self.tableView.reloadData()

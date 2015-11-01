@@ -40,6 +40,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func cancel(segue:UIStoryboardSegue) {
         PFCloud.callFunctionInBackground("getItem", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             let r = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             if (r.count == 0) {
                 return
@@ -68,6 +72,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     func loadData() {
         PFCloud.callFunctionInBackground("getQuestionedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             self.questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.segmentedControl.setTitle(String(format:"%02d", self.questionsJSON.count), forSegmentAtIndex: 2)
@@ -75,6 +83,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
 
         PFCloud.callFunctionInBackground("getReceivedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             self.receivedItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.detailTable.reloadData()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -82,6 +94,10 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
                 })            
             PFCloud.callFunctionInBackground("getOfferedItems", withParameters: ["itemId":self.itemJSON["objectId"].string!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
                 self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
 //                self.editButton.enabled = self.offeredItemsJSON.count == 0 && self.receivedItemsJSON.count == 0
                 self.detailTable.reloadData()
@@ -215,9 +231,11 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             
             PFCloud.callFunctionInBackground("getUnreadReceivedQuestionsCountOfItem", withParameters: ["itemId":self.itemJSON["objectId"].string!], block:{
                 (result:AnyObject?, error: NSError?) -> Void in
-                if (result == nil) {
-                    return;
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
                 }
+
                 let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 let unreadQuestions = countJSON[0].int!
                 if (unreadQuestions > 0) {

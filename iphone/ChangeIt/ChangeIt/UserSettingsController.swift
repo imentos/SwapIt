@@ -52,6 +52,10 @@ class UserSettingsController: UIViewController {
         if let user = PFUser.currentUser() {
             PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": user.objectId!], block:{
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
                 self.userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 if (self.userJSON["email"] == nil || self.userJSON["email"].string?.isEmpty == true) {
                     self.emailButton.setImage(UIImage(named: "mail_grey"), forState: .Normal)
@@ -76,6 +80,10 @@ class UserSettingsController: UIViewController {
         let distance = Int(self.slider.value)
         PFCloud.callFunctionInBackground("updateUserSearchDistance", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "distance": distance], block:{
             (userFromCloud:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             
             self.performSegueWithIdentifier("save", sender: self)
         })

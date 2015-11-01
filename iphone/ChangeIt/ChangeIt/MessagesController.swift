@@ -66,6 +66,10 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         if let _ = questionJSON {
             PFCloud.callFunctionInBackground("setQuestionRead", withParameters: ["objectId": self.questionJSON["objectId"].string!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
             })
         }
     }
@@ -119,11 +123,19 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             let uuid = NSUUID().UUIDString
             PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": self.messageTextField.text!, "objectId": uuid, "questionId": (questionJSON["objectId"].string)!, "userId": (PFUser.currentUser()?.objectId)!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
                 
                 self.sendNewReplyNotification((self.questionJSON["objectId"].string)!)
                 
                 PFCloud.callFunctionInBackground("setQuestionUnread", withParameters: ["objectId": self.questionJSON["objectId"].string!], block:{
                     (results:AnyObject?, error: NSError?) -> Void in
+                    if let error = error {
+                        NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        return
+                    }
                 })
                 
                 self.loadData()
@@ -133,10 +145,18 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             let uuid = NSUUID().UUIDString
             PFCloud.callFunctionInBackground("addQuestion", withParameters: ["text": self.messageTextField.text!, "objectId": uuid, "owner": (PFUser.currentUser()?.objectId)!], block:{
                 (result:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
                 self.questionJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 let itemId = self.itemJSON["objectId"].string
                 PFCloud.callFunctionInBackground("askItemQuestionByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": itemId!, "questionId": uuid], block:{
                     (items:AnyObject?, error: NSError?) -> Void in
+                    if let error = error {
+                        NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        return
+                    }
                     self.loadData()
                     
                     self.sendNewQuestionNotification(uuid)
@@ -172,6 +192,10 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         if let _ = questionJSON {
             PFCloud.callFunctionInBackground("getRepliesOfQuestion", withParameters: ["questionId":(questionJSON["objectId"].string)!], block: {
                 (replies:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
                 self.repliesJSON = JSON(data:(replies as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 self.messageTableView.reloadData()
                 self.messageTextField.text = ""

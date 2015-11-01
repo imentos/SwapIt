@@ -102,6 +102,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let qid:String = userInfo["qid"] as? String {
                     PFCloud.callFunctionInBackground("getQuestionCreator", withParameters: ["questionId":qid], block:{
                         (results:AnyObject?, error: NSError?) -> Void in
+                        if let error = error {
+                            NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                            return
+                        }
                         let userJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                         
                         if ((PFUser.currentUser()?.objectId)! == userJSON[0]["objectId"].string!) {

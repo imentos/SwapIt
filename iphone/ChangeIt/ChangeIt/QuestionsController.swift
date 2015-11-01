@@ -18,6 +18,10 @@ class QuestionsController: UITableViewController, UIActionSheetDelegate {
     func loadData() {
         PFCloud.callFunctionInBackground("getAskedQuestions", withParameters: ["userId":(PFUser.currentUser()?.objectId)!], block: {
             (questions:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             self.questionsJSON = JSON(data:(questions as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.tableView.reloadData()
         })
@@ -49,6 +53,10 @@ class QuestionsController: UITableViewController, UIActionSheetDelegate {
             let questionJSON = questionsJSON[actionSheet.tag]
             PFCloud.callFunctionInBackground("deleteQuestion", withParameters: ["questionId": (questionJSON["question"]["objectId"].string)!], block: {
                 (result:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
                 self.loadData()
             })
         }

@@ -101,6 +101,10 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
 //            PFCloud.callFunctionInBackground(getQuery("All"), withParameters: ["search": searchText, "userId": (PFUser.currentUser()?.objectId)!, "limit": ITEMS_PER_PAGE], block:{
 //                (results:AnyObject?, error: NSError?) -> Void in
+//            if let error = error {
+//                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+//                return
+//            }
 //                if (results == nil) {
 //                    self.filteredItems = JSON("{}")
 //                    return
@@ -139,6 +143,10 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func loadDataByFunction(query:String, limit:Int, complete:(results:JSON) -> Void) {
         PFCloud.callFunctionInBackground(query, withParameters: ["search": ".*", "userId": (PFUser.currentUser()?.objectId)!, "limit": limit], block:{
             (items:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             if (items == nil) {
                 self.itemsJSON = JSON([])
                 complete(results:self.itemsJSON)
@@ -202,10 +210,11 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
 
             PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": (PFUser.currentUser()!.objectId)!], block:{
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in
-                if let _ = userFromCloud {
-                } else {
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
                     return
                 }
+
                 let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 
                 // reset back all when reach 100 miles
@@ -225,6 +234,10 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                         NSLog("ids:\(ids)")
                         
                         PFCloud.callFunctionInBackground("getAllItemsByList", withParameters: ["search": searchText, "ids": ids, "userId": (PFUser.currentUser()?.objectId)!, "limit":limit], block: { (itemResult, error) -> Void in
+                            if let error = error {
+                                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                                return
+                            }
                             if (itemResult == nil) {
                                 complete(results:JSON([]))
                                 return
@@ -334,6 +347,10 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         // get user info based on item
         PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(itemJSON["objectId"].string)!], block:{
             (user:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             
             let detail = segue.destinationViewController as! ItemDetailController

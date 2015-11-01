@@ -37,6 +37,10 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
         let userId = self.userJSON["objectId"].string!
         PFCloud.callFunctionInBackground("getItemsByUser", withParameters: ["userId": userId], block: {
             (items:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.itemCount.text = "\(self.itemsJSON.count)"
             self.tableView.reloadData()
@@ -85,27 +89,6 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
         
         let label = cell.viewWithTag(102) as! UILabel
         label.text = itemJSON["title"].string
-        
-//        PFCloud.callFunctionInBackground("getReceivedCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
-//            (result:AnyObject?, error: NSError?) -> Void in
-//            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-//            let offersCountLabel = cell.viewWithTag(103) as! UILabel
-//            offersCountLabel.text = "/ \(countJSON[0].int!)"
-//        })
-//        
-//        PFCloud.callFunctionInBackground("getExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
-//            (result:AnyObject?, error: NSError?) -> Void in
-//            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-//            let offersCountLabel = cell.viewWithTag(104) as! UILabel
-//            offersCountLabel.text = "\(countJSON[0].int!)"
-//        })
-//        
-//        PFCloud.callFunctionInBackground("getQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
-//            (result:AnyObject?, error: NSError?) -> Void in
-//            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-//            let questionsCountLabel = cell.viewWithTag(105) as! UILabel
-//            questionsCountLabel.text = "/ \(countJSON[0].int!)"
-//        })
         
         return cell
     }

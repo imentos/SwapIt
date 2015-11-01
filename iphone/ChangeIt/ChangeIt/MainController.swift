@@ -91,14 +91,26 @@ class MainController: UITabBarController, UITabBarControllerDelegate, PFLogInVie
     func addUser(userId:String, name:String, facebookId:String, location:String) {
         PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": userId], block:{
             (userFromCloud:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
             let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             if userJSON.count == 0 {
                 PFCloud.callFunctionInBackground("addUser", withParameters: ["name": name, "objectId": userId, "facebookId": facebookId], block:{
                     (userFromCloud:AnyObject?, error: NSError?) -> Void in
+                    if let error = error {
+                        NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        return
+                    }
                 })
             } else {
                 PFCloud.callFunctionInBackground("updateUser", withParameters: ["name": name, "objectId": userId, "facebookId": facebookId, "location": location], block:{
                     (userFromCloud:AnyObject?, error: NSError?) -> Void in
+                    if let error = error {
+                        NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        return
+                    }
                 })
             }
         })
