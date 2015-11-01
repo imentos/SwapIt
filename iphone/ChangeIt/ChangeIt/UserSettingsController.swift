@@ -33,11 +33,12 @@ class UserSettingsController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Settings"
-        
-        if let _ = userJSON["distance"].float {
-            slider.value = userJSON["distance"].floatValue
-        } else {
-            slider.value = 50.0
+        if let _ = userJSON {
+            if let _ = userJSON["distance"].float {
+                slider.value = userJSON["distance"].floatValue
+            } else {
+                slider.value = 50.0
+            }
         }
     }
     
