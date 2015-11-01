@@ -274,7 +274,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="106912EA-4C67-4677-96C1-AF14C4675FD7" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="A0588E6C-D5BE-441F-BA13-11F3CFE3E758" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="leftBarButtonItem" image="setup" id="vaF-Fq-WOc">
@@ -332,7 +332,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tpm-6F-gct">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="545"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="item" id="WyZ-yL-dGJ">
@@ -372,7 +372,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tpm-6F-gct" firstAttribute="leading" secondItem="mwp-6N-b3e" secondAttribute="leadingMargin" constant="-20" id="LYg-ld-IgL"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="tpm-6F-gct" secondAttribute="bottom" id="UgJ-QB-385"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="tpm-6F-gct" secondAttribute="bottom" constant="55" id="UgJ-QB-385"/>
                             <constraint firstItem="tpm-6F-gct" firstAttribute="top" secondItem="rtt-fo-b2H" secondAttribute="bottom" id="gAu-cy-6u4"/>
                             <constraint firstItem="tpm-6F-gct" firstAttribute="top" secondItem="mwp-6N-b3e" secondAttribute="topMargin" id="nzX-ND-xKD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tpm-6F-gct" secondAttribute="trailing" constant="-20" id="u7S-B2-C8V"/>
@@ -908,7 +908,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="dZj-MS-610">
-                            <rect key="frame" x="0.0" y="64" width="600" height="76"/>
+                            <rect key="frame" x="0.0" y="44" width="600" height="76"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add something new to offer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PqS-93-Bgb">
@@ -931,7 +931,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="item" rowHeight="100" id="7Go-uP-zGb">
-                                <rect key="frame" x="0.0" y="162" width="600" height="100"/>
+                                <rect key="frame" x="0.0" y="142" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Go-uP-zGb" id="FZu-Wb-xeW">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
@@ -1370,7 +1370,7 @@
                                 </variation>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="r1i-fr-S7Y">
-                                <rect key="frame" x="4" y="250" width="592" height="350"/>
+                                <rect key="frame" x="4" y="250" width="592" height="290"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="myItemDetail" rowHeight="100" id="6p0-tA-m0h">
@@ -1521,7 +1521,7 @@
                             <constraint firstItem="5KM-W5-BhB" firstAttribute="top" secondItem="Sz1-eF-B7V" secondAttribute="bottom" id="XIQ-ov-FBC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="324-vh-nYe" secondAttribute="trailing" constant="-16" id="XL6-J9-T1V"/>
                             <constraint firstItem="9qW-OJ-Mi2" firstAttribute="top" secondItem="324-vh-nYe" secondAttribute="bottom" constant="248" id="pXi-5B-50f"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="r1i-fr-S7Y" secondAttribute="bottom" id="t8c-vr-Eyb"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="r1i-fr-S7Y" secondAttribute="bottom" constant="60" id="t8c-vr-Eyb"/>
                             <constraint firstItem="324-vh-nYe" firstAttribute="top" secondItem="Sz1-eF-B7V" secondAttribute="bottom" constant="200" id="y9J-a7-aXw"/>
                             <constraint firstItem="324-vh-nYe" firstAttribute="leading" secondItem="uwD-53-zu4" secondAttribute="leadingMargin" constant="-16" id="zgv-aa-d5z"/>
                         </constraints>
@@ -1689,7 +1689,7 @@
                         <color key="sectionIndexBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddWishListCell" id="bDC-aU-nDp" customClass="AddWishListCell" customModule="Brttr" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="22" width="600" height="60"/>
+                                <rect key="frame" x="0.0" y="66" width="600" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bDC-aU-nDp" id="5tb-2w-4o6">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
@@ -1714,7 +1714,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="wishList" id="DpE-CT-cPy">
-                                <rect key="frame" x="0.0" y="82" width="600" height="60"/>
+                                <rect key="frame" x="0.0" y="126" width="600" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DpE-CT-cPy" id="Wya-3E-JZH">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
@@ -1785,7 +1785,7 @@
                     </connections>
                 </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="4886" y="-427"/>
+            <point key="canvasLocation" x="3824" y="-25"/>
         </scene>
         <!--Add Item Controller-->
         <scene sceneID="Wp9-6h-VaF">
@@ -2104,7 +2104,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d1h-6L-Mt3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4006" y="-427"/>
+            <point key="canvasLocation" x="3056" y="-25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Vqy-j4-6H3">
@@ -2367,7 +2367,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="106912EA-4C67-4677-96C1-AF14C4675FD7" width="30" height="30">
+        <image name="A0588E6C-D5BE-441F-BA13-11F3CFE3E758" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -2460,11 +2460,11 @@ RgAAAAAAAAAAAAAAAAAAC5U
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="HZ0-SR-sJn"/>
-        <segue reference="ATH-Gx-uhw"/>
+        <segue reference="05S-WV-Wgj"/>
+        <segue reference="f7t-fM-16E"/>
+        <segue reference="8gr-Ij-jLJ"/>
+        <segue reference="3ny-0c-RnO"/>
         <segue reference="oTP-Gb-dUv"/>
         <segue reference="t7D-G3-Vmd"/>
-        <segue reference="d4f-Ok-4UY"/>
-        <segue reference="m9L-vR-T2e"/>
-        <segue reference="3ny-0c-RnO"/>
     </inferredMetricsTieBreakers>
 </document>
