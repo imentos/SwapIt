@@ -453,14 +453,11 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         let optionMenu = UIAlertController(title: nil, message: "Share On", preferredStyle: .ActionSheet)
         let deleteAction = UIAlertAction(title: "Facebook", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            if (SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook))
-            {
-                // Create the post
+            if (SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook)) {
                 let post = SLComposeViewController(forServiceType: (SLServiceTypeFacebook))
                 let text = "I found '\(self.title!)' on BRTTR www.brttr.com - A social platform to barter goods and services."
                 post.setInitialText(text)
                 post.addImage(self.originalPhotoImage)
-                post.addURL(NSURL(string: "http://www.brttr.com"))
                 self.presentViewController(post, animated: true, completion: nil)
             } else {
                 // Facebook not available. Show a warning
@@ -472,15 +469,11 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         })
         let saveAction = UIAlertAction(title: "Twitter", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("share on Twitter")
-            // TWITTER START
-            if(SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter)) {
-                // Create the tweet
+            if (SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter)) {
                 let tweet = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
                 let text = "I found '\(self.title!)' on BRTTR www.brttr.com - A social platform to barter goods and services."
                 tweet.setInitialText(text)
                 tweet.addImage(self.originalPhotoImage)
-                
                 self.presentViewController(tweet, animated: true, completion: nil)
             } else {
                 // Twitter not available. Show a warning
