@@ -471,7 +471,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             (alert: UIAlertAction!) -> Void in
             if (SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter)) {
                 let tweet = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
-                let text = "I found '\(self.title!)' on BRTTR www.brttr.com - A social platform to barter goods and services."
+                let text = "I found '\(self.title!)' on #BRTTR www.brttr.com - A social platform to #barter goods and services @brttrapp."
                 tweet.setInitialText(text)
                 tweet.addImage(self.originalPhotoImage)
                 self.presentViewController(tweet, animated: true, completion: nil)
