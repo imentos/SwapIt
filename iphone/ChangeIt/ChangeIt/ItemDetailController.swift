@@ -452,10 +452,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             {
                 // Create the post
                 let post = SLComposeViewController(forServiceType: (SLServiceTypeFacebook))
-                var f = "I am using BRTTR app and found "
-                f += self.title!
-                f += "... Download the app here."
-                post.setInitialText(f)
+                let text = "I found '\(self.title!)' on BRTTR www.brttr.com - A social platform to barter goods and services."
+                post.setInitialText(text)
                 post.addImage(self.originalPhotoImage)
                 post.addURL(NSURL(string: "http://www.brttr.com"))
                 self.presentViewController(post, animated: true, completion: nil)
@@ -474,12 +472,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             if(SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter)) {
                 // Create the tweet
                 let tweet = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
-                
-                var t = "I am using brttr app and found "
-                t += self.title!
-                t += "... Download the app here."
-                
-                tweet.setInitialText(t)
+                let text = "I found '\(self.title!)' on BRTTR www.brttr.com - A social platform to barter goods and services."
+                tweet.setInitialText(text)
                 tweet.addImage(self.originalPhotoImage)
                 
                 self.presentViewController(tweet, animated: true, completion: nil)
