@@ -164,8 +164,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self
         mailComposerVC.setToRecipients([self.userJSON["email"].string!])
-        mailComposerVC.setSubject("Sending you an in-app e-mail...")
-        mailComposerVC.setMessageBody("Sending e-mail in-app is not so bad!", isHTML: false)
+        mailComposerVC.setSubject("Regarding '\(self.title!)' in your brttr app")
+        mailComposerVC.setMessageBody("", isHTML: false)
         
         return mailComposerVC
     }
