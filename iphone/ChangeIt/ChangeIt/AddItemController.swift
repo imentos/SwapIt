@@ -286,6 +286,16 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
 //        validateTitle()
     }
     
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        let count = textView.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) + (text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) - range.length)
+        print(count)
+        if (count > 200) {
+            let alert = UIAlertView(title: "Brttr", message: "You have entered the description over 200 characters. Try to limit your description.", delegate: self, cancelButtonTitle: "OK")
+            alert.show()
+        }
+        return count <= 200
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.titleTextField.resignFirstResponder()
         return true
