@@ -275,6 +275,22 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             title.text = itemJSON["item"]["title"].string
             name.text = itemJSON["user"]["name"].string
             
+            PFCloud.callFunctionInBackground("getUnreadReceivedQuestionsCountOfItem", withParameters: ["itemId":itemJSON["item"]["objectId"].string!, "otherItemId":self.itemJSON["objectId"].string!], block:{
+                (result:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
+                
+                let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                let unreadQuestions = countJSON[0].int!
+                if (unreadQuestions > 0) {
+                    newQuestionIcon.image = UIImage(named: "message_new")
+                } else {
+                    newQuestionIcon.image = nil
+                }
+            })
+            
         } else if (segmentedControl.selectedSegmentIndex == 2) {
             let questionJSON = questionsJSON[indexPath.row]
             
