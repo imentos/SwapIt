@@ -73,6 +73,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         self.userLabel.addGestureRecognizer(userNameTap)
         
         self.expandItemImage()
+        
+        self.view.insertSubview(exchangeImage, aboveSubview: otherItemImageView)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -316,9 +318,9 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         
         createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
-            let imageData = (imageObj!["file"] as! PFFile).getData()
-            self.photoImage.image = UIImage(data: imageData!)
-            self.originalPhotoImage = UIImage(data: imageData!)
+            let orgImageData = (imageObj!["file"] as! PFFile).getData()
+            self.photoImage.image = UIImage(data: orgImageData!)
+            self.originalPhotoImage = UIImage(data: orgImageData!)
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.showData(myItem)
@@ -395,13 +397,16 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
                         return
                     }
-                    self.collapseItemImage()
                     let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                     if (resultsJSON.count == 0) {
                         self.otherItemId = nil
                         self.expandItemImage()
                         return
                     }
+                    
+                    //
+                    self.collapseItemImage()
+
                     // each person can only exchange one item
                     if (self.makeOfferButton != nil) {
                         
@@ -419,10 +424,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                                 return
                             }
                             let imageData = (imageObj!["file"] as! PFFile).getData()
-                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                self.otherItemImageView.image = self.photoImage.image
-                                self.photoImage.image = UIImage(data: imageData!)
-                            })
+                            self.otherItemImageView.image = UIImage(data: orgImageData!)
+                            self.photoImage.image = UIImage(data: imageData!)
                         })
                     }
                 })
@@ -508,14 +511,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.makeOfferButton.title = "Edit Offer"
-                    self.loadData(false)
                     
                     self.sendNewOfferNotification()
                 })
             })
         } else {
             self.makeOfferButton.title = "Make Offer"
-            self.loadData(false)
         }
     }
     
@@ -651,7 +652,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         
         self.otherItemImageView.hidden = false
         self.exchangeImage.hidden = false
-        self.view.insertSubview(exchangeImage, aboveSubview: otherItemImageView)
     }
     
     func expandItemImage() {
