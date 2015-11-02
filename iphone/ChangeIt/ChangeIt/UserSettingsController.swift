@@ -106,9 +106,9 @@ class UserSettingsController: UIViewController {
     func updateDistanceLabel() {
         let value = getSliderValue()
         if (value == 0) {
-            distanceLabel.text = "I am interested in bartering with in whole world."
+            distanceLabel.text = "I am interested in bartering within whole world."
         } else {
-            distanceLabel.text = "I am interested in bartering with in \(value) miles."
+            distanceLabel.text = "I am interested in bartering within \(value) miles."
         }
         
     }
