@@ -263,9 +263,10 @@ Parse.Cloud.define("getUnreadReceivedQuestionsCountOfItem", function(request, re
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (n:Item{objectId:{itemId}})<-[r:LINK]-(q:Question)<-[a:ASK]-(u:User) WHERE r.read = false AND ((u)-[:OFFER]->(:Item)-[:EXCHANGE]->(n))  RETURN COUNT(r)',
+            query: 'MATCH (o:Item{objectId:{otherItemId}})-[:EXCHANGE]->(n:Item{objectId:{itemId}})<-[r:LINK]-(q:Question)<-[a:ASK]-(u:User) WHERE r.read = false AND ((u)-[:OFFER]->o-[:EXCHANGE]->(n))  RETURN COUNT(r)',
             params: {
-                itemId: request.params.itemId
+                itemId: request.params.itemId,
+                otherItemId: request.params.otherItemId
             }
         },
         url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',

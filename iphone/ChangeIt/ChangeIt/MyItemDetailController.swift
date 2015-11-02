@@ -229,7 +229,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
                 statusIcon.image = UIImage(named: "offer_new")
             }
             
-            PFCloud.callFunctionInBackground("getUnreadReceivedQuestionsCountOfItem", withParameters: ["itemId":self.itemJSON["objectId"].string!], block:{
+            PFCloud.callFunctionInBackground("getUnreadReceivedQuestionsCountOfItem", withParameters: ["itemId":self.itemJSON["objectId"].string!, "otherItemId":itemJSON["item"]["objectId"].string!], block:{
                 (result:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
