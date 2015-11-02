@@ -326,7 +326,6 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             messages.questionJSON = questionJSON["question"]
             messages.userJSON = questionJSON["user"]
             messages.itemJSON = itemJSON
-            messages.loadData()
             
         } else if (segue.identifier == "edit") {
             let item = segue.destinationViewController as! AddItemController

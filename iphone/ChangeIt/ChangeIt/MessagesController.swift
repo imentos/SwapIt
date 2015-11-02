@@ -61,6 +61,8 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+        self.loadData()
+        
         scrollDown()
         
         if let _ = questionJSON {

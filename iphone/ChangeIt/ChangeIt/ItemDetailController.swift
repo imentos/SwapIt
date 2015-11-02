@@ -345,6 +345,17 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
                     self.rejectBtn.setImage(UIImage(named: "thumb_DN_grey"), forState: .Normal)
  
+                    // check message button enabled
+                    PFCloud.callFunctionInBackground("getQuestionByItem", withParameters: ["itemId": self.myItemId!], block: {
+                        (result:AnyObject?, error: NSError?) -> Void in
+                        if let error = error {
+                            NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                            return
+                        }
+                        let qJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                        self.messageBtn.enabled = qJSON.count > 0
+                    })
+
                     PFCloud.callFunctionInBackground("getOfferStatus", withParameters: ["srcItemId":itemId!, "distItemId":self.myItemId!], block:{
                         (results:AnyObject?, error: NSError?) -> Void in
                         if let error = error {
@@ -713,7 +724,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             view.userJSON = self.userJSON
             view.itemJSON = self.itemJSON
             view.questionJSON = self.questionJSON
-            view.loadData()
             
             // TODO: remove it
 //        } else if (segue.identifier == "otherDetail") {

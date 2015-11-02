@@ -101,7 +101,6 @@ class QuestionsController: UITableViewController, UIActionSheetDelegate {
         messages.questionJSON = questionsJSON[index!]["question"]
         messages.userJSON = questionsJSON[index!]["user"]
         messages.itemJSON = questionsJSON[index!]["item"]
-        messages.loadData()
     }
 
 }

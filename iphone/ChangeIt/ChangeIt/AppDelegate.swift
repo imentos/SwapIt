@@ -95,26 +95,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let type:String = userInfo["type"] as? String {
             print("type:\(type)")
             if (type == "message") {
-                updateTabBadge(2, value: "")
+                self.updateTabBadge(2, value: "")
             } else if (type == "offer") {
-                updateTabBadge(2, value: "")
+                self.updateTabBadge(2, value: "")
             } else if (type == "reply") {
-                if let qid:String = userInfo["qid"] as? String {
-                    PFCloud.callFunctionInBackground("getQuestionCreator", withParameters: ["questionId":qid], block:{
-                        (results:AnyObject?, error: NSError?) -> Void in
-                        if let error = error {
-                            NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                            return
-                        }
-                        let userJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                        
-                        if ((PFUser.currentUser()?.objectId)! == userJSON[0]["objectId"].string!) {
-                            self.updateTabBadge(0, value: "")                            
-                        } else {
-                            self.updateTabBadge(2, value: "")
-                        }
-                    })
-                }
+                self.updateTabBadge(2, value: "")
+//                if let qid:String = userInfo["qid"] as? String {
+//                    PFCloud.callFunctionInBackground("getQuestionCreator", withParameters: ["questionId":qid], block:{
+//                        (results:AnyObject?, error: NSError?) -> Void in
+//                        if let error = error {
+//                            NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+//                            return
+//                        }
+//                        let userJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+//                        
+//                        if ((PFUser.currentUser()?.objectId)! == userJSON[0]["objectId"].string!) {
+//                            self.updateTabBadge(0, value: "")                            
+//                        } else {
+//                            self.updateTabBadge(2, value: "")
+//                        }
+//                    })
+//                }
                 
             }
         }

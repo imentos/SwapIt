@@ -83,7 +83,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         
         loadData()
         
-        updateTotalUnreadCount()
+//        updateTotalUnreadCount()
     }
     
     func loadData() {
