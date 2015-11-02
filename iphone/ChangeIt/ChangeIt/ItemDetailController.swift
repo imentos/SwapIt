@@ -311,6 +311,9 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         // check if the offer has been made
         let itemId = self.itemJSON["objectId"].string
         
+        self.otherItemImageView.image = nil
+        self.photoImage.image = nil
+        
         createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let imageData = (imageObj!["file"] as! PFFile).getData()

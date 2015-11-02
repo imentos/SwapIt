@@ -306,12 +306,13 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath)
         var itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
+        let itemImage = cell.viewWithTag(101) as! UIImageView
+        itemImage.image = nil
         createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             if let _ = imageObj {
                 if let imageFile = imageObj!["file"] as? PFFile {
                     if let imageData = imageFile.getData() {
-                        let itemImage = cell.viewWithTag(101) as! UIImageView
                         itemImage.image = UIImage(data: imageData)
                         
                         if (itemImage.subviews.count == 0) {
