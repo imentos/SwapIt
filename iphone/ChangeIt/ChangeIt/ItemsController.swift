@@ -161,7 +161,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     // Only used when load first time
     func loadData(complete:(results:JSON) -> Void) {
         // if no wish list, show all items. Otherwise, show best matched items.
-        var wishesJSON:JSON!
+//        var wishesJSON:JSON!
         print("userId:\(PFUser.currentUser()?.objectId)")
         
         //self.getAllItemsExceptMe(self.ITEMS_PER_PAGE)

@@ -22,7 +22,7 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     @IBOutlet var deleteButton: UIBarButtonItem!
     @IBOutlet var toolbar: UINavigationItem!
     
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {   //delegate method
+    func textFieldShouldReturn(textField: UITextField) -> Bool {   //delegate method
         let index = NSIndexPath(forRow: 0, inSection: 0)
         let cell = self.tableView.cellForRowAtIndexPath(index) as! AddWishListCell
         let newWishText = cell.newWishListText.text
@@ -169,7 +169,6 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
     }
 
     func loadData(userId:String!, otherWishlist:Bool) {
-        var wishesJSON:JSON!
         PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":userId], block: {
             (wishes:AnyObject?, error: NSError?) -> Void in
             if let error = error {

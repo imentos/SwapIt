@@ -59,7 +59,7 @@ class MainController: UITabBarController, UITabBarControllerDelegate, PFLogInVie
         })
     }
     
-    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         // when click an empty view controller, perform modal segue
         if (item.tag == 2) {
             self.performSegueWithIdentifier("addItem", sender: self)
