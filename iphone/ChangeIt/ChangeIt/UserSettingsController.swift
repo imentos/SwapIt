@@ -17,6 +17,9 @@ class UserSettingsController: UIViewController {
     @IBOutlet var slider: UISlider!
     @IBOutlet var emailText: UITextField!
     @IBOutlet var phoneText: UITextField!
+    @IBOutlet var distanceLabel: UILabel!
+    
+    let numbers = [5, 50, 100, 0]
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
     }
@@ -32,14 +35,19 @@ class UserSettingsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.slider.maximumValue = Float(numbers.count - 1)
+        self.slider.minimumValue = 0
+        
         self.title = "Settings"
         if let _ = userJSON {
             if let _ = userJSON["distance"].float {
-                slider.value = userJSON["distance"].floatValue
+                let value = numbers.indexOf(userJSON["distance"].intValue)
+                slider.value = Float(value!)
             } else {
-                slider.value = 50.0
+                slider.value = 3 // default is 0
             }
         }
+        updateDistanceLabel()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -77,7 +85,7 @@ class UserSettingsController: UIViewController {
     }
     
     @IBAction func save(sender: AnyObject) {
-        let distance = Int(self.slider.value)
+        let distance = getSliderValue()
         PFCloud.callFunctionInBackground("updateUserSearchDistance", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "distance": distance], block:{
             (userFromCloud:AnyObject?, error: NSError?) -> Void in
             if let error = error {
@@ -89,9 +97,25 @@ class UserSettingsController: UIViewController {
         })
     }
     
+    func getSliderValue()->Int {
+        let index = Int(self.slider.value + 0.5)
+        self.slider.value = Float(index)
+        return numbers[index]
+    }
+    
+    func updateDistanceLabel() {
+        let value = getSliderValue()
+        if (value == 0) {
+            distanceLabel.text = "I am interested in bartering with in whole world."
+        } else {
+            distanceLabel.text = "I am interested in bartering with in \(value) miles."
+        }
+        
+    }
+    
     @IBAction func sliderChange(sender: UISlider) {
-        var currentValue = Int(sender.value)
-        print("\(currentValue)")
+        updateDistanceLabel()
+        print(getSliderValue())
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
