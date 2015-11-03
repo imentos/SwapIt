@@ -63,8 +63,7 @@ class WishListController: UITableViewController, UITextFieldDelegate {
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
             let userId = PFUser.currentUser()?.objectId
             let selectedRows = self.tableView.indexPathsForSelectedRows
-            let selectedRowsCount = selectedRows?.count
-            if (selectedRowsCount != self.wishesJSON.count) {
+            if let _ = selectedRows?.count {
                 var deleteObjectIds = [String]()
                 for var i = 0; i < selectedRows!.count; ++i {
                     let index = selectedRows![i].row - 1
@@ -234,7 +233,6 @@ class WishListController: UITableViewController, UITextFieldDelegate {
             }
         }
         cell.contentView.updateConstraints()
-
         
         return cell
     }
