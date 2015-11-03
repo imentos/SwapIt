@@ -37,17 +37,9 @@ class UserSettingsController: UIViewController {
         
         self.slider.maximumValue = Float(numbers.count - 1)
         self.slider.minimumValue = 0
+        self.slider.value = self.slider.maximumValue
         
         self.title = "Settings"
-        if let _ = userJSON {
-            if let _ = userJSON["distance"].float {
-                let value = numbers.indexOf(userJSON["distance"].intValue)
-                slider.value = Float(value!)
-            } else {
-                slider.value = 3 // default is 0
-            }
-        }
-        updateDistanceLabel()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -80,6 +72,14 @@ class UserSettingsController: UIViewController {
                     self.phoneButton.setImage(UIImage(named: "phone_red"), forState: .Normal)
                     self.phoneText.text = self.userJSON["phone"].string
                 }
+                
+                if let _ = self.userJSON["distance"].float {
+                    let value = self.numbers.indexOf(self.userJSON["distance"].intValue)
+                    self.slider.value = Float(value!)
+                } else {
+                    self.slider.value = 3 // default is 0
+                }
+                self.updateDistanceLabel()
             })
         }
     }
@@ -110,7 +110,6 @@ class UserSettingsController: UIViewController {
         } else {
             distanceLabel.text = "I am interested in bartering within \(value) miles."
         }
-        
     }
     
     @IBAction func sliderChange(sender: UISlider) {
@@ -130,5 +129,4 @@ class UserSettingsController: UIViewController {
             view.phone = self.userJSON["phone"].string
         }
     }
-    
 }

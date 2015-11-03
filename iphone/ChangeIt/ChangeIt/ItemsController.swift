@@ -34,6 +34,11 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         print("cancel")
     }
     
+    @IBAction func saveSettings(segue:UIStoryboardSegue) {
+        loadData() { (results) -> Void in
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -369,7 +374,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "cancel") {
+        if (segue.identifier == "cancel" || segue.identifier == "settings") {
             return
         }
         
