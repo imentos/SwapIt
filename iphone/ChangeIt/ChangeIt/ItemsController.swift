@@ -19,9 +19,11 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     var isDataFiltered:Bool = false
     
     // pagination
-    let ITEMS_PER_PAGE:Int = 5
+    let ITEMS_PER_PAGE:Int = 8
     var currentPageNumber = 1
     var isPageRefreshing:Bool = false;
+    
+    var imagesCache = [String:UIImage]()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBarContainer: UIView!
@@ -121,7 +123,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else {
             return
         }
-        if (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) {
+        if (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height) / 2) {
             print("currentPageNumber:\(currentPageNumber)")
             if (isPageRefreshing == false){
                 isPageRefreshing = true;
@@ -302,18 +304,21 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         return self.itemsJSON.count
     }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath)
-        var itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
+    
+    func lazyLoading(itemJSON:JSON, indexPath:NSIndexPath, cell:UITableViewCell) {
+        if let _ = self.imagesCache[itemJSON["objectId"].string!] {
+            return
+        }
         let itemImage = cell.viewWithTag(101) as! UIImageView
-        itemImage.image = nil
         createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             if let _ = imageObj {
                 if let imageFile = imageObj!["file"] as? PFFile {
                     if let imageData = imageFile.getData() {
                         itemImage.image = UIImage(data: imageData)
+                        
+                        // cache the image for later render
+                        self.imagesCache[itemJSON["objectId"].string!] = itemImage.image
                         
                         if (itemImage.subviews.count == 0) {
                             let overlay = UIView(frame: itemImage.frame)
@@ -324,9 +329,46 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }
             }
         })
+    }
+    
+    func lazyLoadingOnScreenRows() {
+        let visiblePaths = self.tableView.indexPathsForVisibleRows
+        for indexPath in visiblePaths! {
+            let itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
+            let cell = self.tableView.cellForRowAtIndexPath(indexPath)
+            lazyLoading(itemJSON, indexPath:indexPath, cell:cell!)
+        }
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if (decelerate == false) {
+            lazyLoadingOnScreenRows()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        lazyLoadingOnScreenRows()
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        print(indexPath.row)
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath)
+        var itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
         
+        let itemImage = cell.viewWithTag(101) as! UIImageView
         let itemLabel = cell.viewWithTag(102) as! UILabel
         itemLabel.text = itemJSON["title"].string
+        
+        // lazy loading
+        if let image = imagesCache[itemJSON["objectId"].string!] {
+            itemImage.image = image
+        } else {
+            if (self.tableView.dragging == false && self.tableView.decelerating == false) {
+                self.lazyLoading(itemJSON, indexPath:indexPath, cell:cell)
+            }
+            itemImage.image = nil
+        }
+        
         return cell
     }
     
