@@ -26,9 +26,9 @@ extension UIImage {
 }
 
 class MyItemDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var questionsJSON:JSON!
-    var receivedItemsJSON:JSON!
-    var offeredItemsJSON:JSON!
+    var questionsJSON:JSON = JSON([])
+    var receivedItemsJSON:JSON = JSON([])
+    var offeredItemsJSON:JSON = JSON([])
     var itemJSON:JSON!
     
     @IBOutlet weak var editButton: UIBarButtonItem!
@@ -143,20 +143,24 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (segmentedControl.selectedSegmentIndex == 0) {
-            if let _ = receivedItemsJSON {
-                return receivedItemsJSON.count
+            if (receivedItemsJSON.count == 0) {
+                return 1
             }
-            return 0
+            return receivedItemsJSON.count
+
         } else if (segmentedControl.selectedSegmentIndex == 1) {
-            if let _ = offeredItemsJSON {
-                return offeredItemsJSON.count
+            if (offeredItemsJSON.count == 0) {
+                return 1
             }
-            return 0
+            return offeredItemsJSON.count
+            
         } else {
-            if let _ = questionsJSON {
-                return questionsJSON.count
+
+            if (questionsJSON.count == 0) {
+                return 1
             }
-            return 0
+            return questionsJSON.count
+
         }
     }
     
@@ -182,8 +186,23 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         photo.updateConstraints()
     }
     
+    func noDataCell(tableView: UITableView, msg:String, indexPath: NSIndexPath)->UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("noDataCell", forIndexPath: indexPath)
+        let title = cell.viewWithTag(201) as! UILabel
+        title.text = msg
+        return cell
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("myItemDetail", forIndexPath: indexPath) 
+        if (segmentedControl.selectedSegmentIndex == 0 && receivedItemsJSON.count == 0) {
+            return noDataCell(tableView, msg:"This item has not received any offers yet.", indexPath:indexPath)
+        } else if (segmentedControl.selectedSegmentIndex == 1 && offeredItemsJSON.count == 0) {
+            return noDataCell(tableView, msg:"You have not offered this item to anyone yet.", indexPath:indexPath)
+        } else if (segmentedControl.selectedSegmentIndex == 2 && questionsJSON.count == 0) {
+            return noDataCell(tableView, msg:"There are no questions about this item.", indexPath:indexPath)
+        }
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("myItemDetail", forIndexPath: indexPath)
         let photo = cell.viewWithTag(101) as! UIImageView
         let title = cell.viewWithTag(102) as! UILabel
         let name = cell.viewWithTag(103) as! UILabel
@@ -200,6 +219,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             updatePhotoConstraints(photo, value:100.0)
             updateViewConstraints(cell.contentView, value:-8.0)
             photo.layer.cornerRadius = 0
+            photo.layer.borderWidth = 0
             
             createImageQuery().getObjectInBackgroundWithId(itemJSON["item"]["photo"].string!, block: {
                 (imageObj:PFObject?, error: NSError?) -> Void in
@@ -251,6 +271,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             updatePhotoConstraints(photo, value:100.0)
             updateViewConstraints(cell.contentView, value:-8.0)
             photo.layer.cornerRadius = 0
+            photo.layer.borderWidth = 0
             
             createImageQuery().getObjectInBackgroundWithId(itemJSON["item"]["photo"].string!, block: {
                 (imageObj:PFObject?, error: NSError?) -> Void in
