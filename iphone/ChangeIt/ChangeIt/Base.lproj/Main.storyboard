@@ -277,7 +277,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="4A7D4DFD-2A14-4C57-B7AF-3B38BC13033B" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="F63E279A-1C02-49D8-A3D7-492D1D77D8FC" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="leftBarButtonItem" image="setup" id="vaF-Fq-WOc">
@@ -367,6 +367,37 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="b0x-XX-h0b" secondAttribute="bottom" constant="8.5" id="keb-vI-bVa"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="510-pd-6rX" secondAttribute="trailing" constant="-8" id="wfz-IT-FYb"/>
                                             </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="noData" id="eeJ-T2-1Yz">
+                                        <rect key="frame" x="0.0" y="216" width="600" height="150"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eeJ-T2-1Yz" id="2jp-o8-muO">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="149.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFh-IT-PKL">
+                                                    <rect key="frame" x="16" y="16" width="568" height="41"/>
+                                                    <string key="text">It looks like no one in your specified range is bartering. You might want to try and increase the distance range on your settings page</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="oFh-IT-PKL" firstAttribute="leading" secondItem="2jp-o8-muO" secondAttribute="leadingMargin" id="092-5E-eAS"/>
+                                                <constraint firstItem="oFh-IT-PKL" firstAttribute="centerY" secondItem="2jp-o8-muO" secondAttribute="centerY" id="jdT-k8-und"/>
+                                                <constraint firstItem="oFh-IT-PKL" firstAttribute="leading" secondItem="2jp-o8-muO" secondAttribute="leadingMargin" constant="8" id="uLc-wB-i7z"/>
+                                                <constraint firstItem="oFh-IT-PKL" firstAttribute="top" secondItem="2jp-o8-muO" secondAttribute="topMargin" constant="8" id="uLq-tx-a8C"/>
+                                                <constraint firstItem="oFh-IT-PKL" firstAttribute="trailing" secondItem="2jp-o8-muO" secondAttribute="trailingMargin" constant="-8" id="upX-eX-SOk"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="092-5E-eAS"/>
+                                                    <exclude reference="jdT-k8-und"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -2433,7 +2464,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="4A7D4DFD-2A14-4C57-B7AF-3B38BC13033B" width="30" height="30">
+        <image name="Arrow_Icon" width="28" height="28"/>
+        <image name="F63E279A-1C02-49D8-A3D7-492D1D77D8FC" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -2490,7 +2522,6 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
-        <image name="Arrow_Icon" width="28" height="28"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Info" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
@@ -2526,11 +2557,11 @@ RgAAAAAAAAAAAAAAAAAAC5U
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="oTP-Gb-dUv"/>
-        <segue reference="f7t-fM-16E"/>
         <segue reference="8gr-Ij-jLJ"/>
         <segue reference="05S-WV-Wgj"/>
-        <segue reference="3ny-0c-RnO"/>
         <segue reference="QCd-2q-564"/>
         <segue reference="MJq-ai-fc1"/>
+        <segue reference="gHT-u4-dtX"/>
+        <segue reference="3ny-0c-RnO"/>
     </inferredMetricsTieBreakers>
 </document>

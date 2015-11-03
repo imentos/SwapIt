@@ -84,7 +84,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     
-    
     // from UISearchResultsUpdating
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         let searchText = searchController.searchBar.text!
@@ -292,6 +291,9 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         if (self.isDataFiltered) {
             return self.filteredItems.count
         }
+        if (self.itemsJSON.count == 0) {
+            return 1
+        }
         return self.itemsJSON.count
     }
     
@@ -341,6 +343,10 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if (self.itemsJSON.count == 0) {
+            return self.tableView.dequeueReusableCellWithIdentifier("noData", forIndexPath: indexPath)
+        }
+        
         print(indexPath.row)
         let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath)
         var itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]

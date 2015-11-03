@@ -10,7 +10,6 @@
 		7F1210781BACC02D00C4F65D /* Geogtq-Lg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7F1210751BACC02D00C4F65D /* Geogtq-Lg.otf */; };
 		7F1210791BACC02D00C4F65D /* Geogtq-Md.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7F1210761BACC02D00C4F65D /* Geogtq-Md.otf */; };
 		7F12107A1BACC02D00C4F65D /* Geogtq-Rg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7F1210771BACC02D00C4F65D /* Geogtq-Rg.otf */; };
-		7F12107C1BACC56400C4F65D /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F12107B1BACC56400C4F65D /* BarButton.swift */; };
 		B30A026F1B5EC4BE00E63437 /* MessageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30A026E1B5EC4BD00E63437 /* MessageLabel.swift */; };
 		B30E24911AF83B6C00ED49EB /* ItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E24901AF83B6C00ED49EB /* ItemsController.swift */; };
 		B30E24951AF96BFA00ED49EB /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E24941AF96BFA00ED49EB /* MainController.swift */; };
@@ -99,7 +98,6 @@
 		7F1210751BACC02D00C4F65D /* Geogtq-Lg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Geogtq-Lg.otf"; sourceTree = "<group>"; };
 		7F1210761BACC02D00C4F65D /* Geogtq-Md.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Geogtq-Md.otf"; sourceTree = "<group>"; };
 		7F1210771BACC02D00C4F65D /* Geogtq-Rg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Geogtq-Rg.otf"; sourceTree = "<group>"; };
-		7F12107B1BACC56400C4F65D /* BarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButton.swift; sourceTree = "<group>"; };
 		B30A026E1B5EC4BD00E63437 /* MessageLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLabel.swift; sourceTree = "<group>"; };
 		B30E24901AF83B6C00ED49EB /* ItemsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsController.swift; sourceTree = "<group>"; };
 		B30E24941AF96BFA00ED49EB /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
@@ -287,7 +285,6 @@
 				B30A026E1B5EC4BD00E63437 /* MessageLabel.swift */,
 				B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */,
 				B3F0149A1BCD732B00DD33C7 /* Helper.swift */,
-				7F12107B1BACC56400C4F65D /* BarButton.swift */,
 				B37431A61AE861A600A0808B /* Images.xcassets */,
 				B37431A81AE861A600A0808B /* LaunchScreen.xib */,
 				B374319B1AE861A600A0808B /* Supporting Files */,
@@ -560,7 +557,6 @@
 				B30E24951AF96BFA00ED49EB /* MainController.swift in Sources */,
 				B374319E1AE861A600A0808B /* AppDelegate.swift in Sources */,
 				B30E24911AF83B6C00ED49EB /* ItemsController.swift in Sources */,
-				7F12107C1BACC56400C4F65D /* BarButton.swift in Sources */,
 				B34150421BBBA06400385915 /* UserPhoneController.swift in Sources */,
 				B30E24971AF96C2200ED49EB /* ItemDetailController.swift in Sources */,
 				B3B994301BD8040000A362ED /* ADVSegmentedControl.swift in Sources */,
