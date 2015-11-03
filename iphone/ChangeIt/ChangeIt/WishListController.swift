@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class WishListController: UITableViewController, UIActionSheetDelegate, UITextFieldDelegate {
+class WishListController: UITableViewController, UITextFieldDelegate {
     var wishesJSON:JSON = nil
     var enableEdit:Bool = true
     var otherWishlist:Bool = true
@@ -57,12 +57,10 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
         } else {
             title = "Are you sure you want to remove all items from your wish list?"
         }
-        let actionSheet = UIActionSheet(title: title, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "OK")
-        actionSheet.showInView(self.view)
-    }
-    
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if (buttonIndex == 0) {
+        
+        let alert:UIAlertController = UIAlertController(title: "Alert", message: title, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
             let userId = PFUser.currentUser()?.objectId
             let selectedRows = self.tableView.indexPathsForSelectedRows
             let selectedRowsCount = selectedRows?.count
@@ -97,7 +95,8 @@ class WishListController: UITableViewController, UIActionSheetDelegate, UITextFi
                     self.tableView.editing = false
                 })
             }
-        }
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     @IBAction func cancelAction(sender: AnyObject) {

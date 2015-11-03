@@ -11,7 +11,7 @@ import Parse
 import Social
 import MessageUI
 
-class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegate, UIActionSheetDelegate {
+class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet var backToUserButton: UIBarButtonItem!
     @IBOutlet weak var exchangeImage: UIImageView!
     @IBOutlet weak var photoImage: UIImageView!
@@ -211,9 +211,21 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     func confirmAcceptOffer() {
-        let actionSheet = UIActionSheet(title: "Are you sure you are interested in this offer?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Yes, I am interested.")
-        actionSheet.tag = 1
-        actionSheet.showInView(self.view)
+        let alert:UIAlertController = UIAlertController(title: "Alert", message: "Are you sure you are interested in this offer?", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes, I am interested.", style: .Default, handler: { (action) -> Void in
+            PFCloud.callFunctionInBackground("acceptItem", withParameters: ["srcItemId":self.itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
+                (items:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
+                
+                self.acceptBtn.setImage(UIImage(named: "thumb_UP_red"), forState: .Normal)
+                self.rejectBtn.setImage(UIImage(named: "thumb_DN_grey"), forState: .Normal)
+            })
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
     @IBAction func acceptOffer(sender: AnyObject) {
@@ -240,9 +252,32 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     }
     
     func confirmRejectOffer() {
-        let actionSheet = UIActionSheet(title: "Are you sure you are not interested in this offer?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Yes, I am not interested.")
-        actionSheet.tag = 0
-        actionSheet.showInView(self.view)
+        let alert:UIAlertController = UIAlertController(title: "Alert", message: "Are you sure you are not interested in this offer?", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes, I am not interested.", style: .Default, handler: { (action) -> Void in
+            PFCloud.callFunctionInBackground("rejectItem", withParameters: ["srcItemId":self.itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
+                (items:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
+                
+                self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
+                self.rejectBtn.setImage(UIImage(named: "thumb_DN_red"), forState: .Normal)
+                
+                // remove connection
+                PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":self.myItemId!, "distItemId":self.itemJSON["objectId"].string!], block:{
+                    (items:AnyObject?, error: NSError?) -> Void in
+                    if let error = error {
+                        NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    self.performSegueWithIdentifier("cancel", sender: self)
+                })
+            })
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     @IBAction func rejectOffer(sender: AnyObject) {
@@ -267,48 +302,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             }
         })        
     }
-    
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if (buttonIndex == 0) {
-            if (actionSheet.tag == 0) {
-                PFCloud.callFunctionInBackground("rejectItem", withParameters: ["srcItemId":itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
-                    (items:AnyObject?, error: NSError?) -> Void in
-                    if let error = error {
-                        NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                        return
-                    }
-                    
-                    self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
-                    self.rejectBtn.setImage(UIImage(named: "thumb_DN_red"), forState: .Normal)
-                    
-                    // remove connection
-                    PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":self.myItemId!, "distItemId":self.itemJSON["objectId"].string!], block:{
-                        (items:AnyObject?, error: NSError?) -> Void in
-                        if let error = error {
-                            NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                            return
-                        }
-                        
-                        self.performSegueWithIdentifier("cancel", sender: self)
-                    })
-                })
-                
-            } else if (actionSheet.tag == 1) {
-                PFCloud.callFunctionInBackground("acceptItem", withParameters: ["srcItemId":self.itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
-                    (items:AnyObject?, error: NSError?) -> Void in
-                    if let error = error {
-                        NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                        return
-                    }
-                    
-                    self.acceptBtn.setImage(UIImage(named: "thumb_UP_red"), forState: .Normal)
-                    self.rejectBtn.setImage(UIImage(named: "thumb_DN_grey"), forState: .Normal)
-                })
-                
-            }
-        }
-    }
-    
+
     func loadData(myItem:Bool) {
         // check if the offer has been made
         let itemId = self.itemJSON["objectId"].string

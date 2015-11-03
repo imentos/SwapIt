@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class QuestionsController: UITableViewController, UIActionSheetDelegate {
+class QuestionsController: UITableViewController {
     var questionsJSON:JSON = nil
 
     @IBAction func cancel(segue:UIStoryboardSegue) {
@@ -42,23 +42,20 @@ class QuestionsController: UITableViewController, UIActionSheetDelegate {
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == .Delete) {
-            let actionSheet = UIActionSheet(title: "Are you sure you want to delete this question?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "OK")
-            actionSheet.tag = indexPath.row
-            actionSheet.showInView(self.view)
-        }
-    }
-    
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if (buttonIndex == 0) {
-            let questionJSON = questionsJSON[actionSheet.tag]
-            PFCloud.callFunctionInBackground("deleteQuestion", withParameters: ["questionId": (questionJSON["question"]["objectId"].string)!], block: {
-                (result:AnyObject?, error: NSError?) -> Void in
-                if let error = error {
-                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                    return
-                }
-                self.loadData()
-            })
+            let alert:UIAlertController = UIAlertController(title: "Alert", message: "Are you sure you want to delete this question?", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                let questionJSON = self.questionsJSON[indexPath.row]
+                PFCloud.callFunctionInBackground("deleteQuestion", withParameters: ["questionId": (questionJSON["question"]["objectId"].string)!], block: {
+                    (result:AnyObject?, error: NSError?) -> Void in
+                    if let error = error {
+                        NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        return
+                    }
+                    self.loadData()
+                })
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     

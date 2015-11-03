@@ -41,12 +41,8 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     
     @IBAction func logout(sender: AnyObject) {
         let alert:UIAlertController = UIAlertController(title: "Alert", message: "Are you sure that you want to log out?", preferredStyle: .Alert)
-        
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
-        }
-        alert.addAction(cancelAction)
-        
-        let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .Default) { action -> Void in
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
             let currentInstall = PFInstallation.currentInstallation()
             currentInstall["user"] = NSNull()
             currentInstall.saveInBackgroundWithBlock { (result, error) -> Void in
@@ -57,8 +53,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
             
             let main = UIApplication.sharedApplication().keyWindow?.rootViewController as! MainController
             main.showLoginPage()
-        }
-        alert.addAction(okAction)
+        }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
     

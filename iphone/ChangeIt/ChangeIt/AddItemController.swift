@@ -210,25 +210,17 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     
     @IBAction func addImage(sender: AnyObject) {
         let alert:UIAlertController = UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-        
-        let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default) {
+        alert.addAction(UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default) {
             UIAlertAction in
             self.openCamera()
-        }
-        let gallaryAction = UIAlertAction(title: "Gallery", style: UIAlertActionStyle.Default) {
+            })
+        alert.addAction(UIAlertAction(title: "Gallery", style: UIAlertActionStyle.Default) {
             UIAlertAction in
             self.openGallary()
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+            })
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
             UIAlertAction in
-        }
-        
-        // Add the actions
-        alert.addAction(cameraAction)
-        alert.addAction(gallaryAction)
-        alert.addAction(cancelAction)
-        
-        // Present the actionsheet
+            })
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
             self.presentViewController(alert, animated: true, completion: nil)
         }

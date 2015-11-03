@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class MyItemsController: UITableViewController, UIActionSheetDelegate {
+class MyItemsController: UITableViewController {
     var itemsJSON:JSON = nil
 
     @IBAction func addItem(segue:UIStoryboardSegue) {
@@ -185,30 +185,27 @@ class MyItemsController: UITableViewController, UIActionSheetDelegate {
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == .Delete) {
-            let actionSheet = UIActionSheet(title: "Are you sure you want to delete this item?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "OK")
-            actionSheet.tag = indexPath.row
-            actionSheet.showInView(self.view)
-        }
-    }
-
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if (buttonIndex == 0) {
-            let itemJSON = itemsJSON[actionSheet.tag]
-            PFCloud.callFunctionInBackground("deleteItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
-                (result:AnyObject?, error: NSError?) -> Void in
-                if let error = error {
-                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                    return
-                }
-               PFCloud.callFunctionInBackground("deleteUnusedQuestions", withParameters: nil, block: {
+            let alert:UIAlertController = UIAlertController(title: "Alert", message: "Are you sure you want to delete this item?", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                let itemJSON = self.itemsJSON[indexPath.row]
+                PFCloud.callFunctionInBackground("deleteItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
                     (result:AnyObject?, error: NSError?) -> Void in
-                if let error = error {
-                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                    return
-                }
-                    self.loadData()
+                    if let error = error {
+                        NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        return
+                    }
+                    PFCloud.callFunctionInBackground("deleteUnusedQuestions", withParameters: nil, block: {
+                        (result:AnyObject?, error: NSError?) -> Void in
+                        if let error = error {
+                            NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                            return
+                        }
+                        self.loadData()
+                    })
                 })
-            })
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     
