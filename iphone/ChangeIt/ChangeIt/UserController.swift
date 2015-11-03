@@ -79,8 +79,6 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        //self.tabBarController?.tabBar.hidden = false
     }
     
     override func viewDidAppear(animated: Bool) {

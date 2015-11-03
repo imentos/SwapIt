@@ -4,8 +4,6 @@
 
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
-#import "ChangeIt/KxMenu.h"
-
 #import "LMDropdownView/LMDropdownView.h"
 
 #import "JTSImageVC/JTSImageViewController.h"

@@ -64,8 +64,6 @@ class MyItemsController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        //self.tabBarController?.tabBar.hidden = false
     }
     
     override func viewDidLoad() {
@@ -217,8 +215,6 @@ class MyItemsController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        //self.tabBarController?.tabBar.hidden = true
-
         if (segue.identifier == "detail") {
             let tableView = self.view as! UITableView
             let itemJSON = itemsJSON[(tableView.indexPathForSelectedRow?.row)!]

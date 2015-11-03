@@ -47,7 +47,6 @@
 		B37C10231AE993DD0086864F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C10221AE993DD0086864F /* FacebookSDK.framework */; };
 		B37C10251AE993E60086864F /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C10241AE993E60086864F /* ParseFacebookUtils.framework */; };
 		B37C10291AE9BE280086864F /* WishListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C10281AE9BE280086864F /* WishListController.swift */; };
-		B38AF8E91B3A457500AB19F7 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B38AF8E81B3A457500AB19F7 /* KxMenu.m */; };
 		B38AF8EB1B3E325000AB19F7 /* QuestionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */; };
 		B397913C1BD9828B0069DAF4 /* PTSMessagingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B39791351BD9828B0069DAF4 /* PTSMessagingCell.m */; settings = {ASSET_TAGS = (); }; };
 		B397913F1BD9F6060069DAF4 /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B397913D1BD9F6060069DAF4 /* Instabug.bundle */; settings = {ASSET_TAGS = (); }; };
@@ -141,8 +140,6 @@
 		B37C10221AE993DD0086864F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		B37C10241AE993E60086864F /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		B37C10281AE9BE280086864F /* WishListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishListController.swift; sourceTree = "<group>"; };
-		B38AF8E71B3A457500AB19F7 /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
-		B38AF8E81B3A457500AB19F7 /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
 		B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsController.swift; sourceTree = "<group>"; };
 		B39791341BD9828B0069DAF4 /* PTSMessagingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTSMessagingCell.h; sourceTree = "<group>"; };
 		B39791351BD9828B0069DAF4 /* PTSMessagingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTSMessagingCell.m; sourceTree = "<group>"; };
@@ -262,8 +259,6 @@
 			isa = PBXGroup;
 			children = (
 				B3B9942F1BD8040000A362ED /* ADVSegmentedControl.swift */,
-				B38AF8E71B3A457500AB19F7 /* KxMenu.h */,
-				B38AF8E81B3A457500AB19F7 /* KxMenu.m */,
 				B3B120691B96BC420020D13E /* MyLogInViewController.swift */,
 				B34150431BBCF1CD00385915 /* MySignupViewController.swift */,
 				B30E24941AF96BFA00ED49EB /* MainController.swift */,
@@ -543,7 +538,6 @@
 				B31BC9E21AED04DD00E1F99A /* AddItemController.swift in Sources */,
 				B3F014991BCCC51100DD33C7 /* OtherItemsController.swift in Sources */,
 				B3F014C01BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m in Sources */,
-				B38AF8E91B3A457500AB19F7 /* KxMenu.m in Sources */,
 				B3F014BC1BCE1FD700DD33C7 /* JTSImageInfo.m in Sources */,
 				B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */,
 				B3F014BD1BCE1FD700DD33C7 /* JTSImageViewController.m in Sources */,

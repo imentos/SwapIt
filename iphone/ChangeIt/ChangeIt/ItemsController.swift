@@ -30,7 +30,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
         if (bookmarkMode == false) {
-            //self.navigationController?.navigationBarHidden = true
         }
         print("cancel")
     }
@@ -39,7 +38,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         super.viewDidLoad()
         
         if (bookmarkMode == false) {
-//            self.navigationController?.navigationBarHidden = true
             self.navigationItem.leftBarButtonItem = nil
         }
         
@@ -71,8 +69,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        //self.tabBarController?.tabBar.hidden = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -266,12 +262,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func pressed(sender: AnyObject) {
-        let all = KxMenuItem("All Items", image:searchQuery == "getAllItemsExceptMe" ? UIImage(named:"check_icon") : nil, target:self, action:Selector("loadAll:"))
-        let best = KxMenuItem("Best Match", image:searchQuery == "getBestItemsExceptMe" ? UIImage(named:"check_icon") : nil, target:self, action:Selector("loadBest:"))
-        let location = KxMenuItem("Near Me", image:searchQuery == "nearMe" ? UIImage(named:"check_icon") : nil, target:self, action:Selector("loadNearMe:"))
-        KxMenu.showMenuInView(self.view,
-            fromRect:sender.frame,
-            menuItems:[all, best, location]);
     }
     
     func getQuery(scope:String)->String {
@@ -376,8 +366,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         if (segue.identifier == "cancel") {
             return
         }
-        //self.navigationController?.navigationBarHidden = false
-        //self.tabBarController?.tabBar.hidden = true
         
         var itemJSON:JSON = nil
         let tableView = sender as! UITableView
