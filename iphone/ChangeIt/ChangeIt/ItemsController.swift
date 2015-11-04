@@ -11,7 +11,7 @@ import Parse
 
 class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating {
     var bookmarkMode:Bool = false
-    var itemsJSON:JSON = nil
+    var itemsJSON:JSON!
     var filteredItems:JSON = JSON("{}")
     var searchQuery:String!
     
@@ -248,13 +248,13 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                                 return
                             }
                             if (itemResult == nil) {
-                                spinner.stopAnimating()
                                 complete(results:JSON([]))
+                                spinner.stopAnimating()
                                 return
                             }
                             let results = JSON(data:(itemResult as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                            spinner.stopAnimating()
                             complete(results:results)
+                            spinner.stopAnimating()
                         })
                     }
                 })
@@ -305,10 +305,13 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         if (self.isDataFiltered) {
             return self.filteredItems.count
         }
-        if (self.itemsJSON.count == 0) {
-            return 1
+        if let _ = self.itemsJSON {
+            if (self.itemsJSON.count == 0) {
+                return 1
+            }
+            return self.itemsJSON.count
         }
-        return self.itemsJSON.count
+        return 0
     }
     
     func lazyLoading(itemJSON:JSON, indexPath:NSIndexPath, cell:UITableViewCell) {

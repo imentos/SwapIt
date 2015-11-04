@@ -26,9 +26,9 @@ extension UIImage {
 }
 
 class MyItemDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var questionsJSON:JSON = JSON([])
-    var receivedItemsJSON:JSON = JSON([])
-    var offeredItemsJSON:JSON = JSON([])
+    var questionsJSON:JSON!
+    var receivedItemsJSON:JSON!
+    var offeredItemsJSON:JSON!
     var itemJSON:JSON!
     
     @IBOutlet weak var editButton: UIBarButtonItem!
@@ -151,23 +151,31 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (segmentedControl.selectedSegmentIndex == 0) {
-            if (receivedItemsJSON.count == 0) {
-                return 1
+            if let _ = receivedItemsJSON {
+                if (receivedItemsJSON.count == 0) {
+                    return 1
+                }
+                return receivedItemsJSON.count
             }
-            return receivedItemsJSON.count
+            return 0
 
         } else if (segmentedControl.selectedSegmentIndex == 1) {
-            if (offeredItemsJSON.count == 0) {
-                return 1
+            if let _ = offeredItemsJSON {
+                if (offeredItemsJSON.count == 0) {
+                    return 1
+                }
+                return offeredItemsJSON.count
             }
-            return offeredItemsJSON.count
+            return 0
             
         } else {
-
-            if (questionsJSON.count == 0) {
-                return 1
+            if let _ = questionsJSON {
+                if (questionsJSON.count == 0) {
+                    return 1
+                }
+                return questionsJSON.count
             }
-            return questionsJSON.count
+            return 0
 
         }
     }
