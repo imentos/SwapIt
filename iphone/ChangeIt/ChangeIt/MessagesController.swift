@@ -123,10 +123,12 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func sendMessage(sender: UIButton) {
         if let _ = questionJSON {
             let uuid = NSUUID().UUIDString
+            let spinner = createSpinner(self.view)
             PFCloud.callFunctionInBackground("addReplyToQuestion", withParameters: ["text": self.messageTextField.text!, "objectId": uuid, "questionId": (questionJSON["objectId"].string)!, "userId": (PFUser.currentUser()?.objectId)!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 
@@ -136,19 +138,24 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
                     (results:AnyObject?, error: NSError?) -> Void in
                     if let error = error {
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        spinner.stopAnimating()
                         return
                     }
                 })
                 
                 self.loadData()
+                
+                spinner.stopAnimating()
             })
         
         } else {
             let uuid = NSUUID().UUIDString
+            let spinner = createSpinner(self.view)
             PFCloud.callFunctionInBackground("addQuestion", withParameters: ["text": self.messageTextField.text!, "objectId": uuid, "owner": (PFUser.currentUser()?.objectId)!], block:{
                 (result:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 self.questionJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
@@ -157,11 +164,14 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
                     (items:AnyObject?, error: NSError?) -> Void in
                     if let error = error {
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        spinner.stopAnimating()
                         return
                     }
                     self.loadData()
                     
                     self.sendNewQuestionNotification(uuid)
+                    
+                    spinner.stopAnimating()
                 })
             })
         }
@@ -192,10 +202,12 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     func loadData() {
         if let _ = questionJSON {
+            let spinner = createSpinner(self.view)
             PFCloud.callFunctionInBackground("getRepliesOfQuestion", withParameters: ["questionId":(questionJSON["objectId"].string)!], block: {
                 (replies:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 self.repliesJSON = JSON(data:(replies as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -203,6 +215,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
                 self.messageTextField.text = ""
 
                 self.scrollDown()
+                spinner.stopAnimating()
             })
         }
     }

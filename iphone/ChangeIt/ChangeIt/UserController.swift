@@ -63,10 +63,12 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
             return
         }
         var totalUnread:Int = 0
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getUnreadRepliesCount", withParameters:["userId": (PFUser.currentUser()?.objectId)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -74,6 +76,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
             
             let app:AppDelegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
             app.updateTabBadge(0, value: totalUnread == 0 ? nil : "")
+            spinner.stopAnimating()
         })
     }
     
@@ -91,16 +94,19 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     
     func loadData() {
         if let user = PFUser.currentUser() {
+            let spinner = createSpinner(self.view)
             PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": user.objectId!], block:{
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 self.userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 self.title = self.userJSON["name"].string
                 
                 displayUserPhoto(self.userPhoto, userJSON: self.userJSON)
+                spinner.stopAnimating()
             })
         }
     }
@@ -188,13 +194,16 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         let imageFile = PFFile(name:"image.png", data:UIImagePNGRepresentation(scaledImage)!)
         let imageObj = PFObject(className:"Image")
         imageObj["file"] = imageFile
+        let spinner = createSpinner(self.view)
         imageObj.saveInBackgroundWithBlock { (result, error) -> Void in
             PFCloud.callFunctionInBackground("updateUserPhoto", withParameters: ["userId":(PFUser.currentUser()?.objectId)!, "photo": imageObj.objectId!], block:{
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in 
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
+                spinner.stopAnimating()
             })
         }
     }

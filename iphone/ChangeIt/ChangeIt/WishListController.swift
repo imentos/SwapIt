@@ -32,19 +32,23 @@ class WishListController: UITableViewController, UITextFieldDelegate {
         let wishId = NSUUID().UUIDString
         cell.newWishListText.text = ""
         
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("addWish", withParameters: ["name": newWishText!, "objectId": wishId], block: {
             (wishes:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             PFCloud.callFunctionInBackground("linkMyWish", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "objectId": wishId], block: {
                 (wishes:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 self.loadData((PFUser.currentUser()?.objectId)!, otherWishlist: false)
+                spinner.stopAnimating()
             })
         })
         return true
@@ -71,27 +75,33 @@ class WishListController: UITableViewController, UITextFieldDelegate {
                     deleteObjectIds.append(objectId!)
                 }
                 
+                let spinner = createSpinner(self.view)
                 PFCloud.callFunctionInBackground("deleteWishesOfUser", withParameters: ["userId":userId!, "objectIds":deleteObjectIds], block: {
                     (wishes:AnyObject?, error: NSError?) -> Void in
                     if let error = error {
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        spinner.stopAnimating()
                         return
                     }
                     self.loadData((PFUser.currentUser()?.objectId)!, otherWishlist: false)
                     self.tableView.editing = false
+                    spinner.stopAnimating()
                 })
             } else {
                 self.wishesJSON.arrayObject?.removeAll(keepCapacity: false)
                 self.tableView.reloadData()
                 
+                let spinner = createSpinner(self.view)
                 PFCloud.callFunctionInBackground("deleteAllWishesOfUser", withParameters: ["userId":userId!], block: {
                     (wishes:AnyObject?, error: NSError?) -> Void in
                     if let error = error {
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        spinner.stopAnimating()
                         return
                     }
                     self.loadData((PFUser.currentUser()?.objectId)!, otherWishlist: false)
                     self.tableView.editing = false
+                    spinner.stopAnimating()
                 })
             }
         }))
@@ -167,10 +177,12 @@ class WishListController: UITableViewController, UITextFieldDelegate {
     }
 
     func loadData(userId:String!, otherWishlist:Bool) {
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":userId], block: {
             (wishes:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             self.wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -183,6 +195,7 @@ class WishListController: UITableViewController, UITextFieldDelegate {
             if (self.enableEdit == false) {
                 self.toolbar.rightBarButtonItem = nil
             }
+            spinner.stopAnimating()
         })
     }
 

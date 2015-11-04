@@ -70,32 +70,39 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func loadData() {
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getQuestionedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             self.questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.segmentedControl.setTitle(String(format:"%02d", self.questionsJSON.count), forSegmentAtIndex: 2)
-                })        })
+            spinner.stopAnimating()
+            })
+        })
 
+        spinner.startAnimating()
         PFCloud.callFunctionInBackground("getReceivedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             self.receivedItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.detailTable.reloadData()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.segmentedControl.setTitle(String(format:"%02d", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
-                })            
+                self.segmentedControl.setTitle(String(format:"%02d", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
+            })
             PFCloud.callFunctionInBackground("getOfferedItems", withParameters: ["itemId":self.itemJSON["objectId"].string!], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -105,6 +112,7 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.segmentedControl.setTitle(String(format:"%02d", self.offeredItemsJSON.count), forSegmentAtIndex: 1)
                 })
+                spinner.stopAnimating()
             })
         })
         

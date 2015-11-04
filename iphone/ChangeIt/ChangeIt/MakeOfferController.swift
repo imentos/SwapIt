@@ -22,10 +22,12 @@ class MakeOfferController: UITableViewController {
     }
     
     func loadData() {
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getItemsOfUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!], block: {
             (items:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -37,6 +39,7 @@ class MakeOfferController: UITableViewController {
                 }
             }
             
+            spinner.stopAnimating()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.tableView.reloadData()
             })

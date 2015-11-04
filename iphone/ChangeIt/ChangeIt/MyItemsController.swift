@@ -106,14 +106,17 @@ class MyItemsController: UITableViewController {
     }
     
     func loadData() {
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getItemsByUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!], block: {
             (items:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.tableView.reloadData()
+            spinner.stopAnimating()
         })
     }
 
@@ -186,20 +189,24 @@ class MyItemsController: UITableViewController {
             let alert:UIAlertController = UIAlertController(title: "Alert", message: "Are you sure you want to delete this item?", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                let spinner = createSpinner(self.view)
                 let itemJSON = self.itemsJSON[indexPath.row]
                 PFCloud.callFunctionInBackground("deleteItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
                     (result:AnyObject?, error: NSError?) -> Void in
                     if let error = error {
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        spinner.stopAnimating()
                         return
                     }
                     PFCloud.callFunctionInBackground("deleteUnusedQuestions", withParameters: nil, block: {
                         (result:AnyObject?, error: NSError?) -> Void in
                         if let error = error {
                             NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                            spinner.stopAnimating()
                             return
                         }
                         self.loadData()
+                        spinner.stopAnimating()
                     })
                 })
             }))

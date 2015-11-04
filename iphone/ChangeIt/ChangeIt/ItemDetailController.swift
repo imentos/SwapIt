@@ -92,12 +92,15 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         
         if (self.fromOffer == false) {
             if let _ = itemJSON {
+                let spinner = createSpinner(self.view)
                 PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["itemId": itemJSON["objectId"].string!, "userId":self.userJSON["objectId"].string!], block:{
                     (results:AnyObject?, error: NSError?) -> Void in
                     if let error = error {
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        spinner.stopAnimating()
                         return
                     }
+                    spinner.stopAnimating()
                 })
             }
         }
@@ -115,6 +118,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         let query = PFQuery(className:"Item")
         query.whereKey("neo4jId", equalTo: self.itemJSON["objectId"].string!)
         query.cachePolicy = .CacheElseNetwork
+        let spinner = createSpinner(self.view)
         query.findObjectsInBackgroundWithBlock({
             (results, error) -> Void in
             if error == nil {
@@ -123,6 +127,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     print(descLocation)
                     let loc = CLLocation(latitude: descLocation.latitude, longitude: descLocation.longitude)
                     self.locationToAddress(loc)
+                    spinner.stopAnimating()
                 }
             }
         })
@@ -214,15 +219,18 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         let alert:UIAlertController = UIAlertController(title: "Alert", message: "Are you sure you are interested in this offer?", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Yes, I am interested.", style: .Default, handler: { (action) -> Void in
+            let spinner = createSpinner(self.view)
             PFCloud.callFunctionInBackground("acceptItem", withParameters: ["srcItemId":self.itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 
                 self.acceptBtn.setImage(UIImage(named: "thumb_UP_red"), forState: .Normal)
                 self.rejectBtn.setImage(UIImage(named: "thumb_DN_grey"), forState: .Normal)
+                spinner.stopAnimating()
             })
         }))
         self.presentViewController(alert, animated: true, completion: nil)
@@ -230,10 +238,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
 
     @IBAction func acceptOffer(sender: AnyObject) {
         let itemId = self.itemJSON["objectId"].string
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getOfferStatus", withParameters: ["srcItemId":itemId!, "distItemId":self.myItemId!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -248,6 +258,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             } else {
                 self.confirmAcceptOffer()
             }
+            spinner.stopAnimating()
         })
     }
     
@@ -255,10 +266,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         let alert:UIAlertController = UIAlertController(title: "Alert", message: "Are you sure you are not interested in this offer?", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Yes, I am not interested.", style: .Default, handler: { (action) -> Void in
+            let spinner = createSpinner(self.view)
             PFCloud.callFunctionInBackground("rejectItem", withParameters: ["srcItemId":self.itemJSON["objectId"].string!, "distItemId":self.myItemId!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 
@@ -270,9 +283,10 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     (items:AnyObject?, error: NSError?) -> Void in
                     if let error = error {
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        spinner.stopAnimating()
                         return
                     }
-                    
+                    spinner.stopAnimating()
                     self.performSegueWithIdentifier("cancel", sender: self)
                 })
             })
@@ -282,10 +296,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     
     @IBAction func rejectOffer(sender: AnyObject) {
         let itemId = self.itemJSON["objectId"].string
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getOfferStatus", withParameters: ["srcItemId":itemId!, "distItemId":self.myItemId!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -300,6 +316,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             } else {
                 self.confirmRejectOffer()
             }
+            spinner.stopAnimating()
         })        
     }
 
@@ -309,7 +326,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         
         self.otherItemImageView.image = nil
         self.photoImage.image = nil
-        
+                
+        let spinner = createSpinner(self.view)
         createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
             let orgImageData = (imageObj!["file"] as! PFFile).getData()
@@ -326,10 +344,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 (results:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 if let _ = results {
                 } else {
+                    spinner.stopAnimating()
                     return
                 }
                 let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -349,6 +369,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                         (result:AnyObject?, error: NSError?) -> Void in
                         if let error = error {
                             NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                            spinner.stopAnimating()
                             return
                         }
                         let qJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -359,10 +380,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                         (results:AnyObject?, error: NSError?) -> Void in
                         if let error = error {
                             NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                            spinner.stopAnimating()
                             return
                         }
                         let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                         if (resultsJSON.count == 0) {
+                            spinner.stopAnimating()
                             return
                         }
                         
@@ -389,12 +412,14 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     (results:AnyObject?, error: NSError?) -> Void in
                     if let error = error {
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        spinner.stopAnimating()
                         return
                     }
                     let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                     if (resultsJSON.count == 0) {
                         self.otherItemId = nil
                         self.expandItemImage()
+                        spinner.stopAnimating()
                         return
                     }
                     
@@ -415,21 +440,25 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                             (imageObj:PFObject?, error: NSError?) -> Void in
                             if let error = error {
                                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                                spinner.stopAnimating()
                                 return
                             }
                             let imageData = (imageObj!["file"] as! PFFile).getData()
                             self.otherItemImageView.image = UIImage(data: orgImageData!)
                             self.photoImage.image = UIImage(data: imageData!)
+                            spinner.stopAnimating()
                         })
                     }
                 })
             })
         })
         
+        spinner.startAnimating()
         PFCloud.callFunctionInBackground("isItemBookmarked", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -437,11 +466,13 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.bookmarkBtn.setImage(UIImage(named:"Bookmark_Icon-01"), forState: .Normal)
                 })
+                spinner.stopAnimating()
                 return
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.bookmarkBtn.setImage(UIImage(named:"Bookmarked_Icon"), forState: .Normal)
             })
+            spinner.stopAnimating()
         })
     }
     
@@ -454,10 +485,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         pushQuery!.whereKey("user", equalTo: PFUser(withoutDataWithObjectId: self.userJSON["objectId"].string!))
         let push = PFPush()
         push.setQuery(pushQuery)
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!], block:{
             (userFromCloud:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
@@ -470,6 +503,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     print(error)
                 }
             })
+            spinner.stopAnimating()
         })
     }
     
@@ -485,22 +519,27 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 }
             }
             // remove current offer first
+            let spinner = createSpinner(self.view)
             PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":offer.currentItemId!, "distItemId":distId!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
+                    spinner.stopAnimating()
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
                     return
                 }
+                spinner.stopAnimating()
             })
         }
         
         // add the new offer based on selection if any
         if (offer.selectedIndexes.count > 0) {
             let srcId = offer.selectedIndexes.first
+            let spinner = createSpinner(self.view)
             PFCloud.callFunctionInBackground("exchangeItem", withParameters: ["srcItemId":srcId!, "distItemId":distId!], block:{
                 (items:AnyObject?, error: NSError?) -> Void in                
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -508,6 +547,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     
                     self.sendNewOfferNotification()
                 })
+                spinner.stopAnimating()
             })
         } else {
             self.makeOfferButton.title = "Make Offer"
@@ -562,10 +602,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
 
     @IBAction func bookmarkItem(sender: AnyObject) {
         let itemId = self.itemJSON["objectId"].string
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("isItemBookmarked", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -574,23 +616,26 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     (items:AnyObject?, error: NSError?) -> Void in
                     if let error = error {
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        spinner.stopAnimating()
                         return
                     }
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.bookmarkBtn.setImage(UIImage(named:"Bookmarked_Icon"), forState: .Normal)
                     })
+                    spinner.stopAnimating()
                 })
             } else {
                 PFCloud.callFunctionInBackground("unbookmarkItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": (self.itemJSON["objectId"].string)!], block:{
                     (items:AnyObject?, error: NSError?) -> Void in
                     if let error = error {
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        spinner.stopAnimating()
                         return
                     }
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.bookmarkBtn.setImage(UIImage(named:"Bookmark_Icon-01"), forState: .Normal)
-
                     })
+                    spinner.stopAnimating()
                 })
             }
         })
@@ -602,10 +647,12 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     
     @IBAction func askQuestion(sender: AnyObject) {
         // switch question when offer received 
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getAskedQuestionByItem", withParameters: ["userId":self.acceptable == true ? self.userJSON["objectId"].string! : (PFUser.currentUser()?.objectId)!, "itemId":self.acceptable == true ? self.otherItemId : self.itemJSON["objectId"].string!], block: {
             (results:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             let questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -614,6 +661,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 self.questionJSON = questionsJSON[0]["question"]
             }
             self.performSegueWithIdentifier("messages", sender: self)
+            spinner.stopAnimating()
         })
     }
     

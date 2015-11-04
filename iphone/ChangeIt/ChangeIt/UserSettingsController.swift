@@ -50,10 +50,12 @@ class UserSettingsController: UIViewController {
     
     func loadData() {
         if let user = PFUser.currentUser() {
+            let spinner = createSpinner(self.view)
             PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": user.objectId!], block:{
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 self.userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
@@ -80,6 +82,7 @@ class UserSettingsController: UIViewController {
                     self.slider.value = 3 // default is 0
                 }
                 self.updateDistanceLabel()
+                spinner.stopAnimating()
             })
         }
     }

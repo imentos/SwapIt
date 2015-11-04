@@ -143,19 +143,23 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
 
     func loadDataByFunction(query:String, limit:Int, complete:(results:JSON) -> Void) {
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground(query, withParameters: ["search": ".*", "userId": (PFUser.currentUser()?.objectId)!, "limit": limit], block:{
             (items:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             if (items == nil) {
                 self.itemsJSON = JSON([])
                 complete(results:self.itemsJSON)
+                spinner.stopAnimating()
                 return
             }
             self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.tableView.reloadData()
+            spinner.stopAnimating()
             complete(results:self.itemsJSON)
         })
     }
@@ -207,6 +211,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func getNearMeItems(searchText:String, limit:Int, complete:(results:JSON) -> Void) {
+        let spinner = createSpinner(self.view)
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint, error) -> Void in
 
@@ -214,6 +219,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
 
@@ -238,13 +244,16 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                         PFCloud.callFunctionInBackground("getAllItemsByList", withParameters: ["search": searchText, "ids": ids, "userId": (PFUser.currentUser()?.objectId)!, "limit":limit], block: { (itemResult, error) -> Void in
                             if let error = error {
                                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                                spinner.stopAnimating()
                                 return
                             }
                             if (itemResult == nil) {
+                                spinner.stopAnimating()
                                 complete(results:JSON([]))
                                 return
                             }
                             let results = JSON(data:(itemResult as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                            spinner.stopAnimating()
                             complete(results:results)
                         })
                     }
@@ -387,10 +396,12 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
 
         // get user info based on item
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(itemJSON["objectId"].string)!], block:{
             (user:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -398,6 +409,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             let detail = segue.destinationViewController as! ItemDetailController
             detail.userJSON = userJSON[0]
             detail.itemJSON = itemJSON
+            spinner.stopAnimating()
         })
     }
 }

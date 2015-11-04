@@ -10,6 +10,15 @@ import UIKit
 import Parse
 import ParseUI
 
+func createSpinner(view:UIView)->UIActivityIndicatorView {
+    let spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    spinner.center = view.center
+    spinner.hidesWhenStopped = true
+    view.addSubview(spinner)
+    spinner.startAnimating()
+    return spinner
+}
+
 func displayUserPhoto(userPhoto:UIImageView, userJSON:JSON) {
     userPhoto.layer.borderWidth = 1
     userPhoto.layer.masksToBounds = true

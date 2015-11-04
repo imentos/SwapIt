@@ -35,15 +35,18 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
     
     func loadData() {
         let userId = self.userJSON["objectId"].string!
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getItemsByUser", withParameters: ["userId": userId], block: {
             (items:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             self.itemsJSON = JSON(data:(items as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.itemCount.text = "\(self.itemsJSON.count)"
             self.tableView.reloadData()
+            spinner.stopAnimating()
         })
     }
     

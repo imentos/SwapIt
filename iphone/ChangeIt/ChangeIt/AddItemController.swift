@@ -65,13 +65,16 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     
     func loadUser() {
         if let user = PFUser.currentUser() {
+            let spinner = createSpinner(self.view)
             PFCloud.callFunctionInBackground("getUser", withParameters: ["userId": user.objectId!], block:{
                 (userFromCloud:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 self.userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
+                spinner.stopAnimating()
             })
         }
     }
@@ -106,13 +109,16 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
     }
     
     @IBAction func saveItem(sender: AnyObject) {
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("updateItem", withParameters: ["itemId": self.itemJSON["objectId"].string!, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": self.communications.joinWithSeparator(",")], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             self.performSegueWithIdentifier("cancel", sender: self)
+            spinner.stopAnimating()
         })
     }
     
@@ -125,16 +131,19 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         }
         
         let uuid = NSUUID().UUIDString
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": self.communications.joinWithSeparator(",")], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             PFCloud.callFunctionInBackground("linkMyItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": uuid], block:{
                 (results:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
                     return
                 }
                 let item = PFObject(className: "Item")
@@ -146,6 +155,7 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
                             (geoPoint, error) -> Void in
                             if let error = error {
                                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                                spinner.stopAnimating()
                                 return
                             }
                             item.setObject(geoPoint!, forKey: "currentLocation")
@@ -153,11 +163,13 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
                                 (result, error) -> Void in
                                 if let error = error {
                                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                                    spinner.stopAnimating()
                                     return
                                 }
                                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                     self.performSegueWithIdentifier("addItem", sender: self)
                                 })
+                                spinner.stopAnimating()
                             })
                         }
                     } else {
@@ -251,8 +263,10 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         let imageFile = PFFile(name:"image.png", data:UIImagePNGRepresentation(scaledImage)!)
         let imageObj = PFObject(className:"Image")
         imageObj["file"] = imageFile
+        let spinner = createSpinner(self.view)
         imageObj.saveInBackgroundWithBlock { (result, error) -> Void in
             self.imageId = imageObj.objectId
+            spinner.stopAnimating()
         }
     }
     

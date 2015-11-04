@@ -16,14 +16,17 @@ class QuestionsController: UITableViewController {
     }
     
     func loadData() {
+        let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getAskedQuestions", withParameters: ["userId":(PFUser.currentUser()?.objectId)!], block: {
             (questions:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
                 return
             }
             self.questionsJSON = JSON(data:(questions as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.tableView.reloadData()
+            spinner.stopAnimating()
         })
         
     }
@@ -45,14 +48,17 @@ class QuestionsController: UITableViewController {
             let alert:UIAlertController = UIAlertController(title: "Alert", message: "Are you sure you want to delete this question?", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                let spinner = createSpinner(self.view)
                 let questionJSON = self.questionsJSON[indexPath.row]
                 PFCloud.callFunctionInBackground("deleteQuestion", withParameters: ["questionId": (questionJSON["question"]["objectId"].string)!], block: {
                     (result:AnyObject?, error: NSError?) -> Void in
                     if let error = error {
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                        spinner.stopAnimating()
                         return
                     }
                     self.loadData()
+                    spinner.stopAnimating()
                 })
             }))
             self.presentViewController(alert, animated: true, completion: nil)
