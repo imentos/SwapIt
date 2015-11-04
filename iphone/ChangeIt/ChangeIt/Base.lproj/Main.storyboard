@@ -277,7 +277,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="User" image="C083E5DC-4B1F-4771-B306-CE3781A196C7" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="User" image="5854F92F-8A73-44BD-B1A7-A7BC9290B618" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="UmR-tg-1DL">
                         <barButtonItem key="leftBarButtonItem" image="setup" id="vaF-Fq-WOc">
@@ -1552,18 +1552,26 @@
                                             <rect key="frame" x="0.0" y="0.0" width="592" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="201" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0T-ac-Pky">
-                                                    <rect key="frame" x="8" y="39.5" width="576" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="201" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This item has not received any offers yet." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0T-ac-Pky">
+                                                    <rect key="frame" x="8" y="8" width="576" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="n0T-ac-Pky" firstAttribute="leading" secondItem="1vJ-TT-ifu" secondAttribute="leadingMargin" id="5jt-wa-fHc"/>
                                                 <constraint firstItem="n0T-ac-Pky" firstAttribute="centerY" secondItem="1vJ-TT-ifu" secondAttribute="centerY" id="HFv-Hz-jEd"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="n0T-ac-Pky" secondAttribute="trailing" id="NSL-A2-Iv0"/>
                                                 <constraint firstItem="n0T-ac-Pky" firstAttribute="leading" secondItem="1vJ-TT-ifu" secondAttribute="leadingMargin" id="WeI-O8-RrL"/>
+                                                <constraint firstItem="n0T-ac-Pky" firstAttribute="top" secondItem="1vJ-TT-ifu" secondAttribute="topMargin" id="ewG-rN-agf"/>
+                                                <constraint firstItem="n0T-ac-Pky" firstAttribute="trailing" secondItem="1vJ-TT-ifu" secondAttribute="trailingMargin" id="uFP-HQ-rmQ"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="HFv-Hz-jEd"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -2477,8 +2485,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Arrow_Icon" width="28" height="28"/>
-        <image name="C083E5DC-4B1F-4771-B306-CE3781A196C7" width="30" height="30">
+        <image name="5854F92F-8A73-44BD-B1A7-A7BC9290B618" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -2535,6 +2542,7 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
+        <image name="Arrow_Icon" width="28" height="28"/>
         <image name="Profile_Bookmarks" width="80" height="80"/>
         <image name="Profile_Info" width="80" height="80"/>
         <image name="Profile_Messages" width="80" height="80"/>
@@ -2570,12 +2578,12 @@ RgAAAAAAAAAAAAAAAAAAC5U
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="oTP-Gb-dUv"/>
+        <segue reference="f7t-fM-16E"/>
         <segue reference="8gr-Ij-jLJ"/>
         <segue reference="05S-WV-Wgj"/>
-        <segue reference="QCd-2q-564"/>
-        <segue reference="MJq-ai-fc1"/>
-        <segue reference="gHT-u4-dtX"/>
-        <segue reference="ngI-Nc-o0C"/>
         <segue reference="3ny-0c-RnO"/>
+        <segue reference="ngI-Nc-o0C"/>
+        <segue reference="t7D-G3-Vmd"/>
+        <segue reference="HZ0-SR-sJn"/>
     </inferredMetricsTieBreakers>
 </document>
