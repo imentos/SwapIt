@@ -274,6 +274,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             //navi.toolbarHidden = true
             detail.userJSON = userJSON
             detail.itemJSON = itemJSON
+            detail.loadData()
         }
     }
 }

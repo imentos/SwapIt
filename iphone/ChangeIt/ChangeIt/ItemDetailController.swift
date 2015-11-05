@@ -34,14 +34,66 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     var horizontalConstraints:[NSLayoutConstraint]!
     @IBOutlet weak var acceptBtn: UIButton!
     @IBOutlet weak var rejectBtn: UIButton!
-    
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var messageBtn: UIButton!
     @IBOutlet weak var bookmarkBtn: UIButton!
     @IBOutlet weak var wishBtn: UIButton!
-    
     @IBOutlet var locationLabel: UILabel!
+    
+    @IBAction func makeOffer(segue:UIStoryboardSegue) {
+        let offer = segue.sourceViewController as! MakeOfferController
+        let distId = itemJSON["objectId"].string
+        let spinner = createSpinner(self.view)
+        
+        // don't do anything if no change
+        if let _ = otherItemId {
+            if let srcId = offer.selectedIndexes.first {
+                if (srcId == otherItemId) {
+                    return
+                }
+            }
+            // remove current offer first
+            PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":offer.currentItemId!, "distItemId":distId!], block:{
+                (items:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    spinner.stopAnimating()
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
+                
+            })
+        }
+        
+        // add the new offer based on selection if any
+        if (offer.selectedIndexes.count > 0) {
+            let srcId = offer.selectedIndexes.first
+            PFCloud.callFunctionInBackground("exchangeItem", withParameters: ["srcItemId":srcId!, "distItemId":distId!], block:{
+                (items:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
+                    return
+                }
+                
+                self.sendNewOfferNotification()
+                
+                self.makeOfferButton.title = "Edit Offer"
+                self.loadData()
+                spinner.stopAnimating()
+            })
+        } else {
+            self.makeOfferButton.title = "Make Offer"
+            self.loadData()
+            spinner.stopAnimating()
+        }
+
+    }
+
+    @IBAction func cancel(segue:UIStoryboardSegue) {
+        print("cancel")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -85,31 +137,27 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             return
         }
         
+        if (dataLoaded == false) {
+            self.loadData()
+        }
+        
         self.acceptBtn.hidden = true
         self.rejectBtn.hidden = true
 
-        self.loadData(false)
-        
         if (self.fromOffer == false) {
             if let _ = itemJSON {
-                let spinner = createSpinner(self.view)
                 PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["itemId": itemJSON["objectId"].string!, "userId":self.userJSON["objectId"].string!], block:{
                     (results:AnyObject?, error: NSError?) -> Void in
                     if let error = error {
                         NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                        spinner.stopAnimating()
                         return
                     }
-                    spinner.stopAnimating()
                 })
             }
         }
         
         updateCommunications()
         
-        self.emailButton.setImage(UIImage(named: self.emailButton.enabled == true ? "mail_red" : "mail_grey"), forState: .Normal)
-        self.phoneButton.setImage(UIImage(named: self.phoneButton.enabled == true ? "phone_red" : "phone_grey"), forState: .Normal)
-
         updateLocation()
     }
     
@@ -118,7 +166,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         let query = PFQuery(className:"Item")
         query.whereKey("neo4jId", equalTo: self.itemJSON["objectId"].string!)
         query.cachePolicy = .CacheElseNetwork
-        let spinner = createSpinner(self.view)
         query.findObjectsInBackgroundWithBlock({
             (results, error) -> Void in
             if error == nil {
@@ -127,7 +174,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     print(descLocation)
                     let loc = CLLocation(latitude: descLocation.latitude, longitude: descLocation.longitude)
                     self.locationToAddress(loc)
-                    spinner.stopAnimating()
                 }
             }
         })
@@ -213,6 +259,9 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         if let _ = self.userJSON["phone"].string {
             self.phoneButton.enabled = communications.contains("phone")
         }
+        
+        self.emailButton.setImage(UIImage(named: self.emailButton.enabled == true ? "mail_red" : "mail_grey"), forState: .Normal)
+        self.phoneButton.setImage(UIImage(named: self.phoneButton.enabled == true ? "phone_red" : "phone_grey"), forState: .Normal)
     }
     
     func confirmAcceptOffer() {
@@ -320,7 +369,15 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         })        
     }
 
-    func loadData(myItem:Bool) {
+    // if view is not loaded, we cannot loadData and wait until view appear. (It happens sometimes, maybe too fast)
+    var dataLoaded:Bool = false
+    func loadData() {
+        if (self.isViewLoaded() == false) {
+            dataLoaded = false
+            return
+        }
+        dataLoaded = true
+        
         // check if the offer has been made
         let itemId = self.itemJSON["objectId"].string
         
@@ -335,7 +392,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             self.originalPhotoImage = UIImage(data: orgImageData!)
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.showData(myItem)
+                self.showData()
             })
             
             // TODO: reduce calls
@@ -507,53 +564,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         })
     }
     
-    @IBAction func makeOffer(segue:UIStoryboardSegue) {
-        let offer = segue.sourceViewController as! MakeOfferController
-        let distId = itemJSON["objectId"].string
-        
-        // don't do anything if no change
-        if let _ = otherItemId {
-            if let srcId = offer.selectedIndexes.first {
-                if (srcId == otherItemId) {
-                    return
-                }
-            }
-            // remove current offer first
-            let spinner = createSpinner(self.view)
-            PFCloud.callFunctionInBackground("unexchangeItem", withParameters: ["srcItemId":offer.currentItemId!, "distItemId":distId!], block:{
-                (items:AnyObject?, error: NSError?) -> Void in
-                if let error = error {
-                    spinner.stopAnimating()
-                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                    return
-                }
-                spinner.stopAnimating()
-            })
-        }
-        
-        // add the new offer based on selection if any
-        if (offer.selectedIndexes.count > 0) {
-            let srcId = offer.selectedIndexes.first
-            let spinner = createSpinner(self.view)
-            PFCloud.callFunctionInBackground("exchangeItem", withParameters: ["srcItemId":srcId!, "distItemId":distId!], block:{
-                (items:AnyObject?, error: NSError?) -> Void in                
-                if let error = error {
-                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                    spinner.stopAnimating()
-                    return
-                }
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.makeOfferButton.title = "Edit Offer"
-                    
-                    self.sendNewOfferNotification()
-                })
-                spinner.stopAnimating()
-            })
-        } else {
-            self.makeOfferButton.title = "Make Offer"
-        }
-    }
-    
     @IBAction func socialShare(sender: AnyObject) {
         let optionMenu = UIAlertController(title: nil, message: "Share On", preferredStyle: .ActionSheet)
         let deleteAction = UIAlertAction(title: "Facebook", style: .Default, handler: {
@@ -641,10 +651,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         })
     }
     
-    @IBAction func cancel(segue:UIStoryboardSegue) {
-        print("cancel")
-    }
-    
     @IBAction func askQuestion(sender: AnyObject) {
         // switch question when offer received 
         let spinner = createSpinner(self.view)
@@ -665,7 +671,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         })
     }
     
-    func showData(myItem:Bool) {
+    func showData() {
         if let _ = itemJSON {
         } else {
             return
@@ -675,14 +681,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         self.userLabel.text = userJSON["name"].string
         
         displayUserPhoto(self.userPhoto, userJSON: self.userJSON)
-        
-        if (myItem == true) {
-            self.makeOfferButton.enabled = false
-            self.wishBtn.enabled = false
-            self.bookmarkBtn.enabled = false
-            self.messageBtn.enabled = false
-            self.questionButton.enabled = false
-        }
     }
     
     func collapseItemImage() {
@@ -769,22 +767,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             view.userJSON = self.userJSON
             view.itemJSON = self.itemJSON
             view.questionJSON = self.questionJSON
-            
-            // TODO: remove it
-//        } else if (segue.identifier == "otherDetail") {
-//            PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(otherItemJSON["objectId"].string)!], block:{
-//                (user:AnyObject?, error: NSError?) -> Void in
-//            if let error = error {
-//                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-//                return
-//            }
-//                let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-//                
-//                let detail = segue.destinationViewController as! ItemDetailController
-//                detail.userJSON = userJSON[0]
-//                detail.itemJSON = self.otherItemJSON
-//                detail.loadData(true)
-//            });
             
         } else if (segue.identifier == "otherItems") {
             let view = segue.destinationViewController as! OtherItemsController

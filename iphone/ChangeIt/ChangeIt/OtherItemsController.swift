@@ -104,6 +104,7 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
             detail.fromOtherItems = true
             detail.itemJSON = self.itemsJSON[selectedIndex!]
             detail.userJSON = self.userJSON
+            detail.loadData()
         }
     }
 }
