@@ -306,7 +306,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             return self.filteredItems.count
         }
         if let _ = self.itemsJSON {
-            if (self.itemsJSON.count == 0) {
+            if (self.itemsJSON.count == 0 && bookmarkMode == false) {
                 return 1
             }
             return self.itemsJSON.count
@@ -315,9 +315,14 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func lazyLoading(itemJSON:JSON, indexPath:NSIndexPath, cell:UITableViewCell) {
-        if let _ = self.imagesCache[itemJSON["objectId"].string!] {
+        if let _ = itemJSON["objectId"].string {
+            if let _ = self.imagesCache[itemJSON["objectId"].string!] {
+                return
+            }
+        } else {
             return
         }
+        
         let itemImage = cell.viewWithTag(101) as! UIImageView
         createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
