@@ -24,6 +24,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     var isPageRefreshing:Bool = false;
     
     var imagesCache = [String:UIImage]()
+    var refreshControl:UIRefreshControl!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBarContainer: UIView!
@@ -35,8 +36,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func saveSettings(segue:UIStoryboardSegue) {
-        loadData() { (results) -> Void in
-        }
+        loadData()
     }
     
     override func viewDidLoad() {
@@ -48,6 +48,10 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
 
         searchController = ({
             let searchController = UISearchController(searchResultsController: nil)
@@ -70,6 +74,8 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             return searchController
         })()
+        
+        loadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -82,9 +88,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         if (self.bookmarkMode == true) {
             self.searchController.searchBar.hidden = true
             self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
-            }
-        } else {
-            loadData() { (results) -> Void in
             }
         }
     }
@@ -116,6 +119,10 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
 //                self.tableView.reloadData()
 //            })
         }
+    }
+    
+    func refresh(sender:AnyObject) {
+        loadData()
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -165,7 +172,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
 
     // Only used when load first time
-    func loadData(complete:(results:JSON) -> Void) {
+    func loadData() {
         // if no wish list, show all items. Otherwise, show best matched items.
 //        var wishesJSON:JSON!
         print("userId:\(PFUser.currentUser()?.objectId)")
@@ -207,6 +214,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.getNearMeItems(".*", limit:limit) { (results) -> Void in
             self.itemsJSON = results
             self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
         }
     }
     
