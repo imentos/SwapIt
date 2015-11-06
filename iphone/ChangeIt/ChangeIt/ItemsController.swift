@@ -241,7 +241,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                         
                         NSLog("ids:\(ids)")
                         
-                        PFCloud.callFunctionInBackground("getAllItemsByList", withParameters: ["search": searchText, "ids": ids, "userId": (PFUser.currentUser()?.objectId)!, "limit":limit], block: { (itemResult, error) -> Void in
+                        PFCloud.callFunctionInBackground("getItemsByList", withParameters: ["search": searchText, "ids": ids, "userId": (PFUser.currentUser()?.objectId)!, "limit":limit], block: { (itemResult, error) -> Void in
                             if let error = error {
                                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
                                 spinner.stopAnimating()
@@ -348,7 +348,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func lazyLoadingOnScreenRows() {
         let visiblePaths = self.tableView.indexPathsForVisibleRows
         for indexPath in visiblePaths! {
-            let itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
+            let itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]["item"]
             let cell = self.tableView.cellForRowAtIndexPath(indexPath)
             lazyLoading(itemJSON, indexPath:indexPath, cell:cell!)
         }
@@ -371,7 +371,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         print(indexPath.row)
         let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath)
-        var itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]
+        var itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]["item"]
         
         let itemImage = cell.viewWithTag(101) as! UIImageView
         let itemLabel = cell.viewWithTag(102) as! UILabel
@@ -395,30 +395,17 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             return
         }
         
-        var itemJSON:JSON = nil
+        var itemInfoJSON:JSON = nil
         let tableView = sender as! UITableView
         if self.isDataFiltered {
-            itemJSON = filteredItems[(tableView.indexPathForSelectedRow?.row)!]
+            itemInfoJSON = filteredItems[(tableView.indexPathForSelectedRow?.row)!]
         } else {
-            itemJSON = itemsJSON[(tableView.indexPathForSelectedRow?.row)!]
+            itemInfoJSON = itemsJSON[(tableView.indexPathForSelectedRow?.row)!]
         }
 
-        // get user info based on item
-        let spinner = createSpinner(self.view)
-        PFCloud.callFunctionInBackground("getUserOfItem", withParameters: ["itemId":(itemJSON["objectId"].string)!], block:{
-            (user:AnyObject?, error: NSError?) -> Void in
-            if let error = error {
-                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                spinner.stopAnimating()
-                return
-            }
-            let userJSON = JSON(data:(user as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            
-            let detail = segue.destinationViewController as! ItemDetailController
-            detail.userJSON = userJSON[0]
-            detail.itemJSON = itemJSON
-            detail.loadData()
-            spinner.stopAnimating()
-        })
+        let detail = segue.destinationViewController as! ItemDetailController
+        detail.userJSON = itemInfoJSON["user"]
+        detail.itemJSON = itemInfoJSON["item"]
+        detail.loadData()
     }
 }

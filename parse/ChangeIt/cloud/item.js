@@ -88,7 +88,39 @@ Parse.Cloud.define("getAllItemsExceptMe", function(request, response) {
     });
 });
 
+// new
+Parse.Cloud.define("getItemsByList", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE o.title=~{search} AND o.objectId IN {ids} AND NOT u.objectId={userId} RETURN o,u ORDER BY o.timestamp DESC LIMIT {limit}',
+            params: {
+                ids: request.params.ids,
+                search: "(?i).*" + request.params.search + ".*",
+                userId: request.params.userId,
+                limit: request.params.limit
+            }
+        },
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            var json_result = JSON.parse(httpResponse.text)
+            var aResults = []
+            json_result.data.forEach(function(o) {
+                aResults.push({"item":o[0].data,"user":o[1].data})
+            })
+            response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
 
+// old
 Parse.Cloud.define("getAllItemsByList", function(request, response) {
     Parse.Cloud.httpRequest({
         method: 'POST',
