@@ -159,6 +159,28 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         updateCommunications()
         
         updateLocation()
+        
+        updateBookmark()
+    }
+    
+    func updateBookmark() {
+        PFCloud.callFunctionInBackground("isItemBookmarked", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":self.itemJSON["objectId"].string!], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
+            let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            if (resultsJSON.count == 0) {
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.bookmarkBtn.setImage(UIImage(named:"Bookmark_Icon-01"), forState: .Normal)
+                })
+                return
+            }
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.bookmarkBtn.setImage(UIImage(named:"Bookmarked_Icon"), forState: .Normal)
+            })
+        })
     }
     
     func updateLocation() {
@@ -508,28 +530,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     }
                 })
             })
-        })
-        
-        spinner.startAnimating()
-        PFCloud.callFunctionInBackground("isItemBookmarked", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId":itemId!], block:{
-            (results:AnyObject?, error: NSError?) -> Void in
-            if let error = error {
-                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                spinner.stopAnimating()
-                return
-            }
-            let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            if (resultsJSON.count == 0) {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.bookmarkBtn.setImage(UIImage(named:"Bookmark_Icon-01"), forState: .Normal)
-                })
-                spinner.stopAnimating()
-                return
-            }
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.bookmarkBtn.setImage(UIImage(named:"Bookmarked_Icon"), forState: .Normal)
-            })
-            spinner.stopAnimating()
         })
     }
     
