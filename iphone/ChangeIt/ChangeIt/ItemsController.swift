@@ -179,7 +179,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        var wishesJSON:JSON!
         print("userId:\(PFUser.currentUser()?.objectId)")
         
-        //self.getAllItemsExceptMe(self.ITEMS_PER_PAGE)
+//        self.getAllItemsExceptMe(self.ITEMS_PER_PAGE)
         self.getAllItemsNearMe(self.ITEMS_PER_PAGE)
         // TODO: first version, don't show items by wish
 //        PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":(PFUser.currentUser()?.objectId)!], block: {
@@ -358,7 +358,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func lazyLoadingOnScreenRows() {
         let visiblePaths = self.tableView.indexPathsForVisibleRows
         for indexPath in visiblePaths! {
-            let itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]["item"]
+            let itemJSON = self.isDataFiltered ? filteredItems[indexPath.row]["item"] : itemsJSON[indexPath.row]["item"]
             let cell = self.tableView.cellForRowAtIndexPath(indexPath)
             lazyLoading(itemJSON, indexPath:indexPath, cell:cell!)
         }
@@ -381,7 +381,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         print(indexPath.row)
         let cell = self.tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath)
-        var itemJSON = self.isDataFiltered ? filteredItems[indexPath.row] : itemsJSON[indexPath.row]["item"]
+        var itemJSON = self.isDataFiltered ? filteredItems[indexPath.row]["item"] : itemsJSON[indexPath.row]["item"]
         
         let itemImage = cell.viewWithTag(101) as! UIImageView
         let itemLabel = cell.viewWithTag(102) as! UILabel
