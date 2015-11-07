@@ -75,7 +75,9 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             return searchController
         })()
         
-        loadData()
+        if (self.bookmarkMode == false) {
+            loadData()
+        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReloadData:", name:EVENT_RELOAD, object: nil)
     }
@@ -89,8 +91,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         if (self.bookmarkMode == true) {
             self.searchController.searchBar.hidden = true
-            self.loadDataByFunction("getBookmarkedItems", limit:self.ITEMS_PER_PAGE) { (results) -> Void in
-            }
         }
     }
     

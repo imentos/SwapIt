@@ -37,6 +37,14 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         tap.numberOfTapsRequired = 1
         self.userPhoto.userInteractionEnabled = true
         self.userPhoto.addGestureRecognizer(tap)
+        
+        loadData()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //        updateTotalUnreadCount()
     }
     
     @IBAction func logout(sender: AnyObject) {
@@ -80,18 +88,6 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         })
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        loadData()
-        
-//        updateTotalUnreadCount()
-    }
-    
     func loadData() {
         if let user = PFUser.currentUser() {
             let spinner = createSpinner(self.view)
@@ -123,7 +119,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
             let view = navi.topViewController as! ItemsController
             view.title = "Bookmarks"
             view.bookmarkMode = true
-            view.loadDataByFunction("getBookmarkedItems", limit:view.ITEMS_PER_PAGE) { (results) -> Void in
+            view.loadDataByFunction("getBookmarkItems", limit:view.ITEMS_PER_PAGE) { (results) -> Void in
             }
             
         } else if (segue.identifier == "questions") {
