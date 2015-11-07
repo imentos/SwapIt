@@ -76,10 +76,12 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         })()
         
         loadData()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReloadData:", name:EVENT_RELOAD, object: nil)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    func handleReloadData(notification: NSNotification){
+        self.loadData()
     }
     
     override func viewDidAppear(animated: Bool) {

@@ -26,7 +26,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
     }
 
     @IBAction func saveSettings(segue:UIStoryboardSegue) {
-        self.loadData()
+        NSNotificationCenter.defaultCenter().postNotificationName(EVENT_RELOAD, object: nil)
     }
     
     override func viewDidLoad() {
