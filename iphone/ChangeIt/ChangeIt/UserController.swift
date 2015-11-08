@@ -115,9 +115,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
             view.loadData(PFUser.currentUser()?.objectId!, otherWishlist: false)
             
         } else if (segue.identifier == "bookmarks") {
-            let navi = segue.destinationViewController as! UINavigationController
-            let view = navi.topViewController as! ItemsController
-            view.title = "Bookmarks"
+            let view = segue.destinationViewController as! ItemsController
             view.bookmarkMode = true
             view.loadDataByFunction("getBookmarkItems", limit:view.ITEMS_PER_PAGE) { (results) -> Void in
             }

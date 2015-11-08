@@ -27,7 +27,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     var refreshControl:UIRefreshControl!
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBarContainer: UIView!
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
         if (bookmarkMode == false) {
@@ -63,13 +62,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             // without this, filtered data show black screen
             self.definesPresentationContext  = true
             
-            //setup the search bar
-//            searchController.searchBar.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
-//            self.searchBarContainer?.addSubview(searchController.searchBar)
-//            searchController.searchBar.sizeToFit()
-            
             self.navigationItem.titleView = searchController.searchBar
-//            self.tableView.tableHeaderView = searchController.searchBar
             searchController.searchBar.sizeToFit()
             
             return searchController
@@ -90,7 +83,8 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         super.viewDidAppear(animated)
         
         if (self.bookmarkMode == true) {
-            self.searchController.searchBar.hidden = true
+            self.title = "Bookmarks"
+            self.navigationItem.titleView = nil
         }
     }
     
