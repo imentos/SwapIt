@@ -41,17 +41,9 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (bookmarkMode == false) {
-            self.navigationItem.leftBarButtonItem = nil
-        }
-        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView.addSubview(refreshControl)
-
         searchController = ({
             let searchController = UISearchController(searchResultsController: nil)
             searchController.searchResultsUpdater = self
@@ -69,7 +61,15 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         })()
         
         if (self.bookmarkMode == false) {
+            self.refreshControl = UIRefreshControl()
+            self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+            self.tableView.addSubview(refreshControl)
+            
+            self.navigationItem.leftBarButtonItem = nil
             loadData()
+        } else {
+            self.title = "Bookmarks"
+            self.navigationItem.titleView = nil
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReloadData:", name:EVENT_RELOAD, object: nil)
@@ -81,11 +81,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if (self.bookmarkMode == true) {
-            self.title = "Bookmarks"
-            self.navigationItem.titleView = nil
-        }
     }
     
     // from UISearchResultsUpdating
