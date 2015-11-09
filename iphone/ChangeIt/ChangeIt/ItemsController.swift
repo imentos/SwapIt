@@ -224,8 +224,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
 
                 let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 
-                // reset back all when reach 100 miles
-                let distance = userJSON["distance"].doubleValue == 100 ? 0 : userJSON["distance"].doubleValue
+                let distance = userJSON["distance"].doubleValue
                 print("distance:\(distance)")
                 let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: distance)
                 query.cachePolicy = .CacheElseNetwork

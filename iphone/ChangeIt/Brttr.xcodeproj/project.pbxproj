@@ -39,7 +39,7 @@
 		B37431A51AE861A600A0808B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B37431A31AE861A600A0808B /* Main.storyboard */; };
 		B37431A71AE861A600A0808B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B37431A61AE861A600A0808B /* Images.xcassets */; };
 		B37431AA1AE861A600A0808B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B37431A81AE861A600A0808B /* LaunchScreen.xib */; };
-		B375F7211BE16F260067E98B /* UserSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375F7201BE16F260067E98B /* UserSettingsController.swift */; settings = {ASSET_TAGS = (); }; };
+		B375F7211BE16F260067E98B /* UserSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375F7201BE16F260067E98B /* UserSettingsController.swift */; };
 		B37C0FFD1AE989CE0086864F /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C0FF81AE989CE0086864F /* Bolts.framework */; };
 		B37C10001AE989CE0086864F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C0FFB1AE989CE0086864F /* Parse.framework */; };
 		B37C100B1AE98D7B0086864F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C100A1AE98D7B0086864F /* Social.framework */; };
@@ -47,9 +47,9 @@
 		B37C10251AE993E60086864F /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37C10241AE993E60086864F /* ParseFacebookUtils.framework */; };
 		B37C10291AE9BE280086864F /* WishListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C10281AE9BE280086864F /* WishListController.swift */; };
 		B38AF8EB1B3E325000AB19F7 /* QuestionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38AF8EA1B3E325000AB19F7 /* QuestionsController.swift */; };
-		B397913C1BD9828B0069DAF4 /* PTSMessagingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B39791351BD9828B0069DAF4 /* PTSMessagingCell.m */; settings = {ASSET_TAGS = (); }; };
-		B397913F1BD9F6060069DAF4 /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B397913D1BD9F6060069DAF4 /* Instabug.bundle */; settings = {ASSET_TAGS = (); }; };
-		B39791401BD9F6060069DAF4 /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B397913E1BD9F6060069DAF4 /* Instabug.framework */; settings = {ASSET_TAGS = (); }; };
+		B397913C1BD9828B0069DAF4 /* PTSMessagingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B39791351BD9828B0069DAF4 /* PTSMessagingCell.m */; };
+		B397913F1BD9F6060069DAF4 /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B397913D1BD9F6060069DAF4 /* Instabug.bundle */; };
+		B39791401BD9F6060069DAF4 /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B397913E1BD9F6060069DAF4 /* Instabug.framework */; };
 		B39791421BD9F6E50069DAF4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39791411BD9F6E50069DAF4 /* CoreMotion.framework */; };
 		B39791441BD9F6EE0069DAF4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39791431BD9F6EE0069DAF4 /* CoreTelephony.framework */; };
 		B39791461BD9F6FC0069DAF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39791451BD9F6FC0069DAF4 /* Foundation.framework */; };
@@ -60,18 +60,18 @@
 		B39791501BD9F73F0069DAF4 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B397914F1BD9F73F0069DAF4 /* libc++.tbd */; };
 		B39EC9B11B014B8000FFC89A /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39EC9B01B014B8000FFC89A /* ItemCell.swift */; };
 		B3B1206A1B96BC420020D13E /* MyLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B120691B96BC420020D13E /* MyLogInViewController.swift */; };
-		B3B994301BD8040000A362ED /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9942F1BD8040000A362ED /* ADVSegmentedControl.swift */; settings = {ASSET_TAGS = (); }; };
+		B3B994301BD8040000A362ED /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9942F1BD8040000A362ED /* ADVSegmentedControl.swift */; };
 		B3C763431B0B9BE50040E794 /* MyItemDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C763421B0B9BE50040E794 /* MyItemDetailController.swift */; };
-		B3CE9D7C1BCF769800A03A20 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CE9D7B1BCF769800A03A20 /* SwiftyJSON.swift */; settings = {ASSET_TAGS = (); }; };
+		B3CE9D7C1BCF769800A03A20 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CE9D7B1BCF769800A03A20 /* SwiftyJSON.swift */; };
 		B3D2AA971BBDBE4C00E00776 /* LMDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D2AA931BBDBE4C00E00776 /* LMDropdownView.m */; };
 		B3D2AA981BBDBE4C00E00776 /* UIImage+LMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D2AA961BBDBE4C00E00776 /* UIImage+LMExtension.m */; };
 		B3D63C051B03C5C300FDC9EA /* MyItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D63C041B03C5C300FDC9EA /* MyItemsController.swift */; };
-		B3E4BFFF1BDA973E00800883 /* balloon_read_left.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E4BFF91BDA973E00800883 /* balloon_read_left.png */; settings = {ASSET_TAGS = (); }; };
-		B3E4C0001BDA973E00800883 /* balloon_read_right.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E4BFFA1BDA973E00800883 /* balloon_read_right.png */; settings = {ASSET_TAGS = (); }; };
-		B3E4C0011BDA973E00800883 /* balloon_selected_left.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E4BFFB1BDA973E00800883 /* balloon_selected_left.png */; settings = {ASSET_TAGS = (); }; };
-		B3E4C0021BDA973E00800883 /* balloon_selected_right.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E4BFFC1BDA973E00800883 /* balloon_selected_right.png */; settings = {ASSET_TAGS = (); }; };
-		B3E4C0031BDA973E00800883 /* balloon_unread_left.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E4BFFD1BDA973E00800883 /* balloon_unread_left.png */; settings = {ASSET_TAGS = (); }; };
-		B3E4C0041BDA973E00800883 /* balloon_unread_right.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E4BFFE1BDA973E00800883 /* balloon_unread_right.png */; settings = {ASSET_TAGS = (); }; };
+		B3E4BFFF1BDA973E00800883 /* balloon_read_left.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E4BFF91BDA973E00800883 /* balloon_read_left.png */; };
+		B3E4C0001BDA973E00800883 /* balloon_read_right.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E4BFFA1BDA973E00800883 /* balloon_read_right.png */; };
+		B3E4C0011BDA973E00800883 /* balloon_selected_left.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E4BFFB1BDA973E00800883 /* balloon_selected_left.png */; };
+		B3E4C0021BDA973E00800883 /* balloon_selected_right.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E4BFFC1BDA973E00800883 /* balloon_selected_right.png */; };
+		B3E4C0031BDA973E00800883 /* balloon_unread_left.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E4BFFD1BDA973E00800883 /* balloon_unread_left.png */; };
+		B3E4C0041BDA973E00800883 /* balloon_unread_right.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E4BFFE1BDA973E00800883 /* balloon_unread_right.png */; };
 		B3F014991BCCC51100DD33C7 /* OtherItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F014981BCCC51100DD33C7 /* OtherItemsController.swift */; };
 		B3F0149B1BCD732B00DD33C7 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F0149A1BCD732B00DD33C7 /* Helper.swift */; };
 		B3F014BB1BCE1FD700DD33C7 /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014B01BCE1FD700DD33C7 /* JTSAnimatedGIFUtility.m */; };
@@ -80,7 +80,7 @@
 		B3F014BE1BCE1FD700DD33C7 /* JTSSimpleImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014B61BCE1FD700DD33C7 /* JTSSimpleImageDownloader.m */; };
 		B3F014BF1BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014B81BCE1FD700DD33C7 /* UIApplication+JTSImageViewController.m */; };
 		B3F014C01BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F014BA1BCE1FD700DD33C7 /* UIImage+JTSImageEffects.m */; };
-		B3F215BE1BD95E3600B53F62 /* UserInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F215BD1BD95E3600B53F62 /* UserInfoController.swift */; settings = {ASSET_TAGS = (); }; };
+		B3F215BE1BD95E3600B53F62 /* UserInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F215BD1BD95E3600B53F62 /* UserInfoController.swift */; };
 		B3FCB87D1B8F734800AD9A1E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FCB87C1B8F734800AD9A1E /* ParseUI.framework */; };
 /* End PBXBuildFile section */
 
