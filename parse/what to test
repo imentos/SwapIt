@@ -1,0 +1,15 @@
+Please help us to increase numbers of items. If you could, please add 10 items at least by following the instructions below.
+
+1. Go to the right bottom tab
+2. Press + button on the right top which goes to "Add item" page
+3. Fill up all fields including one photo, title, and description
+4. After done, press Add button on the right top.
+5. Then you should see your new item on "My List" page.
+
+Also Bug fixes below,
+#106. The accept reject icons disappear if I click the thumbnail to view the image and then close the image.
+#104. Alignment on user page
+#102. If I pull to refresh in bookmarks page, all items get loaded instead of bookmarks only.
+#101. Title missing
+#99. loading icon still showing after saving item in edit item page
+#98. It would be handy to be able to have notifications when someone declines your offer
