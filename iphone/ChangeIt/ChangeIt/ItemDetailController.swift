@@ -99,6 +99,9 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         
         self.emailButton.hidden = true
         self.phoneButton.hidden = true
+        
+        self.acceptBtn.hidden = true
+        self.rejectBtn.hidden = true
         self.acceptBtn.setImage(UIImage(named: "thumb_UP_grey"), forState: .Normal)
         self.rejectBtn.setImage(UIImage(named: "thumb_DN_grey"), forState: .Normal)
         
@@ -141,9 +144,6 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             self.loadData()
         }
         
-        self.acceptBtn.hidden = true
-        self.rejectBtn.hidden = true
-
         if (self.fromOffer == false) {
             if let _ = itemJSON {
                 PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["itemId": itemJSON["objectId"].string!, "userId":self.userJSON["objectId"].string!], block:{
