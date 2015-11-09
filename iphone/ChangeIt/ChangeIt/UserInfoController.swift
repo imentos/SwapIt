@@ -12,6 +12,14 @@ class UserInfoController: UIViewController {
 
     @IBOutlet var webview: UIWebView!
     
+    @IBAction func goBack(sender: AnyObject) {
+        webview.goBack()
+    }
+    
+    @IBAction func goForward(sender: AnyObject) {
+        webview.goForward()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
