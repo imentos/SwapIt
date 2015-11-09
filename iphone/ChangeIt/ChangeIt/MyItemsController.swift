@@ -26,9 +26,17 @@ class MyItemsController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl!)
+        
         loadData()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReloadData:", name:EVENT_RELOAD_MY_ITEMS, object: nil)
+    }
+    
+    func refresh(sender:AnyObject) {
+        self.updateTotalUnreadCount()
     }
     
     func handleReloadData(notification: NSNotification){
@@ -42,11 +50,14 @@ class MyItemsController: UITableViewController {
     }
     
     func updateTotalUnreadCount() {
+        self.tableView.reloadData()
+        
         var totalUnread:Int = 0
         PFCloud.callFunctionInBackground("getUnreadQuestionsCount", withParameters:["userId": (PFUser.currentUser()?.objectId)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                self.refreshControl!.endRefreshing()
                 return
             }
             let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -56,6 +67,7 @@ class MyItemsController: UITableViewController {
                 (result:AnyObject?, error: NSError?) -> Void in
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    self.refreshControl!.endRefreshing()
                     return
                 }
 
@@ -64,6 +76,8 @@ class MyItemsController: UITableViewController {
                 
                 let app:AppDelegate = (UIApplication.sharedApplication().delegate as? AppDelegate)!
                 app.updateTabBadge(2, value: totalUnread == 0 ? nil : "")
+                
+                self.refreshControl!.endRefreshing()
             })
         })
     }
