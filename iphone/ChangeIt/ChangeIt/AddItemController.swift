@@ -6,6 +6,7 @@ import ImageIO
 // This class is also for editing item
 class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
     
+    @IBOutlet var addButton: UIBarButtonItem!
     @IBOutlet weak var addImageButton: UIButton!
     @IBOutlet var saveButton: UIBarButtonItem!
     @IBOutlet weak var emailButton: UIButton!
@@ -117,8 +118,8 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
                 spinner.stopAnimating()
                 return
             }
-            self.performSegueWithIdentifier("cancel", sender: self)
             spinner.stopAnimating()
+            self.performSegueWithIdentifier("cancel", sender: self)
         })
     }
     
@@ -132,11 +133,13 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         
         let uuid = NSUUID().UUIDString
         let spinner = createSpinner(self.view)
+        self.addButton.enabled = false
         PFCloud.callFunctionInBackground("addItem", withParameters: ["objectId": uuid, "title": titleTextField.text!, "description": descriptionTextView.text!, "photo": imageId, "communication": self.communications.joinWithSeparator(",")], block:{
             (results:AnyObject?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
                 spinner.stopAnimating()
+                self.addButton.enabled = true
                 return
             }
             PFCloud.callFunctionInBackground("linkMyItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": uuid], block:{
@@ -144,6 +147,7 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
                     spinner.stopAnimating()
+                    self.addButton.enabled = true
                     return
                 }
                 let item = PFObject(className: "Item")
@@ -156,6 +160,7 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
                             if let error = error {
                                 NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
                                 spinner.stopAnimating()
+                                self.addButton.enabled = true
                                 return
                             }
                             item.setObject(geoPoint!, forKey: "currentLocation")
@@ -164,15 +169,19 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
                                 if let error = error {
                                     NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
                                     spinner.stopAnimating()
+                                    self.addButton.enabled = true
                                     return
                                 }
                                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                     self.performSegueWithIdentifier("addItem", sender: self)
                                 })
                                 spinner.stopAnimating()
+                                self.addButton.enabled = true
                             })
                         }
                     } else {
+                        spinner.stopAnimating()
+                        self.addButton.enabled = true
                         // There was a problem, check error.description
                     }
                 }

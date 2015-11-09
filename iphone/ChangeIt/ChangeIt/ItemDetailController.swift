@@ -192,10 +192,11 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             (results, error) -> Void in
             if error == nil {
                 for object in results! {
-                    let descLocation = object["currentLocation"] as! PFGeoPoint
-                    print(descLocation)
-                    let loc = CLLocation(latitude: descLocation.latitude, longitude: descLocation.longitude)
-                    self.locationToAddress(loc)
+                    if let descLocation:PFGeoPoint = object["currentLocation"] as? PFGeoPoint {
+                        print(descLocation)
+                        let loc = CLLocation(latitude: descLocation.latitude, longitude: descLocation.longitude)
+                        self.locationToAddress(loc)
+                    }
                 }
             }
         })
@@ -671,8 +672,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             } else {
                 self.questionJSON = questionsJSON[0]["question"]
             }
-            self.performSegueWithIdentifier("messages", sender: self)
             spinner.stopAnimating()
+            self.performSegueWithIdentifier("messages", sender: self)
         })
     }
     
