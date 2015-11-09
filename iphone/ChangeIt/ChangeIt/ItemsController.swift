@@ -72,7 +72,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.navigationItem.titleView = nil
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReloadData:", name:EVENT_RELOAD, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReloadData:", name:EVENT_RELOAD_ITEMS, object: nil)
     }
     
     func handleReloadData(notification: NSNotification){

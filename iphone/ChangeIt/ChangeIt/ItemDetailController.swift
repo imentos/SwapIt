@@ -76,7 +76,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     return
                 }
                 
-                self.sendNewOfferNotification()
+                self.sendNotification("got an offer from")
                 
                 self.makeOfferButton.title = "Edit Offer"
                 self.loadData()
@@ -301,6 +301,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 
                 self.acceptBtn.setImage(UIImage(named: "thumb_UP_red"), forState: .Normal)
                 self.rejectBtn.setImage(UIImage(named: "thumb_DN_grey"), forState: .Normal)
+                
+                self.sendNotification("is accepted by")
                 spinner.stopAnimating()
             })
         }))
@@ -357,6 +359,9 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                         spinner.stopAnimating()
                         return
                     }
+                    
+                    self.sendNotification("is rejected by")
+                    
                     spinner.stopAnimating()
                     self.performSegueWithIdentifier("cancel", sender: self)
                 })
@@ -537,7 +542,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         return true
     }
     
-    func sendNewOfferNotification() {
+    func sendNotification(msg:String) {
         let pushQuery = PFInstallation.query()
         pushQuery!.whereKey("user", equalTo: PFUser(withoutDataWithObjectId: self.userJSON["objectId"].string!))
         let push = PFPush()
@@ -553,7 +558,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
             let name = userJSON["name"].string!
             let item = self.itemJSON["title"].string!
-            let alert = "Your item \"\(item)\" got an offer from \(name)"
+            let alert = "Your item \"\(item)\" \(msg) \(name)"
             push.setData(["alert": alert, "type": "offer", "from": (PFUser.currentUser()?.objectId)!, "to": self.userJSON["objectId"].string!])
             push.sendPushInBackgroundWithBlock({ (result, error) -> Void in
                 if let _ = error {

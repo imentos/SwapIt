@@ -10,7 +10,8 @@ import UIKit
 import Parse
 import ParseUI
 
-let EVENT_RELOAD = "reloadData"
+let EVENT_RELOAD_ITEMS = "reloadItems"
+let EVENT_RELOAD_MY_ITEMS = "reloadMyItems"
 
 func createSpinner(view:UIView)->UIActivityIndicatorView {
     let spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)

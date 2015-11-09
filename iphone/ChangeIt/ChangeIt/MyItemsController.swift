@@ -19,61 +19,24 @@ class MyItemsController: UITableViewController {
     @IBAction func cancel(segue:UIStoryboardSegue) {
     }
     
-    func updateUnread(itemJSON:JSON, cell:UITableViewCell) {
-        var unreadQuestions = 0
-        var unreadOffers = 0
-        let newoffersCountLabel = cell.viewWithTag(113) as! UILabel
-        let newquestionsCountLabel = cell.viewWithTag(115) as! UILabel
-        newoffersCountLabel.hidden = true
-        newquestionsCountLabel.hidden = true
-        
-        PFCloud.callFunctionInBackground("getUnreadQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
-            (result:AnyObject?, error: NSError?) -> Void in
-            if let error = error {
-                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                return
-            }
-
-            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            unreadQuestions = countJSON[0].int!
-            if (unreadQuestions > 0) {
-                newquestionsCountLabel.text = "\(countJSON[0].int!) /"
-                newquestionsCountLabel.hidden = false
-            } else {
-                newquestionsCountLabel.hidden = true
-            }
-            
-            PFCloud.callFunctionInBackground("getUnreadExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
-                (result:AnyObject?, error: NSError?) -> Void in
-                if let error = error {
-                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                    return
-                }
-                
-                let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-                unreadOffers = countJSON[0].int!
-                if (unreadOffers > 0) {
-                    newoffersCountLabel.text = "\(countJSON[0].int!) /"
-                    newoffersCountLabel.hidden = false
-                } else {
-                    newoffersCountLabel.hidden = true
-                }
-            })
-        })
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadData()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReloadData:", name:EVENT_RELOAD_MY_ITEMS, object: nil)
+    }
+    
+    func handleReloadData(notification: NSNotification){
+        self.updateTotalUnreadCount()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        loadData()
         
         updateTotalUnreadCount()
     }
@@ -174,6 +137,49 @@ class MyItemsController: UITableViewController {
         
         updateUnread(itemJSON, cell: cell)
         return cell
+    }
+
+    func updateUnread(itemJSON:JSON, cell:UITableViewCell) {
+        var unreadQuestions = 0
+        var unreadOffers = 0
+        let newoffersCountLabel = cell.viewWithTag(113) as! UILabel
+        let newquestionsCountLabel = cell.viewWithTag(115) as! UILabel
+        newoffersCountLabel.hidden = true
+        newquestionsCountLabel.hidden = true
+        
+        PFCloud.callFunctionInBackground("getUnreadQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
+            
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            unreadQuestions = countJSON[0].int!
+            if (unreadQuestions > 0) {
+                newquestionsCountLabel.text = "\(countJSON[0].int!) /"
+                newquestionsCountLabel.hidden = false
+            } else {
+                newquestionsCountLabel.hidden = true
+            }
+            
+            PFCloud.callFunctionInBackground("getUnreadExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+                (result:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
+                
+                let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                unreadOffers = countJSON[0].int!
+                if (unreadOffers > 0) {
+                    newoffersCountLabel.text = "\(countJSON[0].int!) /"
+                    newoffersCountLabel.hidden = false
+                } else {
+                    newoffersCountLabel.hidden = true
+                }
+            })
+        })
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
