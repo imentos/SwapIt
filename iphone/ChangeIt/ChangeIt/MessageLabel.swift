@@ -14,7 +14,8 @@ class MessageLabel: UILabel {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         self.layer.cornerRadius = 10.0;
-        self.numberOfLines = 2
+        self.numberOfLines = 0
+        self.clipsToBounds = true
     }
         
     override func textRectForBounds(bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
