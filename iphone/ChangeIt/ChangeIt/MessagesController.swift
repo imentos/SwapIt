@@ -198,8 +198,9 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func scrollDown() {
-        if (messageTableView.contentSize.height > messageTableView.frame.size.height) {
-            let offset = CGPointMake(0, messageTableView.contentSize.height - messageTableView.frame.size.height);
+        let adjustHeight:CGFloat = 250
+        if (messageTableView.contentSize.height > messageTableView.frame.size.height - adjustHeight) {
+            let offset = CGPointMake(0, messageTableView.contentSize.height - self.messageTableView.frame.size.height + adjustHeight);
             self.messageTableView.setContentOffset(offset, animated: true)
         }
     }
@@ -210,13 +211,14 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     func keyboardWillShow(notification: NSNotification) {
         if let userInfo = notification.userInfo {
-            if let keyboardSize: CGSize =    userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
-                let contentInset = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height - 60,  0.0);
+            if let keyboardSize: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
+                let offsetKeyboard:CGFloat = 60
+                let contentInset = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height - offsetKeyboard,  0.0);
                 
                 self.scrollView.contentInset = contentInset
                 self.scrollView.scrollIndicatorInsets = contentInset
                 
-                self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x, 0 + keyboardSize.height - 60) //set zero instead self.scrollView.contentOffset.y
+                self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x, 0 + keyboardSize.height - offsetKeyboard)
                 
             }
         }
