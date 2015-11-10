@@ -9,7 +9,7 @@
 import UIKit
 
 class MessageLabel: UILabel {
-    var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
+    var edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 3, left: 10, bottom: 3, right: 10)
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!

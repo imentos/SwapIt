@@ -265,21 +265,25 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:UITableViewCell = self.messageTableView.dequeueReusableCellWithIdentifier("message")!
         let leftLabel = cell.viewWithTag(101) as! UILabel
+        let leftTimeLabel = cell.viewWithTag(102) as! UILabel
+        leftTimeLabel.font = UIFont(name: "Geogrotesque-Regular", size: 12)
+        
         let rightLabel = cell.viewWithTag(201) as! UILabel
         rightLabel.textColor = UIColor.whiteColor()
-//        let leftTimeLabel = cell.viewWithTag(200) as! UILabel
-//        let rightTimeLabel = cell.viewWithTag(201) as! UILabel
+        let rightTimeLabel = cell.viewWithTag(202) as! UILabel
+        rightTimeLabel.font = UIFont(name: "Geogrotesque-Regular", size: 12)
 
         if (indexPath.row == 0) {
             let isOwner:Bool = self.questionJSON["owner"].string == PFUser.currentUser()?.objectId
             let text = self.questionJSON["text"].string
             let time = timestampToText(self.questionJSON["timestamp"].double!)
             
-            rightLabel.text = isOwner ? self.questionJSON["text"].string : ""
-//            rightTimeLabel.text = isOwner ? time : ""
+            rightLabel.text = isOwner ? text : ""
+            rightTimeLabel.text = isOwner ? time : ""
             
-            leftLabel.text = isOwner ? "" : self.questionJSON["text"].string
-//            leftTimeLabel.text = isOwner ? "" : time
+            leftLabel.text = isOwner ? "" : text
+            leftTimeLabel.text = isOwner ? "" : time
+            
         } else {
             let isOwner:Bool = self.repliesJSON[indexPath.row - 1]["owner"].string == PFUser.currentUser()?.objectId
             let text = self.repliesJSON[indexPath.row - 1]["text"].string
@@ -287,20 +291,20 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
             
             if (isOwner) {
                 leftLabel.hidden = true
-//                leftTimeLabel.hidden = true
+                leftTimeLabel.hidden = true
                 rightLabel.hidden = false
-//                rightTimeLabel.hidden = false
+                rightTimeLabel.hidden = false
                 
                 rightLabel.text = text
-//                rightTimeLabel.text = time
+                rightTimeLabel.text = time
             } else {
                 leftLabel.hidden = false
-//                leftTimeLabel.hidden = false
+                leftTimeLabel.hidden = false
                 rightLabel.hidden = true
-//                rightTimeLabel.hidden = true
+                rightTimeLabel.hidden = true
                 
                 leftLabel.text = text
-//                leftTimeLabel.text = time
+                leftTimeLabel.text = time
             }
         }
         return cell
