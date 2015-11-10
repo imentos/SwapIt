@@ -11,6 +11,7 @@ import Parse
 
 class MessagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
+    @IBOutlet var scrollView: UIScrollView!
     @IBOutlet weak var itemDetailButton: UIButton!
     @IBOutlet weak var dockHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTextField: UITextField!
@@ -57,10 +58,26 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         self.messageTextField.autocorrectionType = UITextAutocorrectionType.No
         self.messageTextField.delegate = self
     }
+
+    private func startKeyboardObserver(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    private func stopKeyboardObserver() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.stopKeyboardObserver()
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+        self.startKeyboardObserver()
+
         self.loadData()
         
         scrollDown()
@@ -188,16 +205,29 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         self.sendButton.enabled = self.messageTextField.text!.isEmpty == false
     }
     
-    @IBAction func endEditing(sender: AnyObject) {
-        self.view.layoutIfNeeded()
-        self.dockHeightConstraint.constant = 50
+    func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let keyboardSize: CGSize =    userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
+                let contentInset = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height - 60,  0.0);
+                
+                self.scrollView.contentInset = contentInset
+                self.scrollView.scrollIndicatorInsets = contentInset
+                
+                self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x, 0 + keyboardSize.height - 60) //set zero instead self.scrollView.contentOffset.y
+                
+            }
+        }
     }
     
-    @IBAction func startEditing(sender: AnyObject) {
-        self.view.layoutIfNeeded()
-        self.dockHeightConstraint.constant = 210
-
-        self.loadData()
+    func keyboardWillHide(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let _: CGSize =  userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
+                let contentInset = UIEdgeInsetsZero;
+                self.scrollView.contentInset = contentInset
+                self.scrollView.scrollIndicatorInsets = contentInset
+                self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x, self.scrollView.contentOffset.y)
+            }
+        }
     }
     
     func loadData() {

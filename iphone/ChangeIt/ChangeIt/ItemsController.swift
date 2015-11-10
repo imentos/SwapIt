@@ -121,7 +121,8 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else {
             return
         }
-        if (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height) / 2) {
+        print(self.tableView.contentOffset.y)
+        if (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) {
             print("currentPageNumber:\(currentPageNumber)")
             if (isPageRefreshing == false){
                 isPageRefreshing = true;
