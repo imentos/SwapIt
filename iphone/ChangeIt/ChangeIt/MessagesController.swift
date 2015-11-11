@@ -83,7 +83,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
 
         self.loadData()
         
-        scrollDown()
+        scrollToBottom()
         
         if let _ = questionJSON {
             PFCloud.callFunctionInBackground("setQuestionRead", withParameters: ["objectId": self.questionJSON["objectId"].string!], block:{
@@ -141,6 +141,8 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func sendMessage(sender: UIButton) {
+        self.sendButton.enabled = false
+        
         if let _ = questionJSON {
             let uuid = NSUUID().UUIDString
             let spinner = createSpinner(self.view)
@@ -197,16 +199,17 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    func scrollDown() {
-        let adjustHeight:CGFloat = 250
-        if (messageTableView.contentSize.height > messageTableView.frame.size.height - adjustHeight) {
-            let offset = CGPointMake(0, messageTableView.contentSize.height - self.messageTableView.frame.size.height + adjustHeight);
-            self.messageTableView.setContentOffset(offset, animated: true)
-        }
+    func scrollToBottom() {
+//        let adjustHeight:CGFloat = 250
+//        if (messageTableView.contentSize.height > messageTableView.frame.size.height - adjustHeight) {
+//            let offset = CGPointMake(0, messageTableView.contentSize.height - self.messageTableView.frame.size.height + adjustHeight);
+//            self.messageTableView.setContentOffset(offset, animated: true)
+//        }
     }
     
     @IBAction func valueChange(sender: AnyObject) {
-        self.sendButton.enabled = self.messageTextField.text!.isEmpty == false
+        let msg = self.messageTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        self.sendButton.enabled = msg.isEmpty == false
     }
     
     func keyboardWillShow(notification: NSNotification) {
@@ -249,7 +252,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
                 self.messageTableView.reloadData()
                 self.messageTextField.text = ""
 
-                self.scrollDown()
+                self.scrollToBottom()
                 spinner.stopAnimating()
             })
         }
