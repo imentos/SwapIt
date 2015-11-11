@@ -18,7 +18,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var messageTableView: UITableView!
     var questionJSON:JSON!
-    var repliesJSON:JSON = nil
+    var repliesJSON:JSON!
     var userJSON:JSON = nil
     var itemJSON:JSON!
     var fromUser:Bool! = false
@@ -303,7 +303,10 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let _ = questionJSON {
-            return self.repliesJSON.count + 1
+            if let _ = repliesJSON {
+                return self.repliesJSON.count + 1
+            }
+            return 0
         } else {
             return 0
         }
