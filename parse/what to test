@@ -1,4 +1,4 @@
-Please help us to increase numbers of items. If you could, please add 10 items at least by following the instructions below.
+Please help us to increase numbers of items. If you could, please try to add more items by following the instructions below.
 
 1. Go to the right bottom tab
 2. Press + button on the right top which goes to "Add item" page
@@ -6,8 +6,7 @@ Please help us to increase numbers of items. If you could, please add 10 items a
 4. After done, press Add button on the right top.
 5. Then you should see your new item on "My List" page.
 
-Bug fixes:
-Distance settings 100 miles becomes whole world.
-Text box disappear when trying to use emoticons.
-#116 allow empty string in message page
-#85 If I send two messages one after the other, this is how it appears. 
+# Distance settings 100 miles becomes whole world.
+# Text box disappear when trying to use emoticons.
+# Allow empty string in message page
+# If I send two messages one after the other, the messages overlap.

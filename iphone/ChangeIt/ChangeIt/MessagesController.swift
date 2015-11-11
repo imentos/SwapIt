@@ -142,6 +142,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func sendMessage(sender: UIButton) {
         self.sendButton.enabled = false
+        view.endEditing(true)
         
         if let _ = questionJSON {
             let uuid = NSUUID().UUIDString
