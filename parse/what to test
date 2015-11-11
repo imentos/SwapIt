@@ -6,10 +6,8 @@ Please help us to increase numbers of items. If you could, please add 10 items a
 4. After done, press Add button on the right top.
 5. Then you should see your new item on "My List" page.
 
-Also Bug fixes below,
-#106. The accept reject icons disappear if I click the thumbnail to view the image and then close the image.
-#104. Alignment on user page
-#102. If I pull to refresh in bookmarks page, all items get loaded instead of bookmarks only.
-#101. Title missing
-#99. loading icon still showing after saving item in edit item page
-#98. It would be handy to be able to have notifications when someone declines your offer
+Bug fixes:
+Distance settings 100 miles becomes whole world.
+Text box disappear when trying to use emoticons.
+#116 allow empty string in message page
+#85 If I send two messages one after the other, this is how it appears. 
