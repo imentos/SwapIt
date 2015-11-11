@@ -200,11 +200,10 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func scrollToBottom() {
-//        let adjustHeight:CGFloat = 250
-//        if (messageTableView.contentSize.height > messageTableView.frame.size.height - adjustHeight) {
-//            let offset = CGPointMake(0, messageTableView.contentSize.height - self.messageTableView.frame.size.height + adjustHeight);
-//            self.messageTableView.setContentOffset(offset, animated: true)
-//        }
+        if let _:JSON = repliesJSON {
+            let last = NSIndexPath(forRow: self.repliesJSON.count, inSection: 0)
+            self.messageTableView.scrollToRowAtIndexPath(last, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+        }
     }
     
     @IBAction func valueChange(sender: AnyObject) {
@@ -222,7 +221,6 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
                 self.scrollView.scrollIndicatorInsets = contentInset
                 
                 self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x, 0 + keyboardSize.height - offsetKeyboard)
-                
             }
         }
     }
@@ -278,40 +276,28 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         let rightTimeLabel = cell.viewWithTag(202) as! UILabel
         rightTimeLabel.font = UIFont(name: "Geogrotesque-Regular", size: 12)
 
-        if (indexPath.row == 0) {
-            let isOwner:Bool = self.questionJSON["owner"].string == PFUser.currentUser()?.objectId
-            let text = self.questionJSON["text"].string
-            let time = timestampToText(self.questionJSON["timestamp"].double!)
+        let isOwner:Bool = indexPath.row == 0 ? (self.questionJSON["owner"].string == PFUser.currentUser()?.objectId) : self.repliesJSON[indexPath.row - 1]["owner"].string == PFUser.currentUser()?.objectId
+        let text = indexPath.row == 0 ? self.questionJSON["text"].string : self.repliesJSON[indexPath.row - 1]["text"].string
+        let time = indexPath.row == 0 ? timestampToText(self.questionJSON["timestamp"].double!) : timestampToText(self.repliesJSON[indexPath.row - 1]["timestamp"].double!)
+        
+        if (isOwner) {
+            leftLabel.hidden = true
+            leftTimeLabel.hidden = true
+            rightLabel.hidden = false
+            rightTimeLabel.hidden = false
             
-            rightLabel.text = isOwner ? text : ""
-            rightTimeLabel.text = isOwner ? time : ""
-            
-            leftLabel.text = isOwner ? "" : text
-            leftTimeLabel.text = isOwner ? "" : time
-            
+            rightLabel.text = text
+            rightTimeLabel.text = time
         } else {
-            let isOwner:Bool = self.repliesJSON[indexPath.row - 1]["owner"].string == PFUser.currentUser()?.objectId
-            let text = self.repliesJSON[indexPath.row - 1]["text"].string
-            let time = timestampToText(self.repliesJSON[indexPath.row - 1]["timestamp"].double!)
+            leftLabel.hidden = false
+            leftTimeLabel.hidden = false
+            rightLabel.hidden = true
+            rightTimeLabel.hidden = true
             
-            if (isOwner) {
-                leftLabel.hidden = true
-                leftTimeLabel.hidden = true
-                rightLabel.hidden = false
-                rightTimeLabel.hidden = false
-                
-                rightLabel.text = text
-                rightTimeLabel.text = time
-            } else {
-                leftLabel.hidden = false
-                leftTimeLabel.hidden = false
-                rightLabel.hidden = true
-                rightTimeLabel.hidden = true
-                
-                leftLabel.text = text
-                leftTimeLabel.text = time
-            }
+            leftLabel.text = text
+            leftTimeLabel.text = time
         }
+        
         return cell
     }
     
