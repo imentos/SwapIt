@@ -122,7 +122,15 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             return
         }
         print(self.tableView.contentOffset.y)
-        if (self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) {
+        
+        let offset = self.tableView.contentOffset
+        let bounds = self.tableView.bounds
+        let size = self.tableView.contentSize
+        let inset = self.tableView.contentInset
+        let y = offset.y + bounds.size.height - inset.bottom
+        let h = size.height
+        // refresh data when scroll down to half of size
+        if (y > h - bounds.size.height / 2) {
             print("currentPageNumber:\(currentPageNumber)")
             if (isPageRefreshing == false){
                 isPageRefreshing = true;
