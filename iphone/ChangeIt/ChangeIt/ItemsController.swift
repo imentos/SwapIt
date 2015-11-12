@@ -79,10 +79,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.loadData()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
     // from UISearchResultsUpdating
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         let searchText = searchController.searchBar.text!

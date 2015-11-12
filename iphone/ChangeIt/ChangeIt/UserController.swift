@@ -41,12 +41,6 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         loadData()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        //        updateTotalUnreadCount()
-    }
-    
     @IBAction func logout(sender: AnyObject) {
         let alert:UIAlertController = UIAlertController(title: "Alert", message: "Are you sure that you want to log out?", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))

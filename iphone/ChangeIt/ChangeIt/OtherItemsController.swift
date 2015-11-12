@@ -50,18 +50,6 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
         })
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        self.title = offerJSON["src"]["title"].string
-        
-//        createImageQuery().getObjectInBackgroundWithId(userJSON["photo"].string!, block: {
-//            (imageObj:PFObject?, error: NSError?) -> Void in
-//            let imageData = (imageObj!["file"] as! PFFile).getData()
-//            self.itemImageView.image = UIImage(data: imageData!)
-//        })
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

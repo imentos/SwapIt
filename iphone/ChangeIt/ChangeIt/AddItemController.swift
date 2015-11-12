@@ -52,16 +52,14 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
+        
+        loadUser()
+        
+        updateData()
     }
     
     func DismissKeyboard(){
         view.endEditing(true)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        loadData()
     }
     
     func loadUser() {
@@ -80,9 +78,7 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         }
     }
     
-    func loadData() {
-        self.loadUser()
-        
+    func updateData() {
         communications.removeAll()
         self.emailButton.setImage(UIImage(named: "mail_grey"), forState: .Normal)
         self.phoneButton.setImage(UIImage(named: "phone_grey"), forState: .Normal)

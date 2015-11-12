@@ -40,10 +40,6 @@ class UserSettingsController: UIViewController {
         self.slider.value = self.slider.maximumValue
         
         self.title = "Settings"
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         
         loadData()
     }
