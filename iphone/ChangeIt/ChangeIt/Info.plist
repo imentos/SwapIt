@@ -47,7 +47,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>my message</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>my message for whenin</string>
+	<string>Your location is used to show the items in &quot;Brttr&quot; app.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Geogtq-Lg.otf</string>

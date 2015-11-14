@@ -265,7 +265,7 @@ class AddItemController: UITableViewController,UIAlertViewDelegate,UIImagePicker
         let scaledImage = resizeImage(image)
         addImageButton.setImage(scaledImage, forState: .Normal)
         
-        let imageFile = PFFile(name:"image.png", data:UIImagePNGRepresentation(scaledImage)!)
+        let imageFile = PFFile(name:"image.jpg", data:UIImageJPEGRepresentation(scaledImage, 0.5)!)
         let imageObj = PFObject(className:"Image")
         imageObj["file"] = imageFile
         let spinner = createSpinner(self.view)

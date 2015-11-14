@@ -344,6 +344,30 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                     if let imageData = imageFile.getData() {
                         itemImage.image = UIImage(data: imageData)
                         
+                        
+
+                        
+                        
+//                        // overwrite images
+//                        let imageFile = PFFile(name:"image.jpg", data:UIImageJPEGRepresentation(itemImage.image!, 0.5)!)
+//                        let imageObj = PFObject(className:"Image")
+//                        imageObj["file"] = imageFile
+//                        imageObj.saveInBackgroundWithBlock { (result, error) -> Void in
+//                            let imageId = imageObj.objectId
+//                            
+//                            PFCloud.callFunctionInBackground("updateItemPhoto", withParameters: ["itemId": itemJSON["objectId"].string!, "photo": imageId!], block:{
+//                                (results:AnyObject?, error: NSError?) -> Void in
+//                                if let error = error {
+//                                    return
+//                                }
+//                            })
+//                        }
+                        
+                        
+                        
+                        
+                        
+                        
                         // cache the image for later render
                         self.imagesCache[itemJSON["objectId"].string!] = itemImage.image
                         

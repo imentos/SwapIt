@@ -179,7 +179,7 @@ class UserController: UIViewController, UIAlertViewDelegate, UINavigationControl
         self.userPhoto.layer.cornerRadius = self.userPhoto.bounds.height / 2
         self.userPhoto.image = scaledImage
         
-        let imageFile = PFFile(name:"image.png", data:UIImagePNGRepresentation(scaledImage)!)
+        let imageFile = PFFile(name:"image.jpg", data:UIImageJPEGRepresentation(scaledImage, 0.5)!)
         let imageObj = PFObject(className:"Image")
         imageObj["file"] = imageFile
         let spinner = createSpinner(self.view)
