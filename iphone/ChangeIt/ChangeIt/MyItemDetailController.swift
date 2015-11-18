@@ -64,9 +64,14 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
         segmentedControl.font = UIFont.systemFontOfSize(10)
         
         loadData()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateOfferReceived:", name: UPDATE_OFFER_RECEIVED, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateOfferSent:", name: UPDATE_OFFER_SENT, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMessages:", name: UPDATE_MESSAGES, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateOfferReceived:", name: UPDATE_REPLIES, object: nil)
     }
     
-    func updateOffers(notification: NSNotification) {
+    func updateOfferReceived(notification: NSNotification) {
         let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getReceivedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
@@ -77,13 +82,30 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
             }
             self.receivedItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
             self.detailTable.reloadData()
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.segmentedControl.setTitle(String(format:"%02d", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
-            })
+            self.segmentedControl.setTitle(String(format:"%02d", self.receivedItemsJSON.count), forSegmentAtIndex: 0)
+            spinner.stopAnimating()
         })
     }
     
-    func updateNewMessages(notification: NSNotification) {
+    func updateOfferSent(notification: NSNotification) {
+        let spinner = createSpinner(self.view)
+        PFCloud.callFunctionInBackground("getOfferedItems", withParameters: ["itemId":self.itemJSON["objectId"].string!], block:{
+            (results:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                spinner.stopAnimating()
+                return
+            }
+            self.offeredItemsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            //                self.editButton.enabled = self.offeredItemsJSON.count == 0 && self.receivedItemsJSON.count == 0
+            self.detailTable.reloadData()
+            
+            self.segmentedControl.setTitle(String(format:"%02d", self.offeredItemsJSON.count), forSegmentAtIndex: 1)
+            spinner.stopAnimating()
+        })
+    }
+    
+    func updateMessages(notification: NSNotification) {
         let spinner = createSpinner(self.view)
         PFCloud.callFunctionInBackground("getQuestionedItems", withParameters: ["itemId":itemJSON["objectId"].string!], block:{
             (results:AnyObject?, error: NSError?) -> Void in
@@ -93,27 +115,9 @@ class MyItemDetailController: UIViewController, UITableViewDelegate, UITableView
                 return
             }
             self.questionsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.segmentedControl.setTitle(String(format:"%02d", self.questionsJSON.count), forSegmentAtIndex: 2)
-                spinner.stopAnimating()
-            })
+            self.segmentedControl.setTitle(String(format:"%02d", self.questionsJSON.count), forSegmentAtIndex: 2)
+            spinner.stopAnimating()
         })
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateOffers", name: UPDATE_OFFERS, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNewMessages", name: UPDATE_NEW_MESSAGES, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateOffers", name: UPDATE_REPLIES, object: nil)
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UPDATE_OFFERS, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UPDATE_NEW_MESSAGES, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UPDATE_REPLIES, object: nil)
     }
     
     func loadData() {

@@ -94,17 +94,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func handleRemoteNofications(userInfo:NSDictionary) {
         if let type:String = userInfo["type"] as? String {
             print("type:\(type)")
+            let itemId = userInfo["item"] as? String
+            let userInfo: Dictionary<String,String>! = [
+                "item": itemId!
+            ]
             if (type == "message") {
-                self.updateTabBadge(2, value: "")
-                NSNotificationCenter.defaultCenter().postNotificationName(UPDATE_NEW_MESSAGES, object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(UPDATE_MESSAGES, object: nil, userInfo: userInfo)
                 
             } else if (type == "offer") {
-                self.updateTabBadge(2, value: "")
-                NSNotificationCenter.defaultCenter().postNotificationName(UPDATE_OFFERS, object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(UPDATE_OFFER_RECEIVED, object: nil, userInfo: userInfo)
                 
             } else if (type == "reply") {
-                self.updateTabBadge(2, value: "")
-                NSNotificationCenter.defaultCenter().postNotificationName(UPDATE_REPLIES, object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(UPDATE_REPLIES, object: nil, userInfo: userInfo)
 
             }
         }

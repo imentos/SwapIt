@@ -11,6 +11,7 @@ import Parse
 
 class MyItemsController: UITableViewController {
     var itemsJSON:JSON = nil
+    var cellMap:[String:UITableViewCell] = [String:UITableViewCell]()
 
     @IBAction func addItem(segue:UIStoryboardSegue) {
         loadData()
@@ -19,39 +20,141 @@ class MyItemsController: UITableViewController {
     @IBAction func cancel(segue:UIStoryboardSegue) {
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl!.addTarget(self, action: "refreshControlValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl!)
         
         loadData()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReloadData:", name:EVENT_RELOAD_MY_ITEMS, object: nil)
-    }
-    
-    func refresh(sender:AnyObject) {
-        self.updateTotalUnreadCount()
-    }
-    
-    func handleReloadData(notification: NSNotification){
-        self.updateTotalUnreadCount()
+        updateTotalUnreadCount()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateOfferReceived:", name: UPDATE_OFFER_RECEIVED, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateOfferSent:", name: UPDATE_OFFER_SENT, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMessages:", name: UPDATE_MESSAGES, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateOfferReceived:", name: UPDATE_REPLIES, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    func refreshControlValueChanged(sender:AnyObject) {
+        loadData()
         
+        self.updateTotalUnreadCount()
+    }
+    
+    func updateOfferReceived(notification: NSNotification) {
+        if let itemId:String = notification.userInfo!["item"] as? String {
+            if let cell = cellMap[itemId] {
+                updateOfferReceivedInCell(cell, itemId:itemId)
+            }
+        }
         updateTotalUnreadCount()
     }
     
+    func updateOfferSent(notification: NSNotification) {
+        if let itemId:String = notification.userInfo!["item"] as? String {
+            if let cell = cellMap[itemId] {
+                updateOfferSentInCell(cell, itemId:itemId)
+            }
+        }
+    }
+    
+    func updateOfferReceivedInCell(cell:UITableViewCell, itemId:String) {
+        PFCloud.callFunctionInBackground("getReceivedCountOfItem", withParameters: ["itemId": itemId], block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            let offersCountLabel = cell.viewWithTag(103) as! UILabel
+            offersCountLabel.text = "\(countJSON[0].int!)"
+            
+            // update unread item
+            var unreadOffers = 0
+            let newoffersCountLabel = cell.viewWithTag(113) as! UILabel
+            newoffersCountLabel.hidden = true
+            PFCloud.callFunctionInBackground("getUnreadExchangesCountOfItem", withParameters: ["itemId": itemId], block: {
+                (result:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
+                
+                let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                unreadOffers = countJSON[0].int!
+                if (unreadOffers > 0) {
+                    newoffersCountLabel.text = "\(countJSON[0].int!) /"
+                    newoffersCountLabel.hidden = false
+                } else {
+                    newoffersCountLabel.hidden = true
+                }
+            })
+        })
+    }
+    
+    func updateMessages(notification: NSNotification) {
+        if let itemId:String = notification.userInfo!["item"] as? String {
+            if let cell = cellMap[itemId] {
+                updateQuestionInCell(cell, itemId: itemId)
+            }
+        }
+        updateTotalUnreadCount()
+    }
+    
+    func updateQuestionInCell(cell:UITableViewCell, itemId:String) {
+        PFCloud.callFunctionInBackground("getQuestionsCountOfItem", withParameters: ["itemId": itemId], block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            let questionsCountLabel = cell.viewWithTag(105) as! UILabel
+            questionsCountLabel.text = "\(countJSON[0].int!)"
+            
+            // update unread messages
+            var unreadQuestions = 0
+            let newquestionsCountLabel = cell.viewWithTag(115) as! UILabel
+            newquestionsCountLabel.hidden = true
+            PFCloud.callFunctionInBackground("getUnreadQuestionsCountOfItem", withParameters: ["itemId": itemId], block: {
+                (result:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    return
+                }
+                
+                let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                unreadQuestions = countJSON[0].int!
+                if (unreadQuestions > 0) {
+                    newquestionsCountLabel.text = "\(countJSON[0].int!) /"
+                    newquestionsCountLabel.hidden = false
+                } else {
+                    newquestionsCountLabel.hidden = true
+                }
+            })
+        })
+    }
+    
+    func updateOfferSentInCell(cell:UITableViewCell, itemId:String) {
+        PFCloud.callFunctionInBackground("getExchangesCountOfItem", withParameters: ["itemId": itemId], block: {
+            (result:AnyObject?, error: NSError?) -> Void in
+            if let error = error {
+                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                return
+            }
+            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+            let offersCountLabel = cell.viewWithTag(104) as! UILabel
+            offersCountLabel.text = "\(countJSON[0].int!)"
+        })
+    }
+
     func updateTotalUnreadCount() {
-        self.tableView.reloadData()
-        
         var totalUnread:Int = 0
         PFCloud.callFunctionInBackground("getUnreadQuestionsCount", withParameters:["userId": (PFUser.currentUser()?.objectId)!], block: {
             (result:AnyObject?, error: NSError?) -> Void in
@@ -105,6 +208,8 @@ class MyItemsController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath) 
         let itemJSON = itemsJSON[indexPath.row]
+        let itemId = (itemJSON["objectId"].string)!
+        cellMap[itemId] = cell
         
         createImageQuery().getObjectInBackgroundWithId(itemJSON["photo"].string!, block: {
             (imageObj:PFObject?, error: NSError?) -> Void in
@@ -116,40 +221,44 @@ class MyItemsController: UITableViewController {
         let label = cell.viewWithTag(102) as! UILabel
         label.text = itemJSON["title"].string
         
-        PFCloud.callFunctionInBackground("getReceivedCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
-            (result:AnyObject?, error: NSError?) -> Void in
-            if let error = error {
-                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                return
-            }
-            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            let offersCountLabel = cell.viewWithTag(103) as! UILabel
-            offersCountLabel.text = "\(countJSON[0].int!)"
-        })
-
-        PFCloud.callFunctionInBackground("getExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
-            (result:AnyObject?, error: NSError?) -> Void in
-            if let error = error {
-                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                return
-            }
-            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            let offersCountLabel = cell.viewWithTag(104) as! UILabel
-            offersCountLabel.text = "\(countJSON[0].int!)"
-        })
+        updateOfferReceivedInCell(cell, itemId: itemId)
+        updateOfferSentInCell(cell, itemId: itemId)
+        updateQuestionInCell(cell, itemId: itemId)
         
-        PFCloud.callFunctionInBackground("getQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
-            (result:AnyObject?, error: NSError?) -> Void in
-            if let error = error {
-                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                return
-            }
-            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-            let questionsCountLabel = cell.viewWithTag(105) as! UILabel
-            questionsCountLabel.text = "\(countJSON[0].int!)"
-        })
-        
-        updateUnread(itemJSON, cell: cell)
+//        PFCloud.callFunctionInBackground("getReceivedCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+//            (result:AnyObject?, error: NSError?) -> Void in
+//            if let error = error {
+//                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+//                return
+//            }
+//            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+//            let offersCountLabel = cell.viewWithTag(103) as! UILabel
+//            offersCountLabel.text = "\(countJSON[0].int!)"
+//        })
+//
+//        PFCloud.callFunctionInBackground("getExchangesCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+//            (result:AnyObject?, error: NSError?) -> Void in
+//            if let error = error {
+//                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+//                return
+//            }
+//            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+//            let offersCountLabel = cell.viewWithTag(104) as! UILabel
+//            offersCountLabel.text = "\(countJSON[0].int!)"
+//        })
+//        
+//        PFCloud.callFunctionInBackground("getQuestionsCountOfItem", withParameters: ["itemId": (itemJSON["objectId"].string)!], block: {
+//            (result:AnyObject?, error: NSError?) -> Void in
+//            if let error = error {
+//                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+//                return
+//            }
+//            let countJSON = JSON(data:(result as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+//            let questionsCountLabel = cell.viewWithTag(105) as! UILabel
+//            questionsCountLabel.text = "\(countJSON[0].int!)"
+//        })
+//        
+//        updateUnread(itemJSON, cell: cell)
         return cell
     }
 

@@ -11,9 +11,9 @@ import Parse
 import ParseUI
 
 let EVENT_RELOAD_ITEMS = "reloadItems"
-let EVENT_RELOAD_MY_ITEMS = "reloadMyItems"
-let UPDATE_OFFERS = "updateOffers"
-let UPDATE_NEW_MESSAGES = "updateNewMessages"
+let UPDATE_OFFER_RECEIVED = "updateOfferReceived"
+let UPDATE_OFFER_SENT = "updateOfferSent"
+let UPDATE_MESSAGES = "updateMessages"
 let UPDATE_REPLIES = "updateReplies"
 
 func createSpinner(view:UIView)->UIActivityIndicatorView {

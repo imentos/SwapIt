@@ -71,18 +71,12 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.title = "Bookmarks"
             self.navigationItem.titleView = nil
         }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReloadData:", name:EVENT_RELOAD_ITEMS, object: nil)
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:EVENT_RELOAD_ITEMS, object: nil)
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     func handleReloadData(notification: NSNotification) {

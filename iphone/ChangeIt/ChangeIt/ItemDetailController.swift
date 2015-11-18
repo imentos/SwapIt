@@ -62,6 +62,13 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     return
                 }
                 
+                self.sendPushNotification("is rejected by")
+                let userInfo: Dictionary<String,String>! = [
+                    "item": self.itemJSON["objectId"].string!
+                ]
+                NSNotificationCenter.defaultCenter().postNotificationName(UPDATE_OFFER_SENT, object: nil, userInfo: userInfo)
+                
+                spinner.stopAnimating()
             })
         }
         
@@ -76,7 +83,11 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                     return
                 }
                 
-                self.sendNotification("got an offer from")
+                self.sendPushNotification("got an offer from")
+                let userInfo: Dictionary<String,String>! = [
+                    "item": self.itemJSON["objectId"].string!
+                ]
+                NSNotificationCenter.defaultCenter().postNotificationName(UPDATE_OFFER_SENT, object: nil, userInfo: userInfo)
                 
                 self.makeOfferButton.title = "Edit Offer"
                 self.loadData()
@@ -141,19 +152,25 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         }
         
         if (dataLoaded == false) {
-            self.loadData()
-        }
-        
-        if (self.fromOffer == false) {
-            if let _ = itemJSON {
-                PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["itemId": itemJSON["objectId"].string!, "userId":self.userJSON["objectId"].string!], block:{
-                    (results:AnyObject?, error: NSError?) -> Void in
-                    if let error = error {
-                        NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-                        return
+            self.loadDataWithResult({ () -> Void in
+                if (self.fromOffer == false) {
+                    if let _ = self.itemJSON {
+                        PFCloud.callFunctionInBackground("setExchangeRead", withParameters: ["itemId": self.itemJSON["objectId"].string!, "userId":self.userJSON["objectId"].string!], block:{
+                            (results:AnyObject?, error: NSError?) -> Void in
+                            if let error = error {
+                                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                                return
+                            }
+                            if let _ = self.myItemId {
+                                let userInfo: Dictionary<String,String>! = [
+                                    "item": self.myItemId
+                                ]
+                                NSNotificationCenter.defaultCenter().postNotificationName(UPDATE_OFFER_RECEIVED, object: nil, userInfo: userInfo)
+                            }
+                        })
                     }
-                })
-            }
+                }
+            })
         }
         
         updateCommunications()
@@ -303,7 +320,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 self.acceptBtn.setImage(UIImage(named: "thumb_UP_red"), forState: .Normal)
                 self.rejectBtn.setImage(UIImage(named: "thumb_DN_grey"), forState: .Normal)
                 
-                self.sendNotification("is accepted by")
+                self.sendPushNotification("is accepted by")
                 spinner.stopAnimating()
             })
         }))
@@ -361,7 +378,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                         return
                     }
                     
-                    self.sendNotification("is rejected by")
+                    self.sendPushNotification("is rejected by")
                     
                     spinner.stopAnimating()
                     self.performSegueWithIdentifier("cancel", sender: self)
@@ -400,6 +417,10 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     // if view is not loaded, we cannot loadData and wait until view appear. (It happens sometimes, maybe too fast)
     var dataLoaded:Bool = false
     func loadData() {
+        loadDataWithResult { () -> Void in
+        }
+    }
+    func loadDataWithResult(complete:() -> Void) {
         if (self.isViewLoaded() == false) {
             dataLoaded = false
             return
@@ -440,6 +461,8 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
                 let resultsJSON = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
                 self.acceptable = resultsJSON.count > 0 && self.fromOffer == false
                 self.myItemId = resultsJSON[0]["item"]["objectId"].string
+                
+                complete()
                 
                 // for offer received
                 if (self.acceptable == true) {
@@ -543,7 +566,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
         return true
     }
     
-    func sendNotification(msg:String) {
+    func sendPushNotification(msg:String) {
         let pushQuery = PFInstallation.query()
         pushQuery!.whereKey("user", equalTo: PFUser(withoutDataWithObjectId: self.userJSON["objectId"].string!))
         let push = PFPush()
@@ -560,7 +583,7 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
             let name = userJSON["name"].string!
             let item = self.itemJSON["title"].string!
             let alert = "Your item \"\(item)\" \(msg) \(name)"
-            push.setData(["alert": alert, "type": "offer", "from": (PFUser.currentUser()?.objectId)!, "to": self.userJSON["objectId"].string!])
+            push.setData(["alert": alert, "type": "offer", "item": self.itemJSON["objectId"].string!, "from": (PFUser.currentUser()?.objectId)!, "to": self.userJSON["objectId"].string!])
             push.sendPushInBackgroundWithBlock({ (result, error) -> Void in
                 if let _ = error {
                     print(error)

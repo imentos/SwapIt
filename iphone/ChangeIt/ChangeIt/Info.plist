@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>60</string>
+	<string>61</string>
 	<key>FacebookAppID</key>
 	<string>839127896135278</string>
 	<key>FacebookDisplayName</key>
@@ -47,7 +47,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>my message</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your location is used to show the items in &quot;Brttr&quot; app.</string>
+	<string>Your location is used to show the items in "Brttr" app.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Geogtq-Lg.otf</string>
