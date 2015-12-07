@@ -12,7 +12,7 @@ Parse.Cloud.define("addUser", function(request, response) {
                 facebookId: request.params.objectId
             }
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -38,7 +38,7 @@ Parse.Cloud.define("updateUser", function(request, response) {
                 facebookId: request.params.facebookId
             }
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -62,7 +62,7 @@ Parse.Cloud.define("updateUserSearchDistance", function(request, response) {
                 distance: request.params.distance
             }
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -86,7 +86,7 @@ Parse.Cloud.define("updateUserPhoto", function(request, response) {
                 photo: request.params.photo
             }
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -110,7 +110,7 @@ Parse.Cloud.define("updateUserPhone", function(request, response) {
                 phone: request.params.phone
             }
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -134,7 +134,7 @@ Parse.Cloud.define("updateUserEmail", function(request, response) {
                 email: request.params.email
             }
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -154,7 +154,7 @@ Parse.Cloud.define("getUsers", function(request, response) {
         body: {
             query: 'MATCH (n:User) RETURN n'
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -177,7 +177,7 @@ Parse.Cloud.define("getUser", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)

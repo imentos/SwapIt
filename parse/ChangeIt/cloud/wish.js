@@ -12,7 +12,7 @@ Parse.Cloud.define("linkMyWish", function(request, response) {
             }
 
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -35,7 +35,7 @@ Parse.Cloud.define("getWishesOfUser", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -60,7 +60,7 @@ Parse.Cloud.define("getWishes", function(request, response) {
         body: {
             query: 'MATCH (n:Wish) RETURN n ORDER BY n.timestamp DESC'
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -89,7 +89,7 @@ Parse.Cloud.define("deleteWishOfUser", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.status);
@@ -113,7 +113,7 @@ Parse.Cloud.define("deleteWishesOfUser", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.status);
@@ -136,7 +136,7 @@ Parse.Cloud.define("deleteAllWishesOfUser", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.status);
@@ -163,7 +163,7 @@ Parse.Cloud.define("addWish", function(request, response) {
                 searchRegex: sSearchRegex
             }
         },
-        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
