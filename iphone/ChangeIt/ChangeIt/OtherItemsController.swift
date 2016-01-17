@@ -22,6 +22,24 @@ class OtherItemsController: UIViewController, UITableViewDataSource, UITableView
         print("cancel")
     }
     
+    @IBAction func reportUser(sender: AnyObject) {
+        let alert:UIAlertController = UIAlertController(title: "Alert", message: "Are you sure you want to report this user as abusive user?", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes, I do.", style: .Default, handler: { (action) -> Void in
+            let spinner = createSpinner(self.view)
+            PFCloud.callFunctionInBackground("flagUser", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "otherUserId": (self.userJSON["objectId"].string)!], block:{
+                (items:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
+                    return
+                }
+                spinner.stopAnimating()
+            })
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

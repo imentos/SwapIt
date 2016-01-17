@@ -193,3 +193,30 @@ Parse.Cloud.define("getUser", function(request, response) {
     });
 });
 
+Parse.Cloud.define("flagUser", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (u:User{objectId:{userId}}), (w:User{objectId:{otherUserId}}) CREATE UNIQUE (u)-[r:FLAG]->(w) RETURN r',
+            params: {
+                userId: request.params.userId,
+                otherUserId: request.params.otherUserId
+            }
+
+        },
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            response.success(httpResponse.text);
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+
+

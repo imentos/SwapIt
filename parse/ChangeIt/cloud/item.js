@@ -5,7 +5,7 @@ Parse.Cloud.define("getItemsByUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User{objectId:{userId}})-[o:OFFER]->(s:Item) RETURN s ORDER BY s.timestamp DESC',
+            query: 'MATCH (u:User{objectId:{userId}})-[o:OFFER]->(s:Item) WHERE NOT (s)<-[:FLAG]-(:User) AND RETURN s ORDER BY s.timestamp DESC',
             params: {
                 userId: request.params.userId
             }
@@ -35,7 +35,7 @@ Parse.Cloud.define("getBestItemsExceptMe", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item),(u:User)--(w:Wish) WHERE o.title=~{search} AND o.title=~w.searchRegex AND u.objectId={userId} RETURN o ORDER BY o.timestamp DESC LIMIT {limit}',
+            query: 'MATCH (o:Item),(u:User)--(w:Wish) WHERE NOT (o)<-[:FLAG]-(:User) AND NOT (u)<-[:FLAG]-(:User) AND o.title=~{search} AND o.title=~w.searchRegex AND u.objectId={userId} RETURN o ORDER BY o.timestamp DESC LIMIT {limit}',
             params: {
                 search: "(?i)" + request.params.search,
                 userId: request.params.userId,
@@ -65,7 +65,7 @@ Parse.Cloud.define("getAllItemsExceptMe", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE o.title=~{search} AND NOT u.objectId={userId} RETURN o ORDER BY o.timestamp DESC LIMIT {limit}',
+            query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE NOT (o)<-[:FLAG]-(:User) AND NOT (u)<-[:FLAG]-(:User) AND o.title=~{search} AND NOT u.objectId={userId} RETURN o ORDER BY o.timestamp DESC LIMIT {limit}',
             params: {
                 search: "(?i).*" + request.params.search + ".*",
                 userId: request.params.userId,
@@ -96,7 +96,7 @@ Parse.Cloud.define("getItemsByList", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE o.title=~{search} AND o.objectId IN {ids} AND NOT u.objectId={userId} RETURN o,u ORDER BY o.timestamp DESC LIMIT {limit}',
+            query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE NOT (o)<-[:FLAG]-(:User) AND NOT (u)<-[:FLAG]-(:User) AND o.title=~{search} AND o.objectId IN {ids} AND NOT u.objectId={userId} RETURN o,u ORDER BY o.timestamp DESC LIMIT {limit}',
             params: {
                 ids: request.params.ids,
                 search: "(?i).*" + request.params.search + ".*",
@@ -396,6 +396,31 @@ Parse.Cloud.define("getBookmarkedItems", function(request, response) {
                 aResults.push(o[0].data)
             })
             response.success(JSON.stringify(aResults));
+        },
+        error: function(httpResponse) {
+            response.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+});
+
+Parse.Cloud.define("flagItem", function(request, response) {
+    Parse.Cloud.httpRequest({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: {
+            query: 'MATCH (u:User{objectId:{userId}}), (w:Item{objectId:{itemId}}) CREATE UNIQUE (u)-[r:FLAG]->(w) RETURN r',
+            params: {
+                userId: request.params.userId,
+                itemId: request.params.itemId
+            }
+
+        },
+        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        followRedirects: true,
+        success: function(httpResponse) {
+            response.success(httpResponse.text);
         },
         error: function(httpResponse) {
             response.error('Request failed with response code ' + httpResponse.status);

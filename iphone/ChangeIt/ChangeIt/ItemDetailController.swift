@@ -41,6 +41,24 @@ class ItemDetailController: UIViewController, MFMailComposeViewControllerDelegat
     @IBOutlet weak var wishBtn: UIButton!
     @IBOutlet var locationLabel: UILabel!
     
+    @IBAction func reportItem(sender: AnyObject) {
+        let alert:UIAlertController = UIAlertController(title: "Alert", message: "Are you sure you want to report this listing as offensive content?", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes, I do.", style: .Default, handler: { (action) -> Void in
+            let spinner = createSpinner(self.view)
+            PFCloud.callFunctionInBackground("flagItem", withParameters: ["userId": (PFUser.currentUser()?.objectId)!, "itemId": (self.itemJSON["objectId"].string)!], block:{
+                (items:AnyObject?, error: NSError?) -> Void in
+                if let error = error {
+                    NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                    spinner.stopAnimating()
+                    return
+                }
+                spinner.stopAnimating()
+            })
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func makeOffer(segue:UIStoryboardSegue) {
         let offer = segue.sourceViewController as! MakeOfferController
         let distId = itemJSON["objectId"].string
