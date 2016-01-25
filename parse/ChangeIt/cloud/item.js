@@ -5,7 +5,7 @@ Parse.Cloud.define("getItemsByUser", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (u:User{objectId:{userId}})-[o:OFFER]->(s:Item) WHERE NOT (s)<-[:FLAG]-(:User) AND RETURN s ORDER BY s.timestamp DESC',
+            query: 'MATCH (u:User{objectId:{userId}})-[o:OFFER]->(s:Item) WHERE NOT (s)<-[:FLAG]-(:User) RETURN s ORDER BY s.timestamp DESC',
             params: {
                 userId: request.params.userId
             }

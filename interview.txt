@@ -1,0 +1,5 @@
+We used design thinking process to work with customers. Each project with customers only takes 6-8 weeks. We listened to customers pain points, then define their patterns, have the ideas to fix their issues.
+
+For example, we worked for fitness. We replaced their database with SAP Hana. and my job is to convert all function calls to parse SDK into SAP Hana. Besides that, we also add new features based on the new requirement from design thinking workshop.
+
+[design thinking] empathize, define, ideate, prototype, test.
