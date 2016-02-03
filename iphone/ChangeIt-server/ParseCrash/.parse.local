@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "Change It": {
+      "applicationId": "AyaLli8Wgpr6AS56sQiHn9fONdtdt7R18jckKsCp"
+    },
+    "_default": {
+      "link": "Change It"
+    }
+  }
+}
