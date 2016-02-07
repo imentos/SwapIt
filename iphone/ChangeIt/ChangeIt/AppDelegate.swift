@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         
         // instabug
-        Instabug.startWithToken("09d7d874a8efe64a9a186afc07982018", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
+//        Instabug.startWithToken("09d7d874a8efe64a9a186afc07982018", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
         
         // notification
         let notificationType: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
