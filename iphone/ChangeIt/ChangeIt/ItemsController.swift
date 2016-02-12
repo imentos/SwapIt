@@ -95,20 +95,6 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.isDataFiltered = true
                 self.tableView.reloadData()
             }
-//            PFCloud.callFunctionInBackground(getQuery("All"), withParameters: ["search": searchText, "userId": (PFUser.currentUser()?.objectId)!, "limit": ITEMS_PER_PAGE], block:{
-//                (results:AnyObject?, error: NSError?) -> Void in
-//            if let error = error {
-//                NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
-//                return
-//            }
-//                if (results == nil) {
-//                    self.filteredItems = JSON("{}")
-//                    return
-//                }
-//                self.filteredItems = JSON(data:(results as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-//                self.isDataFiltered = true
-//                self.tableView.reloadData()
-//            })
         }
     }
     
@@ -179,19 +165,7 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
 //        self.getAllItemsExceptMe(self.ITEMS_PER_PAGE)
         self.getAllItemsNearMe(self.ITEMS_PER_PAGE)
-        // TODO: first version, don't show items by wish
-//        PFCloud.callFunctionInBackground("getWishesOfUser", withParameters: ["userId":(PFUser.currentUser()?.objectId)!], block: {
-//            (wishes:AnyObject?, error: NSError?) -> Void in
-//            if (wishes == nil) {
-//                return
-//            }
-//            let wishesJSON = JSON(data:(wishes as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-//            if (wishesJSON.count == 0) {
-//                self.getAllItemsExceptMe(self.ITEMS_PER_PAGE)
-//            } else {
-//                self.getBestItemsExceptMe(self.ITEMS_PER_PAGE)
-//            }
-//        })
+
     }
     
     func getAllItemsExceptMe(limit:Int) {
@@ -234,6 +208,28 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 let userJSON = JSON(data:(userFromCloud as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)[0]
                 
                 let distance = userJSON["distance"].doubleValue
+                
+                if (distance == 0) {
+                    PFCloud.callFunctionInBackground("getAllItemsExceptMe", withParameters: ["search": ".*", "userId": (PFUser.currentUser()?.objectId)!, "limit": limit], block:{
+                        (itemResult:AnyObject?, error: NSError?) -> Void in
+                        if let error = error {
+                            NSLog("Error: \(error.localizedDescription), UserInfo: \(error.localizedDescription)")
+                            spinner.stopAnimating()
+                            return
+                        }
+                        if (itemResult == nil) {
+                            complete(results:JSON([]))
+                            spinner.stopAnimating()
+                            return
+                        }
+                        let results = JSON(data:(itemResult as! NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+                        complete(results:results)
+                        spinner.stopAnimating()
+                    })
+                    return
+                }
+                
+                
                 print("distance:\(distance)")
                 let query = PFQuery(className:"Item").whereKey("currentLocation", nearGeoPoint: geoPoint!, withinMiles: distance)
                 query.cachePolicy = .CacheElseNetwork
@@ -269,31 +265,8 @@ class ItemsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     
-    func loadAll(sender: AnyObject) {
-        getAllItemsExceptMe(ITEMS_PER_PAGE)
-    }
-    
-    func loadBest(sender: AnyObject) {
-        getBestItemsExceptMe(ITEMS_PER_PAGE)
-    }
-    
-    func loadNearMe(sender: AnyObject) {
-        getAllItemsNearMe(ITEMS_PER_PAGE)
-    }
-    
     @IBAction func pressed(sender: AnyObject) {
     }
-    
-    func getQuery(scope:String)->String {
-//        if (scope == "All") {
-//            return "getAllItemsExceptMe"
-//        } else if (scope == "Best Matched") {
-//            return "getBestItemsExceptMe"
-//        } else {
-//        }
-        return "getAllItemsExceptMe"
-    }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

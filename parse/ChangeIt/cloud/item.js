@@ -65,7 +65,7 @@ Parse.Cloud.define("getAllItemsExceptMe", function(request, response) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: {
-            query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE NOT (o)<-[:FLAG]-(:User) AND NOT (u)<-[:FLAG]-(:User) AND o.title=~{search} AND NOT u.objectId={userId} RETURN o ORDER BY o.timestamp DESC LIMIT {limit}',
+            query: 'MATCH (o:Item)<-[r:OFFER]-(u:User) WHERE NOT (o)<-[:FLAG]-(:User) AND NOT (u)<-[:FLAG]-(:User) AND o.title=~{search} AND NOT u.objectId={userId} RETURN o,u ORDER BY o.timestamp DESC LIMIT {limit}',
             params: {
                 search: "(?i).*" + request.params.search + ".*",
                 userId: request.params.userId,
@@ -78,7 +78,7 @@ Parse.Cloud.define("getAllItemsExceptMe", function(request, response) {
             var json_result = JSON.parse(httpResponse.text)
             var aResults = []
             json_result.data.forEach(function(o) {
-                aResults.push(o[0].data)
+                aResults.push({"item":o[0].data,"user":o[1].data})
             })
             response.success(JSON.stringify(aResults));
         },
