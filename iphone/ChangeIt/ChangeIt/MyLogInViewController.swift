@@ -20,7 +20,7 @@ class MyLogInViewController: PFLogInViewController {
         super.viewDidLayoutSubviews()
         
         let cx = self.logInView?.logo!.center.x
-        let size:CGFloat = UIScreen.mainScreen().nativeBounds.width / 6
-        self.logInView?.logo!.frame = CGRectMake(cx!-size/2, size/2, size, size);
+        let size:CGFloat = UIScreen.mainScreen().nativeBounds.height / 12
+        self.logInView?.logo!.frame = CGRectMake(cx!-size/2, size/4, size, size);
     }
 }
