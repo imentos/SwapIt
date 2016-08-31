@@ -10,7 +10,7 @@ Parse.Cloud.define("getItemsByUser", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -42,7 +42,7 @@ Parse.Cloud.define("getBestItemsExceptMe", function(request, response) {
                 limit: request.params.limit
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -72,7 +72,7 @@ Parse.Cloud.define("getAllItemsExceptMe", function(request, response) {
                 limit: request.params.limit
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -104,7 +104,7 @@ Parse.Cloud.define("getItemsByList", function(request, response) {
                 limit: request.params.limit
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -136,7 +136,7 @@ Parse.Cloud.define("getAllItemsByList", function(request, response) {
                 limit: request.params.limit
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -164,7 +164,7 @@ Parse.Cloud.define("deleteItem", function(request, response) {
                 itemId: request.params.itemId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -191,7 +191,7 @@ Parse.Cloud.define("addItem", function(request, response) {
                 communication: request.params.communication
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -215,7 +215,7 @@ Parse.Cloud.define("updateItemPhoto", function(request, response) {
                 photo: request.params.photo
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -247,7 +247,7 @@ Parse.Cloud.define("updateItem", function(request, response) {
                 communication: request.params.communication
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -275,7 +275,7 @@ Parse.Cloud.define("getItem", function(request, response) {
                 itemId: request.params.itemId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -304,7 +304,7 @@ Parse.Cloud.define("getItemExceptMe", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -329,7 +329,7 @@ Parse.Cloud.define("getItems", function(request, response) {
         body: {
             query: 'MATCH (n:Item) RETURN n ORDER BY n.timestamp DESC'
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -358,7 +358,7 @@ Parse.Cloud.define("getBookmarkItems", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -387,7 +387,7 @@ Parse.Cloud.define("getBookmarkedItems", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -417,7 +417,7 @@ Parse.Cloud.define("flagItem", function(request, response) {
             }
 
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -442,7 +442,7 @@ Parse.Cloud.define("bookmarkItem", function(request, response) {
             }
 
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -466,7 +466,7 @@ Parse.Cloud.define("unbookmarkItem", function(request, response) {
                 itemId: request.params.itemId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -495,7 +495,7 @@ Parse.Cloud.define("isItemBookmarked", function(request, response) {
                 itemId: request.params.itemId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -525,7 +525,7 @@ Parse.Cloud.define("linkMyItem", function(request, response) {
             }
 
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -548,7 +548,7 @@ Parse.Cloud.define("getUserOfItem", function(request, response) {
                 itemId: request.params.itemId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -576,7 +576,7 @@ Parse.Cloud.define("getItemsOfUser", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)

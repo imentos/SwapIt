@@ -12,7 +12,7 @@ Parse.Cloud.define("addQuestion", function(request, response) {
                 owner: request.params.owner
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -43,7 +43,7 @@ Parse.Cloud.define("addReplyToQuestion", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -71,7 +71,7 @@ Parse.Cloud.define("getRepliesOfQuestion", function(request, response) {
                 questionId: request.params.questionId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -99,7 +99,7 @@ Parse.Cloud.define("getQuestionByItem", function(request, response) {
                 itemId: request.params.itemId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -127,7 +127,7 @@ Parse.Cloud.define("getQuestionCreator", function(request, response) {
                 questionId: request.params.questionId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -155,7 +155,7 @@ Parse.Cloud.define("getAskedQuestions", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -184,7 +184,7 @@ Parse.Cloud.define("getAskedQuestionByItem", function(request, response) {
                 itemId: request.params.itemId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -212,7 +212,7 @@ Parse.Cloud.define("setQuestionRead", function(request, response) {
                 objectId: request.params.objectId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -240,7 +240,7 @@ Parse.Cloud.define("setQuestionUnread", function(request, response) {
                 objectId: request.params.objectId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -269,7 +269,7 @@ Parse.Cloud.define("getUnreadReceivedQuestionsCountOfItem", function(request, re
                 otherItemId: request.params.otherItemId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -297,7 +297,7 @@ Parse.Cloud.define("getUnreadRepliesCount", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -325,7 +325,7 @@ Parse.Cloud.define("getUnreadQuestionsCount", function(request, response) {
                 userId: request.params.userId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -353,7 +353,7 @@ Parse.Cloud.define("getUnreadQuestionsCountOfItem", function(request, response) 
                 itemId: request.params.itemId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -381,7 +381,7 @@ Parse.Cloud.define("getQuestionsCountOfItem", function(request, response) {
                 itemId: request.params.itemId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -410,7 +410,7 @@ Parse.Cloud.define("getQuestionedItems", function(request, response) {
             }
  
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             var json_result = JSON.parse(httpResponse.text)
@@ -435,7 +435,7 @@ Parse.Cloud.define("deleteUnusedQuestions", function(request, response) {
         body: {
             query: 'MATCH (reply:Reply)-[r]-(q:Question)-[a:ASK]-() WHERE NOT (q)-[:LINK]->() DELETE a,q,r,reply'
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success("success");
@@ -458,7 +458,7 @@ Parse.Cloud.define("deleteQuestion", function(request, response) {
                 questionId: request.params.questionId
             }
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
@@ -484,7 +484,7 @@ Parse.Cloud.define("askItemQuestionByUser", function(request, response) {
             }
  
         },
-        url: 'https://brttr:tvOzwHwOJ5Eackn0nMyz@db-ji81rfgudyhg0oollisv.graphenedb.com:24780/db/data/cypher',
+        url: 'http://changeIt:IChjQEbKm7G89oZ0iZwF@changeit.sb05.stations.graphenedb.com:24789/db/data/cypher',
         followRedirects: true,
         success: function(httpResponse) {
             response.success(httpResponse.text);
