@@ -13,6 +13,7 @@ import UIKit
     private var views = [UIView]()
     var thumbView = UIView()
     
+    
     var items: [String] = ["Item 1", "Item 2", "Item 3"] {
         didSet {
             setupLabels()
